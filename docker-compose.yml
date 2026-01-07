@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  # MSSQL Database
+  db:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    container_name: cemdash-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Password123
+      - MSSQL_PID=Developer
+    ports:
+      - "1434:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+      - ./db-init:/docker-entrypoint-initdb.d
+    networks:
+      - app-network
+
+volumes:
+  mssql-data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

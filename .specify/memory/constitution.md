@@ -1,16 +1,16 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version Change: 1.0.0 → 1.0.1 (Sample data guidance clarification)
-Modified Principles: N/A
-Added Sections: "Sample Data & Agent Boundaries" under Development Workflow
+Version Change: 1.0.1 → 1.0.2 (Database setup documentation)
+Modified Principles: Updated Core Stack to MSSQL Server 2025
+Added Sections: "Development Environment" with database setup and re-initialization procedures
 Removed Sections: N/A
 Templates Status:
   ✅ .specify/templates/plan-template.md - No updates required
   ✅ .specify/templates/spec-template.md - No updates required
   ✅ .specify/templates/tasks-template.md - No updates required
 Follow-up TODOs: None
-Bump Rationale: PATCH - Added clarifying guidance about sample data location and agent file access boundaries without changing existing principles or requirements.
+Bump Rationale: PATCH - Added development database setup documentation and updated MSSQL version without changing core principles or architectural requirements.
 -->
 
 # Home Dashboard Constitution
@@ -88,7 +88,7 @@ Start with the simplest working solution; complexity MUST be justified.
 - **Next.js 14+** with App Router - Framework
 - **TypeScript 5.3+** - Language (strict mode enabled)
 - **Prisma 5.7+** - ORM for database access
-- **MSSQL Server 2022** - Database (Docker container)
+- **MSSQL Server 2025** - Database (Docker container)
 
 ### UI & Styling (Mandatory)
 - **Tailwind CSS** - Utility-first styling
@@ -208,6 +208,85 @@ Given this is a home lab MVP:
 
 **Rationale**: Keeping agents unaware of sample data structure ensures that database schemas and API contracts are designed based on requirements rather than reverse-engineered from example data. This promotes proper data modeling and prevents schema decisions from being influenced by potentially incomplete or non-representative sample data.
 
+## Development Environment
+
+### Database Setup
+
+The development database runs in Docker with persistent storage:
+
+**Container Details**:
+- **Database Name**: HomeFinance-db
+- **Container**: cemdash-db
+- **Image**: mcr.microsoft.com/mssql/server:2025-latest
+- **Port**: 1434 (host) → 1433 (container)
+- **Credentials**: sa / YourStrong@Password123
+- **Persistent Volume**: mssql-data
+
+**Connection String**:
+```
+DATABASE_URL="sqlserver://localhost:1434;database=HomeFinance-db;user=sa;password=YourStrong@Password123;trustServerCertificate=true"
+```
+
+**Quick Commands**:
+```bash
+# Start database
+docker compose up -d
+
+# Stop database
+docker compose down
+
+# View logs
+docker logs cemdash-db
+
+# Connect via sqlcmd
+docker exec -it cemdash-db /opt/mssql-tools18/bin/sqlcmd \
+  -S localhost -U sa -P 'YourStrong@Password123' -d HomeFinance-db -C
+```
+
+### Database Re-initialization
+
+If the database needs to be reset or re-initialized:
+
+1. **Stop and remove containers** (preserves volume):
+   ```bash
+   docker compose down
+   ```
+
+2. **Remove persistent volume** (CAUTION: deletes all data):
+   ```bash
+   docker volume rm home-dashboard_mssql-data
+   ```
+
+3. **Start fresh container**:
+   ```bash
+   docker compose up -d
+   sleep 15  # Wait for MSSQL to initialize
+   ```
+
+4. **Initialize database schema**:
+   ```bash
+   docker exec -i cemdash-db /opt/mssql-tools18/bin/sqlcmd \
+     -S localhost -U sa -P 'YourStrong@Password123' -C \
+     -i /docker-entrypoint-initdb.d/01-init-db.sql
+   ```
+
+5. **Import sample data** (optional):
+   ```bash
+   python3 import-csv.py
+   ```
+
+**Files**:
+- `docker-compose.yml` - Container orchestration
+- `db-init/01-init-db.sql` - Database initialization script
+- `import-csv.py` - CSV import utility
+- `requirements.txt` - Python dependencies (pyodbc)
+
+**Database Schema**:
+- Main table: `transactions` (with indexes on date, account, category, type)
+- View: `vw_expense_summary` (aggregated analytics)
+
+See [DATABASE_SETUP.md](../../DATABASE_SETUP.md) for complete documentation.
+
 ## Governance
 
 ### Amendment Process
@@ -237,4 +316,4 @@ Given this is a home lab MVP:
 - Update if patterns emerge that aren't captured
 - Remove principles that prove impractical (via MAJOR version bump)
 
-**Version**: 1.0.1 | **Ratified**: 2026-01-07 | **Last Amended**: 2026-01-07
+**Version**: 1.0.2 | **Ratified**: 2026-01-07 | **Last Amended**: 2026-01-07
