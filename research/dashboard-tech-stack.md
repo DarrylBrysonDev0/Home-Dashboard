@@ -44,7 +44,7 @@ version: '3.8'
 services:
   # MSSQL Database
   db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: mcr.microsoft.com/mssql/server:2025-latest
     container_name: cemdash-db
     environment:
       - ACCEPT_EULA=Y
