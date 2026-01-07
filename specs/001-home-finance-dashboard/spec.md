@@ -119,10 +119,10 @@ As a homeowner, I want the system to automatically identify recurring transactio
 
 **Acceptance Scenarios**:
 
-1. **Given** I have transactions with similar descriptions and regular intervals, **When** the system analyzes my data, **Then** it identifies and flags these as recurring transactions
-2. **Given** recurring transactions are identified, **When** I view the Recurring Transactions table, **Then** I see the description pattern, average amount, frequency, next expected date, account, and category
-3. **Given** a transaction occurs 3+ times with <10% amount variance and regular intervals (weekly/monthly), **When** detection runs, **Then** it is flagged as recurring
-4. **Given** I disagree with a recurring detection, **When** I manually unflag it, **Then** it is removed from the recurring transactions list
+1. **Given** I have transactions with similar descriptions and regular intervals, **When** the system analyzes my data, **Then** it identifies and flags these as recurring transactions with confidence scores (High: 90-100%, Medium: 70-89%, Low: 50-69%)
+2. **Given** recurring transactions are identified, **When** I view the Recurring Transactions table, **Then** I see the description pattern, average amount, frequency, next expected date, account, category, and confidence level
+3. **Given** a transaction occurs 3+ times with <10% amount variance and regular intervals (weekly/monthly), **When** detection runs, **Then** it is flagged as recurring with High confidence
+4. **Given** I disagree with a recurring detection, **When** I manually reject it, **Then** it is removed from the recurring transactions list and marked to prevent future auto-detection
 
 ---
 
@@ -140,23 +140,6 @@ As a homeowner, I want to visualize how money moves between my accounts, so I ca
 2. **Given** I select a date range filter, **When** the diagram updates, **Then** it shows only transfers within that period
 3. **Given** accounts have no transfers between them, **When** I view the diagram, **Then** no connection is shown between those accounts
 4. **Given** I hover over a flow connection, **When** the tooltip appears, **Then** it shows the source account, destination account, and total transferred amount
-
----
-
-### User Story 9 - View Auto-Generated Financial Insights (Priority: P3)
-
-As a homeowner, I want the dashboard to surface automatic insights about my finances, so I can be alerted to important changes without manually analyzing data.
-
-**Why this priority**: Auto-insights add intelligence to the dashboard - they surface important information proactively, but the dashboard is still valuable without them.
-
-**Independent Test**: Can be tested by implementing insight generation logic that compares current vs previous period data and displays actionable observations in an Insights Panel.
-
-**Acceptance Scenarios**:
-
-1. **Given** my spending in a category increased significantly, **When** I view the Insights Panel, **Then** I see a message like "Dining expenses up 23% vs last month"
-2. **Given** I have recurring subscriptions, **When** I view insights, **Then** I see a summary like "You've spent $X on recurring subscriptions"
-3. **Given** an unusually large transaction occurred, **When** I view insights, **Then** I see "Largest expense this month: [description] - $[amount]"
-4. **Given** a transaction is >2 standard deviations from category average, **When** insights are generated, **Then** it is flagged as "Unusual transaction detected"
 
 ---
 
@@ -181,16 +164,16 @@ As a homeowner, I want the dashboard to surface automatic insights about my fina
 - **FR-006**: System MUST render Account Balance Trends as a multi-line chart with toggleable account visibility
 - **FR-007**: System MUST display a sortable, filterable transaction details table with columns for Date, Account, Description, Category, Amount, and Balance
 - **FR-008**: System MUST support exporting transaction data to CSV format
-- **FR-009**: System MUST automatically detect recurring transactions based on similar descriptions, regular intervals (7 days for weekly, 28-31 days for monthly), and <10% amount variance with minimum 3 occurrences
-- **FR-010**: System MUST display identified recurring transactions in a dedicated table with description pattern, amount, frequency, next expected date, account, and category
+- **FR-009**: System MUST automatically detect recurring transactions based on similar descriptions, regular intervals (7 days for weekly, 28-31 days for monthly), and <10% amount variance with minimum 3 occurrences, assigning confidence scores (High: 90-100%, Medium: 70-89%, Low: 50-69%) and allowing manual confirmation or rejection
+- **FR-010**: System MUST display identified recurring transactions in a dedicated table with description pattern, amount, frequency, next expected date, account, category, and confidence level
 - **FR-011**: System MUST render a Transfer Flow diagram showing money movement between accounts
-- **FR-012**: System MUST generate and display automatic financial insights based on data analysis
-- **FR-013**: System MUST display trend indicators (positive in mint green with up arrow, negative in coral with down arrow, neutral in gray)
-- **FR-014**: System MUST support drilling down from category charts to view underlying transactions
-- **FR-015**: System MUST properly handle inter-account transfers by tagging and excluding them from income/expense calculations
-- **FR-016**: System MUST display appropriate empty states when no data exists for the selected filters
-- **FR-017**: System MUST support search/filter within the transaction table by description or category
-- **FR-018**: System MUST display loading skeleton states while data is being fetched
+- **FR-012**: System MUST display trend indicators (positive in mint green with up arrow, negative in coral with down arrow, neutral in gray)
+- **FR-013**: System MUST support drilling down from category charts to view underlying transactions
+- **FR-014**: System MUST properly handle inter-account transfers by tagging and excluding them from income/expense calculations
+- **FR-015**: System MUST display appropriate empty states when no data exists for the selected filters
+- **FR-016**: System MUST support search/filter within the transaction table by description or category
+- **FR-017**: System MUST display loading skeleton states while data is being fetched
+- **FR-018**: System MUST use WCAG AA compliant color palette with minimum 4.5:1 contrast ratio for text and ensure color is not the sole means of conveying information
 
 ### Key Entities
 
@@ -219,6 +202,36 @@ As a homeowner, I want the dashboard to surface automatic insights about my fina
 
 - **Transfer**: Transaction type linking source and destination accounts, identified by `transaction_type = 'Transfer'` with matching pairs across accounts
 
+### Color Palette & Accessibility
+
+The dashboard uses a defined color palette that meets WCAG AA accessibility standards (minimum 4.5:1 contrast ratio for normal text, 3:1 for large text and UI components):
+
+**Semantic Colors**:
+- Positive/Income: Mint Green (#10B981)
+- Negative/Expense: Coral (#F87171)
+- Neutral: Gray (#6B7280)
+- Transfer: Blue (#3B82F6)
+
+**Category & Chart Colors** (12-color accessible palette for category breakdowns, account lines, etc.):
+1. #8B5CF6 (Purple)
+2. #EC4899 (Pink)
+3. #F59E0B (Amber)
+4. #10B981 (Emerald)
+5. #3B82F6 (Blue)
+6. #EF4444 (Red)
+7. #14B8A6 (Teal)
+8. #F97316 (Orange)
+9. #7C3AED (Violet)
+10. #06B6D4 (Cyan)
+11. #84CC16 (Lime)
+12. #A855F7 (Fuchsia)
+
+**Accessibility Requirements**:
+- All text on colored backgrounds must meet WCAG AA contrast requirements
+- Chart legends include both color and text labels
+- Interactive elements have visible focus indicators
+- Color is never the only means of conveying information (use icons, patterns, or labels as reinforcement)
+
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
@@ -228,9 +241,10 @@ As a homeowner, I want the dashboard to surface automatic insights about my fina
 - **SC-003**: 90% of users can identify their top spending category within 10 seconds of viewing the dashboard
 - **SC-004**: Recurring transaction detection achieves 85%+ accuracy (correctly identifies at least 85% of actual recurring transactions)
 - **SC-005**: Users can export their transaction history in under 5 seconds for up to 5,000 transactions
-- **SC-006**: Dashboard displays correctly on desktop viewports (1024px and above)
+- **SC-006**: Dashboard displays correctly on desktop viewports (1024px and above) with basic tablet support (768px-1023px) including responsive layout adjustments and touch-friendly interaction targets
 - **SC-007**: All chart visualizations render with correct data within 2 seconds of filter changes
 - **SC-008**: Users can successfully drill down from category overview to transaction details in 2 clicks or less
+- **SC-009**: Dashboard functions correctly on modern evergreen browsers (Chrome, Firefox, Safari, Edge - latest 2 versions)
 
 ## Development Methodology: TDD Red-Green *(mandatory)*
 
@@ -326,6 +340,16 @@ The seed data includes realistic scenarios for testing:
 3. **Test Isolation**: Each test suite can use transactions or rollback
 4. **Reset**: Container can be recreated for clean state
 
+## Clarifications
+
+### Session 2026-01-07
+
+- Q: The spec mentions "Desktop viewports (1024px and above)" but doesn't specify responsive behavior for tablets or mobile devices. → A: Desktop-primary (1024px+) with basic tablet support (768px-1023px)
+- Q: The spec mentions automatic financial insights (User Story 9) but doesn't specify the update frequency or trigger mechanism for generating these insights. → A: Remove this feature requirement
+- Q: The spec specifies recurring transaction detection criteria (3+ occurrences, <10% amount variance, regular intervals) but doesn't specify how the system should handle partial matches or edge cases like subscriptions that slightly change amounts. → A: Confidence scoring: Flag with confidence levels; allow manual confirmation/rejection
+- Q: The spec mentions chart color palette (mint green for positive, coral for negative) but doesn't specify the complete color system for all chart types, category colors, or accessibility considerations. → A: Full palette: Define 12-15 distinct accessible colors (WCAG AA compliant)
+- Q: The spec defines success criteria for performance (3 seconds load, 1 second filter refresh) but doesn't specify the browser compatibility requirements or minimum supported browser versions. → A: Modern evergreen browsers only, and playwright and chromeDevTools mcp tools can be used for testing browser sessions
+
 ## Assumptions
 
 - **TDD Methodology**: All features developed using Red-Green-Refactor cycle with tests written before implementation
@@ -334,5 +358,6 @@ The seed data includes realistic scenarios for testing:
 - Transaction data is imported from CSV files rather than connecting to live bank feeds
 - The seed data includes pre-categorized transactions with `is_recurring` flags already set
 - The dashboard is for single-user personal use (no multi-user or household sharing in initial scope)
-- Standard web browser with JavaScript enabled is required
+- Modern evergreen browser with JavaScript enabled is required (Chrome, Firefox, Safari, Edge - latest 2 versions)
+- Browser testing can be performed using Playwright and Chrome DevTools MCP tools
 - Users understand basic financial terminology (income, expense, cash flow, etc.)

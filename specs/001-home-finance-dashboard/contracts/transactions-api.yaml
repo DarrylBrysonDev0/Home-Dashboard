@@ -1,0 +1,520 @@
+openapi: 3.0.3
+info:
+  title: Home Finance Dashboard - Transactions API
+  version: 1.0.0
+  description: API endpoints for managing financial transactions (CRUD operations)
+
+servers:
+  - url: http://localhost:3000/api
+    description: Development server
+
+paths:
+  /transactions:
+    get:
+      summary: Get list of transactions
+      description: Retrieve transactions with optional filtering, sorting, and pagination
+      operationId: getTransactions
+      tags:
+        - Transactions
+      parameters:
+        - name: account_id
+          in: query
+          description: Filter by account ID (comma-separated for multiple)
+          schema:
+            type: string
+            example: "ACC-JOINT-CHK,ACC-USER1-SAV"
+        - name: category
+          in: query
+          description: Filter by category
+          schema:
+            type: string
+            example: "Dining"
+        - name: transaction_type
+          in: query
+          description: Filter by transaction type
+          schema:
+            type: string
+            enum: [Income, Expense, Transfer]
+        - name: start_date
+          in: query
+          description: Filter transactions from this date (inclusive)
+          schema:
+            type: string
+            format: date
+            example: "2024-01-01"
+        - name: end_date
+          in: query
+          description: Filter transactions to this date (inclusive)
+          schema:
+            type: string
+            format: date
+            example: "2024-12-31"
+        - name: is_recurring
+          in: query
+          description: Filter recurring transactions only
+          schema:
+            type: boolean
+        - name: search
+          in: query
+          description: Search in description or category
+          schema:
+            type: string
+        - name: sort_by
+          in: query
+          description: Sort field
+          schema:
+            type: string
+            enum: [transaction_date, amount, category, description]
+            default: transaction_date
+        - name: sort_order
+          in: query
+          description: Sort order
+          schema:
+            type: string
+            enum: [asc, desc]
+            default: desc
+        - name: limit
+          in: query
+          description: Maximum number of results
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 100
+        - name: offset
+          in: query
+          description: Offset for pagination
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      transactions:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Transaction'
+                      total_count:
+                        type: integer
+                        description: Total number of transactions matching filters
+                      limit:
+                        type: integer
+                      offset:
+                        type: integer
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    post:
+      summary: Create new transaction
+      description: Add a new transaction to the database
+      operationId: createTransaction
+      tags:
+        - Transactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionCreate'
+      responses:
+        '201':
+          description: Transaction created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Transaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /transactions/{id}:
+    get:
+      summary: Get transaction by ID
+      description: Retrieve a single transaction by its ID
+      operationId: getTransactionById
+      tags:
+        - Transactions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Transaction ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Transaction'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    put:
+      summary: Update transaction
+      description: Update an existing transaction
+      operationId: updateTransaction
+      tags:
+        - Transactions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Transaction ID
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionUpdate'
+      responses:
+        '200':
+          description: Transaction updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Transaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+    delete:
+      summary: Delete transaction
+      description: Delete a transaction by ID
+      operationId: deleteTransaction
+      tags:
+        - Transactions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Transaction ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Transaction deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Transaction deleted successfully"
+                      deleted_id:
+                        type: integer
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /export/csv:
+    get:
+      summary: Export transactions to CSV
+      description: Export filtered transactions to CSV format
+      operationId: exportTransactionsCSV
+      tags:
+        - Transactions
+      parameters:
+        - name: account_id
+          in: query
+          description: Filter by account ID (comma-separated)
+          schema:
+            type: string
+        - name: start_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: end_date
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: transaction_type
+          in: query
+          schema:
+            type: string
+            enum: [Income, Expense, Transfer]
+      responses:
+        '200':
+          description: CSV file
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+          headers:
+            Content-Disposition:
+              description: Attachment filename
+              schema:
+                type: string
+                example: "attachment; filename=transactions-2024-01-01-to-2024-12-31.csv"
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        transaction_id:
+          type: integer
+          description: Unique transaction identifier
+        transaction_date:
+          type: string
+          format: date
+          description: Date of transaction
+        transaction_time:
+          type: string
+          format: time
+          nullable: true
+          description: Time of transaction (optional)
+        account_id:
+          type: string
+          description: Account identifier (e.g., ACC-JOINT-CHK)
+        account_name:
+          type: string
+          description: Account display name
+        account_type:
+          type: string
+          enum: [Checking, Savings]
+        account_owner:
+          type: string
+          description: Account owner (Joint, User1, User2)
+        description:
+          type: string
+          description: Transaction description
+        category:
+          type: string
+          description: Primary category
+        subcategory:
+          type: string
+          nullable: true
+          description: Secondary category
+        amount:
+          type: number
+          format: decimal
+          description: Transaction amount (positive=income, negative=expense)
+        transaction_type:
+          type: string
+          enum: [Income, Expense, Transfer]
+        balance_after:
+          type: number
+          format: decimal
+          nullable: true
+          description: Account balance after transaction
+        is_recurring:
+          type: boolean
+          description: Whether transaction is recurring
+        recurring_frequency:
+          type: string
+          enum: [Weekly, Biweekly, Monthly]
+          nullable: true
+          description: Frequency pattern for recurring transactions
+        notes:
+          type: string
+          nullable: true
+          description: Optional notes
+        created_at:
+          type: string
+          format: date-time
+          description: Record creation timestamp
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp
+      required:
+        - transaction_id
+        - transaction_date
+        - account_id
+        - account_name
+        - account_type
+        - account_owner
+        - description
+        - category
+        - amount
+        - transaction_type
+
+    TransactionCreate:
+      type: object
+      properties:
+        transaction_date:
+          type: string
+          format: date
+        transaction_time:
+          type: string
+          format: time
+          nullable: true
+        account_id:
+          type: string
+          pattern: '^ACC-[A-Z0-9]+-[A-Z]+$'
+        account_name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        account_type:
+          type: string
+          enum: [Checking, Savings]
+        account_owner:
+          type: string
+        description:
+          type: string
+          minLength: 1
+          maxLength: 255
+        category:
+          type: string
+          minLength: 1
+          maxLength: 50
+        subcategory:
+          type: string
+          maxLength: 50
+          nullable: true
+        amount:
+          type: number
+          format: decimal
+          not:
+            const: 0
+        transaction_type:
+          type: string
+          enum: [Income, Expense, Transfer]
+        balance_after:
+          type: number
+          format: decimal
+          nullable: true
+        is_recurring:
+          type: boolean
+          default: false
+        recurring_frequency:
+          type: string
+          enum: [Weekly, Biweekly, Monthly]
+          nullable: true
+        notes:
+          type: string
+          nullable: true
+      required:
+        - transaction_date
+        - account_id
+        - account_name
+        - account_type
+        - account_owner
+        - description
+        - category
+        - amount
+        - transaction_type
+
+    TransactionUpdate:
+      type: object
+      properties:
+        transaction_date:
+          type: string
+          format: date
+        transaction_time:
+          type: string
+          format: time
+          nullable: true
+        description:
+          type: string
+          minLength: 1
+          maxLength: 255
+        category:
+          type: string
+          minLength: 1
+          maxLength: 50
+        subcategory:
+          type: string
+          maxLength: 50
+          nullable: true
+        amount:
+          type: number
+          format: decimal
+          not:
+            const: 0
+        transaction_type:
+          type: string
+          enum: [Income, Expense, Transfer]
+        balance_after:
+          type: number
+          format: decimal
+          nullable: true
+        is_recurring:
+          type: boolean
+        recurring_frequency:
+          type: string
+          enum: [Weekly, Biweekly, Monthly]
+          nullable: true
+        notes:
+          type: string
+          nullable: true
+      additionalProperties: false
+
+  responses:
+    BadRequest:
+      description: Bad request - validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Validation failed: amount must be non-zero"
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Transaction not found"
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "An unexpected error occurred"
