@@ -45,26 +45,26 @@
 
 ### Shared Utilities & Constants
 
-- [ ] T011 [P] Create utility functions (cn for clsx + tailwind-merge) in lib/utils.ts
-- [ ] T012 [P] Create chart color constants (CHART_COLORS, SEMANTIC_COLORS) in lib/constants/colors.ts
-- [ ] T013 [P] Create date range constants (quick select periods) in lib/constants/date-ranges.ts
+- [x] T011 [P] Create utility functions (cn for clsx + tailwind-merge) in lib/utils.ts
+- [x] T012 [P] Create chart color constants (CHART_COLORS, SEMANTIC_COLORS) in lib/constants/colors.ts
+- [x] T013 [P] Create date range constants (quick select periods) in lib/constants/date-ranges.ts
 
 ### Zod Validation Schemas
 
-- [ ] T014 [P] Create filter validation schema (date range, account filter) in lib/validations/filters.ts
-- [ ] T015 [P] Create transaction validation schema in lib/validations/transaction.ts
-- [ ] T016 [P] Create analytics validation schema in lib/validations/analytics.ts
+- [x] T014 [P] Create filter validation schema (date range, account filter) in lib/validations/filters.ts
+- [x] T015 [P] Create transaction validation schema in lib/validations/transaction.ts
+- [x] T016 [P] Create analytics validation schema in lib/validations/analytics.ts
 
 ### shadcn/ui Components
 
-- [ ] T017 [P] Install shadcn Button component: `npx shadcn-ui@latest add button`
-- [ ] T018 [P] Install shadcn Card component: `npx shadcn-ui@latest add card`
-- [ ] T019 [P] Install shadcn Select component: `npx shadcn-ui@latest add select`
-- [ ] T020 [P] Install shadcn Table component: `npx shadcn-ui@latest add table`
-- [ ] T021 [P] Install shadcn Calendar + Popover components: `npx shadcn-ui@latest add calendar popover`
-- [ ] T022 [P] Install shadcn Skeleton component: `npx shadcn-ui@latest add skeleton`
-- [ ] T023 [P] Install shadcn Tooltip component: `npx shadcn-ui@latest add tooltip`
-- [ ] T024 [P] Install and configure sonner for toast notifications
+- [x] T017 [P] Install shadcn Button component: `npx shadcn-ui@latest add button`
+- [x] T018 [P] Install shadcn Card component: `npx shadcn-ui@latest add card`
+- [x] T019 [P] Install shadcn Select component: `npx shadcn-ui@latest add select`
+- [x] T020 [P] Install shadcn Table component: `npx shadcn-ui@latest add table`
+- [x] T021 [P] Install shadcn Calendar + Popover components: `npx shadcn-ui@latest add calendar popover`
+- [x] T022 [P] Install shadcn Skeleton component: `npx shadcn-ui@latest add skeleton`
+- [x] T023 [P] Install shadcn Tooltip component: `npx shadcn-ui@latest add tooltip`
+- [x] T024 [P] Install and configure sonner for toast notifications
 
 ### Layout & Base Pages
 
