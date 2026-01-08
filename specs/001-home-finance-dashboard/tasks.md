@@ -38,10 +38,10 @@
 
 ### Database & Prisma Setup
 
-- [ ] T007 Run `npx prisma db pull` to introspect existing HomeFinance-db schema into prisma/schema.prisma
-- [ ] T008 Add composite indexes to Prisma schema: idx_date_account, idx_category_date, idx_type_date, idx_recurring in prisma/schema.prisma
-- [ ] T009 Run `npx prisma generate` to generate Prisma Client types
-- [ ] T010 Create Prisma client singleton in lib/db.ts
+- [x] T007 Run `npx prisma db pull` to introspect existing HomeFinance-db schema into prisma/schema.prisma
+- [x] T008 Add composite indexes to Prisma schema: idx_date_account, idx_category_date, idx_type_date, idx_recurring in prisma/schema.prisma
+- [x] T009 Run `npx prisma generate` to generate Prisma Client types
+- [x] T010 Create Prisma client singleton in lib/db.ts
 
 ### Shared Utilities & Constants
 

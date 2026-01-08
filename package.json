@@ -8,11 +8,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "@prisma/adapter-mssql": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.2.3",
     "lucide-react": "^0.562.0",
     "next": "16.1.1",
     "prisma": "^7.2.0",
