@@ -68,18 +68,18 @@
 
 ### Layout & Base Pages
 
-- [ ] T025 Create root layout with Tailwind styles and font configuration in app/layout.tsx
-- [ ] T026 [P] Create simple landing page redirecting to dashboard in app/page.tsx
-- [ ] T027 Create dashboard layout with filter sidebar in app/dashboard/layout.tsx
-- [ ] T028 Create empty state component in components/dashboard/empty-states/no-data.tsx
-- [ ] T029 [P] Create loading skeleton components in components/dashboard/loading-skeleton.tsx
+- [x] T025 Create root layout with Tailwind styles and font configuration in app/layout.tsx
+- [x] T026 [P] Create simple landing page redirecting to dashboard in app/page.tsx
+- [x] T027 Create dashboard layout with filter sidebar in app/dashboard/layout.tsx
+- [x] T028 Create empty state component in components/dashboard/empty-states/no-data.tsx
+- [x] T029 [P] Create loading skeleton components in components/dashboard/loading-skeleton.tsx
 
 ### Testing Infrastructure
 
-- [ ] T030 [P] Install and configure Vitest with vitest.config.ts
-- [ ] T031 [P] Install and configure React Testing Library with test utilities in __tests__/setup.ts
-- [ ] T032 [P] Install and configure Playwright with playwright.config.ts
-- [ ] T033 [P] Create test database helper using Testcontainers in __tests__/helpers/test-db.ts
+- [x] T030 [P] Install and configure Vitest with vitest.config.ts
+- [x] T031 [P] Install and configure React Testing Library with test utilities in __tests__/setup.ts
+- [x] T032 [P] Install and configure Playwright with playwright.config.ts
+- [x] T033 [P] Create test database helper using Testcontainers in __tests__/helpers/test-db.ts
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
