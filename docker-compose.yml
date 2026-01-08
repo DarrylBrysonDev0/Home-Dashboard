@@ -16,6 +16,7 @@ services:
       - ./db-init:/docker-entrypoint-initdb.d
     networks:
       - app-network
+    restart: unless-stopped
 
 volumes:
   mssql-data:
