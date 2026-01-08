@@ -124,8 +124,8 @@
 
 ### Tests for US2 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T043 [P] [US2] Write unit tests for cash flow aggregation (transfer exclusion) in __tests__/unit/queries/cash-flow.test.ts
-- [ ] T044 [P] [US2] Write integration test for GET /api/analytics/cash-flow endpoint in __tests__/integration/api/cash-flow.test.ts
+- [x] T043 [P] [US2] Write unit tests for cash flow aggregation (transfer exclusion) in __tests__/unit/queries/cash-flow.test.ts
+- [x] T044 [P] [US2] Write integration test for GET /api/analytics/cash-flow endpoint in __tests__/integration/api/cash-flow.test.ts
 
 ### API Layer for US2
 
