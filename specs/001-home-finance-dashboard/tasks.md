@@ -185,8 +185,8 @@
 
 ### Tests for US4 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T060 [P] [US4] Write unit tests for category aggregation query in __tests__/unit/queries/categories.test.ts
-- [ ] T061 [P] [US4] Write integration test for GET /api/analytics/categories endpoint in __tests__/integration/api/categories.test.ts
+- [x] T060 [P] [US4] Write unit tests for category aggregation query in __tests__/unit/queries/categories.test.ts
+- [x] T061 [P] [US4] Write integration test for GET /api/analytics/categories endpoint in __tests__/integration/api/categories.test.ts
 
 ### API Layer for US4
 
@@ -216,8 +216,8 @@
 
 ### Tests for US5 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T069 [P] [US5] Write unit tests for balance trend query in __tests__/unit/queries/balance-trends.test.ts
-- [ ] T070 [P] [US5] Write integration test for GET /api/analytics/accounts endpoint in __tests__/integration/api/accounts.test.ts
+- [x] T069 [P] [US5] Write unit tests for balance trend query in __tests__/unit/queries/balance-trends.test.ts
+- [x] T070 [P] [US5] Write integration test for GET /api/analytics/accounts endpoint in __tests__/integration/api/accounts.test.ts
 
 ### API Layer for US5
 
