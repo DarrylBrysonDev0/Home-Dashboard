@@ -13,6 +13,7 @@ import { KPICard } from "./kpi-card";
 import { KPICardsSkeleton } from "./loading-skeleton";
 import { NoData } from "./empty-states/no-data";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { useFilters } from "@/lib/contexts/filter-context";
 import type { KpiResponse } from "@/lib/validations/analytics";
 
 /**
@@ -238,5 +239,32 @@ export function KPICards({
         />
       </div>
     </TooltipProvider>
+  );
+}
+
+/**
+ * FilteredKPICards - Context-aware KPI cards component
+ *
+ * Consumes the FilterContext to automatically fetch and display
+ * KPI data based on the current filter state. Use this component
+ * inside the dashboard where FilterProvider is available.
+ *
+ * For testing or standalone usage, use KPICards with explicit props.
+ */
+export interface FilteredKPICardsProps {
+  /** Additional CSS classes */
+  className?: string;
+}
+
+export function FilteredKPICards({ className }: FilteredKPICardsProps) {
+  const { dateRange, selectedAccountIds } = useFilters();
+
+  return (
+    <KPICards
+      startDate={dateRange.start}
+      endDate={dateRange.end}
+      accountIds={selectedAccountIds.length > 0 ? selectedAccountIds : undefined}
+      className={className}
+    />
   );
 }

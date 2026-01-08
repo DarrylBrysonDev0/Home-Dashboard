@@ -7,5 +7,5 @@
 export { ChartTooltip, formatCurrency, formatPeriodLabel } from "./chart-tooltip";
 export type { ChartTooltipProps, TooltipEntry } from "./chart-tooltip";
 
-export { CashFlowChart } from "./cash-flow-chart";
-export type { CashFlowChartProps, CashFlowChartFilterProps } from "./cash-flow-chart";
+export { CashFlowChart, FilteredCashFlowChart } from "./cash-flow-chart";
+export type { CashFlowChartProps, CashFlowChartFilterProps, FilteredCashFlowChartProps } from "./cash-flow-chart";

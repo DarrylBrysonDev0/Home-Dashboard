@@ -1,19 +1,22 @@
+"use client";
+
 import { Suspense } from "react";
-import { KPICards } from "@/components/dashboard/kpi-cards";
+import { FilteredKPICards } from "@/components/dashboard/kpi-cards";
 import { KPICardsSkeleton, ChartSkeleton } from "@/components/dashboard/loading-skeleton";
-import { CashFlowChart } from "@/components/dashboard/charts";
+import { FilteredCashFlowChart } from "@/components/dashboard/charts/cash-flow-chart";
 
 /**
  * Dashboard Page - Financial Health Overview
  *
  * This is the main dashboard page displaying financial metrics and visualizations.
+ * All components automatically respond to filter changes via FilterContext.
  *
  * Implemented:
  * - US1: Financial Health Summary (KPI cards)
  * - US2: Cash Flow Chart (income vs expenses over time)
+ * - US3: Filter integration (time period, accounts) - components now respond to filters
  *
  * Future additions planned:
- * - US3: Filter integration (time period, accounts)
  * - US4: Spending by Category charts
  * - US5: Account Balance Trends chart
  * - US6: Transaction Table
@@ -38,14 +41,14 @@ export default function DashboardPage() {
         </header>
 
         <Suspense fallback={<KPICardsSkeleton />}>
-          <KPICards />
+          <FilteredKPICards />
         </Suspense>
       </section>
 
       {/* Section: Cash Flow Chart (US2) */}
       <section aria-labelledby="cashflow-section-heading">
         <Suspense fallback={<ChartSkeleton height={350} />}>
-          <CashFlowChart
+          <FilteredCashFlowChart
             title="Cash Flow Over Time"
             description="Income vs expenses by month (transfers excluded)"
             granularity="monthly"

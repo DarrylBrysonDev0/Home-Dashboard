@@ -31,6 +31,7 @@ import { ChartSkeleton } from "../loading-skeleton";
 import { NoData } from "../empty-states/no-data";
 import { ChartTooltip, formatCurrency, formatPeriodLabel } from "./chart-tooltip";
 import { SEMANTIC_COLORS } from "@/lib/constants/colors";
+import { useFilters } from "@/lib/contexts/filter-context";
 import type { CashFlowPeriod, Granularity } from "@/lib/validations/analytics";
 
 /**
@@ -330,6 +331,55 @@ export function CashFlowChart({
         </ResponsiveContainer>
       </CardContent>
     </Card>
+  );
+}
+
+/**
+ * FilteredCashFlowChart - Context-aware cash flow chart component
+ *
+ * Consumes the FilterContext to automatically fetch and display
+ * cash flow data based on the current filter state. Use this component
+ * inside the dashboard where FilterProvider is available.
+ *
+ * For testing or standalone usage, use CashFlowChart with explicit props.
+ */
+export interface FilteredCashFlowChartProps {
+  /** Chart title */
+  title?: string;
+  /** Chart description */
+  description?: string;
+  /** Chart height in pixels */
+  height?: number;
+  /** Additional CSS classes */
+  className?: string;
+  /** Whether to show the net cash flow bar */
+  showNet?: boolean;
+  /** Time period granularity (daily, weekly, monthly) */
+  granularity?: Granularity;
+}
+
+export function FilteredCashFlowChart({
+  title = "Cash Flow",
+  description = "Income vs expenses over time (transfers excluded)",
+  height = 350,
+  className,
+  showNet = false,
+  granularity = "monthly",
+}: FilteredCashFlowChartProps) {
+  const { dateRange, selectedAccountIds } = useFilters();
+
+  return (
+    <CashFlowChart
+      startDate={dateRange.start}
+      endDate={dateRange.end}
+      accountIds={selectedAccountIds.length > 0 ? selectedAccountIds : undefined}
+      granularity={granularity}
+      title={title}
+      description={description}
+      height={height}
+      className={className}
+      showNet={showNet}
+    />
   );
 }
 

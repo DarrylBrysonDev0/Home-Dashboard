@@ -153,25 +153,25 @@
 
 ### Tests for US3 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T050 [P] [US3] Write integration tests for GET /api/filters/accounts and /api/filters/date-ranges in __tests__/integration/api/filters.test.ts
-- [ ] T051 [P] [US3] Write component tests for TimeFilter and AccountFilter in __tests__/unit/components/filters.test.tsx
+- [x] T050 [P] [US3] Write integration tests for GET /api/filters/accounts and /api/filters/date-ranges in __tests__/integration/api/filters.test.ts
+- [x] T051 [P] [US3] Write component tests for TimeFilter and AccountFilter in __tests__/unit/components/filters.test.tsx
 
 ### API Layer for US3
 
-- [ ] T052 [P] [US3] Implement GET /api/filters/accounts route (list all accounts) in app/api/filters/accounts/route.ts
-- [ ] T053 [P] [US3] Implement GET /api/filters/date-ranges route (quick select options with computed dates) in app/api/filters/date-ranges/route.ts
+- [x] T052 [P] [US3] Implement GET /api/filters/accounts route (list all accounts) in app/api/filters/accounts/route.ts
+- [x] T053 [P] [US3] Implement GET /api/filters/date-ranges route (quick select options with computed dates) in app/api/filters/date-ranges/route.ts
 
 ### UI Components for US3
 
-- [ ] T054 [P] [US3] Create TimeFilter component with quick-select buttons and custom date picker in components/dashboard/filters/time-filter.tsx
-- [ ] T055 [P] [US3] Create AccountFilter component with multi-select dropdown in components/dashboard/filters/account-filter.tsx
-- [ ] T056 [US3] Create FilterContext provider for global filter state in lib/contexts/filter-context.tsx
+- [x] T054 [P] [US3] Create TimeFilter component with quick-select buttons and custom date picker in components/dashboard/filters/time-filter.tsx
+- [x] T055 [P] [US3] Create AccountFilter component with multi-select dropdown in components/dashboard/filters/account-filter.tsx
+- [x] T056 [US3] Create FilterContext provider for global filter state in lib/contexts/filter-context.tsx
 
 ### Dashboard Integration for US3
 
-- [ ] T057 [US3] Integrate FilterContext and filter components into dashboard layout in app/dashboard/layout.tsx
-- [ ] T058 [US3] Update KPICards to consume filter context and refetch on filter change in components/dashboard/kpi-cards.tsx
-- [ ] T059 [US3] Update CashFlowChart to consume filter context and refetch on filter change in components/dashboard/charts/cash-flow-chart.tsx
+- [x] T057 [US3] Integrate FilterContext and filter components into dashboard layout in app/dashboard/layout.tsx
+- [x] T058 [US3] Update KPICards to consume filter context and refetch on filter change in components/dashboard/kpi-cards.tsx
+- [x] T059 [US3] Update CashFlowChart to consume filter context and refetch on filter change in components/dashboard/charts/cash-flow-chart.tsx
 
 **Checkpoint**: User Story 3 complete - Filtering updates all dashboard components
 
