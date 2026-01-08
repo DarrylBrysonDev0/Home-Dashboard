@@ -129,17 +129,17 @@
 
 ### API Layer for US2
 
-- [ ] T045 [US2] Create cash flow aggregation query (income/expense by period, exclude transfers) in lib/queries/cash-flow.ts
-- [ ] T046 [US2] Implement GET /api/analytics/cash-flow route with granularity param in app/api/analytics/cash-flow/route.ts
+- [x] T045 [US2] Create cash flow aggregation query (income/expense by period, exclude transfers) in lib/queries/cash-flow.ts
+- [x] T046 [US2] Implement GET /api/analytics/cash-flow route with granularity param in app/api/analytics/cash-flow/route.ts
 
 ### UI Components for US2
 
-- [ ] T047 [P] [US2] Create custom chart tooltip component in components/dashboard/charts/chart-tooltip.tsx
-- [ ] T048 [US2] Create CashFlowChart component using Recharts BarChart in components/dashboard/charts/cash-flow-chart.tsx
+- [x] T047 [P] [US2] Create custom chart tooltip component in components/dashboard/charts/chart-tooltip.tsx
+- [x] T048 [US2] Create CashFlowChart component using Recharts BarChart in components/dashboard/charts/cash-flow-chart.tsx
 
 ### Dashboard Integration for US2
 
-- [ ] T049 [US2] Add CashFlowChart to dashboard page in app/dashboard/page.tsx
+- [x] T049 [US2] Add CashFlowChart to dashboard page in app/dashboard/page.tsx
 
 **Checkpoint**: User Story 2 complete - Cash flow visualization working
 

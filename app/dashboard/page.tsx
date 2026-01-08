@@ -1,15 +1,18 @@
 import { Suspense } from "react";
 import { KPICards } from "@/components/dashboard/kpi-cards";
-import { KPICardsSkeleton } from "@/components/dashboard/loading-skeleton";
+import { KPICardsSkeleton, ChartSkeleton } from "@/components/dashboard/loading-skeleton";
+import { CashFlowChart } from "@/components/dashboard/charts";
 
 /**
  * Dashboard Page - Financial Health Overview
  *
  * This is the main dashboard page displaying financial metrics and visualizations.
- * Currently implements User Story 1 (Financial Health Summary) with KPI cards.
+ *
+ * Implemented:
+ * - US1: Financial Health Summary (KPI cards)
+ * - US2: Cash Flow Chart (income vs expenses over time)
  *
  * Future additions planned:
- * - US2: Cash Flow Chart (income vs expenses over time)
  * - US3: Filter integration (time period, accounts)
  * - US4: Spending by Category charts
  * - US5: Account Balance Trends chart
@@ -39,20 +42,15 @@ export default function DashboardPage() {
         </Suspense>
       </section>
 
-      {/* Placeholder: Cash Flow Chart (US2) */}
-      <section
-        aria-labelledby="cashflow-section-heading"
-        className="rounded-lg border border-dashed border-light-gray bg-off-white/50 p-6"
-      >
-        <h2
-          id="cashflow-section-heading"
-          className="mb-2 text-sm font-medium text-medium-gray"
-        >
-          Cash Flow Over Time
-        </h2>
-        <p className="text-xs text-medium-gray">
-          Income vs expenses visualization coming in User Story 2
-        </p>
+      {/* Section: Cash Flow Chart (US2) */}
+      <section aria-labelledby="cashflow-section-heading">
+        <Suspense fallback={<ChartSkeleton height={350} />}>
+          <CashFlowChart
+            title="Cash Flow Over Time"
+            description="Income vs expenses by month (transfers excluded)"
+            granularity="monthly"
+          />
+        </Suspense>
       </section>
 
       {/* Placeholder: Category Charts (US4) */}
