@@ -93,24 +93,24 @@
 
 ### Tests for US1 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T034 [P] [US1] Write unit tests for KPI calculation functions (net cash flow, MoM change) in __tests__/unit/queries/analytics.test.ts
-- [ ] T035 [P] [US1] Write integration test for GET /api/analytics/kpis endpoint in __tests__/integration/api/kpis.test.ts
-- [ ] T036 [P] [US1] Write component test for KPICard with trend indicators in __tests__/unit/components/kpi-card.test.tsx
+- [x] T034 [P] [US1] Write unit tests for KPI calculation functions (net cash flow, MoM change) in __tests__/unit/queries/analytics.test.ts
+- [x] T035 [P] [US1] Write integration test for GET /api/analytics/kpis endpoint in __tests__/integration/api/kpis.test.ts
+- [x] T036 [P] [US1] Write component test for KPICard with trend indicators in __tests__/unit/components/kpi-card.test.tsx
 
 ### API Layer for US1
 
-- [ ] T037 [P] [US1] Create accounts query helper (get distinct accounts with current balance) in lib/queries/accounts.ts
-- [ ] T038 [P] [US1] Create KPI calculation queries (net cash flow, total balance, MoM change, recurring total, largest expense) in lib/queries/analytics.ts
-- [ ] T039 [US1] Implement GET /api/analytics/kpis route with Zod validation and filter params in app/api/analytics/kpis/route.ts
+- [x] T037 [P] [US1] Create accounts query helper (get distinct accounts with current balance) in lib/queries/accounts.ts
+- [x] T038 [P] [US1] Create KPI calculation queries (net cash flow, total balance, MoM change, recurring total, largest expense) in lib/queries/analytics.ts
+- [x] T039 [US1] Implement GET /api/analytics/kpis route with Zod validation and filter params in app/api/analytics/kpis/route.ts
 
 ### UI Components for US1
 
-- [ ] T040 [P] [US1] Create KPICard component with trend indicator (up/down arrow, color) in components/dashboard/kpi-card.tsx
-- [ ] T041 [US1] Create KPICards container fetching data from /api/analytics/kpis in components/dashboard/kpi-cards.tsx
+- [x] T040 [P] [US1] Create KPICard component with trend indicator (up/down arrow, color) in components/dashboard/kpi-card.tsx
+- [x] T041 [US1] Create KPICards container fetching data from /api/analytics/kpis in components/dashboard/kpi-cards.tsx
 
 ### Dashboard Integration for US1
 
-- [ ] T042 [US1] Create main dashboard page with KPI cards section in app/dashboard/page.tsx
+- [x] T042 [US1] Create main dashboard page with KPI cards section in app/dashboard/page.tsx
 
 **Checkpoint**: User Story 1 complete - KPI cards display financial health summary
 

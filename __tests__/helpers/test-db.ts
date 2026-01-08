@@ -4,35 +4,111 @@ import { PrismaClient } from "../../generated/prisma/client.js";
 
 interface TestDatabaseContext {
   prisma: PrismaClient;
-  container: StartedTestContainer;
+  container: StartedTestContainer | null;
 }
 
-const SA_PASSWORD = "TestPass123!";
+// Configuration - use existing docker-compose db or spin up new container
+const USE_EXISTING_DB = process.env.TEST_USE_EXISTING_DB !== "false";
+const EXISTING_DB_HOST = process.env.TEST_DB_HOST || "localhost";
+const EXISTING_DB_PORT = parseInt(process.env.TEST_DB_PORT || "1434", 10);
+const EXISTING_DB_PASSWORD = process.env.TEST_DB_PASSWORD || "YourStrong@Password123";
+
+// Container config (fallback)
+const CONTAINER_SA_PASSWORD = "TestPass123!";
 const TEST_DATABASE = "TestHomeFinanceDB";
 
 let testContext: TestDatabaseContext | null = null;
 
 /**
- * Sets up an ephemeral MSSQL container for integration tests.
- * Creates a fresh database and runs the schema creation.
+ * Sets up MSSQL for integration tests.
+ * By default, connects to existing docker-compose db on port 1434.
+ * Set TEST_USE_EXISTING_DB=false to spin up an ephemeral container.
  *
- * @returns TestDatabaseContext with Prisma client and container reference
+ * @returns TestDatabaseContext with Prisma client and optional container reference
  */
 export async function setupTestDatabase(): Promise<TestDatabaseContext> {
   if (testContext) {
     return testContext;
   }
 
-  // Start MSSQL container
+  if (USE_EXISTING_DB) {
+    return setupExistingDatabase();
+  }
+
+  return setupContainerDatabase();
+}
+
+/**
+ * Connect to existing docker-compose database
+ */
+async function setupExistingDatabase(): Promise<TestDatabaseContext> {
+  const sqlConfig = {
+    user: "sa",
+    password: EXISTING_DB_PASSWORD,
+    database: "master",
+    server: EXISTING_DB_HOST,
+    port: EXISTING_DB_PORT,
+    pool: {
+      max: 5,
+      min: 0,
+      idleTimeoutMillis: 30000,
+    },
+    options: {
+      encrypt: false,
+      trustServerCertificate: true,
+    },
+  };
+
+  // Create the test database if it doesn't exist
+  const masterAdapter = new PrismaMssql(sqlConfig);
+  const masterPrisma = new PrismaClient({ adapter: masterAdapter });
+
+  await masterPrisma.$executeRawUnsafe(`
+    IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = '${TEST_DATABASE}')
+    BEGIN
+      CREATE DATABASE [${TEST_DATABASE}]
+    END
+  `);
+
+  await masterPrisma.$disconnect();
+
+  // Override environment variables so the app's Prisma uses test database
+  process.env.DB_HOST = EXISTING_DB_HOST;
+  process.env.DB_PORT = String(EXISTING_DB_PORT);
+  process.env.DB_USER = "sa";
+  process.env.DB_PASSWORD = EXISTING_DB_PASSWORD;
+  process.env.DB_NAME = TEST_DATABASE;
+
+  // Connect to the test database
+  const testSqlConfig = {
+    ...sqlConfig,
+    database: TEST_DATABASE,
+  };
+
+  const testAdapter = new PrismaMssql(testSqlConfig);
+  const prisma = new PrismaClient({ adapter: testAdapter });
+
+  // Create the transactions table based on schema
+  await createSchema(prisma);
+
+  testContext = { prisma, container: null };
+  return testContext;
+}
+
+/**
+ * Spin up an ephemeral MSSQL container for tests
+ */
+async function setupContainerDatabase(): Promise<TestDatabaseContext> {
+  // Start MSSQL container on a random available port
   const container = await new GenericContainer(
-    "mcr.microsoft.com/mssql/server:2022-latest"
+    "mcr.microsoft.com/mssql/server:2025-latest"
   )
     .withEnvironment({
       ACCEPT_EULA: "Y",
-      MSSQL_SA_PASSWORD: SA_PASSWORD,
+      MSSQL_SA_PASSWORD: CONTAINER_SA_PASSWORD,
     })
     .withExposedPorts(1433)
-    .withWaitStrategy(Wait.forHealthCheck())
+    .withWaitStrategy(Wait.forLogMessage(/Recovery is complete/i))
     .withStartupTimeout(120000)
     .start();
 
@@ -45,7 +121,7 @@ export async function setupTestDatabase(): Promise<TestDatabaseContext> {
   // Create adapter config for test database
   const sqlConfig = {
     user: "sa",
-    password: SA_PASSWORD,
+    password: CONTAINER_SA_PASSWORD,
     database: "master",
     server: host,
     port: port,
@@ -82,7 +158,17 @@ export async function setupTestDatabase(): Promise<TestDatabaseContext> {
   const testAdapter = new PrismaMssql(testSqlConfig);
   const prisma = new PrismaClient({ adapter: testAdapter });
 
-  // Create the transactions table based on schema
+  // Create the transactions table
+  await createSchema(prisma);
+
+  testContext = { prisma, container };
+  return testContext;
+}
+
+/**
+ * Creates the transactions table and indexes
+ */
+async function createSchema(prisma: PrismaClient): Promise<void> {
   await prisma.$executeRawUnsafe(`
     IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'transactions')
     BEGIN
@@ -120,9 +206,6 @@ export async function setupTestDatabase(): Promise<TestDatabaseContext> {
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_transactions_type')
       CREATE INDEX IX_transactions_type ON [transactions]([transaction_type]);
   `);
-
-  testContext = { prisma, container };
-  return testContext;
 }
 
 /**
@@ -132,7 +215,9 @@ export async function setupTestDatabase(): Promise<TestDatabaseContext> {
 export async function teardownTestDatabase(): Promise<void> {
   if (testContext) {
     await testContext.prisma.$disconnect();
-    await testContext.container.stop();
+    if (testContext.container) {
+      await testContext.container.stop();
+    }
     testContext = null;
   }
 }

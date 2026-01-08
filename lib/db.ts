@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { PrismaMssql } from "@prisma/adapter-mssql";
-import { PrismaClient } from "../generated/prisma/client.js";
+import { PrismaClient } from "@/generated/prisma/client";
 
 const sqlConfig = {
   user: process.env.DB_USER,

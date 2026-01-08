@@ -9,13 +9,25 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Primary Colors
-        coral: '#F97066',
-        'coral-light': '#FD8A7C',
-        mint: '#12B76A',
-        'mint-light': '#3DD68D',
-        teal: '#0D9488',
-        'teal-light': '#14B8A6',
+        // Primary Colors with shades
+        coral: {
+          DEFAULT: '#F97066',
+          500: '#F97066',
+          600: '#DC4A40',
+          light: '#FD8A7C',
+        },
+        mint: {
+          DEFAULT: '#12B76A',
+          500: '#12B76A',
+          600: '#0E9A57',
+          light: '#3DD68D',
+        },
+        teal: {
+          DEFAULT: '#0D9488',
+          500: '#0D9488',
+          600: '#0A7B71',
+          light: '#14B8A6',
+        },
 
         // Neutral Colors
         'near-black': '#101828',
