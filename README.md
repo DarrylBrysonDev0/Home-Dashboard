@@ -25,6 +25,8 @@ Understand where your money goes with interactive donut and bar charts. Categori
 
 Monitor how your account balances change over time with a multi-line chart. Each account has its own color-coded line. Toggle accounts on/off to focus on specific ones, and watch your savings grow or debts decrease.
 
+![Cash Flow](public/screenshots/CashFlow_Spending_Balance.png)
+
 ### 🔄 Transfer Flow Between Accounts
 
 Visualize money movement between accounts with a Sankey flow diagram. Connection widths represent transfer amounts, giving you a clear picture of how funds flow through your financial ecosystem.
