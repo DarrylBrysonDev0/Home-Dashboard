@@ -4,6 +4,8 @@ import { Suspense } from "react";
 import { FilteredKPICards } from "@/components/dashboard/kpi-cards";
 import { KPICardsSkeleton, ChartSkeleton } from "@/components/dashboard/loading-skeleton";
 import { FilteredCashFlowChart } from "@/components/dashboard/charts/cash-flow-chart";
+import { FilteredBalanceTrendsChart } from "@/components/dashboard/charts/balance-trends";
+import { FilteredSpendingByCategory } from "@/components/dashboard/spending-by-category";
 
 /**
  * Dashboard Page - Financial Health Overview
@@ -15,10 +17,10 @@ import { FilteredCashFlowChart } from "@/components/dashboard/charts/cash-flow-c
  * - US1: Financial Health Summary (KPI cards)
  * - US2: Cash Flow Chart (income vs expenses over time)
  * - US3: Filter integration (time period, accounts) - components now respond to filters
+ * - US4: Spending by Category (donut/bar charts with drill-down)
+ * - US5: Account Balance Trends chart
  *
  * Future additions planned:
- * - US4: Spending by Category charts
- * - US5: Account Balance Trends chart
  * - US6: Transaction Table
  * - US7: Recurring Transactions
  * - US8: Transfer Flow visualization
@@ -56,26 +58,24 @@ export default function DashboardPage() {
         </Suspense>
       </section>
 
-      {/* Placeholder: Category Charts (US4) */}
+      {/* Section: Category Charts (US4) + Account Balance Trends (US5) */}
       <section className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-lg border border-dashed border-light-gray bg-off-white/50 p-6">
-          <h2 className="mb-2 text-sm font-medium text-medium-gray">
-            Spending by Category
-          </h2>
-          <p className="text-xs text-medium-gray">
-            Category breakdown coming in User Story 4
-          </p>
-        </div>
+        <Suspense fallback={<ChartSkeleton height={350} />}>
+          <FilteredSpendingByCategory
+            title="Spending by Category"
+            description="Expense breakdown by category (click to drill down)"
+            height={350}
+            defaultView="donut"
+          />
+        </Suspense>
 
-        {/* Placeholder: Balance Trends (US5) */}
-        <div className="rounded-lg border border-dashed border-light-gray bg-off-white/50 p-6">
-          <h2 className="mb-2 text-sm font-medium text-medium-gray">
-            Account Balance Trends
-          </h2>
-          <p className="text-xs text-medium-gray">
-            Balance trends coming in User Story 5
-          </p>
-        </div>
+        <Suspense fallback={<ChartSkeleton height={350} />}>
+          <FilteredBalanceTrendsChart
+            title="Account Balance Trends"
+            description="Balance over time for each account"
+            granularity="monthly"
+          />
+        </Suspense>
       </section>
 
       {/* Placeholder: Transaction Table (US6) */}

@@ -453,8 +453,8 @@ describe("aggregateBalancesByPeriod", () => {
       );
 
       expect(result).toHaveLength(1);
-      expect(result[0].date.getMonth()).toBe(0); // January
-      expect(result[0].date.getDate()).toBe(31); // Last day of January
+      expect(result[0].date.getUTCMonth()).toBe(0); // January
+      expect(result[0].date.getUTCDate()).toBe(31); // Last day of January
     });
   });
 

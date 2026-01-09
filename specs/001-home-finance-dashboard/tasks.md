@@ -190,19 +190,19 @@
 
 ### API Layer for US4
 
-- [ ] T062 [US4] Create category aggregation query (expense totals by category, percentages) in lib/queries/categories.ts
-- [ ] T063 [US4] Implement GET /api/analytics/categories route with subcategory option in app/api/analytics/categories/route.ts
-- [ ] T064 [P] [US4] Implement GET /api/filters/categories route (list all categories) in app/api/filters/categories/route.ts
+- [x] T062 [US4] Create category aggregation query (expense totals by category, percentages) in lib/queries/categories.ts
+- [x] T063 [US4] Implement GET /api/analytics/categories route with subcategory option in app/api/analytics/categories/route.ts
+- [x] T064 [P] [US4] Implement GET /api/filters/categories route (list all categories) in app/api/filters/categories/route.ts
 
 ### UI Components for US4
 
-- [ ] T065 [P] [US4] Create CategoryDonut component using Recharts PieChart in components/dashboard/charts/category-donut.tsx
-- [ ] T066 [P] [US4] Create CategoryBar component using Recharts BarChart (horizontal) in components/dashboard/charts/category-bar.tsx
-- [ ] T067 [US4] Create SpendingByCategory container with drill-down modal in components/dashboard/spending-by-category.tsx
+- [x] T065 [P] [US4] Create CategoryDonut component using Recharts PieChart in components/dashboard/charts/category-donut.tsx
+- [x] T066 [P] [US4] Create CategoryBar component using Recharts BarChart (horizontal) in components/dashboard/charts/category-bar.tsx
+- [x] T067 [US4] Create SpendingByCategory container with drill-down modal in components/dashboard/spending-by-category.tsx
 
 ### Dashboard Integration for US4
 
-- [ ] T068 [US4] Add SpendingByCategory to dashboard page with filter integration in app/dashboard/page.tsx
+- [x] T068 [US4] Add SpendingByCategory to dashboard page with filter integration in app/dashboard/page.tsx
 
 **Checkpoint**: User Story 4 complete - Category breakdown charts working
 
