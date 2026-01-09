@@ -232,6 +232,14 @@ export async function clearTestData(): Promise<void> {
       "DELETE FROM [transactions]"
     );
   }
+  // Reset in-memory pattern state for recurring detection tests
+  // Dynamic import to avoid loading lib/db before env vars are set
+  try {
+    const { resetPatternState } = await import("@/lib/queries/recurring");
+    resetPatternState();
+  } catch {
+    // Module not yet loaded, nothing to reset
+  }
 }
 
 /**

@@ -244,24 +244,24 @@
 
 ### Tests for US6 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T075 [P] [US6] Write unit tests for transaction list query in __tests__/unit/queries/transactions.test.ts
-- [ ] T076 [P] [US6] Write integration test for GET /api/transactions and GET /api/export/csv endpoints in __tests__/integration/api/transactions.test.ts
+- [x] T075 [P] [US6] Write unit tests for transaction list query in __tests__/unit/queries/transactions.test.ts
+- [x] T076 [P] [US6] Write integration test for GET /api/transactions and GET /api/export/csv endpoints in __tests__/integration/api/transactions.test.ts
 
 ### API Layer for US6
 
-- [ ] T077 [US6] Create transaction list query with sort, filter, pagination in lib/queries/transactions.ts
-- [ ] T078 [US6] Implement GET /api/transactions route with all filter/sort/pagination params in app/api/transactions/route.ts
-- [ ] T079 [P] [US6] Implement GET /api/export/csv route for transaction export in app/api/export/csv/route.ts
+- [x] T077 [US6] Create transaction list query with sort, filter, pagination in lib/queries/transactions.ts
+- [x] T078 [US6] Implement GET /api/transactions route with all filter/sort/pagination params in app/api/transactions/route.ts
+- [x] T079 [P] [US6] Implement GET /api/export/csv route for transaction export in app/api/export/csv/route.ts
 
 ### UI Components for US6
 
-- [ ] T080 [US6] Create TransactionTable component using TanStack Table with column definitions in components/dashboard/transactions/transaction-table.tsx
-- [ ] T081 [US6] Add search input and export button to TransactionTable in components/dashboard/transactions/transaction-table.tsx
-- [ ] T082 [P] [US6] Create CSV export utility function in lib/utils/csv-export.ts
+- [x] T080 [US6] Create TransactionTable component using TanStack Table with column definitions in components/dashboard/transactions/transaction-table.tsx
+- [x] T081 [US6] Add search input and export button to TransactionTable in components/dashboard/transactions/transaction-table.tsx
+- [x] T082 [P] [US6] Create CSV export utility function in lib/utils/csv-export.ts
 
 ### Dashboard Integration for US6
 
-- [ ] T083 [US6] Add TransactionTable section to dashboard page with filter integration in app/dashboard/page.tsx
+- [x] T083 [US6] Add TransactionTable section to dashboard page with filter integration in app/dashboard/page.tsx
 
 **Checkpoint**: User Story 6 complete - Transaction table with export working
 
@@ -275,24 +275,24 @@
 
 ### Tests for US7 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T084 [P] [US7] Write unit tests for recurring detection algorithm (pattern matching, confidence scoring) in __tests__/unit/queries/recurring.test.ts
-- [ ] T085 [P] [US7] Write integration tests for GET /api/analytics/recurring and confirm/reject endpoints in __tests__/integration/api/recurring.test.ts
+- [x] T084 [P] [US7] Write unit tests for recurring detection algorithm (pattern matching, confidence scoring) in __tests__/unit/queries/recurring.test.ts
+- [x] T085 [P] [US7] Write integration tests for GET /api/analytics/recurring and confirm/reject endpoints in __tests__/integration/api/recurring.test.ts
 
 ### API Layer for US7
 
-- [ ] T086 [US7] Create recurring transaction detection algorithm (pattern matching, confidence scoring) in lib/queries/recurring.ts
-- [ ] T087 [US7] Implement GET /api/analytics/recurring route in app/api/analytics/recurring/route.ts
-- [ ] T088 [P] [US7] Implement POST /api/analytics/recurring/[pattern_id]/confirm route in app/api/analytics/recurring/[pattern_id]/confirm/route.ts
-- [ ] T089 [P] [US7] Implement POST /api/analytics/recurring/[pattern_id]/reject route in app/api/analytics/recurring/[pattern_id]/reject/route.ts
+- [x] T086 [US7] Create recurring transaction detection algorithm (pattern matching, confidence scoring) in lib/queries/recurring.ts
+- [x] T087 [US7] Implement GET /api/analytics/recurring route in app/api/analytics/recurring/route.ts
+- [x] T088 [P] [US7] Implement POST /api/analytics/recurring/[pattern_id]/confirm route in app/api/analytics/recurring/[pattern_id]/confirm/route.ts
+- [x] T089 [P] [US7] Implement POST /api/analytics/recurring/[pattern_id]/reject route in app/api/analytics/recurring/[pattern_id]/reject/route.ts
 
 ### UI Components for US7
 
-- [ ] T090 [US7] Create RecurringTable component with confirm/reject actions in components/dashboard/transactions/recurring-table.tsx
-- [ ] T091 [US7] Add confidence badge component (High/Medium/Low with colors) in components/dashboard/confidence-badge.tsx
+- [x] T090 [US7] Create RecurringTable component with confirm/reject actions in components/dashboard/transactions/recurring-table.tsx
+- [x] T091 [US7] Add confidence badge component (High/Medium/Low with colors) in components/dashboard/confidence-badge.tsx
 
 ### Dashboard Integration for US7
 
-- [ ] T092 [US7] Add RecurringTransactions section to dashboard page in app/dashboard/page.tsx
+- [x] T092 [US7] Add RecurringTransactions section to dashboard page in app/dashboard/page.tsx
 
 **Checkpoint**: User Story 7 complete - Recurring transaction detection working
 

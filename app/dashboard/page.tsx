@@ -6,6 +6,8 @@ import { KPICardsSkeleton, ChartSkeleton } from "@/components/dashboard/loading-
 import { FilteredCashFlowChart } from "@/components/dashboard/charts/cash-flow-chart";
 import { FilteredBalanceTrendsChart } from "@/components/dashboard/charts/balance-trends";
 import { FilteredSpendingByCategory } from "@/components/dashboard/spending-by-category";
+import { FilteredTransactionTable } from "@/components/dashboard/transactions/transaction-table";
+import { FilteredRecurringTable } from "@/components/dashboard/transactions/recurring-table";
 
 /**
  * Dashboard Page - Financial Health Overview
@@ -19,10 +21,10 @@ import { FilteredSpendingByCategory } from "@/components/dashboard/spending-by-c
  * - US3: Filter integration (time period, accounts) - components now respond to filters
  * - US4: Spending by Category (donut/bar charts with drill-down)
  * - US5: Account Balance Trends chart
+ * - US6: Transaction Table (sortable, searchable with CSV export)
+ * - US7: Recurring Transactions (pattern detection with confirm/reject)
  *
  * Future additions planned:
- * - US6: Transaction Table
- * - US7: Recurring Transactions
  * - US8: Transfer Flow visualization
  */
 export default function DashboardPage() {
@@ -78,14 +80,38 @@ export default function DashboardPage() {
         </Suspense>
       </section>
 
-      {/* Placeholder: Transaction Table (US6) */}
-      <section className="rounded-lg border border-dashed border-light-gray bg-off-white/50 p-6">
-        <h2 className="mb-2 text-sm font-medium text-medium-gray">
-          Recent Transactions
-        </h2>
-        <p className="text-xs text-medium-gray">
-          Transaction table coming in User Story 6
-        </p>
+      {/* Section: Transaction Table (US6) */}
+      <section aria-labelledby="transactions-section-heading">
+        <header className="mb-4">
+          <h2
+            id="transactions-section-heading"
+            className="text-lg font-semibold text-near-black"
+          >
+            Recent Transactions
+          </h2>
+          <p className="text-sm text-medium-gray">
+            View, search, and export your transaction history
+          </p>
+        </header>
+
+        <FilteredTransactionTable />
+      </section>
+
+      {/* Section: Recurring Transactions (US7) */}
+      <section aria-labelledby="recurring-section-heading">
+        <header className="mb-4">
+          <h2
+            id="recurring-section-heading"
+            className="text-lg font-semibold text-near-black"
+          >
+            Recurring Transactions
+          </h2>
+          <p className="text-sm text-medium-gray">
+            Automatically detected recurring patterns with confidence scores
+          </p>
+        </header>
+
+        <FilteredRecurringTable />
       </section>
     </div>
   );
