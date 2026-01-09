@@ -340,6 +340,9 @@ function useTransactionData(filters: TransactionTableFilterProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Memoize the account IDs to avoid reference equality issues
+  const accountIdsKey = filters.accountIds?.join(",") ?? "";
+
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -376,7 +379,8 @@ function useTransactionData(filters: TransactionTableFilterProps) {
     } finally {
       setIsLoading(false);
     }
-  }, [filters]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters.startDate?.getTime(), filters.endDate?.getTime(), accountIdsKey]);
 
   useEffect(() => {
     fetchData();
