@@ -306,21 +306,21 @@
 
 ### Tests for US8 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T093 [P] [US8] Write unit tests for transfer flow aggregation query in __tests__/unit/queries/transfers.test.ts
-- [ ] T094 [P] [US8] Write integration test for GET /api/analytics/transfers endpoint in __tests__/integration/api/transfers.test.ts
+- [x] T093 [P] [US8] Write unit tests for transfer flow aggregation query in __tests__/unit/queries/transfers.test.ts
+- [x] T094 [P] [US8] Write integration test for GET /api/analytics/transfers endpoint in __tests__/integration/api/transfers.test.ts
 
 ### API Layer for US8
 
-- [ ] T095 [US8] Create transfer flow aggregation query (transfers between account pairs) in lib/queries/transfers.ts
-- [ ] T096 [US8] Implement GET /api/analytics/transfers route in app/api/analytics/transfers/route.ts
+- [x] T095 [US8] Create transfer flow aggregation query (transfers between account pairs) in lib/queries/transfers.ts
+- [x] T096 [US8] Implement GET /api/analytics/transfers route in app/api/analytics/transfers/route.ts
 
 ### UI Components for US8
 
-- [ ] T097 [US8] Create TransferFlowChart component using Recharts Sankey in components/dashboard/charts/transfer-flow.tsx
+- [x] T097 [US8] Create TransferFlowChart component using Recharts Sankey in components/dashboard/charts/transfer-flow.tsx
 
 ### Dashboard Integration for US8
 
-- [ ] T098 [US8] Add TransferFlowChart to dashboard page with filter integration in app/dashboard/page.tsx
+- [x] T098 [US8] Add TransferFlowChart to dashboard page with filter integration in app/dashboard/page.tsx
 
 **Checkpoint**: User Story 8 complete - Transfer flow visualization working
 

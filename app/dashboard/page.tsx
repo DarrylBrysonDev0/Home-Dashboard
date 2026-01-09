@@ -8,6 +8,7 @@ import { FilteredBalanceTrendsChart } from "@/components/dashboard/charts/balanc
 import { FilteredSpendingByCategory } from "@/components/dashboard/spending-by-category";
 import { FilteredTransactionTable } from "@/components/dashboard/transactions/transaction-table";
 import { FilteredRecurringTable } from "@/components/dashboard/transactions/recurring-table";
+import { FilteredTransferFlowChart } from "@/components/dashboard/charts/transfer-flow";
 
 /**
  * Dashboard Page - Financial Health Overview
@@ -23,9 +24,7 @@ import { FilteredRecurringTable } from "@/components/dashboard/transactions/recu
  * - US5: Account Balance Trends chart
  * - US6: Transaction Table (sortable, searchable with CSV export)
  * - US7: Recurring Transactions (pattern detection with confirm/reject)
- *
- * Future additions planned:
- * - US8: Transfer Flow visualization
+ * - US8: Transfer Flow visualization (Sankey diagram)
  */
 export default function DashboardPage() {
   return (
@@ -76,6 +75,29 @@ export default function DashboardPage() {
             title="Account Balance Trends"
             description="Balance over time for each account"
             granularity="monthly"
+          />
+        </Suspense>
+      </section>
+
+      {/* Section: Transfer Flow (US8) */}
+      <section aria-labelledby="transfer-section-heading">
+        <header className="mb-4">
+          <h2
+            id="transfer-section-heading"
+            className="text-lg font-semibold text-near-black"
+          >
+            Transfer Flow
+          </h2>
+          <p className="text-sm text-medium-gray">
+            Money movement between your accounts
+          </p>
+        </header>
+
+        <Suspense fallback={<ChartSkeleton height={350} />}>
+          <FilteredTransferFlowChart
+            title="Account Transfers"
+            description="Visualizing transfers between accounts"
+            height={350}
           />
         </Suspense>
       </section>

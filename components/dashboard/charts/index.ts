@@ -18,3 +18,6 @@ export type { CategoryBarProps } from "./category-bar";
 
 export { BalanceTrendsChart, FilteredBalanceTrendsChart } from "./balance-trends";
 export type { BalanceTrendsChartProps, BalanceTrendsChartFilterProps, FilteredBalanceTrendsChartProps } from "./balance-trends";
+
+export { TransferFlowChart, FilteredTransferFlowChart } from "./transfer-flow";
+export type { TransferFlowChartProps, TransferFlowChartFilterProps, FilteredTransferFlowChartProps } from "./transfer-flow";
