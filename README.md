@@ -2,7 +2,6 @@
 
 A comprehensive personal finance dashboard for tracking income, expenses, and financial health. Monitor your cash flow, visualize spending patterns, and gain actionable insights into your financial position—all in one place.
 
-![Dashboard Overview](public/screenshots/dashboard-overview-new.png)
 
 ---
 
@@ -46,7 +45,7 @@ Let the system identify recurring expenses like subscriptions, mortgage payments
 
 View, search, sort, and export all transactions in a powerful data table. Sort by any column, search descriptions or categories, and export filtered results to CSV for external analysis.
 
-![Transaction Table](public/screenshots/transactions-table-resized.png)
+![Transaction Table](public/screenshots/transactions-table-preview.png)
 
 ### 🎛️ Advanced Filtering
 
