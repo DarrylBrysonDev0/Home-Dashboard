@@ -1,0 +1,522 @@
+openapi: 3.0.3
+info:
+  title: Home Finance Dashboard - Analytics API
+  version: 1.0.0
+  description: API endpoints for financial analytics, KPIs, charts, and insights
+
+servers:
+  - url: http://localhost:3000/api
+    description: Development server
+
+paths:
+  /analytics/kpis:
+    get:
+      summary: Get KPI metrics
+      description: Retrieve top-level KPI cards (Net Cash Flow, Total Balance, MoM Change, Recurring Expenses, Largest Expense)
+      operationId: getKPIs
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/AccountFilter'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      net_cash_flow:
+                        type: number
+                        format: decimal
+                        description: Total income minus total expenses (excludes transfers)
+                        example: 5420.50
+                      total_balance:
+                        type: number
+                        format: decimal
+                        description: Sum of current balances across all accounts
+                        example: 48322.15
+                      month_over_month_change:
+                        type: object
+                        properties:
+                          percentage:
+                            type: number
+                            format: float
+                            description: Percentage change from previous period
+                            example: 12.5
+                          trend:
+                            type: string
+                            enum: [up, down, neutral]
+                            description: Trend direction (up=positive, down=negative, neutral=no change)
+                      recurring_expenses:
+                        type: number
+                        format: decimal
+                        description: Total of all recurring expenses in period
+                        example: 2840.00
+                      largest_expense:
+                        type: object
+                        properties:
+                          amount:
+                            type: number
+                            format: decimal
+                            example: -1250.00
+                          description:
+                            type: string
+                            example: "Mortgage Payment"
+                          category:
+                            type: string
+                            example: "Housing"
+                          date:
+                            type: string
+                            format: date
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /analytics/cash-flow:
+    get:
+      summary: Get cash flow over time
+      description: Retrieve income vs expenses aggregated by period (monthly/weekly)
+      operationId: getCashFlow
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/AccountFilter'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - name: granularity
+          in: query
+          description: Aggregation period
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+            default: monthly
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      cash_flow:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            period:
+                              type: string
+                              description: Period label (e.g., "2024-01", "Week 12")
+                              example: "2024-01"
+                            start_date:
+                              type: string
+                              format: date
+                            end_date:
+                              type: string
+                              format: date
+                            income:
+                              type: number
+                              format: decimal
+                              description: Total income (positive)
+                              example: 8500.00
+                            expenses:
+                              type: number
+                              format: decimal
+                              description: Total expenses (negative represented as positive)
+                              example: 6320.50
+                            net:
+                              type: number
+                              format: decimal
+                              description: Income minus expenses
+                              example: 2179.50
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /analytics/categories:
+    get:
+      summary: Get spending by category
+      description: Retrieve spending breakdown by category with percentages and totals
+      operationId: getCategoryBreakdown
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/AccountFilter'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - name: include_subcategories
+          in: query
+          description: Include subcategory breakdown
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      total_expenses:
+                        type: number
+                        format: decimal
+                        description: Total expenses across all categories
+                      categories:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            category:
+                              type: string
+                              example: "Dining"
+                            amount:
+                              type: number
+                              format: decimal
+                              description: Total spending in category (absolute value)
+                              example: 1240.50
+                            percentage:
+                              type: number
+                              format: float
+                              description: Percentage of total expenses
+                              example: 18.5
+                            transaction_count:
+                              type: integer
+                              description: Number of transactions in category
+                            subcategories:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  subcategory:
+                                    type: string
+                                    example: "Fast Food"
+                                  amount:
+                                    type: number
+                                    format: decimal
+                                  percentage:
+                                    type: number
+                                    format: float
+                                  transaction_count:
+                                    type: integer
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /analytics/accounts:
+    get:
+      summary: Get account balance trends
+      description: Retrieve account balances over time for multi-line chart
+      operationId: getAccountBalances
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/AccountFilter'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - name: granularity
+          in: query
+          description: Data point frequency
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+            default: monthly
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      accounts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            account_id:
+                              type: string
+                            account_name:
+                              type: string
+                            balances:
+                              type: array
+                              description: Time series of balances
+                              items:
+                                type: object
+                                properties:
+                                  date:
+                                    type: string
+                                    format: date
+                                  balance:
+                                    type: number
+                                    format: decimal
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /analytics/recurring:
+    get:
+      summary: Get recurring transactions
+      description: Retrieve automatically detected recurring transactions with confidence scores
+      operationId: getRecurringTransactions
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/AccountFilter'
+        - name: confidence_level
+          in: query
+          description: Filter by confidence level
+          schema:
+            type: string
+            enum: [High, Medium, Low]
+        - name: frequency
+          in: query
+          description: Filter by frequency
+          schema:
+            type: string
+            enum: [Weekly, Biweekly, Monthly]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      recurring_transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            pattern_id:
+                              type: integer
+                            description_pattern:
+                              type: string
+                              example: "Netflix Subscription"
+                            account_id:
+                              type: string
+                            category:
+                              type: string
+                            avg_amount:
+                              type: number
+                              format: decimal
+                            frequency:
+                              type: string
+                              enum: [Weekly, Biweekly, Monthly]
+                            next_expected_date:
+                              type: string
+                              format: date
+                            confidence_level:
+                              type: string
+                              enum: [High, Medium, Low]
+                            confidence_score:
+                              type: integer
+                              minimum: 50
+                              maximum: 100
+                            occurrence_count:
+                              type: integer
+                            last_occurrence_date:
+                              type: string
+                              format: date
+                            is_confirmed:
+                              type: boolean
+                            is_rejected:
+                              type: boolean
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /analytics/recurring/{pattern_id}/confirm:
+    post:
+      summary: Confirm recurring pattern
+      description: Manually confirm a recurring transaction pattern
+      operationId: confirmRecurringPattern
+      tags:
+        - Analytics
+      parameters:
+        - name: pattern_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Pattern confirmed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Recurring pattern confirmed"
+                      pattern_id:
+                        type: integer
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /analytics/recurring/{pattern_id}/reject:
+    post:
+      summary: Reject recurring pattern
+      description: Manually reject a recurring transaction pattern
+      operationId: rejectRecurringPattern
+      tags:
+        - Analytics
+      parameters:
+        - name: pattern_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Pattern rejected
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Recurring pattern rejected"
+                      pattern_id:
+                        type: integer
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /analytics/transfers:
+    get:
+      summary: Get transfer flow between accounts
+      description: Retrieve transfer amounts between accounts for Sankey diagram
+      operationId: getTransferFlow
+      tags:
+        - Analytics
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      transfers:
+                        type: array
+                        description: Array of transfer flows
+                        items:
+                          type: object
+                          properties:
+                            source_account_id:
+                              type: string
+                            source_account_name:
+                              type: string
+                            destination_account_id:
+                              type: string
+                            destination_account_name:
+                              type: string
+                            total_amount:
+                              type: number
+                              format: decimal
+                              description: Total amount transferred
+                            transfer_count:
+                              type: integer
+                              description: Number of transfer transactions
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  parameters:
+    AccountFilter:
+      name: account_id
+      in: query
+      description: Filter by account ID (comma-separated for multiple)
+      schema:
+        type: string
+        example: "ACC-JOINT-CHK,ACC-USER1-SAV"
+    StartDate:
+      name: start_date
+      in: query
+      description: Start date for data range (inclusive)
+      schema:
+        type: string
+        format: date
+        example: "2024-01-01"
+    EndDate:
+      name: end_date
+      in: query
+      description: End date for data range (inclusive)
+      schema:
+        type: string
+        format: date
+        example: "2024-12-31"
+
+  responses:
+    BadRequest:
+      description: Bad request - validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Invalid date range: start_date must be before end_date"
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "Recurring pattern not found"
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "An unexpected error occurred"

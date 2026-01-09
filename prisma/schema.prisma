@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlserver"
+}
+
+model transactions {
+  transaction_id      String    @id(map: "PK__transact__85C600AF81CDAE52") @db.VarChar(50)
+  transaction_date    DateTime  @db.Date
+  transaction_time    DateTime  @db.Time
+  account_id          String    @db.VarChar(50)
+  account_name        String    @db.VarChar(100)
+  account_type        String    @db.VarChar(50)
+  account_owner       String    @db.VarChar(50)
+  description         String?   @db.VarChar(500)
+  category            String?   @db.VarChar(100)
+  subcategory         String?   @db.VarChar(100)
+  amount              Decimal   @db.Decimal(18, 2)
+  transaction_type    String    @db.VarChar(50)
+  balance_after       Decimal?  @db.Decimal(18, 2)
+  is_recurring        Boolean?
+  recurring_frequency String?   @db.VarChar(50)
+  notes               String?   @db.VarChar(1000)
+  created_at          DateTime? @default(now(), map: "DF__transacti__creat__37A5467C") @db.DateTime
+  updated_at          DateTime? @default(now(), map: "DF__transacti__updat__38996AB5") @db.DateTime
+
+  @@index([account_id], map: "IX_transactions_account")
+  @@index([category, subcategory], map: "IX_transactions_category")
+  @@index([transaction_date(sort: Desc)], map: "IX_transactions_date")
+  @@index([transaction_type], map: "IX_transactions_type")
+  @@index([transaction_date, account_id], map: "idx_date_account")
+  @@index([category, transaction_date], map: "idx_category_date")
+  @@index([transaction_type, transaction_date], map: "idx_type_date")
+  @@index([is_recurring, recurring_frequency], map: "idx_recurring")
+}

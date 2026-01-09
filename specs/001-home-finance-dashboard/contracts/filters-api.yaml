@@ -1,0 +1,266 @@
+openapi: 3.0.3
+info:
+  title: Home Finance Dashboard - Filters API
+  version: 1.0.0
+  description: API endpoints for filter options (accounts list, date ranges, categories)
+
+servers:
+  - url: http://localhost:3000/api
+    description: Development server
+
+paths:
+  /filters/accounts:
+    get:
+      summary: Get list of accounts
+      description: Retrieve all available accounts for filtering
+      operationId: getAccounts
+      tags:
+        - Filters
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      accounts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            account_id:
+                              type: string
+                              example: "ACC-JOINT-CHK"
+                            account_name:
+                              type: string
+                              example: "Joint Checking"
+                            account_type:
+                              type: string
+                              enum: [Checking, Savings]
+                            account_owner:
+                              type: string
+                              example: "Joint"
+                            current_balance:
+                              type: number
+                              format: decimal
+                              description: Latest balance
+                            last_transaction_date:
+                              type: string
+                              format: date
+                              description: Date of most recent transaction
+                            transaction_count:
+                              type: integer
+                              description: Total number of transactions in account
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /filters/categories:
+    get:
+      summary: Get list of categories
+      description: Retrieve all available categories and subcategories
+      operationId: getCategories
+      tags:
+        - Filters
+      parameters:
+        - name: include_subcategories
+          in: query
+          description: Include subcategories in response
+          schema:
+            type: boolean
+            default: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      categories:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            category:
+                              type: string
+                              example: "Dining"
+                            transaction_count:
+                              type: integer
+                              description: Number of transactions in this category
+                            subcategories:
+                              type: array
+                              nullable: true
+                              items:
+                                type: object
+                                properties:
+                                  subcategory:
+                                    type: string
+                                    example: "Fast Food"
+                                  transaction_count:
+                                    type: integer
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /filters/date-ranges:
+    get:
+      summary: Get predefined date ranges
+      description: Retrieve quick-select date range options with calculated start/end dates
+      operationId: getDateRanges
+      tags:
+        - Filters
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      current_date:
+                        type: string
+                        format: date
+                        description: Server current date for reference
+                      ranges:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            label:
+                              type: string
+                              example: "This Month"
+                            key:
+                              type: string
+                              example: "this-month"
+                              description: URL-friendly key for query params
+                            start_date:
+                              type: string
+                              format: date
+                            end_date:
+                              type: string
+                              format: date
+                        example:
+                          - label: "This Month"
+                            key: "this-month"
+                            start_date: "2024-12-01"
+                            end_date: "2024-12-31"
+                          - label: "Last Month"
+                            key: "last-month"
+                            start_date: "2024-11-01"
+                            end_date: "2024-11-30"
+                          - label: "Last 3 Months"
+                            key: "last-3-months"
+                            start_date: "2024-10-01"
+                            end_date: "2024-12-31"
+                          - label: "Last 6 Months"
+                            key: "last-6-months"
+                            start_date: "2024-07-01"
+                            end_date: "2024-12-31"
+                          - label: "Year to Date"
+                            key: "ytd"
+                            start_date: "2024-01-01"
+                            end_date: "2024-12-31"
+                          - label: "Last 12 Months"
+                            key: "last-12-months"
+                            start_date: "2023-12-01"
+                            end_date: "2024-12-31"
+                          - label: "All Time"
+                            key: "all-time"
+                            start_date: null
+                            end_date: null
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /filters/metadata:
+    get:
+      summary: Get filter metadata
+      description: Retrieve comprehensive metadata for all filters (accounts, categories, date ranges, transaction types)
+      operationId: getFilterMetadata
+      tags:
+        - Filters
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      accounts:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            account_id:
+                              type: string
+                            account_name:
+                              type: string
+                            account_type:
+                              type: string
+                            account_owner:
+                              type: string
+                      categories:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            category:
+                              type: string
+                            subcategories:
+                              type: array
+                              items:
+                                type: string
+                      transaction_types:
+                        type: array
+                        items:
+                          type: string
+                          enum: [Income, Expense, Transfer]
+                        example: ["Income", "Expense", "Transfer"]
+                      recurring_frequencies:
+                        type: array
+                        items:
+                          type: string
+                          enum: [Weekly, Biweekly, Monthly]
+                        example: ["Weekly", "Biweekly", "Monthly"]
+                      date_ranges:
+                        type: array
+                        description: Same as /filters/date-ranges response
+                      data_range:
+                        type: object
+                        description: Min and max dates in dataset
+                        properties:
+                          earliest_transaction:
+                            type: string
+                            format: date
+                          latest_transaction:
+                            type: string
+                            format: date
+                          total_transactions:
+                            type: integer
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: "An unexpected error occurred"
