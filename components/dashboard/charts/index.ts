@@ -15,3 +15,6 @@ export type { CategoryDonutProps } from "./category-donut";
 
 export { CategoryBar } from "./category-bar";
 export type { CategoryBarProps } from "./category-bar";
+
+export { BalanceTrendsChart, FilteredBalanceTrendsChart } from "./balance-trends";
+export type { BalanceTrendsChartProps, BalanceTrendsChartFilterProps, FilteredBalanceTrendsChartProps } from "./balance-trends";

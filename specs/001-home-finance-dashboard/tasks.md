@@ -221,16 +221,16 @@
 
 ### API Layer for US5
 
-- [ ] T071 [US5] Create account balance trend query (balance over time per account) in lib/queries/balance-trends.ts
-- [ ] T072 [US5] Implement GET /api/analytics/accounts route with granularity param in app/api/analytics/accounts/route.ts
+- [x] T071 [US5] Create account balance trend query (balance over time per account) in lib/queries/balance-trends.ts
+- [x] T072 [US5] Implement GET /api/analytics/accounts route with granularity param in app/api/analytics/accounts/route.ts
 
 ### UI Components for US5
 
-- [ ] T073 [US5] Create BalanceTrendsChart component using Recharts LineChart with toggleable legend in components/dashboard/charts/balance-trends.tsx
+- [x] T073 [US5] Create BalanceTrendsChart component using Recharts LineChart with toggleable legend in components/dashboard/charts/balance-trends.tsx
 
 ### Dashboard Integration for US5
 
-- [ ] T074 [US5] Add BalanceTrendsChart to dashboard page with filter integration in app/dashboard/page.tsx
+- [x] T074 [US5] Add BalanceTrendsChart to dashboard page with filter integration in app/dashboard/page.tsx
 
 **Checkpoint**: User Story 5 complete - Account balance trends working
 
