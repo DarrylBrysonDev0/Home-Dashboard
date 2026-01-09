@@ -341,9 +341,9 @@
 
 ### E2E Tests (TDD: After all stories complete)
 
-- [ ] T107 [P] Write E2E test for User Story 1 (Financial Health Summary) in __tests__/e2e/user-story-1.spec.ts
-- [ ] T108 [P] Write E2E test for User Story 2 (Cash Flow Over Time) in __tests__/e2e/user-story-2.spec.ts
-- [ ] T109 [P] Write E2E test for User Story 3 (Filters) in __tests__/e2e/user-story-3.spec.ts
+- [x] T107 [P] Write E2E test for User Story 1 (Financial Health Summary) in __tests__/e2e/user-story-1.spec.ts
+- [x] T108 [P] Write E2E test for User Story 2 (Cash Flow Over Time) in __tests__/e2e/user-story-2.spec.ts
+- [x] T109 [P] Write E2E test for User Story 3 (Filters) in __tests__/e2e/user-story-3.spec.ts
 
 ---
 
