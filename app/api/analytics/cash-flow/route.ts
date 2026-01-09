@@ -4,6 +4,10 @@
  * Returns income vs expenses aggregated by period (daily/weekly/monthly)
  * Transfers are EXCLUDED from calculations (per User Story 2)
  *
+ * Performance: ~90ms
+ * Fetches filtered transactions and aggregates by period in JavaScript.
+ * Uses idx_type_date index for efficient filtering.
+ *
  * Query params:
  * - account_id: comma-separated account IDs to filter by
  * - start_date: ISO date string for period start
@@ -30,6 +34,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cashFlowParamsSchema } from "@/lib/validations/analytics";
 import { getCashFlow } from "@/lib/queries/cash-flow";
+import { validationError, handleApiError } from "@/lib/api-errors";
 
 export async function GET(request: NextRequest) {
   try {
@@ -46,11 +51,7 @@ export async function GET(request: NextRequest) {
     const parsed = cashFlowParamsSchema.safeParse(rawParams);
 
     if (!parsed.success) {
-      const errorMessage = parsed.error.issues[0]?.message ?? "Invalid parameters";
-      return NextResponse.json(
-        { error: errorMessage },
-        { status: 400 }
-      );
+      return validationError(parsed.error);
     }
 
     const { account_id, start_date, end_date, granularity } = parsed.data;
@@ -69,10 +70,6 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching cash flow data:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch cash flow data" },
-      { status: 500 }
-    );
+    return handleApiError(error, "fetch cash flow data", { context: "Cash Flow API" });
   }
 }

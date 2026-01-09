@@ -13,6 +13,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { handleApiError } from "@/lib/api-errors";
 
 interface CategoryWithSubcategories {
   category: string;
@@ -82,10 +83,6 @@ export async function GET(_request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching categories:", error);
-    return NextResponse.json(
-      { error: "An unexpected error occurred" },
-      { status: 500 }
-    );
+    return handleApiError(error, "fetch categories", { context: "Filters/Categories API" });
   }
 }

@@ -8,6 +8,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { transactionListParamsSchema } from "@/lib/validations/transaction";
 import { getTransactionList } from "@/lib/queries/transactions";
+import { validationError, handleApiError } from "@/lib/api-errors";
 
 export async function GET(request: NextRequest) {
   try {
@@ -23,13 +24,7 @@ export async function GET(request: NextRequest) {
     const parseResult = transactionListParamsSchema.safeParse(rawParams);
 
     if (!parseResult.success) {
-      const errorMessages = parseResult.error.issues
-        .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
-        .join("; ");
-      return NextResponse.json(
-        { error: `Validation failed: ${errorMessages}` },
-        { status: 400 }
-      );
+      return validationError(parseResult.error);
     }
 
     const params = parseResult.data;
@@ -66,10 +61,6 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching transactions:", error);
-    return NextResponse.json(
-      { error: "An unexpected error occurred" },
-      { status: 500 }
-    );
+    return handleApiError(error, "fetch transactions", { context: "Transactions API" });
   }
 }

@@ -330,12 +330,12 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T099 [P] Add comprehensive error handling to all API routes with consistent error responses
-- [ ] T100 [P] Add loading skeleton states to all chart and table components
+- [x] T099 [P] Add comprehensive error handling to all API routes with consistent error responses
+- [x] T100 [P] Add loading skeleton states to all chart and table components
 - [ ] T101 [P] Verify WCAG AA color contrast compliance across all components
 - [ ] T102 [P] Add aria-labels and accessibility attributes to all interactive elements
-- [ ] T103 [P] Optimize API queries for performance (verify <1s filter refresh, <3s initial load)
-- [ ] T104 [P] Add responsive adjustments for tablet viewport (768px-1023px)
+- [x] T103 [P] Optimize API queries for performance (verify <1s filter refresh, <3s initial load)
+- [x] T104 [P] Add responsive adjustments for tablet viewport (768px-1023px)
 - [ ] T105 Run quickstart.md validation - verify complete setup flow works
 - [ ] T106 Final code cleanup and documentation updates
 

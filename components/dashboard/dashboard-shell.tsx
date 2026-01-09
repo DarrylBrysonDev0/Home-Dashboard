@@ -57,8 +57,8 @@ function FilterSidebar() {
   }, [setAccounts, setIsLoading]);
 
   return (
-    <aside className="hidden lg:block border-r border-light-gray bg-white">
-      <div className="sticky top-0 h-screen overflow-y-auto p-6">
+    <aside className="hidden md:block border-r border-light-gray bg-white">
+      <div className="sticky top-0 h-screen overflow-y-auto p-4 lg:p-6">
         <div className="mb-6">
           <h1 className="text-xl font-semibold text-near-black">
             Home Finance
@@ -121,7 +121,7 @@ function MobileHeader() {
   } = useFilters();
 
   return (
-    <header className="sticky top-0 z-10 border-b border-light-gray bg-white px-4 py-3 lg:hidden">
+    <header className="sticky top-0 z-10 border-b border-light-gray bg-white px-4 py-3 md:hidden">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-lg font-semibold text-near-black">
@@ -185,7 +185,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
   return (
     <FilterProvider>
       <div className="min-h-screen bg-off-white">
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr]">
+        <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
           {/* Filter Sidebar (Desktop) */}
           <FilterSidebar />
 

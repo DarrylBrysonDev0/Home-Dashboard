@@ -16,6 +16,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { patternIdSchema } from "@/lib/validations/recurring";
 import { rejectPattern, patternExists } from "@/lib/queries/recurring";
+import { validationError, notFoundError, handleApiError } from "@/lib/api-errors";
 
 export async function POST(
   request: NextRequest,
@@ -28,10 +29,7 @@ export async function POST(
     const parsed = patternIdSchema.safeParse(pattern_id);
 
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: "Invalid pattern ID" },
-        { status: 400 }
-      );
+      return validationError(parsed.error);
     }
 
     const patternId = parsed.data;
@@ -39,10 +37,7 @@ export async function POST(
     // Check if pattern exists
     const exists = await patternExists(patternId);
     if (!exists) {
-      return NextResponse.json(
-        { error: "Recurring pattern not found" },
-        { status: 404 }
-      );
+      return notFoundError("Recurring pattern");
     }
 
     // Reject the pattern
@@ -55,10 +50,6 @@ export async function POST(
       },
     });
   } catch (error) {
-    console.error("Error rejecting recurring pattern:", error);
-    return NextResponse.json(
-      { error: "Failed to reject recurring pattern" },
-      { status: 500 }
-    );
+    return handleApiError(error, "reject recurring pattern", { context: "Recurring Reject API" });
   }
 }

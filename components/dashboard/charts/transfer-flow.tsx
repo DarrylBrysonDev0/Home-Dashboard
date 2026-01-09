@@ -26,7 +26,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ChartSkeleton } from "../loading-skeleton";
+import { TransferFlowChartSkeleton } from "../loading-skeleton";
 import { NoData } from "../empty-states/no-data";
 import { formatCurrency } from "./chart-tooltip";
 import { CHART_COLORS, getChartColor, SEMANTIC_COLORS } from "@/lib/constants/colors";
@@ -344,7 +344,7 @@ export function TransferFlowChart({
 
   // Show loading skeleton
   if (isLoading) {
-    return <ChartSkeleton height={height} />;
+    return <TransferFlowChartSkeleton height={height} />;
   }
 
   // Show error state
@@ -395,10 +395,11 @@ export function TransferFlowChart({
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div style={{ width: "100%", height }}>
-          <Sankey
-            width={700}
-            height={height}
+        <div className="overflow-x-auto" style={{ minHeight: height }}>
+          <div className="min-w-[500px]" style={{ width: "100%", height }}>
+            <Sankey
+              width={600}
+              height={height}
             data={data}
             nodeWidth={15}
             nodePadding={20}
@@ -411,6 +412,7 @@ export function TransferFlowChart({
           >
             <Tooltip content={<SankeyTooltip />} />
           </Sankey>
+          </div>
         </div>
       </CardContent>
     </Card>

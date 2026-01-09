@@ -15,6 +15,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { QUICK_DATE_RANGES } from "@/lib/constants/date-ranges";
+import { handleApiError } from "@/lib/api-errors";
 
 interface DateRangeResponse {
   label: string;
@@ -52,10 +53,6 @@ export async function GET(_request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error computing date ranges:", error);
-    return NextResponse.json(
-      { error: "An unexpected error occurred" },
-      { status: 500 }
-    );
+    return handleApiError(error, "compute date ranges", { context: "Filters/DateRanges API" });
   }
 }

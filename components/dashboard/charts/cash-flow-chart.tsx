@@ -27,7 +27,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartSkeleton } from "../loading-skeleton";
+import { CashFlowChartSkeleton } from "../loading-skeleton";
 import { NoData } from "../empty-states/no-data";
 import { ChartTooltip, formatCurrency, formatPeriodLabel } from "./chart-tooltip";
 import { SEMANTIC_COLORS } from "@/lib/constants/colors";
@@ -214,7 +214,7 @@ export function CashFlowChart({
 
   // Show loading skeleton
   if (isLoading) {
-    return <ChartSkeleton height={height} />;
+    return <CashFlowChartSkeleton height={height} />;
   }
 
   // Show error state

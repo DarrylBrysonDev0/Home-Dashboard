@@ -25,7 +25,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ChartSkeleton } from "./loading-skeleton";
+import { SpendingByCategorySkeleton } from "./loading-skeleton";
 import { NoData } from "./empty-states/no-data";
 import { CategoryDonut } from "./charts/category-donut";
 import { CategoryBar } from "./charts/category-bar";
@@ -283,7 +283,7 @@ export function SpendingByCategory({
 
   // Show loading skeleton
   if (isLoading) {
-    return <ChartSkeleton height={height} />;
+    return <SpendingByCategorySkeleton height={height} />;
   }
 
   // Show error state

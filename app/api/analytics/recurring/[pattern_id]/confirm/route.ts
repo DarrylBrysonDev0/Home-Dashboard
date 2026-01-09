@@ -16,6 +16,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { patternIdSchema } from "@/lib/validations/recurring";
 import { confirmPattern, patternExists } from "@/lib/queries/recurring";
+import { validationError, notFoundError, handleApiError } from "@/lib/api-errors";
 
 export async function POST(
   request: NextRequest,
@@ -28,10 +29,7 @@ export async function POST(
     const parsed = patternIdSchema.safeParse(pattern_id);
 
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: "Invalid pattern ID" },
-        { status: 400 }
-      );
+      return validationError(parsed.error);
     }
 
     const patternId = parsed.data;
@@ -39,10 +37,7 @@ export async function POST(
     // Check if pattern exists
     const exists = await patternExists(patternId);
     if (!exists) {
-      return NextResponse.json(
-        { error: "Recurring pattern not found" },
-        { status: 404 }
-      );
+      return notFoundError("Recurring pattern");
     }
 
     // Confirm the pattern
@@ -55,10 +50,6 @@ export async function POST(
       },
     });
   } catch (error) {
-    console.error("Error confirming recurring pattern:", error);
-    return NextResponse.json(
-      { error: "Failed to confirm recurring pattern" },
-      { status: 500 }
-    );
+    return handleApiError(error, "confirm recurring pattern", { context: "Recurring Confirm API" });
   }
 }

@@ -60,7 +60,7 @@ export default function DashboardPage() {
       </section>
 
       {/* Section: Category Charts (US4) + Account Balance Trends (US5) */}
-      <section className="grid gap-6 lg:grid-cols-2">
+      <section className="grid gap-6 md:grid-cols-2">
         <Suspense fallback={<ChartSkeleton height={350} />}>
           <FilteredSpendingByCategory
             title="Spending by Category"

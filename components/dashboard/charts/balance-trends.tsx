@@ -30,7 +30,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChartSkeleton } from "../loading-skeleton";
+import { BalanceTrendsChartSkeleton } from "../loading-skeleton";
 import { NoData } from "../empty-states/no-data";
 import { ChartTooltip, formatCurrency } from "./chart-tooltip";
 import { CHART_COLORS, getChartColor } from "@/lib/constants/colors";
@@ -305,7 +305,7 @@ export function BalanceTrendsChart({
 
   // Show loading skeleton
   if (isLoading) {
-    return <ChartSkeleton height={height} />;
+    return <BalanceTrendsChartSkeleton height={height} />;
   }
 
   // Show error state

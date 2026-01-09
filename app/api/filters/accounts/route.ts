@@ -17,6 +17,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import type { Decimal } from "@prisma/client/runtime/client";
+import { handleApiError } from "@/lib/api-errors";
 
 interface AccountWithCount {
   account_id: string;
@@ -85,10 +86,6 @@ export async function GET(_request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching accounts:", error);
-    return NextResponse.json(
-      { error: "An unexpected error occurred" },
-      { status: 500 }
-    );
+    return handleApiError(error, "fetch accounts", { context: "Filters/Accounts API" });
   }
 }
