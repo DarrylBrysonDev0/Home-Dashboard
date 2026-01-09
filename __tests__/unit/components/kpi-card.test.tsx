@@ -44,7 +44,7 @@ describe("KPICard", () => {
       // Should be wrapped in a card container
       const card = screen.getByRole("article");
       expect(card).toBeInTheDocument();
-      expect(card).toHaveClass(/card/i);
+      expect(card.className).toMatch(/card/i);
     });
   });
 
@@ -65,7 +65,7 @@ describe("KPICard", () => {
       expect(trendIndicator).toBeInTheDocument();
 
       // Should have positive/green styling
-      expect(trendIndicator).toHaveClass(/text-green|text-emerald|text-mint/i);
+      expect(trendIndicator.className).toMatch(/text-green|text-emerald|text-mint/i);
 
       // Should show percentage
       expect(screen.getByText(/12\.5%/)).toBeInTheDocument();
@@ -86,7 +86,7 @@ describe("KPICard", () => {
       expect(trendIndicator).toBeInTheDocument();
 
       // Should have negative/red styling
-      expect(trendIndicator).toHaveClass(/text-red|text-coral|text-rose/i);
+      expect(trendIndicator.className).toMatch(/text-red|text-coral|text-rose/i);
 
       // Should show percentage (negative)
       expect(screen.getByText(/-8\.3%/)).toBeInTheDocument();
@@ -107,7 +107,7 @@ describe("KPICard", () => {
       expect(trendIndicator).toBeInTheDocument();
 
       // Should have neutral/gray styling
-      expect(trendIndicator).toHaveClass(/text-gray|text-neutral|text-slate/i);
+      expect(trendIndicator.className).toMatch(/text-gray|text-neutral|text-slate/i);
     });
 
     it("should not display trend indicator when trend is not provided", () => {
@@ -367,7 +367,7 @@ describe("KPICard", () => {
       );
 
       const valueElement = screen.getByTestId("kpi-value");
-      expect(valueElement).toHaveClass(/text-green|text-emerald|text-mint/i);
+      expect(valueElement.className).toMatch(/text-green|text-emerald|text-mint/i);
     });
 
     it("should apply negative color for negative values when specified", () => {
@@ -381,7 +381,7 @@ describe("KPICard", () => {
       );
 
       const valueElement = screen.getByTestId("kpi-value");
-      expect(valueElement).toHaveClass(/text-red|text-coral|text-rose/i);
+      expect(valueElement.className).toMatch(/text-red|text-coral|text-rose/i);
     });
 
     it("should apply auto color based on value sign when valueColor is auto", () => {
@@ -395,7 +395,7 @@ describe("KPICard", () => {
       );
 
       let valueElement = screen.getByTestId("kpi-value");
-      expect(valueElement).toHaveClass(/text-green|text-emerald|text-mint/i);
+      expect(valueElement.className).toMatch(/text-green|text-emerald|text-mint/i);
 
       rerender(
         <KPICard
@@ -407,7 +407,7 @@ describe("KPICard", () => {
       );
 
       valueElement = screen.getByTestId("kpi-value");
-      expect(valueElement).toHaveClass(/text-red|text-coral|text-rose/i);
+      expect(valueElement.className).toMatch(/text-red|text-coral|text-rose/i);
     });
   });
 });

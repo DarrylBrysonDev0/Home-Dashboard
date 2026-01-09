@@ -614,8 +614,9 @@ describe("calculateNextExpectedDate", () => {
     const nextDate = calculateNextExpectedDate(lastDate, "Monthly");
 
     // Should handle end-of-month gracefully (Feb has fewer days)
-    expect(nextDate.getMonth()).toBe(1); // February
-    expect(nextDate.getFullYear()).toBe(2024);
+    expect(nextDate).not.toBeNull();
+    expect(nextDate!.getMonth()).toBe(1); // February
+    expect(nextDate!.getFullYear()).toBe(2024);
   });
 
   it("should handle year rollover correctly", () => {

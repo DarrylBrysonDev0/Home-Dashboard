@@ -336,8 +336,8 @@
 - [ ] T102 [P] Add aria-labels and accessibility attributes to all interactive elements
 - [x] T103 [P] Optimize API queries for performance (verify <1s filter refresh, <3s initial load)
 - [x] T104 [P] Add responsive adjustments for tablet viewport (768px-1023px)
-- [ ] T105 Run quickstart.md validation - verify complete setup flow works
-- [ ] T106 Final code cleanup and documentation updates
+- [x] T105 Run quickstart.md validation - verify complete setup flow works
+- [x] T106 Final code cleanup and documentation updates
 
 ### E2E Tests (TDD: After all stories complete)
 
