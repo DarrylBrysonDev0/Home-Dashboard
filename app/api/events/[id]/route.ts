@@ -24,10 +24,10 @@ import { updateEventSchema } from "@/lib/validations/event";
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     // Fetch event from database
     const event = await getEventById(id);
@@ -83,7 +83,7 @@ export async function GET(
   } catch (error) {
     console.error("Error fetching event:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Unable to load event details. Please try again." },
       { status: 500 }
     );
   }
@@ -108,7 +108,7 @@ export async function GET(
  */
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Get authenticated session
@@ -117,7 +117,7 @@ export async function PUT(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     // Check if event exists first
     const existingEvent = await getEventById(id);
@@ -203,7 +203,7 @@ export async function PUT(
     }
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Unable to update event. Please try again." },
       { status: 500 }
     );
   }
@@ -226,7 +226,7 @@ export async function PUT(
  */
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Get authenticated session
@@ -235,7 +235,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     // Delete the event - Prisma will throw if not found
     await deleteEvent(id);
@@ -255,7 +255,7 @@ export async function DELETE(
     }
 
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Unable to delete event. Please try again." },
       { status: 500 }
     );
   }

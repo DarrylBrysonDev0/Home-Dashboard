@@ -22,6 +22,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert } from "@/components/ui/alert";
+import { Loader2 } from "lucide-react";
 
 /**
  * Props for the LoginForm component
@@ -84,10 +85,10 @@ export function LoginForm({ callbackUrl = "/calendar" }: LoginFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6" aria-label="Sign in form">
       {/* Error Alert */}
       {error && (
-        <Alert variant="destructive">
+        <Alert variant="destructive" role="alert" aria-live="assertive">
           <p className="text-sm font-medium">{error}</p>
         </Alert>
       )}
@@ -105,6 +106,8 @@ export function LoginForm({ callbackUrl = "/calendar" }: LoginFormProps) {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="admin@home.local"
           disabled={isLoading}
+          aria-required="true"
+          aria-describedby={error ? "login-error" : undefined}
         />
       </div>
 
@@ -121,6 +124,7 @@ export function LoginForm({ callbackUrl = "/calendar" }: LoginFormProps) {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
           disabled={isLoading}
+          aria-required="true"
         />
       </div>
 
@@ -129,8 +133,16 @@ export function LoginForm({ callbackUrl = "/calendar" }: LoginFormProps) {
         type="submit"
         className="w-full"
         disabled={isLoading}
+        aria-busy={isLoading}
       >
-        {isLoading ? "Signing in..." : "Sign in"}
+        {isLoading ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
+            Signing in...
+          </>
+        ) : (
+          "Sign in"
+        )}
       </Button>
     </form>
   );

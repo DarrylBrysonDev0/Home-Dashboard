@@ -20,12 +20,14 @@ declare module "next-auth" {
     user: {
       id: string;
       role: UserRole;
+      avatarColor?: string | null;
     } & DefaultSession["user"];
   }
 
   interface User extends DefaultUser {
     id: string;
     role: UserRole;
+    avatarColor?: string | null;
   }
 }
 

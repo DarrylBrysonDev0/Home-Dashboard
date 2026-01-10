@@ -8,7 +8,7 @@
  */
 
 import { prisma } from "@/lib/db";
-import type { User } from "@prisma/client";
+import type { User } from "@/generated/prisma/client";
 
 /**
  * Find a user by email address.

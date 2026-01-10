@@ -275,22 +275,23 @@ export function CalendarView({
       },
     }));
 
-  if (isLoading && events.length === 0) {
-    return (
-      <div className="space-y-4">
-        <Skeleton className="h-12 w-full" />
-        <Skeleton className="h-96 w-full" />
-      </div>
-    );
-  }
-
   return (
-    <div className={className}>
+    <div className={`${className} relative`} role="region" aria-label="Shared family calendar">
       {error && (
-        <Alert variant="destructive" className="mb-4">
-          <AlertCircle className="h-4 w-4" />
+        <Alert variant="destructive" className="mb-4" role="alert" aria-live="assertive">
+          <AlertCircle className="h-4 w-4" aria-hidden="true" />
           <AlertDescription>{error}</AlertDescription>
         </Alert>
+      )}
+
+      {/* Show loading overlay when fetching, but still render FullCalendar */}
+      {isLoading && events.length === 0 && (
+        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg">
+          <div className="space-y-2 text-center">
+            <div className="animate-pulse text-lg font-medium">Loading calendar...</div>
+            <div className="text-sm text-muted-foreground">Fetching events</div>
+          </div>
+        </div>
       )}
 
       <FullCalendar

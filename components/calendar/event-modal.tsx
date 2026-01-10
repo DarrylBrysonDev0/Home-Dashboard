@@ -15,6 +15,7 @@ import { Loader2, AlertCircle } from "lucide-react";
 import { DateTime } from "luxon";
 import { createEventSchema, updateEventSchema } from "@/lib/validations/event";
 import type { CalendarEvent } from "./calendar-view";
+import { InviteForm, type InviteRecord } from "./invite-form";
 
 /**
  * Event category data structure
@@ -46,6 +47,8 @@ export interface EventModalProps {
   defaultAllDay?: boolean;
   /** Available categories for the dropdown */
   categories?: EventCategory[];
+  /** Previously sent invites (for edit mode) */
+  invitesSent?: InviteRecord[];
 }
 
 /**
@@ -60,9 +63,9 @@ const eventFormSchema = z.object({
   startTime: z.string().optional(),
   endDate: z.string().min(1, "End date is required"),
   endTime: z.string().optional(),
-  allDay: z.boolean().default(false),
+  allDay: z.boolean(),
   categoryId: z.string().optional(),
-  timezone: z.string().default("America/New_York"),
+  timezone: z.string(),
 });
 
 type EventFormData = z.infer<typeof eventFormSchema>;
@@ -88,6 +91,7 @@ export function EventModal({
   defaultEndTime,
   defaultAllDay = false,
   categories = [],
+  invitesSent = [],
 }: EventModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -219,8 +223,8 @@ export function EventModal({
         </DialogHeader>
 
         {error && (
-          <Alert variant="destructive">
-            <AlertCircle className="h-4 w-4" />
+          <Alert variant="destructive" role="alert" aria-live="assertive">
+            <AlertCircle className="h-4 w-4" aria-hidden="true" />
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
@@ -285,19 +289,21 @@ export function EventModal({
                 <FormItem className="flex flex-row items-center space-x-2 space-y-0">
                   <FormControl>
                     <input
+                      id="allDay"
                       type="checkbox"
                       checked={field.value}
                       onChange={field.onChange}
                       className="h-4 w-4 rounded border-gray-300 text-orange-600 focus:ring-orange-500"
+                      aria-label="Mark as all-day event"
                     />
                   </FormControl>
-                  <FormLabel className="font-normal">All-day event</FormLabel>
+                  <FormLabel htmlFor="allDay" className="font-normal cursor-pointer">All-day event</FormLabel>
                 </FormItem>
               )}
             />
 
             {/* Start Date and Time */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <FormField
                 control={form.control}
                 name="startDate"
@@ -330,7 +336,7 @@ export function EventModal({
             </div>
 
             {/* End Date and Time */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <FormField
                 control={form.control}
                 name="endDate"
@@ -396,28 +402,39 @@ export function EventModal({
               />
             )}
 
+            {/* Email Invite (Edit mode only) */}
+            {isEditMode && event && (
+              <div className="pt-4 border-t">
+                <InviteForm
+                  eventId={event.id}
+                  invitesSent={invitesSent}
+                />
+              </div>
+            )}
+
             {/* Form Actions */}
-            <div className="flex justify-between items-center gap-3 pt-4">
-              <div>
+            <div className="flex flex-col-reverse gap-3 pt-4 sm:flex-row sm:justify-between sm:items-center">
+              <div className="flex justify-center sm:justify-start">
                 {isEditMode && (
                   <Button
                     type="button"
                     variant="destructive"
                     onClick={() => setShowDeleteConfirm(true)}
                     disabled={isSubmitting}
+                    className="w-full sm:w-auto"
                   >
                     Delete
                   </Button>
                 )}
               </div>
-              <div className="flex gap-3">
-                <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting} className="w-full sm:w-auto">
                   Cancel
                 </Button>
-                <Button type="submit" disabled={isSubmitting}>
+                <Button type="submit" disabled={isSubmitting} aria-busy={isSubmitting} className="w-full sm:w-auto">
                   {isSubmitting ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
                       {isEditMode ? "Updating..." : "Creating..."}
                     </>
                   ) : (
@@ -447,12 +464,13 @@ export function EventModal({
             </div>
           )}
 
-          <div className="flex justify-end gap-3">
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
             <Button
               type="button"
               variant="outline"
               onClick={() => setShowDeleteConfirm(false)}
               disabled={isDeleting}
+              className="w-full sm:w-auto"
             >
               Cancel
             </Button>
@@ -461,10 +479,12 @@ export function EventModal({
               variant="destructive"
               onClick={handleDeleteConfirm}
               disabled={isDeleting}
+              aria-busy={isDeleting}
+              className="w-full sm:w-auto"
             >
               {isDeleting ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
                   Deleting...
                 </>
               ) : (

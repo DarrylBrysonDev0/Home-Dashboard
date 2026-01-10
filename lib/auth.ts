@@ -8,6 +8,7 @@ import {
 } from "@/lib/queries/auth";
 import { verifyPassword } from "@/lib/utils/password";
 import { loginSchema } from "@/lib/validations/auth";
+import type { UserRole } from "@/types/next-auth";
 
 /**
  * NextAuth.js configuration for household member authentication
@@ -89,7 +90,7 @@ export const authOptions: NextAuthOptions = {
           id: user.id,
           email: user.email,
           name: user.name,
-          role: user.role,
+          role: user.role as UserRole,
         };
       },
     }),

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Calendar, Clock, MapPin, User, Users, Mail, Trash2, Loader2 } from "lucide-react";
 import { DateTime } from "luxon";
+import { InviteForm, type InviteRecord } from "./invite-form";
 
 /**
  * Extended event data structure with attendees and invites
@@ -129,6 +130,20 @@ export function EventDetails({ event, className, onSuccess }: EventDetailsProps)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [localInvites, setLocalInvites] = useState<InviteRecord[]>(
+    event.invitesSent?.map(inv => ({
+      id: inv.id,
+      recipientEmail: inv.recipientEmail,
+      sentAt: inv.sentAt,
+    })) ?? []
+  );
+
+  /**
+   * Handle new invite being sent
+   */
+  const handleInviteSent = (invite: InviteRecord) => {
+    setLocalInvites(prev => [invite, ...prev]);
+  };
 
   const dateRange = formatDateRange(event.startTime, event.endTime, event.allDay, event.timezone);
   const duration = !event.allDay ? formatDuration(event.startTime, event.endTime) : null;
@@ -189,8 +204,9 @@ export function EventDetails({ event, className, onSuccess }: EventDetailsProps)
               size="sm"
               onClick={() => setShowDeleteConfirm(true)}
               className="text-destructive hover:text-destructive hover:bg-destructive/10"
+              aria-label="Delete event"
             >
-              <Trash2 className="h-4 w-4" />
+              <Trash2 className="h-4 w-4" aria-hidden="true" />
             </Button>
           </div>
 
@@ -265,27 +281,18 @@ export function EventDetails({ event, className, onSuccess }: EventDetailsProps)
           </>
         )}
 
-        {/* Email Invites */}
-        {event.invitesSent && event.invitesSent.length > 0 && (
-          <>
-            <Separator />
-            <div className="flex items-start gap-3">
-              <Mail className="h-5 w-5 text-muted-foreground mt-0.5" aria-hidden="true" />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium mb-2">
-                  Email Invites Sent ({event.invitesSent.length})
-                </p>
-                <div className="space-y-1">
-                  {event.invitesSent.map((invite) => (
-                    <div key={invite.id} className="text-sm text-muted-foreground break-all">
-                      {invite.recipientEmail}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </>
-        )}
+        {/* Send Calendar Invite */}
+        <Separator />
+        <div className="flex items-start gap-3">
+          <Mail className="h-5 w-5 text-muted-foreground mt-0.5" aria-hidden="true" />
+          <div className="flex-1 min-w-0">
+            <InviteForm
+              eventId={event.id}
+              invitesSent={localInvites}
+              onInviteSent={handleInviteSent}
+            />
+          </div>
+        </div>
 
         {/* Timezone info */}
         {!event.allDay && (
@@ -318,7 +325,7 @@ export function EventDetails({ event, className, onSuccess }: EventDetailsProps)
         </div>
 
         {error && (
-          <div className="text-sm text-destructive">
+          <div className="text-sm text-destructive" role="alert" aria-live="assertive">
             {error}
           </div>
         )}
@@ -337,10 +344,11 @@ export function EventDetails({ event, className, onSuccess }: EventDetailsProps)
             variant="destructive"
             onClick={handleDeleteConfirm}
             disabled={isDeleting}
+            aria-busy={isDeleting}
           >
             {isDeleting ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
                 Deleting...
               </>
             ) : (

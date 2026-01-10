@@ -32,7 +32,7 @@ export default function CalendarLayout({ children }: CalendarLayoutProps) {
     <div className="min-h-screen bg-background">
       {/* Navigation Bar */}
       <nav className="border-b bg-card">
-        <div className="container py-3">
+        <div className="container px-4 py-3 sm:px-6">
           <div className="flex items-center justify-between">
             {/* Breadcrumb Navigation */}
             <div className="flex items-center gap-2 text-sm">
@@ -41,9 +41,9 @@ export default function CalendarLayout({ children }: CalendarLayoutProps) {
                 className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <LayoutDashboard className="h-4 w-4" />
-                <span>Dashboard</span>
+                <span className="hidden sm:inline">Dashboard</span>
               </Link>
-              <ChevronLeft className="h-4 w-4 rotate-180 text-muted-foreground" />
+              <ChevronLeft className="h-4 w-4 rotate-180 text-muted-foreground hidden sm:block" />
               <div className="flex items-center gap-1 font-medium">
                 <Calendar className="h-4 w-4" />
                 <span>Calendar</span>
@@ -62,7 +62,7 @@ export default function CalendarLayout({ children }: CalendarLayoutProps) {
       </nav>
 
       {/* Main Content */}
-      <main className="container py-6">
+      <main className="container px-4 py-4 sm:px-6 sm:py-6">
         {children}
       </main>
     </div>

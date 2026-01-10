@@ -229,19 +229,19 @@
 
 ### Tests for US6 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T074 [P] [US6] Write unit tests for ICS file generation in __tests__/unit/utils/ics-generator.test.ts
-- [ ] T075 [P] [US6] Write unit tests for email service in __tests__/unit/email.test.ts
-- [ ] T076 [P] [US6] Write integration test for POST /api/events/[id]/send-invite in __tests__/integration/api/send-invite.test.ts
+- [X] T074 [P] [US6] Write unit tests for ICS file generation in __tests__/unit/utils/ics-generator.test.ts
+- [X] T075 [P] [US6] Write unit tests for email service in __tests__/unit/email.test.ts
+- [X] T076 [P] [US6] Write integration test for POST /api/events/[id]/send-invite in __tests__/integration/api/send-invite.test.ts
 
 ### API Layer for US6
 
-- [ ] T077 [P] [US6] Create event invite tracking helper (logInvite) in lib/queries/invites.ts
-- [ ] T078 [US6] Implement POST /api/events/[id]/send-invite route with email validation in app/api/events/[id]/send-invite/route.ts
+- [X] T077 [P] [US6] Create event invite tracking helper (logInvite) in lib/queries/invites.ts
+- [X] T078 [US6] Implement POST /api/events/[id]/send-invite route with email validation in app/api/events/[id]/send-invite/route.ts
 
 ### UI Components for US6
 
-- [ ] T079 [US6] Create InviteForm component with email input and send button in components/calendar/invite-form.tsx
-- [ ] T080 [US6] Add InviteForm to EventModal and EventDetails in components/calendar/event-modal.tsx and components/calendar/event-details.tsx
+- [X] T079 [US6] Create InviteForm component with email input and send button in components/calendar/invite-form.tsx
+- [X] T080 [US6] Add InviteForm to EventModal and EventDetails in components/calendar/event-modal.tsx and components/calendar/event-details.tsx
 
 **Checkpoint**: User Story 6 complete - Email invites with ICS attachments working
 
@@ -255,26 +255,26 @@
 
 ### Tests for US7 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T081 [P] [US7] Write integration tests for GET/POST/PUT /api/users in __tests__/integration/api/users.test.ts
-- [ ] T082 [P] [US7] Write integration test for role-based access (non-admin blocked) in __tests__/integration/api/admin-access.test.ts
-- [ ] T083 [P] [US7] Write component test for UserForm in __tests__/unit/components/user-form.test.tsx
+- [X] T081 [P] [US7] Write integration tests for GET/POST/PUT /api/users in __tests__/integration/api/users.test.ts
+- [X] T082 [P] [US7] Write integration test for role-based access (non-admin blocked) in __tests__/integration/api/admin-access.test.ts
+- [X] T083 [P] [US7] Write component test for UserForm in __tests__/unit/components/user-form.test.tsx
 
 ### API Layer for US7
 
-- [ ] T084 [P] [US7] Create user query helpers (listUsers, createUser, updateUser) in lib/queries/users.ts
-- [ ] T085 [P] [US7] Create admin middleware to check role in lib/middleware/admin-check.ts
-- [ ] T086 [US7] Implement GET /api/users route (admin only) in app/api/users/route.ts
-- [ ] T087 [US7] Implement POST /api/users route (admin create user) in app/api/users/route.ts
-- [ ] T088 [US7] Implement PUT /api/users/[id] route (admin edit user) in app/api/users/[id]/route.ts
+- [X] T084 [P] [US7] Create user query helpers (listUsers, createUser, updateUser) in lib/queries/users.ts
+- [X] T085 [P] [US7] Create admin middleware to check role in lib/middleware/admin-check.ts
+- [X] T086 [US7] Implement GET /api/users route (admin only) in app/api/users/route.ts
+- [X] T087 [US7] Implement POST /api/users route (admin create user) in app/api/users/route.ts
+- [X] T088 [US7] Implement PUT /api/users/[id] route (admin edit user) in app/api/users/[id]/route.ts
 
 ### UI Components for US7
 
-- [ ] T089 [P] [US7] Create UserList component with table in components/admin/user-list.tsx
-- [ ] T090 [P] [US7] Create UserForm component for add/edit in components/admin/user-form.tsx
-- [ ] T091 [US7] Create admin layout with role check in app/admin/layout.tsx
-- [ ] T092 [US7] Create admin dashboard page in app/admin/page.tsx
-- [ ] T093 [US7] Create user management page with UserList in app/admin/users/page.tsx
-- [ ] T094 [US7] Create SMTP settings page in app/admin/settings/page.tsx
+- [X] T089 [P] [US7] Create UserList component with table in components/admin/user-list.tsx
+- [X] T090 [P] [US7] Create UserForm component for add/edit in components/admin/user-form.tsx
+- [X] T091 [US7] Create admin layout with role check in app/admin/layout.tsx
+- [X] T092 [US7] Create admin dashboard page in app/admin/page.tsx
+- [X] T093 [US7] Create user management page with UserList in app/admin/users/page.tsx
+- [X] T094 [US7] Create SMTP settings page in app/admin/settings/page.tsx
 
 **Checkpoint**: User Story 7 complete - Admin can manage users and settings
 
@@ -288,21 +288,21 @@
 
 ### Tests for US8 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T095 [P] [US8] Write integration tests for POST/PUT/DELETE /api/categories in __tests__/integration/api/categories-admin.test.ts
-- [ ] T096 [P] [US8] Write component test for CategoryForm in __tests__/unit/components/category-form.test.tsx
+- [X] T095 [P] [US8] Write integration tests for POST/PUT/DELETE /api/categories in __tests__/integration/api/categories-admin.test.ts
+- [X] T096 [P] [US8] Write component test for CategoryForm in __tests__/unit/components/category-form.test.tsx
 
 ### API Layer for US8
 
-- [ ] T097 [P] [US8] Create category mutation helpers (createCategory, updateCategory, deleteCategory) in lib/queries/categories.ts
-- [ ] T098 [US8] Implement POST /api/categories route (admin only) in app/api/categories/route.ts
-- [ ] T099 [US8] Implement PUT /api/categories/[id] route (admin only) in app/api/categories/[id]/route.ts
-- [ ] T100 [US8] Implement DELETE /api/categories/[id] route (admin only) in app/api/categories/[id]/route.ts
+- [X] T097 [P] [US8] Create category mutation helpers (createCategory, updateCategory, deleteCategory) in lib/queries/categories.ts
+- [X] T098 [US8] Implement POST /api/categories route (admin only) in app/api/categories/route.ts
+- [X] T099 [US8] Implement PUT /api/categories/[id] route (admin only) in app/api/categories/[id]/route.ts
+- [X] T100 [US8] Implement DELETE /api/categories/[id] route (admin only) in app/api/categories/[id]/route.ts
 
 ### UI Components for US8
 
-- [ ] T101 [P] [US8] Create CategoryList component with table in components/admin/category-list.tsx
-- [ ] T102 [P] [US8] Create CategoryForm component for add/edit with color picker in components/admin/category-form.tsx
-- [ ] T103 [US8] Create category management page with CategoryList in app/admin/categories/page.tsx
+- [X] T101 [P] [US8] Create CategoryList component with table in components/admin/category-list.tsx
+- [X] T102 [P] [US8] Create CategoryForm component for add/edit with color picker in components/admin/category-form.tsx
+- [X] T103 [US8] Create category management page with CategoryList in app/admin/categories/page.tsx
 
 **Checkpoint**: User Story 8 complete - Admin can manage categories
 
@@ -312,12 +312,12 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T104 [P] Add loading states to all forms and calendar operations
-- [ ] T105 [P] Add error handling and user-friendly error messages across all API routes
-- [ ] T106 [P] Add accessibility attributes (aria-labels) to calendar and form components
-- [ ] T107 [P] Add responsive mobile styles for calendar and forms (768px breakpoint)
-- [ ] T108 [P] Optimize event queries for performance (<2s calendar load)
-- [ ] T109 Run database seeding script to populate admin user and default categories
+- [x] T104 [P] Add loading states to all forms and calendar operations
+- [x] T105 [P] Add error handling and user-friendly error messages across all API routes
+- [x] T106 [P] Add accessibility attributes (aria-labels) to calendar and form components
+- [x] T107 [P] Add responsive mobile styles for calendar and forms (768px breakpoint)
+- [x] T108 [P] Optimize event queries for performance (<2s calendar load)
+- [x] T109 Run database seeding script to populate admin user and default categories
 - [ ] T110 Run quickstart.md validation - verify complete setup flow works
 - [ ] T111 Final code cleanup and documentation updates
 

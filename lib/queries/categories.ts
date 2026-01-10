@@ -466,3 +466,119 @@ export async function listCategories() {
     },
   });
 }
+
+/**
+ * Get a single event category by ID
+ *
+ * Used by:
+ * - PUT /api/categories/[id] - Verify category exists before update
+ * - DELETE /api/categories/[id] - Verify category exists before delete
+ *
+ * @param id - Category ID (cuid)
+ * @returns Category or null if not found
+ */
+export async function getCategoryById(id: string) {
+  return prisma.eventCategory.findUnique({
+    where: { id },
+  });
+}
+
+/**
+ * Create a new event category (FR-034)
+ *
+ * Admin only - categories are used to organize calendar events.
+ * Validates uniqueness of name via database constraint.
+ *
+ * Used by:
+ * - POST /api/categories - Admin category creation
+ *
+ * @param data - Category data (name, color, icon)
+ * @returns Created category
+ */
+export async function createCategory(data: {
+  name: string;
+  color: string;
+  icon?: string | null;
+}) {
+  return prisma.eventCategory.create({
+    data: {
+      name: data.name,
+      color: data.color,
+      icon: data.icon ?? null,
+    },
+  });
+}
+
+/**
+ * Update an existing event category (FR-034)
+ *
+ * Admin only - allows partial updates.
+ * Validates uniqueness of name via database constraint.
+ *
+ * Used by:
+ * - PUT /api/categories/[id] - Admin category update
+ *
+ * @param id - Category ID (cuid)
+ * @param data - Partial category data to update
+ * @returns Updated category
+ */
+export async function updateCategory(
+  id: string,
+  data: {
+    name?: string;
+    color?: string;
+    icon?: string | null;
+  }
+) {
+  return prisma.eventCategory.update({
+    where: { id },
+    data,
+  });
+}
+
+/**
+ * Delete an event category (FR-034)
+ *
+ * Admin only - when a category is deleted, all events
+ * with this category have their categoryId set to null.
+ *
+ * Uses a transaction to ensure atomic operation:
+ * 1. Count events that will be uncategorized
+ * 2. Set categoryId to null on affected events
+ * 3. Delete the category
+ *
+ * Used by:
+ * - DELETE /api/categories/[id] - Admin category deletion
+ *
+ * @param id - Category ID (cuid)
+ * @returns Object with success status and count of uncategorized events
+ */
+export async function deleteCategory(id: string): Promise<{
+  success: boolean;
+  eventsUncategorized: number;
+}> {
+  return prisma.$transaction(async (tx) => {
+    // Count events that will be uncategorized
+    const affectedEventsCount = await tx.event.count({
+      where: { categoryId: id },
+    });
+
+    // Set categoryId to null on affected events
+    if (affectedEventsCount > 0) {
+      await tx.event.updateMany({
+        where: { categoryId: id },
+        data: { categoryId: null },
+      });
+    }
+
+    // Delete the category
+    await tx.eventCategory.delete({
+      where: { id },
+    });
+
+    return {
+      success: true,
+      eventsUncategorized: affectedEventsCount,
+    };
+  });
+}

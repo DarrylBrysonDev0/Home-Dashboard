@@ -417,3 +417,16 @@ export function getTestPrisma(): PrismaClient {
   }
   return testContext.prisma;
 }
+
+/**
+ * Gets the test container context (prisma client and container reference).
+ * Initializes the test database if not already done.
+ *
+ * @returns TestDatabaseContext with prisma client
+ */
+export async function getTestContainer(): Promise<TestDatabaseContext> {
+  if (!testContext) {
+    return setupTestDatabase();
+  }
+  return testContext;
+}

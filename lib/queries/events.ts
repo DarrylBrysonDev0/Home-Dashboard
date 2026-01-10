@@ -8,6 +8,59 @@ import { ListEventsQuery } from "@/lib/validations/event";
  */
 
 /**
+ * Select configuration for event list queries (optimized for performance)
+ *
+ * Uses `select` instead of `include` to only fetch the columns needed
+ * for calendar display, reducing data transfer and improving query speed.
+ */
+const eventListSelect = {
+  id: true,
+  title: true,
+  description: true,
+  location: true,
+  startTime: true,
+  endTime: true,
+  allDay: true,
+  timezone: true,
+  createdAt: true,
+  updatedAt: true,
+  category: {
+    select: {
+      id: true,
+      name: true,
+      color: true,
+      icon: true,
+    },
+  },
+  createdBy: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+} as const;
+
+/**
+ * Include configuration for event list queries (legacy, kept for type compatibility)
+ */
+const eventListInclude = {
+  category: true,
+  createdBy: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+} as const;
+
+/**
+ * Type for event list results with relations
+ */
+export type EventWithRelations = Prisma.EventGetPayload<{
+  include: typeof eventListInclude;
+}>;
+
+/**
  * Filter events by date range (client-side filtering)
  *
  * Includes events that:
@@ -119,20 +172,55 @@ export function buildEventListQuery(filters: ListEventsQuery): Prisma.EventFindM
 }
 
 /**
- * List events with optional filters
+ * List events with optional filters (optimized for performance)
  *
- * Fetches events from database with:
- * - Optional date range filtering
- * - Optional category filtering
- * - Category and creator relations included
- * - Ordered by start time ascending
+ * Performance optimizations:
+ * - Uses `select` instead of `include` to minimize data transfer
+ * - Leverages the [startTime, endTime] composite index for date range queries
+ * - Uses [categoryId] index when filtering by category
+ * - Returns only fields needed for calendar display
+ *
+ * Query execution plan utilizes indexes:
+ * - @@index([startTime, endTime]) - primary filter index
+ * - @@index([categoryId]) - secondary filter index
+ *
+ * Target: <2s load time for typical month view (~30-50 events)
  *
  * @param filters - Query parameters
- * @returns Array of events with relations
+ * @returns Array of events with relations (selected fields only)
  */
-export async function listEvents(filters: ListEventsQuery = {}) {
-  const query = buildEventListQuery(filters);
-  return prisma.event.findMany(query);
+export async function listEvents(filters: ListEventsQuery = {}): Promise<EventWithRelations[]> {
+  const where: Prisma.EventWhereInput = {};
+
+  // Build date range filter optimized for index usage
+  // The [startTime, endTime] composite index efficiently handles these conditions
+  const hasStart = !!filters.start;
+  const hasEnd = !!filters.end;
+
+  if (hasStart && hasEnd) {
+    // Overlap condition: events that have any overlap with [start, end]
+    // event.startTime <= end AND event.endTime >= start
+    where.AND = [
+      { endTime: { gte: new Date(filters.start!) } },
+      { startTime: { lte: new Date(filters.end!) } },
+    ];
+  } else if (hasStart) {
+    where.endTime = { gte: new Date(filters.start!) };
+  } else if (hasEnd) {
+    where.startTime = { lte: new Date(filters.end!) };
+  }
+
+  // Add category filter (uses @@index([categoryId]))
+  if (filters.categoryId) {
+    where.categoryId = filters.categoryId;
+  }
+
+  // Use select for performance - only fetch columns needed for calendar display
+  return prisma.event.findMany({
+    where,
+    select: eventListSelect,
+    orderBy: { startTime: "asc" },
+  }) as Promise<EventWithRelations[]>;
 }
 
 /**
@@ -174,6 +262,26 @@ export async function getEventById(id: string) {
 }
 
 /**
+ * Create event include configuration for Prisma queries
+ */
+const createEventInclude = {
+  category: true,
+  createdBy: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+} as const;
+
+/**
+ * Type for created event with relations
+ */
+export type CreatedEvent = Prisma.EventGetPayload<{
+  include: typeof createEventInclude;
+}>;
+
+/**
  * Create a new event
  *
  * Creates an event with the provided data and returns the full event
@@ -195,7 +303,7 @@ export async function createEvent(
     timezone: string;
   },
   createdById: string
-) {
+): Promise<CreatedEvent> {
   return prisma.event.create({
     data: {
       title: data.title,
@@ -208,15 +316,7 @@ export async function createEvent(
       timezone: data.timezone,
       createdById,
     },
-    include: {
-      category: true,
-      createdBy: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-    },
+    include: createEventInclude,
   });
 }
 
@@ -252,7 +352,13 @@ export async function updateEvent(
   if (data.startTime !== undefined) updateData.startTime = data.startTime;
   if (data.endTime !== undefined) updateData.endTime = data.endTime;
   if (data.allDay !== undefined) updateData.allDay = data.allDay;
-  if (data.categoryId !== undefined) updateData.categoryId = data.categoryId;
+  if (data.categoryId !== undefined) {
+    if (data.categoryId === null) {
+      updateData.category = { disconnect: true };
+    } else {
+      updateData.category = { connect: { id: data.categoryId } };
+    }
+  }
   if (data.timezone !== undefined) updateData.timezone = data.timezone;
 
   return prisma.event.update({
