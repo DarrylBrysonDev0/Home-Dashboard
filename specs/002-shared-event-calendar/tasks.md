@@ -45,38 +45,38 @@
 
 ### NextAuth Configuration
 
-- [ ] T011 Create NextAuth configuration with Credentials provider and JWT strategy in lib/auth.ts
-- [ ] T012 Create NextAuth API route handler in app/api/auth/[...nextauth]/route.ts
-- [ ] T012a Configure NextAuth session strategy with 7-day maxAge and JWT token rotation in lib/auth.ts (FR-003)
-- [ ] T013 Create middleware for route protection in middleware.ts (protect /calendar, /admin, /api/events)
-- [ ] T014 [P] Create custom session hook wrapper in lib/hooks/use-session.ts
+- [X] T011 Create NextAuth configuration with Credentials provider and JWT strategy in lib/auth.ts
+- [X] T012 Create NextAuth API route handler in app/api/auth/[...nextauth]/route.ts
+- [X] T012a Configure NextAuth session strategy with 7-day maxAge and JWT token rotation in lib/auth.ts (FR-003)
+- [X] T013 Create middleware for route protection in middleware.ts (protect /calendar, /admin, /api/events)
+- [X] T014 [P] Create custom session hook wrapper in lib/hooks/use-session.ts
 
 ### Validation Schemas
 
-- [ ] T015 [P] Create auth validation schemas (login, create user) in lib/validations/auth.ts
-- [ ] T016 [P] Create event validation schemas (create, update) in lib/validations/event.ts
-- [ ] T017 [P] Create category validation schema in lib/validations/category.ts
+- [X] T015 [P] Create auth validation schemas (login, create user) in lib/validations/auth.ts
+- [X] T016 [P] Create event validation schemas (create, update) in lib/validations/event.ts
+- [X] T017 [P] Create category validation schema in lib/validations/category.ts
 
 ### Shared Services
 
-- [ ] T018 [P] Create password hashing utilities (hash, compare) in lib/utils/password.ts
-- [ ] T019 [P] Create email service with Nodemailer in lib/email.ts
-- [ ] T020 [P] Create ICS file generation utility in lib/utils/ics-generator.ts
-- [ ] T021 [P] Create timezone utility functions in lib/utils/timezone.ts
+- [X] T018 [P] Create password hashing utilities (hash, compare) in lib/utils/password.ts
+- [X] T019 [P] Create email service with Nodemailer in lib/email.ts
+- [X] T020 [P] Create ICS file generation utility in lib/utils/ics-generator.ts
+- [X] T021 [P] Create timezone utility functions in lib/utils/timezone.ts
 
 ### UI Foundation
 
-- [ ] T022 [P] Install shadcn Dialog component: `npx shadcn-ui@latest add dialog`
-- [ ] T023 [P] Install shadcn Form components: `npx shadcn-ui@latest add form label input textarea checkbox`
-- [ ] T024 [P] Install shadcn Badge component: `npx shadcn-ui@latest add badge`
-- [ ] T025 [P] Install shadcn Dropdown Menu component: `npx shadcn-ui@latest add dropdown-menu`
-- [ ] T026 [P] Install shadcn Alert component: `npx shadcn-ui@latest add alert`
-- [ ] T027 Create protected route wrapper component in components/auth/protected-route.tsx
+- [X] T022 [P] Install shadcn Dialog component: `npx shadcn-ui@latest add dialog`
+- [X] T023 [P] Install shadcn Form components: `npx shadcn-ui@latest add form label input textarea checkbox`
+- [X] T024 [P] Install shadcn Badge component: `npx shadcn-ui@latest add badge`
+- [X] T025 [P] Install shadcn Dropdown Menu component: `npx shadcn-ui@latest add dropdown-menu`
+- [X] T026 [P] Install shadcn Alert component: `npx shadcn-ui@latest add alert`
+- [X] T027 Create protected route wrapper component in components/auth/protected-route.tsx
 
 ### Testing Infrastructure
 
-- [ ] T028 [P] Create auth test helpers (mock session, mock user) in __tests__/helpers/auth-helpers.ts
-- [ ] T029 [P] Create calendar test helpers (mock events, date utilities) in __tests__/helpers/calendar-helpers.ts
+- [X] T028 [P] Create auth test helpers (mock session, mock user) in __tests__/helpers/auth-helpers.ts
+- [X] T029 [P] Create calendar test helpers (mock events, date utilities) in __tests__/helpers/calendar-helpers.ts
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
