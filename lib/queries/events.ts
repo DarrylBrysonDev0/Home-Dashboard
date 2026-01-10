@@ -269,3 +269,18 @@ export async function updateEvent(
     },
   });
 }
+
+/**
+ * Delete an event by ID
+ *
+ * Removes the event and all related attendees and invites (cascade delete).
+ * Any household member can delete any event (FR-020).
+ *
+ * @param id - Event ID
+ * @returns Deleted event, or throws error if not found
+ */
+export async function deleteEvent(id: string) {
+  return prisma.event.delete({
+    where: { id },
+  });
+}

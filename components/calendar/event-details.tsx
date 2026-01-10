@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { CalendarEvent } from "./calendar-view";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Calendar, Clock, MapPin, User, Users, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Calendar, Clock, MapPin, User, Users, Mail, Trash2, Loader2 } from "lucide-react";
 import { DateTime } from "luxon";
 
 /**
@@ -31,6 +34,8 @@ export interface EventDetailsProps {
   event: EventDetailsData;
   /** Additional CSS classes */
   className?: string;
+  /** Callback when event is successfully deleted */
+  onSuccess?: () => void;
 }
 
 /**
@@ -116,34 +121,78 @@ function getAttendeeStatusVariant(
  * - Creator information
  * - Attendees with status
  * - Email invites sent
+ * - Delete button with confirmation
  *
  * Used when clicking on a calendar event to view full details
  */
-export function EventDetails({ event, className }: EventDetailsProps) {
+export function EventDetails({ event, className, onSuccess }: EventDetailsProps) {
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
   const dateRange = formatDateRange(event.startTime, event.endTime, event.allDay, event.timezone);
   const duration = !event.allDay ? formatDuration(event.startTime, event.endTime) : null;
 
+  /**
+   * Handle delete confirmation
+   */
+  const handleDeleteConfirm = async () => {
+    try {
+      setIsDeleting(true);
+      setError(null);
+
+      const response = await fetch(`/api/events/${event.id}`, {
+        method: "DELETE",
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to delete event");
+      }
+
+      // Success! Close confirmation dialog and trigger refresh
+      setShowDeleteConfirm(false);
+      onSuccess?.();
+    } catch (err) {
+      console.error("Error deleting event:", err);
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
+      setShowDeleteConfirm(false);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
-    <Card className={className}>
-      <CardHeader>
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1 min-w-0">
-            <CardTitle className="text-2xl break-words">{event.title}</CardTitle>
-            {event.category && (
-              <div className="mt-2">
-                <Badge
-                  variant="outline"
-                  style={{
-                    borderColor: event.category.color,
-                    color: event.category.color,
-                  }}
-                >
-                  {event.category.name}
-                </Badge>
-              </div>
-            )}
+    <>
+      <Card className={className}>
+        <CardHeader>
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1 min-w-0">
+              <CardTitle className="text-2xl break-words">{event.title}</CardTitle>
+              {event.category && (
+                <div className="mt-2">
+                  <Badge
+                    variant="outline"
+                    style={{
+                      borderColor: event.category.color,
+                      color: event.category.color,
+                    }}
+                  >
+                    {event.category.name}
+                  </Badge>
+                </div>
+              )}
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowDeleteConfirm(true)}
+              className="text-destructive hover:text-destructive hover:bg-destructive/10"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
           </div>
-        </div>
 
         {event.description && (
           <CardDescription className="mt-3 whitespace-pre-wrap break-words">
@@ -253,5 +302,54 @@ export function EventDetails({ event, className }: EventDetailsProps) {
         )}
       </CardContent>
     </Card>
+
+    {/* Delete Confirmation Dialog */}
+    <Dialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Warning</DialogTitle>
+          <DialogDescription>
+            Are you sure you want to delete this event? This action cannot be undone.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="py-4">
+          <p className="text-sm font-medium">Event: {event.title}</p>
+        </div>
+
+        {error && (
+          <div className="text-sm text-destructive">
+            {error}
+          </div>
+        )}
+
+        <div className="flex justify-end gap-3">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setShowDeleteConfirm(false)}
+            disabled={isDeleting}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            variant="destructive"
+            onClick={handleDeleteConfirm}
+            disabled={isDeleting}
+          >
+            {isDeleting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Deleting...
+              </>
+            ) : (
+              "Delete"
+            )}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  </>
   );
 }

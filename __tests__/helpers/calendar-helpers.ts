@@ -350,7 +350,7 @@ export async function createTestCategory(
     data: {
       name: data?.name ?? `Test Category ${Date.now()}`,
       color: data?.color ?? "#F97316",
-      icon: data?.icon ?? "calendar",
+      icon: data?.icon !== undefined ? data.icon : "calendar",
     },
   });
 }

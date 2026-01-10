@@ -1,9 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CalendarView, type CalendarEvent } from "@/components/calendar/calendar-view";
 import { EventDetails, type EventDetailsData } from "@/components/calendar/event-details";
+import { CategoryFilter, type FilterCategory } from "@/components/calendar/category-filter";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
 
 /**
  * Calendar Page
@@ -13,8 +17,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
  * Features:
  * - Month/week/day view switching via FullCalendar toolbar
  * - Event click opens detail dialog
- * - Date selection for creating events (future: US3)
- * - Category filtering (future: US5)
+ * - Date selection for creating events (US3)
+ * - Category filtering (US5)
  *
  * User Story 2: View Calendar and Browse Events
  * - AC2.1: Display calendar with month/week/day views ✓
@@ -22,11 +26,53 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
  * - AC2.3: Click event to view details ✓
  * - AC2.4: Calendar loads in <2s (FR-011)
  *
+ * User Story 5: Filter Events by Category
+ * - AC5.1: Display category filter sidebar ✓
+ * - AC5.2: Toggle categories to show/hide events ✓
+ * - AC5.3: "Show All" functionality ✓
+ *
  * @see contracts/events-api.md
+ * @see contracts/categories-api.md
  */
 export default function CalendarPage() {
   const [selectedEvent, setSelectedEvent] = useState<EventDetailsData | null>(null);
   const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
+
+  // Category filtering state (US5)
+  const [categories, setCategories] = useState<FilterCategory[]>([]);
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
+  const [categoriesError, setCategoriesError] = useState<string | null>(null);
+
+  /**
+   * Fetch categories on mount (US5)
+   */
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        setCategoriesLoading(true);
+        setCategoriesError(null);
+
+        const response = await fetch("/api/categories");
+        if (!response.ok) {
+          throw new Error("Failed to fetch categories");
+        }
+
+        const result = await response.json();
+        setCategories(result.data || []);
+
+        // Initially select all categories
+        setSelectedCategoryIds((result.data || []).map((cat: FilterCategory) => cat.id));
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+        setCategoriesError(error instanceof Error ? error.message : "Failed to load categories");
+      } finally {
+        setCategoriesLoading(false);
+      }
+    }
+
+    fetchCategories();
+  }, []);
 
   /**
    * Handle event click - fetch full details and open dialog
@@ -78,14 +124,50 @@ export default function CalendarPage() {
         </p>
       </div>
 
-      {/* Calendar View */}
-      <CalendarView
-        initialView="dayGridMonth"
-        onEventClick={handleEventClick}
-        onDateSelect={handleDateSelect}
-        onEventDrop={handleEventDrop}
-        className="bg-card p-6 rounded-lg border shadow-sm"
-      />
+      {/* Main Content with Sidebar */}
+      <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
+        {/* Sidebar - Category Filter */}
+        <aside className="space-y-4">
+          <div className="bg-card p-4 rounded-lg border shadow-sm">
+            <h2 className="text-lg font-semibold mb-4">Filter by Category</h2>
+
+            {categoriesError && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>{categoriesError}</AlertDescription>
+              </Alert>
+            )}
+
+            {categoriesLoading ? (
+              <div className="space-y-3">
+                <Skeleton className="h-6 w-full" />
+                <Skeleton className="h-6 w-full" />
+                <Skeleton className="h-6 w-full" />
+                <Skeleton className="h-6 w-full" />
+              </div>
+            ) : (
+              <CategoryFilter
+                categories={categories}
+                selectedCategoryIds={selectedCategoryIds}
+                onFilterChange={setSelectedCategoryIds}
+              />
+            )}
+          </div>
+        </aside>
+
+        {/* Calendar View */}
+        <div className="min-w-0">
+          <CalendarView
+            initialView="dayGridMonth"
+            onEventClick={handleEventClick}
+            onDateSelect={handleDateSelect}
+            onEventDrop={handleEventDrop}
+            categoryFilter={selectedCategoryIds}
+            categories={categories}
+            className="bg-card p-6 rounded-lg border shadow-sm"
+          />
+        </div>
+      </div>
 
       {/* Event Details Dialog */}
       <Dialog open={isDetailDialogOpen} onOpenChange={setIsDetailDialogOpen}>

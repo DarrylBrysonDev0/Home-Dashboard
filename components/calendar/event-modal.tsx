@@ -91,6 +91,8 @@ export function EventModal({
 }: EventModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const isEditMode = !!event;
 
@@ -109,6 +111,8 @@ export function EventModal({
     if (open) {
       form.reset(getDefaultValues(event, defaultStartTime, defaultEndTime, defaultAllDay));
       setError(null);
+      setShowDeleteConfirm(false);
+      setIsDeleting(false);
     }
   }, [open, event, defaultStartTime, defaultEndTime, defaultAllDay, form]);
 
@@ -168,9 +172,43 @@ export function EventModal({
     }
   };
 
+  /**
+   * Handle delete confirmation
+   */
+  const handleDeleteConfirm = async () => {
+    if (!event) return;
+
+    try {
+      setIsDeleting(true);
+      setError(null);
+
+      const response = await fetch(`/api/events/${event.id}`, {
+        method: "DELETE",
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to delete event");
+      }
+
+      // Success! Close confirmation dialog and main modal, trigger refresh
+      setShowDeleteConfirm(false);
+      onSuccess?.();
+      onClose();
+    } catch (err) {
+      console.error("Error deleting event:", err);
+      setError(err instanceof Error ? err.message : "An unexpected error occurred");
+      setShowDeleteConfirm(false);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+    <>
+      <Dialog open={open && !showDeleteConfirm} onOpenChange={onClose}>
+        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{isEditMode ? "Edit Event" : "Create Event"}</DialogTitle>
           <DialogDescription>
@@ -359,25 +397,84 @@ export function EventModal({
             )}
 
             {/* Form Actions */}
-            <div className="flex justify-end gap-3 pt-4">
-              <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>
-                Cancel
-              </Button>
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    {isEditMode ? "Updating..." : "Creating..."}
-                  </>
-                ) : (
-                  <>{isEditMode ? "Update Event" : "Create Event"}</>
+            <div className="flex justify-between items-center gap-3 pt-4">
+              <div>
+                {isEditMode && (
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={() => setShowDeleteConfirm(true)}
+                    disabled={isSubmitting}
+                  >
+                    Delete
+                  </Button>
                 )}
-              </Button>
+              </div>
+              <div className="flex gap-3">
+                <Button type="button" variant="outline" onClick={onClose} disabled={isSubmitting}>
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      {isEditMode ? "Updating..." : "Creating..."}
+                    </>
+                  ) : (
+                    <>{isEditMode ? "Update Event" : "Create Event"}</>
+                  )}
+                </Button>
+              </div>
             </div>
           </form>
         </Form>
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Warning</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete this event? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+
+          {event && (
+            <div className="py-4">
+              <p className="text-sm font-medium">Event: {event.title}</p>
+            </div>
+          )}
+
+          <div className="flex justify-end gap-3">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setShowDeleteConfirm(false)}
+              disabled={isDeleting}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={handleDeleteConfirm}
+              disabled={isDeleting}
+            >
+              {isDeleting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Deleting...
+                </>
+              ) : (
+                "Delete"
+              )}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 
@@ -439,3 +536,6 @@ function combineDateTime(date: string, time: string | undefined, allDay: boolean
     return DateTime.fromISO(`${date}T${time}`);
   }
 }
+
+// Default export for compatibility with tests
+export default EventModal;

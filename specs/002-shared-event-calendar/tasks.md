@@ -178,18 +178,18 @@
 
 ### Tests for US4 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T061 [P] [US4] Write integration test for DELETE /api/events/[id] in __tests__/integration/api/events-delete.test.ts
-- [ ] T062 [P] [US4] Write component test for delete confirmation in __tests__/unit/components/event-modal.test.tsx
+- [X] T061 [P] [US4] Write integration test for DELETE /api/events/[id] in __tests__/integration/api/events-delete.test.ts
+- [X] T062 [P] [US4] Write component test for delete confirmation in __tests__/unit/components/event-modal.test.tsx
 
 ### API Layer for US4
 
-- [ ] T063 [US4] Create deleteEvent query helper in lib/queries/events.ts
-- [ ] T064 [US4] Implement DELETE /api/events/[id] route in app/api/events/[id]/route.ts
+- [X] T063 [US4] Create deleteEvent query helper in lib/queries/events.ts
+- [X] T064 [US4] Implement DELETE /api/events/[id] route in app/api/events/[id]/route.ts
 
 ### UI Components for US4
 
-- [ ] T065 [US4] Add delete button with confirmation dialog to EventModal in components/calendar/event-modal.tsx
-- [ ] T066 [US4] Add delete functionality to EventDetails in components/calendar/event-details.tsx
+- [X] T065 [US4] Add delete button with confirmation dialog to EventModal in components/calendar/event-modal.tsx
+- [X] T066 [US4] Add delete functionality to EventDetails in components/calendar/event-details.tsx
 
 **Checkpoint**: User Story 4 complete - Events can be deleted with confirmation
 
@@ -203,19 +203,19 @@
 
 ### Tests for US5 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T067 [P] [US5] Write integration test for GET /api/categories in __tests__/integration/api/categories.test.ts
-- [ ] T068 [P] [US5] Write component test for CategoryFilter in __tests__/unit/components/category-filter.test.tsx
+- [X] T067 [P] [US5] Write integration test for GET /api/categories in __tests__/integration/api/event-categories.test.ts
+- [X] T068 [P] [US5] Write component test for CategoryFilter in __tests__/unit/components/category-filter.test.tsx
 
 ### API Layer for US5
 
-- [ ] T069 [US5] Create category query helper (listCategories) in lib/queries/categories.ts
-- [ ] T070 [US5] Implement GET /api/categories route in app/api/categories/route.ts
+- [X] T069 [US5] Create category query helper (listCategories) in lib/queries/categories.ts
+- [X] T070 [US5] Implement GET /api/categories route in app/api/categories/route.ts
 
 ### UI Components for US5
 
-- [ ] T071 [US5] Create CategoryFilter component with toggle checkboxes in components/calendar/category-filter.tsx
-- [ ] T072 [US5] Integrate CategoryFilter with CalendarView (filter events client-side) in components/calendar/calendar-view.tsx
-- [ ] T073 [US5] Add CategoryFilter to calendar layout sidebar in app/calendar/layout.tsx
+- [X] T071 [US5] Create CategoryFilter component with toggle checkboxes in components/calendar/category-filter.tsx
+- [X] T072 [US5] Integrate CategoryFilter with CalendarView (filter events client-side) in components/calendar/calendar-view.tsx
+- [X] T073 [US5] Add CategoryFilter to calendar layout sidebar in app/calendar/layout.tsx
 
 **Checkpoint**: User Story 5 complete - Category filtering works with toggles
 

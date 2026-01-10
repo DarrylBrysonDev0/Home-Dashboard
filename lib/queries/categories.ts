@@ -438,3 +438,31 @@ function buildCategoryResponseWithSubcategories(rows: RawSubcategoryRow[]): {
 
   return { total_expenses, categories };
 }
+
+// ============================================
+// EVENT CATEGORY QUERIES (for calendar feature)
+// ============================================
+
+/**
+ * List all event categories
+ *
+ * Retrieves all event categories from the database.
+ * Categories are used to organize and filter calendar events.
+ *
+ * Returns:
+ * - All categories sorted by name (ascending)
+ * - Includes: id, name, color, icon, createdAt
+ *
+ * Used by:
+ * - GET /api/categories - Category filter component data
+ * - Event creation/edit forms - Category selection dropdown
+ *
+ * @returns Promise resolving to array of event categories
+ */
+export async function listCategories() {
+  return prisma.eventCategory.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+}

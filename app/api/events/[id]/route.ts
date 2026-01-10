@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAuthSession } from "@/lib/server/auth-session";
-import { getEventById, updateEvent } from "@/lib/queries/events";
+import { getEventById, updateEvent, deleteEvent } from "@/lib/queries/events";
 import { updateEventSchema } from "@/lib/validations/event";
 
 /**
@@ -199,6 +199,58 @@ export async function PUT(
 
     // Check for record not found errors (event was deleted between check and update)
     if (error instanceof Error && error.message.includes("Record to update not found")) {
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+/**
+ * DELETE /api/events/[id]
+ *
+ * Delete a calendar event
+ *
+ * Path Parameters:
+ * - id: Event ID (cuid)
+ *
+ * Any household member can delete any event (FR-020).
+ * Related attendees and invites are automatically deleted (cascade).
+ *
+ * Authentication: Required (handled by middleware)
+ *
+ * @see contracts/events-api.md
+ */
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    // Get authenticated session
+    const session = await getAuthSession();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = params;
+
+    // Delete the event - Prisma will throw if not found
+    await deleteEvent(id);
+
+    return NextResponse.json({ data: { success: true } });
+  } catch (error) {
+    console.error("Error deleting event:", error);
+
+    // Check for record not found errors (Prisma P2025 error code)
+    if (
+      error instanceof Error &&
+      (error.message.includes("Record to delete does not exist") ||
+        error.message.includes("No record was found for a delete") ||
+        (error as any).code === "P2025")
+    ) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
     }
 

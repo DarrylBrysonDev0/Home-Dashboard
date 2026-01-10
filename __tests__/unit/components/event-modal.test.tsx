@@ -786,4 +786,490 @@ describe("EventModal Component", () => {
       });
     });
   });
+
+  // ============================================
+  // DELETE CONFIRMATION (USER STORY 4)
+  // ============================================
+
+  describe("Delete Confirmation", () => {
+    const mockEvent = createMockEvent({
+      id: "event-to-delete",
+      title: "Event to Delete",
+      description: "This will be deleted",
+    });
+
+    it("should show delete button in edit mode", () => {
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      // Delete button should be present in edit mode
+      expect(screen.getByRole("button", { name: /delete/i })).toBeInTheDocument();
+    });
+
+    it("should NOT show delete button in create mode", () => {
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+        />
+      );
+
+      // Delete button should NOT be present in create mode
+      expect(screen.queryByRole("button", { name: /^delete$/i })).not.toBeInTheDocument();
+    });
+
+    it("should show confirmation dialog when delete button clicked", async () => {
+      const user = userEvent.setup();
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Confirmation dialog should appear
+      await waitFor(() => {
+        expect(
+          screen.getByText(/are you sure|confirm.*delete|delete.*event/i)
+        ).toBeInTheDocument();
+      });
+    });
+
+    it("should show event title in confirmation dialog", async () => {
+      const user = userEvent.setup();
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Event title should be shown in confirmation
+      await waitFor(() => {
+        expect(screen.getByText(/Event to Delete/i)).toBeInTheDocument();
+      });
+    });
+
+    it("should have confirm and cancel buttons in confirmation dialog", async () => {
+      const user = userEvent.setup();
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      await waitFor(() => {
+        // Confirm button (might be labeled "Delete", "Confirm", "Yes", etc.)
+        expect(
+          screen.getByRole("button", { name: /^delete$|confirm|yes/i })
+        ).toBeInTheDocument();
+        // Cancel button
+        expect(screen.getByRole("button", { name: /cancel|no/i })).toBeInTheDocument();
+      });
+    });
+
+    it("should close confirmation dialog when cancel is clicked", async () => {
+      const user = userEvent.setup();
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      // Open confirmation dialog
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Wait for dialog
+      await waitFor(() => {
+        expect(screen.getByText(/are you sure|confirm.*delete/i)).toBeInTheDocument();
+      });
+
+      // Click cancel
+      const cancelButton = screen.getByRole("button", { name: /cancel|no/i });
+      await user.click(cancelButton);
+
+      // Confirmation dialog should close
+      await waitFor(() => {
+        expect(screen.queryByText(/are you sure|confirm.*delete/i)).not.toBeInTheDocument();
+      });
+
+      // Should NOT call API
+      expect(global.fetch).not.toHaveBeenCalled();
+      // Should NOT call onSuccess
+      expect(mockOnSuccess).not.toHaveBeenCalled();
+    });
+
+    it("should call DELETE API when deletion is confirmed", async () => {
+      const user = userEvent.setup();
+
+      (global.fetch as any).mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          data: { success: true },
+        }),
+      });
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      // Open confirmation dialog
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Wait for dialog
+      await waitFor(() => {
+        expect(screen.getByText(/are you sure|confirm.*delete/i)).toBeInTheDocument();
+      });
+
+      // Click confirm
+      const confirmButton = screen.getByRole("button", { name: /^delete$|confirm|yes/i });
+      await user.click(confirmButton);
+
+      // Should call DELETE API
+      await waitFor(() => {
+        expect(global.fetch).toHaveBeenCalledWith(
+          `/api/events/${mockEvent.id}`,
+          expect.objectContaining({
+            method: "DELETE",
+          })
+        );
+      });
+    });
+
+    it("should call onSuccess after successful deletion", async () => {
+      const user = userEvent.setup();
+
+      (global.fetch as any).mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          data: { success: true },
+        }),
+      });
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      // Open confirmation dialog
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Confirm deletion
+      await waitFor(() => {
+        expect(screen.getByText(/are you sure|confirm.*delete/i)).toBeInTheDocument();
+      });
+
+      const confirmButton = screen.getByRole("button", { name: /^delete$|confirm|yes/i });
+      await user.click(confirmButton);
+
+      // Should call onSuccess callback
+      await waitFor(() => {
+        expect(mockOnSuccess).toHaveBeenCalled();
+      });
+    });
+
+    it("should close modal after successful deletion", async () => {
+      const user = userEvent.setup();
+
+      (global.fetch as any).mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          data: { success: true },
+        }),
+      });
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      // Open confirmation dialog
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Confirm deletion
+      await waitFor(() => {
+        expect(screen.getByText(/are you sure|confirm.*delete/i)).toBeInTheDocument();
+      });
+
+      const confirmButton = screen.getByRole("button", { name: /^delete$|confirm|yes/i });
+      await user.click(confirmButton);
+
+      // Should close modal (or call onClose)
+      await waitFor(() => {
+        expect(mockOnClose).toHaveBeenCalled();
+      });
+    });
+
+    it("should display error message when deletion fails", async () => {
+      const user = userEvent.setup();
+
+      (global.fetch as any).mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        json: async () => ({
+          error: "Failed to delete event",
+        }),
+      });
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      // Open confirmation dialog
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Confirm deletion
+      await waitFor(() => {
+        expect(screen.getByText(/are you sure|confirm.*delete/i)).toBeInTheDocument();
+      });
+
+      const confirmButton = screen.getByRole("button", { name: /^delete$|confirm|yes/i });
+      await user.click(confirmButton);
+
+      // Should display error
+      await waitFor(() => {
+        expect(screen.getByText(/failed to delete|error/i)).toBeInTheDocument();
+      });
+
+      // Should NOT call onSuccess
+      expect(mockOnSuccess).not.toHaveBeenCalled();
+      // Should NOT close modal on error
+      expect(mockOnClose).not.toHaveBeenCalled();
+    });
+
+    it("should display error when event not found (404)", async () => {
+      const user = userEvent.setup();
+
+      (global.fetch as any).mockResolvedValueOnce({
+        ok: false,
+        status: 404,
+        json: async () => ({
+          error: "Event not found",
+        }),
+      });
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      // Open confirmation dialog
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Confirm deletion
+      await waitFor(() => {
+        expect(screen.getByText(/are you sure|confirm.*delete/i)).toBeInTheDocument();
+      });
+
+      const confirmButton = screen.getByRole("button", { name: /^delete$|confirm|yes/i });
+      await user.click(confirmButton);
+
+      // Should display error
+      await waitFor(() => {
+        expect(screen.getByText(/not found|error/i)).toBeInTheDocument();
+      });
+    });
+
+    it("should disable delete button while deletion is in progress", async () => {
+      const user = userEvent.setup();
+
+      // Mock a delayed response
+      (global.fetch as any).mockImplementationOnce(
+        () =>
+          new Promise((resolve) =>
+            setTimeout(
+              () =>
+                resolve({
+                  ok: true,
+                  status: 200,
+                  json: async () => ({ data: { success: true } }),
+                }),
+              1000
+            )
+          )
+      );
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      // Open confirmation dialog
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Confirm deletion
+      await waitFor(() => {
+        expect(screen.getByText(/are you sure|confirm.*delete/i)).toBeInTheDocument();
+      });
+
+      const confirmButton = screen.getByRole("button", { name: /^delete$|confirm|yes/i });
+      await user.click(confirmButton);
+
+      // Button should be disabled during deletion
+      await waitFor(() => {
+        expect(confirmButton).toBeDisabled();
+      });
+    });
+
+    it("should show loading state during deletion", async () => {
+      const user = userEvent.setup();
+
+      // Mock a delayed response
+      (global.fetch as any).mockImplementationOnce(
+        () =>
+          new Promise((resolve) =>
+            setTimeout(
+              () =>
+                resolve({
+                  ok: true,
+                  status: 200,
+                  json: async () => ({ data: { success: true } }),
+                }),
+              1000
+            )
+          )
+      );
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      // Open confirmation dialog
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Confirm deletion
+      await waitFor(() => {
+        expect(screen.getByText(/are you sure|confirm.*delete/i)).toBeInTheDocument();
+      });
+
+      const confirmButton = screen.getByRole("button", { name: /^delete$|confirm|yes/i });
+      await user.click(confirmButton);
+
+      // Should show loading indicator
+      await waitFor(() => {
+        expect(screen.getByText(/deleting|loading/i) || confirmButton.textContent).toBeTruthy();
+      });
+    });
+
+    it("should handle network error during deletion gracefully", async () => {
+      const user = userEvent.setup();
+
+      (global.fetch as any).mockRejectedValueOnce(new Error("Network error"));
+
+      render(
+        <EventModal
+          open={true}
+          onClose={mockOnClose}
+          onSuccess={mockOnSuccess}
+          categories={mockCategories}
+          event={mockEvent}
+        />
+      );
+
+      // Open confirmation dialog
+      const deleteButton = screen.getByRole("button", { name: /delete/i });
+      await user.click(deleteButton);
+
+      // Confirm deletion
+      await waitFor(() => {
+        expect(screen.getByText(/are you sure|confirm.*delete/i)).toBeInTheDocument();
+      });
+
+      const confirmButton = screen.getByRole("button", { name: /^delete$|confirm|yes/i });
+      await user.click(confirmButton);
+
+      // Should display error
+      await waitFor(() => {
+        expect(screen.getByText(/error|failed/i)).toBeInTheDocument();
+      });
+
+      // Should NOT call onSuccess
+      expect(mockOnSuccess).not.toHaveBeenCalled();
+    });
+  });
 });
