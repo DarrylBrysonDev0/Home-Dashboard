@@ -90,23 +90,23 @@
 
 ### Tests for US1 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T030 [P] [US1] Write unit tests for password hashing/comparison in __tests__/unit/utils/password.test.ts
-- [ ] T031 [P] [US1] Write unit tests for account lockout logic in __tests__/unit/queries/auth.test.ts
-- [ ] T032 [P] [US1] Write integration test for login flow (valid/invalid credentials) in __tests__/integration/api/auth.test.ts
-- [ ] T033 [P] [US1] Write integration test for account lockout (5 failed attempts) in __tests__/integration/api/auth-lockout.test.ts
-- [ ] T034 [P] [US1] Write component test for LoginForm in __tests__/unit/components/login-form.test.tsx
+- [X] T030 [P] [US1] Write unit tests for password hashing/comparison in __tests__/unit/utils/password.test.ts
+- [X] T031 [P] [US1] Write unit tests for account lockout logic in __tests__/unit/queries/auth.test.ts
+- [X] T032 [P] [US1] Write integration test for login flow (valid/invalid credentials) in __tests__/integration/api/auth.test.ts
+- [X] T033 [P] [US1] Write integration test for account lockout (5 failed attempts) in __tests__/integration/api/auth-lockout.test.ts
+- [X] T034 [P] [US1] Write component test for LoginForm in __tests__/unit/components/login-form.test.tsx
 
 ### API Layer for US1
 
-- [ ] T035 [P] [US1] Create auth query helpers (findUserByEmail, incrementFailedAttempts, resetFailedAttempts) in lib/queries/auth.ts
-- [ ] T036 [US1] Implement custom authorize function in lib/auth.ts with lockout and password verification
+- [X] T035 [P] [US1] Create auth query helpers (findUserByEmail, incrementFailedAttempts, resetFailedAttempts) in lib/queries/auth.ts
+- [X] T036 [US1] Implement custom authorize function in lib/auth.ts with lockout and password verification
 
 ### UI Components for US1
 
-- [ ] T037 [P] [US1] Create LoginForm component with email/password fields and error display in components/auth/login-form.tsx
-- [ ] T038 [P] [US1] Create UserMenu component for authenticated user (name, logout) in components/auth/user-menu.tsx
-- [ ] T039 [US1] Create login page with LoginForm in app/login/page.tsx
-- [ ] T040 [US1] Add UserMenu to main layout in app/layout.tsx
+- [X] T037 [P] [US1] Create LoginForm component with email/password fields and error display in components/auth/login-form.tsx
+- [X] T038 [P] [US1] Create UserMenu component for authenticated user (name, logout) in components/auth/user-menu.tsx
+- [X] T039 [US1] Create login page with LoginForm in app/login/page.tsx
+- [X] T040 [US1] Add UserMenu to main layout in app/layout.tsx
 
 **Checkpoint**: User Story 1 complete - Users can log in securely with lockout protection
 
