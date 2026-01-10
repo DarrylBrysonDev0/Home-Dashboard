@@ -8,5 +8,10 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/User'
+export type * from './models/EventCategory'
+export type * from './models/Event'
+export type * from './models/EventAttendee'
+export type * from './models/EventInvite'
 export type * from './models/transactions'
 export type * from './commonInputTypes'

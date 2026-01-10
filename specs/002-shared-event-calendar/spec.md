@@ -268,6 +268,60 @@ As an admin, I want to manage event categories so that I can customize the categ
 
 ---
 
+## Development Methodology: TDD Red-Green *(mandatory)*
+
+This feature MUST be developed using Test-Driven Development (TDD) with the Red-Green-Refactor cycle.
+
+### TDD Cycle
+
+For each functional requirement and user story acceptance scenario:
+
+1. **RED**: Write a failing test that defines the expected behavior
+   - Test should clearly describe the expected outcome
+   - Test MUST fail initially (no implementation exists)
+   - Commit the failing test
+
+2. **GREEN**: Write the minimum code to make the test pass
+   - Implement only what is needed to satisfy the test
+   - Do not add extra functionality
+   - Commit when test passes
+
+3. **REFACTOR**: Improve code quality while keeping tests green
+   - Clean up duplication, improve naming, optimize structure
+   - All tests MUST remain passing
+   - Commit the refactored code
+
+### Test Categories
+
+| Category | Purpose | Scope | When to Write |
+|----------|---------|-------|---------------|
+| **Unit Tests** | Verify individual functions/components in isolation | Single function, component, or module | Before implementing any business logic or component |
+| **Integration Tests** | Verify components work together correctly | Database queries, API endpoints, component interactions | Before implementing database operations or API routes |
+| **End-to-End Tests** | Verify complete user workflows | Full user story from UI to database | Before implementing each P1 user story |
+
+### Acceptance Scenario → Test Mapping
+
+Each **Given/When/Then** acceptance scenario in User Stories maps directly to a test case:
+
+- **Given** → Test setup/preconditions (arrange)
+- **When** → Action being tested (act)
+- **Then** → Assertion of expected outcome (assert)
+
+Example mapping from User Story 1:
+```
+Acceptance: Given I am on the login page with valid credentials, When I enter my email and password...
+Test: "should redirect to calendar page when valid credentials are provided"
+```
+
+### Test Coverage Requirements
+
+- **Minimum 80% code coverage** for business logic (authentication, event CRUD, email sending)
+- **100% coverage** for all acceptance scenarios in P1 user stories
+- **All edge cases** must have corresponding test cases
+- **Database operations** must have integration tests with test container
+
+---
+
 ## Assumptions
 
 - Household size is small (2-10 members), so simple authentication without advanced security features is acceptable.

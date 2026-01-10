@@ -1,16 +1,16 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version Change: 1.0.1 → 1.0.2 (Database setup documentation)
-Modified Principles: Updated Core Stack to MSSQL Server 2025
-Added Sections: "Development Environment" with database setup and re-initialization procedures
-Removed Sections: N/A
+Version Change: 1.0.2 → 1.1.0 (TDD Red-Green methodology mandated)
+Modified Principles: Updated Development Workflow to mandate TDD Red-Green-Refactor cycle
+Added Sections: "Testing Standards (TDD Red-Green-Refactor)" with comprehensive test requirements
+Removed Sections: "Testing Standards (Pragmatic)" - replaced with mandatory TDD approach
 Templates Status:
-  ✅ .specify/templates/plan-template.md - No updates required
-  ✅ .specify/templates/spec-template.md - No updates required
-  ✅ .specify/templates/tasks-template.md - No updates required
-Follow-up TODOs: None
-Bump Rationale: PATCH - Added development database setup documentation and updated MSSQL version without changing core principles or architectural requirements.
+  ⚠️ .specify/templates/plan-template.md - Should verify testing approach aligns with TDD
+  ⚠️ .specify/templates/spec-template.md - Should include TDD Red-Green section template
+  ⚠️ .specify/templates/tasks-template.md - Should include test-writing tasks before implementation
+Follow-up TODOs: Update spec template to include TDD section; update task template to include RED-GREEN-REFACTOR phases
+Bump Rationale: MINOR - Added mandatory TDD requirement which represents a substantial change to development workflow without breaking existing specs that already include TDD sections.
 -->
 
 # Home Dashboard Constitution
@@ -137,17 +137,21 @@ Start with the simplest working solution; complexity MUST be justified.
    - File paths MUST be explicit in task descriptions
    - Parallel tasks MUST be marked with `[P]`
 
-4. **Implementation**
+4. **Implementation** (TDD Red-Green-Refactor)
    - Start with P1 user story only
-   - Database schema → API routes → UI components → Integration
-   - Test as you build (manual testing acceptable for MVP)
+   - **RED**: Write failing test for each acceptance scenario
+   - **GREEN**: Implement minimum code to pass the test
+   - **REFACTOR**: Clean up while keeping tests green
+   - Follow order: Database schema → API routes → UI components → Integration
    - Use `prisma studio` for database inspection during development
+   - Commit after each RED, GREEN, and REFACTOR phase
 
 5. **Validation**
    - Feature MUST satisfy acceptance criteria from spec
+   - All tests MUST pass (`npm test`)
+   - Minimum 80% code coverage for business logic
    - Type errors MUST be resolved (`npm run lint`)
    - Docker build MUST succeed (`docker-compose up`)
-   - Manual testing MUST cover all acceptance scenarios
 
 ### Directory Structure Standards
 
@@ -189,13 +193,18 @@ Home-Dashboard/
 - **Build**: `npm run build` MUST succeed
 - **Commits**: Use conventional commit format (feat:, fix:, docs:, refactor:)
 
-### Testing Standards (Pragmatic)
+### Testing Standards (TDD Red-Green-Refactor)
 
-Given this is a home lab MVP:
-- Automated testing is OPTIONAL for P1 features
-- Manual acceptance testing MUST cover all user scenarios
-- If bugs are found, document them in tasks and fix before adding new features
-- As the project matures, add tests for critical paths
+**Mandatory for All Features**:
+- Test-Driven Development (TDD) MUST be used for all new features
+- Write tests BEFORE implementation (RED → GREEN → REFACTOR cycle)
+- Unit tests MUST cover all business logic and utility functions
+- Integration tests MUST cover database queries and API endpoints
+- End-to-End tests MUST cover all P1 user story acceptance scenarios
+- Minimum 80% code coverage for business logic
+- 100% coverage for P1 acceptance scenarios
+- All tests MUST pass before merging (`npm test`)
+- Use Vitest for unit/integration tests, Playwright for E2E tests
 
 ### Sample Data & Agent Boundaries
 
@@ -316,4 +325,4 @@ See [DATABASE_SETUP.md](../../DATABASE_SETUP.md) for complete documentation.
 - Update if patterns emerge that aren't captured
 - Remove principles that prove impractical (via MAJOR version bump)
 
-**Version**: 1.0.2 | **Ratified**: 2026-01-07 | **Last Amended**: 2026-01-07
+**Version**: 1.1.0 | **Ratified**: 2026-01-07 | **Last Amended**: 2026-01-10

@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "sqlserver",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlserver\"\n}\n\nmodel transactions {\n  transaction_id      String    @id(map: \"PK__transact__85C600AF81CDAE52\") @db.VarChar(50)\n  transaction_date    DateTime  @db.Date\n  transaction_time    DateTime  @db.Time\n  account_id          String    @db.VarChar(50)\n  account_name        String    @db.VarChar(100)\n  account_type        String    @db.VarChar(50)\n  account_owner       String    @db.VarChar(50)\n  description         String?   @db.VarChar(500)\n  category            String?   @db.VarChar(100)\n  subcategory         String?   @db.VarChar(100)\n  amount              Decimal   @db.Decimal(18, 2)\n  transaction_type    String    @db.VarChar(50)\n  balance_after       Decimal?  @db.Decimal(18, 2)\n  is_recurring        Boolean?\n  recurring_frequency String?   @db.VarChar(50)\n  notes               String?   @db.VarChar(1000)\n  created_at          DateTime? @default(now(), map: \"DF__transacti__creat__37A5467C\") @db.DateTime\n  updated_at          DateTime? @default(now(), map: \"DF__transacti__updat__38996AB5\") @db.DateTime\n\n  @@index([account_id], map: \"IX_transactions_account\")\n  @@index([category, subcategory], map: \"IX_transactions_category\")\n  @@index([transaction_date(sort: Desc)], map: \"IX_transactions_date\")\n  @@index([transaction_type], map: \"IX_transactions_type\")\n  @@index([transaction_date, account_id], map: \"idx_date_account\")\n  @@index([category, transaction_date], map: \"idx_category_date\")\n  @@index([transaction_type, transaction_date], map: \"idx_type_date\")\n  @@index([is_recurring, recurring_frequency], map: \"idx_recurring\")\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlserver\"\n}\n\n// ============================================\n// AUTHENTICATION MODELS\n// ============================================\n\nmodel User {\n  id           String  @id @default(cuid())\n  email        String  @unique @db.NVarChar(320)\n  name         String  @db.NVarChar(100)\n  passwordHash String  @db.NVarChar(200)\n  role         String  @default(\"MEMBER\") @db.NVarChar(20) // ADMIN or MEMBER\n  avatarColor  String? @db.NVarChar(7) // Hex color like #F97316\n\n  // Account lockout tracking (FR-005)\n  failedLoginAttempts Int       @default(0)\n  lockedUntil         DateTime? @db.DateTime\n\n  createdAt DateTime @default(now()) @db.DateTime\n  updatedAt DateTime @updatedAt @db.DateTime\n\n  // Relations\n  eventsCreated Event[]         @relation(\"EventCreator\")\n  eventsInvited EventAttendee[]\n\n  @@map(\"users\")\n}\n\n// ============================================\n// CALENDAR MODELS\n// ============================================\n\nmodel EventCategory {\n  id        String   @id @default(cuid())\n  name      String   @unique @db.NVarChar(50)\n  color     String   @db.NVarChar(7) // Hex color like #F97316\n  icon      String?  @db.NVarChar(50) // Lucide icon name\n  createdAt DateTime @default(now()) @db.DateTime\n\n  events Event[]\n\n  @@map(\"event_categories\")\n}\n\nmodel Event {\n  id String @id @default(cuid())\n\n  // Core event data (FR-015, FR-016)\n  title       String  @db.NVarChar(200)\n  description String? @db.NVarChar(2000)\n  location    String? @db.NVarChar(500)\n\n  // Timing - stored in UTC (FR-022)\n  startTime DateTime @db.DateTime\n  endTime   DateTime @db.DateTime\n  allDay    Boolean  @default(false)\n  timezone  String   @default(\"America/New_York\") @db.NVarChar(50) // IANA timezone\n\n  // Recurrence (future expansion, not in MVP UI)\n  recurrenceRule String? @db.NVarChar(500) // RRULE format\n\n  // Relations\n  categoryId String?\n  category   EventCategory? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)\n\n  createdById String\n  createdBy   User   @relation(\"EventCreator\", fields: [createdById], references: [id], onDelete: NoAction, onUpdate: NoAction)\n\n  attendees   EventAttendee[]\n  invitesSent EventInvite[]\n\n  // Timestamps (FR-023)\n  createdAt DateTime @default(now()) @db.DateTime\n  updatedAt DateTime @updatedAt @db.DateTime\n\n  // Indexes for calendar queries\n  @@index([startTime, endTime])\n  @@index([categoryId])\n  @@index([createdById])\n  @@map(\"events\")\n}\n\nmodel EventAttendee {\n  id      String @id @default(cuid())\n  eventId String\n  userId  String\n  status  String @default(\"PENDING\") @db.NVarChar(20) // PENDING, ACCEPTED, DECLINED, TENTATIVE\n\n  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: NoAction)\n  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@unique([eventId, userId])\n  @@map(\"event_attendees\")\n}\n\nmodel EventInvite {\n  id             String   @id @default(cuid())\n  eventId        String\n  recipientEmail String   @db.NVarChar(320)\n  sentAt         DateTime @default(now()) @db.DateTime\n\n  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@index([eventId])\n  @@map(\"event_invites\")\n}\n\n// ============================================\n// FINANCE MODELS (Feature 001)\n// ============================================\n\nmodel transactions {\n  transaction_id      String    @id(map: \"PK__transact__85C600AF81CDAE52\") @db.VarChar(50)\n  transaction_date    DateTime  @db.Date\n  transaction_time    DateTime  @db.Time\n  account_id          String    @db.VarChar(50)\n  account_name        String    @db.VarChar(100)\n  account_type        String    @db.VarChar(50)\n  account_owner       String    @db.VarChar(50)\n  description         String?   @db.VarChar(500)\n  category            String?   @db.VarChar(100)\n  subcategory         String?   @db.VarChar(100)\n  amount              Decimal   @db.Decimal(18, 2)\n  transaction_type    String    @db.VarChar(50)\n  balance_after       Decimal?  @db.Decimal(18, 2)\n  is_recurring        Boolean?\n  recurring_frequency String?   @db.VarChar(50)\n  notes               String?   @db.VarChar(1000)\n  created_at          DateTime? @default(now(), map: \"DF__transacti__creat__37A5467C\") @db.DateTime\n  updated_at          DateTime? @default(now(), map: \"DF__transacti__updat__38996AB5\") @db.DateTime\n\n  @@index([account_id], map: \"IX_transactions_account\")\n  @@index([category, subcategory], map: \"IX_transactions_category\")\n  @@index([transaction_date(sort: Desc)], map: \"IX_transactions_date\")\n  @@index([transaction_type], map: \"IX_transactions_type\")\n  @@index([transaction_date, account_id], map: \"idx_date_account\")\n  @@index([category, transaction_date], map: \"idx_category_date\")\n  @@index([transaction_type, transaction_date], map: \"idx_type_date\")\n  @@index([is_recurring, recurring_frequency], map: \"idx_recurring\")\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"transactions\":{\"fields\":[{\"name\":\"transaction_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"transaction_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"transaction_time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"account_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"account_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"account_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"account_owner\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subcategory\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"transaction_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"balance_after\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"is_recurring\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"recurring_frequency\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"passwordHash\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatarColor\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"failedLoginAttempts\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"lockedUntil\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"eventsCreated\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"EventCreator\"},{\"name\":\"eventsInvited\",\"kind\":\"object\",\"type\":\"EventAttendee\",\"relationName\":\"EventAttendeeToUser\"}],\"dbName\":\"users\"},\"EventCategory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"color\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"icon\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"events\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"EventToEventCategory\"}],\"dbName\":\"event_categories\"},\"Event\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"location\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"startTime\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"endTime\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"allDay\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"timezone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"recurrenceRule\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"categoryId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"object\",\"type\":\"EventCategory\",\"relationName\":\"EventToEventCategory\"},{\"name\":\"createdById\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdBy\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"EventCreator\"},{\"name\":\"attendees\",\"kind\":\"object\",\"type\":\"EventAttendee\",\"relationName\":\"EventToEventAttendee\"},{\"name\":\"invitesSent\",\"kind\":\"object\",\"type\":\"EventInvite\",\"relationName\":\"EventToEventInvite\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"events\"},\"EventAttendee\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"eventId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"event\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"EventToEventAttendee\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"EventAttendeeToUser\"}],\"dbName\":\"event_attendees\"},\"EventInvite\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"eventId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"recipientEmail\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sentAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"event\",\"kind\":\"object\",\"type\":\"Event\",\"relationName\":\"EventToEventInvite\"}],\"dbName\":\"event_invites\"},\"transactions\":{\"fields\":[{\"name\":\"transaction_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"transaction_date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"transaction_time\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"account_id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"account_name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"account_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"account_owner\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"category\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"subcategory\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"transaction_type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"balance_after\",\"kind\":\"scalar\",\"type\":\"Decimal\"},{\"name\":\"is_recurring\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"recurring_frequency\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"created_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updated_at\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -58,8 +58,8 @@ export interface PrismaClientConstructor {
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Transactions
-   * const transactions = await prisma.transactions.findMany()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
    * ```
    * 
    * Read more in our [docs](https://pris.ly/d/client).
@@ -80,8 +80,8 @@ export interface PrismaClientConstructor {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Transactions
- * const transactions = await prisma.transactions.findMany()
+ * // Fetch zero or more Users
+ * const users = await prisma.user.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -175,6 +175,56 @@ export interface PrismaClient<
   }>>
 
       /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
+  get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.eventCategory`: Exposes CRUD operations for the **EventCategory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EventCategories
+    * const eventCategories = await prisma.eventCategory.findMany()
+    * ```
+    */
+  get eventCategory(): Prisma.EventCategoryDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.event`: Exposes CRUD operations for the **Event** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Events
+    * const events = await prisma.event.findMany()
+    * ```
+    */
+  get event(): Prisma.EventDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.eventAttendee`: Exposes CRUD operations for the **EventAttendee** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EventAttendees
+    * const eventAttendees = await prisma.eventAttendee.findMany()
+    * ```
+    */
+  get eventAttendee(): Prisma.EventAttendeeDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.eventInvite`: Exposes CRUD operations for the **EventInvite** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EventInvites
+    * const eventInvites = await prisma.eventInvite.findMany()
+    * ```
+    */
+  get eventInvite(): Prisma.EventInviteDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
    * `prisma.transactions`: Exposes CRUD operations for the **transactions** model.
     * Example usage:
     * ```ts

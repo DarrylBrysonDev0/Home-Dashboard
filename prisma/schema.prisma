@@ -7,6 +7,115 @@ datasource db {
   provider = "sqlserver"
 }
 
+// ============================================
+// AUTHENTICATION MODELS
+// ============================================
+
+model User {
+  id                  String    @id @default(cuid())
+  email               String    @unique @db.NVarChar(320)
+  name                String    @db.NVarChar(100)
+  passwordHash        String    @db.NVarChar(200)
+  role                String    @default("MEMBER") @db.NVarChar(20)  // ADMIN or MEMBER
+  avatarColor         String?   @db.NVarChar(7)  // Hex color like #F97316
+
+  // Account lockout tracking (FR-005)
+  failedLoginAttempts Int       @default(0)
+  lockedUntil         DateTime? @db.DateTime
+
+  createdAt           DateTime  @default(now()) @db.DateTime
+  updatedAt           DateTime  @updatedAt @db.DateTime
+
+  // Relations
+  eventsCreated       Event[]   @relation("EventCreator")
+  eventsInvited       EventAttendee[]
+
+  @@map("users")
+}
+
+// ============================================
+// CALENDAR MODELS
+// ============================================
+
+model EventCategory {
+  id          String    @id @default(cuid())
+  name        String    @unique @db.NVarChar(50)
+  color       String    @db.NVarChar(7)  // Hex color like #F97316
+  icon        String?   @db.NVarChar(50) // Lucide icon name
+  createdAt   DateTime  @default(now()) @db.DateTime
+
+  events      Event[]
+
+  @@map("event_categories")
+}
+
+model Event {
+  id              String    @id @default(cuid())
+
+  // Core event data (FR-015, FR-016)
+  title           String    @db.NVarChar(200)
+  description     String?   @db.NVarChar(2000)
+  location        String?   @db.NVarChar(500)
+
+  // Timing - stored in UTC (FR-022)
+  startTime       DateTime  @db.DateTime
+  endTime         DateTime  @db.DateTime
+  allDay          Boolean   @default(false)
+  timezone        String    @default("America/New_York") @db.NVarChar(50) // IANA timezone
+
+  // Recurrence (future expansion, not in MVP UI)
+  recurrenceRule  String?   @db.NVarChar(500) // RRULE format
+
+  // Relations
+  categoryId      String?
+  category        EventCategory? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  createdById     String
+  createdBy       User      @relation("EventCreator", fields: [createdById], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  attendees       EventAttendee[]
+  invitesSent     EventInvite[]
+
+  // Timestamps (FR-023)
+  createdAt       DateTime  @default(now()) @db.DateTime
+  updatedAt       DateTime  @updatedAt @db.DateTime
+
+  // Indexes for calendar queries
+  @@index([startTime, endTime])
+  @@index([categoryId])
+  @@index([createdById])
+  @@map("events")
+}
+
+model EventAttendee {
+  id        String  @id @default(cuid())
+  eventId   String
+  userId    String
+  status    String  @default("PENDING") @db.NVarChar(20)  // PENDING, ACCEPTED, DECLINED, TENTATIVE
+
+  event     Event   @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([eventId, userId])
+  @@map("event_attendees")
+}
+
+model EventInvite {
+  id             String    @id @default(cuid())
+  eventId        String
+  recipientEmail String    @db.NVarChar(320)
+  sentAt         DateTime  @default(now()) @db.DateTime
+
+  event          Event     @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([eventId])
+  @@map("event_invites")
+}
+
+// ============================================
+// FINANCE MODELS (Feature 001)
+// ============================================
+
 model transactions {
   transaction_id      String    @id(map: "PK__transact__85C600AF81CDAE52") @db.VarChar(50)
   transaction_date    DateTime  @db.Date
