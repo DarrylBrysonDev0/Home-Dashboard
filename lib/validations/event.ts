@@ -88,8 +88,18 @@ export type UpdateEventInput = z.infer<typeof updateEventSchema>;
  * Filters events by date range and category (FR-024)
  */
 export const listEventsQuerySchema = z.object({
-  start: z.string().datetime().optional(),
-  end: z.string().datetime().optional(),
+  start: z
+    .string()
+    .refine((val) => !isNaN(Date.parse(val)), {
+      message: "Start date must be a valid ISO 8601 datetime string",
+    })
+    .optional(),
+  end: z
+    .string()
+    .refine((val) => !isNaN(Date.parse(val)), {
+      message: "End date must be a valid ISO 8601 datetime string",
+    })
+    .optional(),
   categoryId: z.string().cuid().optional(),
 });
 export type ListEventsQuery = z.infer<typeof listEventsQuerySchema>;

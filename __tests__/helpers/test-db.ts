@@ -166,9 +166,10 @@ async function setupContainerDatabase(): Promise<TestDatabaseContext> {
 }
 
 /**
- * Creates the transactions table and indexes
+ * Creates the database schema (transactions table + calendar tables)
  */
 async function createSchema(prisma: PrismaClient): Promise<void> {
+  // Create transactions table (Feature 001)
   await prisma.$executeRawUnsafe(`
     IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'transactions')
     BEGIN
@@ -195,7 +196,7 @@ async function createSchema(prisma: PrismaClient): Promise<void> {
     END
   `);
 
-  // Create indexes
+  // Create transactions indexes
   await prisma.$executeRawUnsafe(`
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_transactions_account')
       CREATE INDEX IX_transactions_account ON [transactions]([account_id]);
@@ -205,6 +206,109 @@ async function createSchema(prisma: PrismaClient): Promise<void> {
       CREATE INDEX IX_transactions_date ON [transactions]([transaction_date] DESC);
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_transactions_type')
       CREATE INDEX IX_transactions_type ON [transactions]([transaction_type]);
+  `);
+
+  // Create users table (Feature 002 - Calendar)
+  await prisma.$executeRawUnsafe(`
+    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'users')
+    BEGIN
+      CREATE TABLE [users] (
+        [id] NVARCHAR(450) NOT NULL PRIMARY KEY,
+        [email] NVARCHAR(320) NOT NULL UNIQUE,
+        [name] NVARCHAR(100) NOT NULL,
+        [passwordHash] NVARCHAR(200) NOT NULL,
+        [role] NVARCHAR(20) NOT NULL DEFAULT 'MEMBER',
+        [avatarColor] NVARCHAR(7) NULL,
+        [failedLoginAttempts] INT NOT NULL DEFAULT 0,
+        [lockedUntil] DATETIME NULL,
+        [createdAt] DATETIME NOT NULL DEFAULT GETDATE(),
+        [updatedAt] DATETIME NOT NULL DEFAULT GETDATE()
+      )
+    END
+  `);
+
+  // Create event_categories table
+  await prisma.$executeRawUnsafe(`
+    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'event_categories')
+    BEGIN
+      CREATE TABLE [event_categories] (
+        [id] NVARCHAR(450) NOT NULL PRIMARY KEY,
+        [name] NVARCHAR(50) NOT NULL UNIQUE,
+        [color] NVARCHAR(7) NOT NULL,
+        [icon] NVARCHAR(50) NULL,
+        [createdAt] DATETIME NOT NULL DEFAULT GETDATE()
+      )
+    END
+  `);
+
+  // Create events table
+  await prisma.$executeRawUnsafe(`
+    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'events')
+    BEGIN
+      CREATE TABLE [events] (
+        [id] NVARCHAR(450) NOT NULL PRIMARY KEY,
+        [title] NVARCHAR(200) NOT NULL,
+        [description] NVARCHAR(2000) NULL,
+        [location] NVARCHAR(500) NULL,
+        [startTime] DATETIME NOT NULL,
+        [endTime] DATETIME NOT NULL,
+        [allDay] BIT NOT NULL DEFAULT 0,
+        [timezone] NVARCHAR(50) NOT NULL DEFAULT 'America/New_York',
+        [recurrenceRule] NVARCHAR(500) NULL,
+        [categoryId] NVARCHAR(450) NULL,
+        [createdById] NVARCHAR(450) NOT NULL,
+        [createdAt] DATETIME NOT NULL DEFAULT GETDATE(),
+        [updatedAt] DATETIME NOT NULL DEFAULT GETDATE(),
+        FOREIGN KEY ([categoryId]) REFERENCES [event_categories]([id]) ON DELETE NO ACTION,
+        FOREIGN KEY ([createdById]) REFERENCES [users]([id]) ON DELETE NO ACTION
+      )
+    END
+  `);
+
+  // Create events indexes
+  await prisma.$executeRawUnsafe(`
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_events_startTime_endTime')
+      CREATE INDEX IX_events_startTime_endTime ON [events]([startTime], [endTime]);
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_events_categoryId')
+      CREATE INDEX IX_events_categoryId ON [events]([categoryId]);
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_events_createdById')
+      CREATE INDEX IX_events_createdById ON [events]([createdById]);
+  `);
+
+  // Create event_attendees table
+  await prisma.$executeRawUnsafe(`
+    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'event_attendees')
+    BEGIN
+      CREATE TABLE [event_attendees] (
+        [id] NVARCHAR(450) NOT NULL PRIMARY KEY,
+        [eventId] NVARCHAR(450) NOT NULL,
+        [userId] NVARCHAR(450) NOT NULL,
+        [status] NVARCHAR(20) NOT NULL DEFAULT 'PENDING',
+        FOREIGN KEY ([eventId]) REFERENCES [events]([id]) ON DELETE CASCADE,
+        FOREIGN KEY ([userId]) REFERENCES [users]([id]) ON DELETE CASCADE,
+        CONSTRAINT UQ_event_attendees_eventId_userId UNIQUE ([eventId], [userId])
+      )
+    END
+  `);
+
+  // Create event_invites table
+  await prisma.$executeRawUnsafe(`
+    IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'event_invites')
+    BEGIN
+      CREATE TABLE [event_invites] (
+        [id] NVARCHAR(450) NOT NULL PRIMARY KEY,
+        [eventId] NVARCHAR(450) NOT NULL,
+        [recipientEmail] NVARCHAR(320) NOT NULL,
+        [sentAt] DATETIME NOT NULL DEFAULT GETDATE(),
+        FOREIGN KEY ([eventId]) REFERENCES [events]([id]) ON DELETE CASCADE
+      )
+    END
+  `);
+
+  // Create event_invites index
+  await prisma.$executeRawUnsafe(`
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_event_invites_eventId')
+      CREATE INDEX IX_event_invites_eventId ON [event_invites]([eventId]);
   `);
 }
 
@@ -223,14 +327,21 @@ export async function teardownTestDatabase(): Promise<void> {
 }
 
 /**
- * Clears all data from the transactions table.
+ * Clears all data from all tables.
  * Call this between tests to ensure isolation.
  */
 export async function clearTestData(): Promise<void> {
   if (testContext) {
-    await testContext.prisma.$executeRawUnsafe(
-      "DELETE FROM [transactions]"
-    );
+    // Delete in correct order due to foreign key constraints
+    // Calendar tables first (child tables before parent tables)
+    await testContext.prisma.$executeRawUnsafe("DELETE FROM [event_invites]");
+    await testContext.prisma.$executeRawUnsafe("DELETE FROM [event_attendees]");
+    await testContext.prisma.$executeRawUnsafe("DELETE FROM [events]");
+    await testContext.prisma.$executeRawUnsafe("DELETE FROM [event_categories]");
+    await testContext.prisma.$executeRawUnsafe("DELETE FROM [users]");
+
+    // Finance tables
+    await testContext.prisma.$executeRawUnsafe("DELETE FROM [transactions]");
   }
   // Reset in-memory pattern state for recurring detection tests
   // Dynamic import to avoid loading lib/db before env vars are set

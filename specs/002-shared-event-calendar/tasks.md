@@ -120,22 +120,22 @@
 
 ### Tests for US2 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T041 [P] [US2] Write unit tests for date range query helpers in __tests__/unit/queries/events.test.ts
-- [ ] T042 [P] [US2] Write integration test for GET /api/events with date filtering in __tests__/integration/api/events-list.test.ts
-- [ ] T043 [P] [US2] Write component test for CalendarView in __tests__/unit/components/calendar-view.test.tsx
+- [X] T041 [P] [US2] Write unit tests for date range query helpers in __tests__/unit/queries/events.test.ts
+- [X] T042 [P] [US2] Write integration test for GET /api/events with date filtering in __tests__/integration/api/events-list.test.ts
+- [X] T043 [P] [US2] Write component test for CalendarView in __tests__/unit/components/calendar-view.test.tsx
 
 ### API Layer for US2
 
-- [ ] T044 [US2] Create event query helpers (listEvents with date range, category filter) in lib/queries/events.ts
-- [ ] T045 [US2] Implement GET /api/events route with query params in app/api/events/route.ts
-- [ ] T046 [P] [US2] Implement GET /api/events/[id] route for single event details in app/api/events/[id]/route.ts
+- [X] T044 [US2] Create event query helpers (listEvents with date range, category filter) in lib/queries/events.ts
+- [X] T045 [US2] Implement GET /api/events route with query params in app/api/events/route.ts
+- [X] T046 [P] [US2] Implement GET /api/events/[id] route for single event details in app/api/events/[id]/route.ts
 
 ### UI Components for US2
 
-- [ ] T047 [P] [US2] Create CalendarView component wrapping FullCalendar in components/calendar/calendar-view.tsx
-- [ ] T048 [P] [US2] Create EventDetails component for viewing event info in components/calendar/event-details.tsx
-- [ ] T049 [US2] Create calendar page with CalendarView in app/calendar/page.tsx
-- [ ] T050 [US2] Create calendar layout with navigation in app/calendar/layout.tsx
+- [X] T047 [P] [US2] Create CalendarView component wrapping FullCalendar in components/calendar/calendar-view.tsx
+- [X] T048 [P] [US2] Create EventDetails component for viewing event info in components/calendar/event-details.tsx
+- [X] T049 [US2] Create calendar page with CalendarView in app/calendar/page.tsx
+- [X] T050 [US2] Create calendar layout with navigation in app/calendar/layout.tsx
 
 **Checkpoint**: User Story 2 complete - Calendar displays events with view switching and navigation
 
