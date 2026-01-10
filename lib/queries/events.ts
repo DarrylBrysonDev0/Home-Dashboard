@@ -172,3 +172,100 @@ export async function getEventById(id: string) {
     },
   });
 }
+
+/**
+ * Create a new event
+ *
+ * Creates an event with the provided data and returns the full event
+ * with category and creator relations.
+ *
+ * @param data - Event creation data (validated by createEventSchema)
+ * @param createdById - ID of the user creating the event
+ * @returns Created event with relations
+ */
+export async function createEvent(
+  data: {
+    title: string;
+    description?: string;
+    location?: string;
+    startTime: Date;
+    endTime: Date;
+    allDay: boolean;
+    categoryId?: string;
+    timezone: string;
+  },
+  createdById: string
+) {
+  return prisma.event.create({
+    data: {
+      title: data.title,
+      description: data.description,
+      location: data.location,
+      startTime: data.startTime,
+      endTime: data.endTime,
+      allDay: data.allDay,
+      categoryId: data.categoryId,
+      timezone: data.timezone,
+      createdById,
+    },
+    include: {
+      category: true,
+      createdBy: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+}
+
+/**
+ * Update an existing event
+ *
+ * Performs a partial update - only provided fields are updated.
+ * Returns the full updated event with relations.
+ *
+ * @param id - Event ID
+ * @param data - Partial event data to update (validated by updateEventSchema)
+ * @returns Updated event with relations, or null if event not found
+ */
+export async function updateEvent(
+  id: string,
+  data: {
+    title?: string;
+    description?: string | null;
+    location?: string | null;
+    startTime?: Date;
+    endTime?: Date;
+    allDay?: boolean;
+    categoryId?: string | null;
+    timezone?: string;
+  }
+) {
+  // Build update data object with only provided fields
+  const updateData: Prisma.EventUpdateInput = {};
+
+  if (data.title !== undefined) updateData.title = data.title;
+  if (data.description !== undefined) updateData.description = data.description;
+  if (data.location !== undefined) updateData.location = data.location;
+  if (data.startTime !== undefined) updateData.startTime = data.startTime;
+  if (data.endTime !== undefined) updateData.endTime = data.endTime;
+  if (data.allDay !== undefined) updateData.allDay = data.allDay;
+  if (data.categoryId !== undefined) updateData.categoryId = data.categoryId;
+  if (data.timezone !== undefined) updateData.timezone = data.timezone;
+
+  return prisma.event.update({
+    where: { id },
+    data: updateData,
+    include: {
+      category: true,
+      createdBy: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+  });
+}

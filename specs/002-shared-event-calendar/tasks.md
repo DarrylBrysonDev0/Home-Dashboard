@@ -149,22 +149,22 @@
 
 ### Tests for US3 (TDD: Write FIRST, must FAIL before implementation)
 
-- [ ] T051 [P] [US3] Write unit tests for event validation (end time after start time) in __tests__/unit/validations/event.test.ts
-- [ ] T052 [P] [US3] Write integration test for POST /api/events (create) in __tests__/integration/api/events-create.test.ts
-- [ ] T053 [P] [US3] Write integration test for PUT /api/events/[id] (update) in __tests__/integration/api/events-update.test.ts
-- [ ] T054 [P] [US3] Write component test for EventModal (create/edit) in __tests__/unit/components/event-modal.test.tsx
+- [X] T051 [P] [US3] Write unit tests for event validation (end time after start time) in __tests__/unit/validations/event.test.ts
+- [X] T052 [P] [US3] Write integration test for POST /api/events (create) in __tests__/integration/api/events-create.test.ts
+- [X] T053 [P] [US3] Write integration test for PUT /api/events/[id] (update) in __tests__/integration/api/events-update.test.ts
+- [X] T054 [P] [US3] Write component test for EventModal (create/edit) in __tests__/unit/components/event-modal.test.tsx
 
 ### API Layer for US3
 
-- [ ] T055 [P] [US3] Create event mutation helpers (createEvent, updateEvent) in lib/queries/events.ts
-- [ ] T056 [US3] Implement POST /api/events route with Zod validation in app/api/events/route.ts
-- [ ] T057 [US3] Implement PUT /api/events/[id] route with validation in app/api/events/[id]/route.ts
+- [X] T055 [P] [US3] Create event mutation helpers (createEvent, updateEvent) in lib/queries/events.ts
+- [X] T056 [US3] Implement POST /api/events route with Zod validation in app/api/events/route.ts
+- [X] T057 [US3] Implement PUT /api/events/[id] route with validation in app/api/events/[id]/route.ts
 
 ### UI Components for US3
 
-- [ ] T058 [US3] Create EventModal component with form fields (title, description, location, times, all-day, category) in components/calendar/event-modal.tsx
-- [ ] T059 [US3] Integrate EventModal with CalendarView (click date to create, click event to edit) in components/calendar/calendar-view.tsx
-- [ ] T060 [US3] Add drag-and-drop event handlers to CalendarView in components/calendar/calendar-view.tsx
+- [X] T058 [US3] Create EventModal component with form fields (title, description, location, times, all-day, category) in components/calendar/event-modal.tsx
+- [X] T059 [US3] Integrate EventModal with CalendarView (click date to create, click event to edit) in components/calendar/calendar-view.tsx
+- [X] T060 [US3] Add drag-and-drop event handlers to CalendarView in components/calendar/calendar-view.tsx
 
 **Checkpoint**: User Story 3 complete - Users can create and edit events with full functionality
 

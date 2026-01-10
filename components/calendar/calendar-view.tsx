@@ -11,6 +11,7 @@ import type { EventClickArg, DateSelectArg, EventDropArg, DatesSetArg } from "@f
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertCircle } from "lucide-react";
+import { EventModal, type EventCategory } from "./event-modal";
 
 /**
  * Event data structure from the API
@@ -44,14 +45,16 @@ export interface CalendarEvent {
 export interface CalendarViewProps {
   /** Initial view type (month, week, day) */
   initialView?: "dayGridMonth" | "timeGridWeek" | "timeGridDay";
-  /** Callback when an event is clicked */
+  /** Callback when an event is clicked (if not provided, modal opens by default) */
   onEventClick?: (event: CalendarEvent) => void;
-  /** Callback when a date range is selected */
+  /** Callback when a date range is selected (if not provided, modal opens by default) */
   onDateSelect?: (start: Date, end: Date, allDay: boolean) => void;
   /** Callback when an event is dropped (drag and drop) */
   onEventDrop?: (eventId: string, newStart: Date, newEnd: Date) => void;
   /** Optional category filter (array of category IDs to show) */
   categoryFilter?: string[];
+  /** Available categories for event creation/editing */
+  categories?: EventCategory[];
   /** Additional CSS classes */
   className?: string;
 }
@@ -74,12 +77,20 @@ export function CalendarView({
   onDateSelect,
   onEventDrop,
   categoryFilter,
+  categories = [],
   className,
 }: CalendarViewProps) {
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const calendarRef = useRef<FullCalendar>(null);
+
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | undefined>(undefined);
+  const [modalDefaultStart, setModalDefaultStart] = useState<Date | undefined>(undefined);
+  const [modalDefaultEnd, setModalDefaultEnd] = useState<Date | undefined>(undefined);
+  const [modalDefaultAllDay, setModalDefaultAllDay] = useState(false);
 
   /**
    * Fetch events from the API for a given date range
@@ -128,8 +139,18 @@ export function CalendarView({
       const eventId = clickInfo.event.id;
       const event = events.find((e) => e.id === eventId);
 
-      if (event && onEventClick) {
-        onEventClick(event);
+      if (event) {
+        if (onEventClick) {
+          // Use custom callback if provided
+          onEventClick(event);
+        } else {
+          // Default behavior: open modal in edit mode
+          setSelectedEvent(event);
+          setModalDefaultStart(undefined);
+          setModalDefaultEnd(undefined);
+          setModalDefaultAllDay(false);
+          setIsModalOpen(true);
+        }
       }
     },
     [events, onEventClick]
@@ -141,7 +162,15 @@ export function CalendarView({
   const handleDateSelect = useCallback(
     (selectInfo: DateSelectArg) => {
       if (onDateSelect) {
+        // Use custom callback if provided
         onDateSelect(selectInfo.start, selectInfo.end, selectInfo.allDay);
+      } else {
+        // Default behavior: open modal in create mode
+        setSelectedEvent(undefined);
+        setModalDefaultStart(selectInfo.start);
+        setModalDefaultEnd(selectInfo.end);
+        setModalDefaultAllDay(selectInfo.allDay);
+        setIsModalOpen(true);
       }
 
       // Unselect the dates
@@ -155,17 +184,69 @@ export function CalendarView({
    * Handle event drop (drag and drop)
    */
   const handleEventDrop = useCallback(
-    (dropInfo: EventDropArg) => {
-      if (onEventDrop) {
-        const eventId = dropInfo.event.id;
-        const newStart = dropInfo.event.start!;
-        const newEnd = dropInfo.event.end || dropInfo.event.start!;
+    async (dropInfo: EventDropArg) => {
+      const eventId = dropInfo.event.id;
+      const newStart = dropInfo.event.start!;
+      const newEnd = dropInfo.event.end || dropInfo.event.start!;
 
+      if (onEventDrop) {
+        // Use custom callback if provided
         onEventDrop(eventId, newStart, newEnd);
+      } else {
+        // Default behavior: update event via API
+        try {
+          const response = await fetch(`/api/events/${eventId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              startTime: newStart.toISOString(),
+              endTime: newEnd.toISOString(),
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Failed to update event");
+          }
+
+          // Refetch events to ensure consistency
+          const calendarApi = calendarRef.current?.getApi();
+          if (calendarApi) {
+            const view = calendarApi.view;
+            fetchEvents(view.activeStart, view.activeEnd);
+          }
+        } catch (err) {
+          console.error("Error updating event:", err);
+          // Revert the event to its original position
+          dropInfo.revert();
+          setError(err instanceof Error ? err.message : "Failed to update event");
+        }
       }
     },
-    [onEventDrop]
+    [onEventDrop, fetchEvents]
   );
+
+  /**
+   * Handle modal close
+   */
+  const handleModalClose = useCallback(() => {
+    setIsModalOpen(false);
+    setSelectedEvent(undefined);
+    setModalDefaultStart(undefined);
+    setModalDefaultEnd(undefined);
+    setModalDefaultAllDay(false);
+  }, []);
+
+  /**
+   * Handle successful event creation/update
+   */
+  const handleModalSuccess = useCallback(() => {
+    // Refetch events to show the new/updated event
+    const calendarApi = calendarRef.current?.getApi();
+    if (calendarApi) {
+      const view = calendarApi.view;
+      fetchEvents(view.activeStart, view.activeEnd);
+    }
+  }, [fetchEvents]);
 
   /**
    * Transform API events to FullCalendar event format
@@ -223,7 +304,7 @@ export function CalendarView({
         }}
         events={calendarEvents}
         editable={!!onEventDrop}
-        selectable={!!onDateSelect}
+        selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
         weekends={true}
@@ -242,6 +323,18 @@ export function CalendarView({
         }}
         // Accessibility
         eventClassNames="cursor-pointer hover:opacity-80 transition-opacity"
+      />
+
+      {/* Event creation/editing modal */}
+      <EventModal
+        open={isModalOpen}
+        onClose={handleModalClose}
+        onSuccess={handleModalSuccess}
+        event={selectedEvent}
+        defaultStartTime={modalDefaultStart}
+        defaultEndTime={modalDefaultEnd}
+        defaultAllDay={modalDefaultAllDay}
+        categories={categories}
       />
     </div>
   );

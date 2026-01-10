@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getEventById } from "@/lib/queries/events";
+import { getAuthSession } from "@/lib/server/auth-session";
+import { getEventById, updateEvent } from "@/lib/queries/events";
+import { updateEventSchema } from "@/lib/validations/event";
 
 /**
  * GET /api/events/[id]
@@ -80,6 +82,126 @@ export async function GET(
     return NextResponse.json({ data: responseData });
   } catch (error) {
     console.error("Error fetching event:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}
+
+/**
+ * PUT /api/events/[id]
+ *
+ * Update an existing calendar event
+ *
+ * Request Body: {
+ *   title?, description?, location?,
+ *   startTime?, endTime?, allDay?, categoryId?, timezone?
+ * }
+ *
+ * All fields are optional - only provided fields will be updated.
+ * Any household member can update any event (FR-018, FR-020).
+ *
+ * Authentication: Required (handled by middleware)
+ *
+ * @see contracts/events-api.md
+ */
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    // Get authenticated session
+    const session = await getAuthSession();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = params;
+
+    // Check if event exists first
+    const existingEvent = await getEventById(id);
+    if (!existingEvent) {
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
+    }
+
+    // Parse and validate request body
+    const body = await request.json();
+    const result = updateEventSchema.safeParse(body);
+
+    if (!result.success) {
+      // Use the first error from the issues array which has better context
+      const firstError = result.error.issues[0];
+      const errorMessage = firstError
+        ? `${firstError.path.join(".")}: ${firstError.message}`
+        : "Validation failed";
+
+      return NextResponse.json(
+        {
+          error: errorMessage,
+          details: {
+            fieldErrors: result.error.flatten().fieldErrors,
+          },
+        },
+        { status: 400 }
+      );
+    }
+
+    // Convert ISO strings to Date objects if present
+    const updateData: any = { ...result.data };
+    if (updateData.startTime) {
+      updateData.startTime = new Date(updateData.startTime);
+    }
+    if (updateData.endTime) {
+      updateData.endTime = new Date(updateData.endTime);
+    }
+
+    // Update event in database
+    const event = await updateEvent(id, updateData);
+
+    // Transform event to API response format
+    const responseData = {
+      id: event.id,
+      title: event.title,
+      description: event.description,
+      location: event.location,
+      startTime: event.startTime.toISOString(),
+      endTime: event.endTime.toISOString(),
+      allDay: event.allDay,
+      timezone: event.timezone,
+      category: event.category
+        ? {
+            id: event.category.id,
+            name: event.category.name,
+            color: event.category.color,
+            icon: event.category.icon,
+          }
+        : null,
+      createdBy: {
+        id: event.createdBy.id,
+        name: event.createdBy.name,
+      },
+      createdAt: event.createdAt.toISOString(),
+      updatedAt: event.updatedAt.toISOString(),
+    };
+
+    return NextResponse.json({ data: responseData });
+  } catch (error) {
+    console.error("Error updating event:", error);
+
+    // Check for foreign key constraint errors (non-existent categoryId)
+    if (error instanceof Error && error.message.includes("Foreign key constraint")) {
+      return NextResponse.json(
+        { error: "Invalid category ID" },
+        { status: 400 }
+      );
+    }
+
+    // Check for record not found errors (event was deleted between check and update)
+    if (error instanceof Error && error.message.includes("Record to update not found")) {
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
+    }
+
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
