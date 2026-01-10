@@ -19,6 +19,18 @@ This approach prioritizes simplicity over complex bidirectional calendar sync, m
 
 ---
 
+## Clarifications
+
+### Session 2026-01-10
+
+- Q: Event Editing Permissions - When a household member creates an event, who should be allowed to edit or delete it? → A: Any household member can edit/delete any event
+- Q: Session Timeout Duration - How long should a user session remain active before requiring re-authentication? → A: 7 days
+- Q: Password Requirements - What complexity rules should passwords meet when creating user accounts? → A: Minimum 8 characters, at least one number
+- Q: Failed Login Attempts - Should there be a limit on failed login attempts to protect against brute-force attacks? → A: 5 failed attempts, 15-minute account lockout
+- Q: Email Configuration Access - Who should be able to configure the SMTP settings for sending calendar invites? → A: Admin users can configure via admin panel
+
+---
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Household Member Login (Priority: P1)
@@ -35,6 +47,7 @@ As a household member, I want to securely log in to the dashboard so that I can 
 2. **Given** I am on the login page with invalid credentials, **When** I enter incorrect email or password and click login, **Then** I see an error message "Invalid email or password" and remain on the login page.
 3. **Given** I am not logged in, **When** I try to access the calendar page directly, **Then** I am redirected to the login page.
 4. **Given** I am logged in, **When** I click the logout button, **Then** my session ends and I am redirected to the login page.
+5. **Given** I have entered incorrect credentials 5 times, **When** I attempt to log in again, **Then** I see a message that my account is locked for 15 minutes.
 
 ---
 
@@ -70,7 +83,7 @@ As a household member, I want to create and edit calendar events so that I can a
 2. **Given** I am creating an event with required fields (title, start time, end time), **When** I save the event, **Then** the event appears on the calendar at the correct date/time.
 3. **Given** I am creating an event, **When** I fill in optional fields (description, location, category), **Then** those details are saved and visible when viewing the event.
 4. **Given** I am creating an event, **When** I toggle "All Day", **Then** the event spans the entire day without specific start/end times displayed.
-5. **Given** an existing event I created, **When** I click edit, **Then** I can modify any field and save the changes.
+5. **Given** an existing event created by any household member, **When** I click edit, **Then** I can modify any field and save the changes.
 6. **Given** an existing event, **When** I drag and drop it to a new date/time, **Then** the event is rescheduled to the new date/time.
 
 ---
@@ -85,7 +98,7 @@ As a household member, I want to delete events I no longer need so that the cale
 
 **Acceptance Scenarios**:
 
-1. **Given** an existing event, **When** I click delete and confirm, **Then** the event is removed from the calendar.
+1. **Given** an existing event created by any household member, **When** I click delete and confirm, **Then** the event is removed from the calendar.
 2. **Given** I click delete on an event, **When** the confirmation dialog appears, **Then** I can cancel to keep the event.
 
 ---
@@ -125,18 +138,19 @@ As a household member, I want to send a calendar invite email when creating an e
 
 ### User Story 7 - Admin User Management (Priority: P3)
 
-As an admin, I want to manage household member accounts so that I can add new family members, update their information, and control access.
+As an admin, I want to manage household member accounts and system settings so that I can add new family members, update their information, control access, and configure email functionality.
 
 **Why this priority**: Admin features are important for ongoing management but the system can launch with a pre-seeded admin user.
 
-**Independent Test**: Can be fully tested by logging in as admin, navigating to user management, and performing CRUD operations on user accounts.
+**Independent Test**: Can be fully tested by logging in as admin, navigating to user management, and performing CRUD operations on user accounts and system configuration.
 
 **Acceptance Scenarios**:
 
 1. **Given** I am logged in as an admin, **When** I navigate to the admin panel, **Then** I see a list of all household member accounts.
-2. **Given** I am in the admin panel, **When** I add a new user with email, name, and password, **Then** that user can log in with those credentials.
+2. **Given** I am in the admin panel, **When** I add a new user with email, name, and a password meeting requirements (8+ characters, at least one number), **Then** that user can log in with those credentials.
 3. **Given** I am viewing a user in the admin panel, **When** I edit their name or role, **Then** the changes take effect immediately.
 4. **Given** I am a regular member (not admin), **When** I try to access the admin panel, **Then** I am redirected away and cannot access admin features.
+5. **Given** I am an admin in the settings section, **When** I configure SMTP settings (server, port, credentials), **Then** calendar invite emails can be sent successfully.
 
 ---
 
@@ -174,50 +188,54 @@ As an admin, I want to manage event categories so that I can customize the categ
 
 - **FR-001**: System MUST allow users to log in with email and password.
 - **FR-002**: System MUST hash passwords securely before storing.
-- **FR-003**: System MUST maintain user sessions across page refreshes.
-- **FR-004**: System MUST redirect unauthenticated users to the login page when accessing protected routes.
-- **FR-005**: System MUST support two user roles: Admin and Member.
-- **FR-006**: System MUST restrict admin panel access to Admin role users only.
-- **FR-007**: System MUST allow users to log out and terminate their session.
+- **FR-003**: System MUST maintain user sessions for 7 days before requiring re-authentication.
+- **FR-004**: System MUST enforce password requirements: minimum 8 characters with at least one number.
+- **FR-005**: System MUST lock user accounts for 15 minutes after 5 consecutive failed login attempts.
+- **FR-006**: System MUST redirect unauthenticated users to the login page when accessing protected routes.
+- **FR-007**: System MUST support two user roles: Admin and Member.
+- **FR-008**: System MUST restrict admin panel access to Admin role users only.
+- **FR-009**: System MUST allow users to log out and terminate their session.
 
 #### Calendar Display
 
-- **FR-008**: System MUST display events in month, week, and day views.
-- **FR-009**: System MUST allow navigation between time periods (previous/next month/week/day).
-- **FR-010**: System MUST display events with their assigned category color.
-- **FR-011**: System MUST highlight the current day in the calendar view.
-- **FR-012**: System MUST show event details when clicking on an event.
+- **FR-010**: System MUST display events in month, week, and day views.
+- **FR-011**: System MUST allow navigation between time periods (previous/next month/week/day).
+- **FR-012**: System MUST display events with their assigned category color.
+- **FR-013**: System MUST highlight the current day in the calendar view.
+- **FR-014**: System MUST show event details when clicking on an event.
 
 #### Event Management
 
-- **FR-013**: System MUST allow creating events with title, start time, and end time (required fields).
-- **FR-014**: System MUST allow optional event fields: description, location, and category.
-- **FR-015**: System MUST support all-day events.
-- **FR-016**: System MUST allow editing existing events.
-- **FR-017**: System MUST allow deleting events with confirmation.
-- **FR-018**: System MUST support drag-and-drop rescheduling of events.
-- **FR-019**: System MUST store event times with timezone information.
-- **FR-020**: System MUST track who created each event.
+- **FR-015**: System MUST allow creating events with title, start time, and end time (required fields).
+- **FR-016**: System MUST allow optional event fields: description, location, and category.
+- **FR-017**: System MUST support all-day events.
+- **FR-018**: System MUST allow editing existing events.
+- **FR-019**: System MUST allow deleting events with confirmation.
+- **FR-020**: System MUST allow any logged-in household member to edit or delete any event regardless of who created it.
+- **FR-021**: System MUST support drag-and-drop rescheduling of events.
+- **FR-022**: System MUST store event times with timezone information.
+- **FR-023**: System MUST track who created each event.
 
 #### Category Filtering
 
-- **FR-021**: System MUST provide filter toggles for each event category.
-- **FR-022**: System MUST hide/show events based on selected category filters.
-- **FR-023**: System MUST provide default event categories: Family, Work, Medical, Social, Finance, Other.
+- **FR-024**: System MUST provide filter toggles for each event category.
+- **FR-025**: System MUST hide/show events based on selected category filters.
+- **FR-026**: System MUST provide default event categories: Family, Work, Medical, Social, Finance, Other.
 
 #### Email Invites
 
-- **FR-024**: System MUST allow sending calendar invite emails for any event.
-- **FR-025**: System MUST generate valid ICS calendar files attached to invite emails.
-- **FR-026**: System MUST validate email addresses before sending invites.
-- **FR-027**: System MUST log sent invites for each event.
+- **FR-027**: System MUST allow sending calendar invite emails for any event.
+- **FR-028**: System MUST generate valid ICS calendar files attached to invite emails.
+- **FR-029**: System MUST validate email addresses before sending invites.
+- **FR-030**: System MUST log sent invites for each event.
 
 #### Admin Features
 
-- **FR-028**: Admin users MUST be able to view all household member accounts.
-- **FR-029**: Admin users MUST be able to create new user accounts.
-- **FR-030**: Admin users MUST be able to edit user details and roles.
-- **FR-031**: Admin users MUST be able to add, edit, and delete event categories.
+- **FR-031**: Admin users MUST be able to view all household member accounts.
+- **FR-032**: Admin users MUST be able to create new user accounts.
+- **FR-033**: Admin users MUST be able to edit user details and roles.
+- **FR-034**: Admin users MUST be able to add, edit, and delete event categories.
+- **FR-035**: Admin users MUST be able to configure SMTP settings for email invites through the admin panel.
 
 ### Key Entities
 
