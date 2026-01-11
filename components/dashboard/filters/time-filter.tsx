@@ -122,7 +122,7 @@ export function TimeFilter({
         {ranges.map((range) => (
           <Button
             key={range.key}
-            variant="outline"
+            variant="period"
             size="sm"
             disabled={true}
             aria-pressed={false}
@@ -130,7 +130,7 @@ export function TimeFilter({
             {range.label}
           </Button>
         ))}
-        <Button variant="outline" size="sm" disabled={true}>
+        <Button variant="period" size="sm" disabled={true}>
           <CalendarIcon className="h-4 w-4" />
           Custom
         </Button>
@@ -148,7 +148,7 @@ export function TimeFilter({
       {ranges.map((range) => (
         <Button
           key={range.key}
-          variant={selectedKey === range.key ? "default" : "outline"}
+          variant={selectedKey === range.key ? "periodActive" : "period"}
           size="sm"
           onClick={() => handleQuickSelect(range)}
           disabled={isLoading}
@@ -163,7 +163,7 @@ export function TimeFilter({
       <Popover open={isCustomOpen} onOpenChange={setIsCustomOpen}>
         <PopoverTrigger asChild>
           <Button
-            variant={selectedKey === "custom" ? "default" : "outline"}
+            variant={selectedKey === "custom" ? "periodActive" : "period"}
             size="sm"
             disabled={isLoading}
             data-active={selectedKey === "custom"}
@@ -184,7 +184,7 @@ export function TimeFilter({
             <div className="space-y-2">
               <label
                 htmlFor="start-date-input"
-                className="text-sm font-medium leading-none"
+                className="text-sm font-medium leading-none text-text-secondary"
               >
                 Start Date
               </label>
@@ -201,7 +201,7 @@ export function TimeFilter({
             <div className="space-y-2">
               <label
                 htmlFor="end-date-input"
-                className="text-sm font-medium leading-none"
+                className="text-sm font-medium leading-none text-text-secondary"
               >
                 End Date
               </label>
@@ -216,7 +216,7 @@ export function TimeFilter({
             </div>
 
             {dateError && (
-              <p className="text-sm text-destructive" role="alert">
+              <p className="text-sm text-negative" role="alert">
                 {dateError}
               </p>
             )}

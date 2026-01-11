@@ -57,19 +57,19 @@ function FilterSidebar() {
   }, [setAccounts, setIsLoading]);
 
   return (
-    <aside className="hidden md:block border-r border-light-gray bg-white">
+    <aside className="hidden md:block border-r border-border-subtle bg-bg-primary transition-colors duration-200">
       <div className="sticky top-0 h-screen overflow-y-auto p-4 lg:p-6">
         <div className="mb-6">
-          <h1 className="text-xl font-semibold text-near-black">
+          <h1 className="text-xl font-semibold text-text-primary">
             Home Finance
           </h1>
-          <p className="text-sm text-medium-gray">Dashboard</p>
+          <p className="text-sm text-text-tertiary">Dashboard</p>
         </div>
 
         <nav className="space-y-6">
           {/* Time Period Filter */}
           <section>
-            <h2 className="mb-3 text-xs font-medium uppercase tracking-wider text-medium-gray">
+            <h2 className="mb-3 text-xs font-medium uppercase tracking-wider text-text-tertiary">
               Time Period
             </h2>
             <TimeFilter
@@ -84,7 +84,7 @@ function FilterSidebar() {
 
           {/* Account Filter */}
           <section>
-            <h2 className="mb-3 text-xs font-medium uppercase tracking-wider text-medium-gray">
+            <h2 className="mb-3 text-xs font-medium uppercase tracking-wider text-text-tertiary">
               Accounts
             </h2>
             <AccountFilter
@@ -121,16 +121,16 @@ function MobileHeader() {
   } = useFilters();
 
   return (
-    <header className="sticky top-0 z-10 border-b border-light-gray bg-white px-4 py-3 md:hidden">
+    <header className="sticky top-0 z-10 border-b border-border-subtle bg-bg-primary px-4 py-3 md:hidden transition-colors duration-200">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-semibold text-near-black">
+          <h1 className="text-lg font-semibold text-text-primary">
             Home Finance
           </h1>
         </div>
         <button
           type="button"
-          className="rounded-lg border border-light-gray px-3 py-2 text-sm text-dark-gray hover:bg-off-white"
+          className="rounded-lg border border-border-default px-3 py-2 text-sm text-text-secondary hover:bg-bg-hover hover:border-border-emphasis transition-colors duration-150"
           onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
           aria-expanded={isMobileFiltersOpen}
           aria-controls="mobile-filters"
@@ -143,10 +143,10 @@ function MobileHeader() {
       {isMobileFiltersOpen && (
         <div
           id="mobile-filters"
-          className="mt-4 space-y-4 border-t border-light-gray pt-4"
+          className="mt-4 space-y-4 border-t border-border-subtle pt-4"
         >
           <div>
-            <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-medium-gray">
+            <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-text-tertiary">
               Time Period
             </h2>
             <TimeFilter
@@ -158,7 +158,7 @@ function MobileHeader() {
             />
           </div>
           <div>
-            <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-medium-gray">
+            <h2 className="mb-2 text-xs font-medium uppercase tracking-wider text-text-tertiary">
               Accounts
             </h2>
             <AccountFilter
@@ -184,7 +184,7 @@ function MobileHeader() {
 export function DashboardShell({ children }: DashboardShellProps) {
   return (
     <FilterProvider>
-      <div className="min-h-screen bg-off-white">
+      <div className="min-h-screen bg-bg-page transition-colors duration-200">
         <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
           {/* Filter Sidebar (Desktop) */}
           <FilterSidebar />

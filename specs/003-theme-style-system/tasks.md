@@ -225,17 +225,17 @@
 
 - [x] T054 [P] [US5] Audit and update `components/ui/` shadcn components to consume Cemdash CSS variables
 - [x] T055 [US5] Update `components/dashboard/transactions/` table styling with Cemdash recurring items specs
-- [ ] T055a [US5] Apply Cemdash category badge styling (rounded pills with 20% opacity background)
-- [ ] T056 [US5] Update `components/dashboard/kpi-card.tsx` with Cemdash gradient borders and glow effects
-- [ ] T056a [US5] Implement 6 specific gradient borders for different KPI card types
-- [ ] T056b [US5] Add hover effect (increase glow intensity by 50%) to KPI cards
-- [ ] T057 [US5] Update form components with Cemdash input/select styling
-- [ ] T057a [US5] Apply Cemdash button states (default, hover, active, focus, disabled, loading)
-- [ ] T057b [US5] Apply Cemdash dropdown/select styling (trigger, items, chevron)
-- [ ] T058 [US5] Update modal/dialog components with Cemdash styling (background, border, shadow)
-- [ ] T059 [US5] Update sidebar/navigation with Cemdash Abyss background and border styling
-- [ ] T059a [US5] Apply Cemdash time period button styling (default, hover, active states)
-- [ ] T060 [US5] Verify all acceptance scenarios pass for US5
+- [x] T055a [US5] Apply Cemdash category badge styling (rounded pills with 20% opacity background)
+- [x] T056 [US5] Update `components/dashboard/kpi-card.tsx` with Cemdash gradient borders and glow effects
+- [x] T056a [US5] Implement 6 specific gradient borders for different KPI card types
+- [x] T056b [US5] Add hover effect (increase glow intensity by 50%) to KPI cards
+- [x] T057 [US5] Update form components with Cemdash input/select styling
+- [x] T057a [US5] Apply Cemdash button states (default, hover, active, focus, disabled, loading)
+- [x] T057b [US5] Apply Cemdash dropdown/select styling (trigger, items, chevron)
+- [x] T058 [US5] Update modal/dialog components with Cemdash styling (background, border, shadow)
+- [x] T059 [US5] Update sidebar/navigation with Cemdash Abyss background and border styling
+- [x] T059a [US5] Apply Cemdash time period button styling (default, hover, active states)
+- [x] T060 [US5] Verify all acceptance scenarios pass for US5
 
 **Checkpoint**: User Story 5 complete - all components consistently styled in both themes
 

@@ -24,6 +24,17 @@ export type KPIValueFormat = "currency" | "percentage" | "number";
 export type KPIValueColor = "default" | "positive" | "negative" | "auto";
 
 /**
+ * Cemdash KPI card types with gradient borders
+ * - coral: Expenses, Net Spending (red/coral gradient)
+ * - mint: Income, Positive Cash Flow (green gradient)
+ * - teal: Total Balance, Account Totals (teal→cyan gradient)
+ * - cyan: Informational, Savings Rate (cyan gradient)
+ * - purple: Budget, Goals (purple gradient)
+ * - neutral: Default, No Emphasis (no gradient)
+ */
+export type KPICardType = "coral" | "mint" | "teal" | "cyan" | "purple" | "neutral";
+
+/**
  * Props for the KPICard component
  */
 export interface KPICardProps {
@@ -53,6 +64,8 @@ export interface KPICardProps {
   isLoading?: boolean;
   /** Color styling for the value */
   valueColor?: KPIValueColor;
+  /** Cemdash card type for gradient border and glow effects */
+  cardType?: KPICardType;
 }
 
 /**
@@ -193,6 +206,7 @@ export function KPICard({
   className,
   isLoading = false,
   valueColor,
+  cardType,
 }: KPICardProps) {
   const TrendIcon = trend ? getTrendIcon(trend) : null;
   const trendColorKey = trend ? getTrendColorKey(trend, positiveIsGood) : null;
@@ -230,9 +244,18 @@ export function KPICard({
     return <IconComponent className="h-4 w-4" aria-hidden="true" />;
   };
 
+  // Build Cemdash KPI card classes for gradient borders and glow effects
+  const kpiCardClasses = cardType
+    ? cn("kpi-card", `kpi-card--${cardType}`)
+    : "";
+
   const cardContent = (
-    <Card 
-      className={cn("relative overflow-hidden", className)}
+    <Card
+      className={cn(
+        "relative overflow-hidden",
+        kpiCardClasses,
+        className
+      )}
       role="article"
       aria-label={`${title} KPI card`}
     >

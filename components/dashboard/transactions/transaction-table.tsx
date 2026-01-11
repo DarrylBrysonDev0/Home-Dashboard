@@ -125,6 +125,29 @@ function getTransactionTypeBadgeVariant(type: string): "income" | "expense" | "t
 }
 
 /**
+ * Map category names to badge variants (Cemdash category styling)
+ */
+type CategoryBadgeVariant =
+  | "charity" | "daily" | "dining" | "entertainment" | "gifts"
+  | "groceries" | "healthcare" | "financing" | "shopping"
+  | "subscriptions" | "transportation" | "travel" | "utilities"
+  | "secondary";
+
+function getCategoryBadgeVariant(category: string): CategoryBadgeVariant {
+  const categoryLower = category.toLowerCase();
+  const validCategories: CategoryBadgeVariant[] = [
+    "charity", "daily", "dining", "entertainment", "gifts",
+    "groceries", "healthcare", "financing", "shopping",
+    "subscriptions", "transportation", "travel", "utilities"
+  ];
+
+  if (validCategories.includes(categoryLower as CategoryBadgeVariant)) {
+    return categoryLower as CategoryBadgeVariant;
+  }
+  return "secondary";
+}
+
+/**
  * Column definitions for the transaction table
  */
 const columns: ColumnDef<TransactionRow>[] = [
@@ -218,10 +241,12 @@ const columns: ColumnDef<TransactionRow>[] = [
       const category = row.getValue("category") as string;
       const subcategory = row.original.subcategory;
       return (
-        <div>
-          <span className="text-text-primary">{category}</span>
+        <div className="flex items-center gap-1.5">
+          <Badge variant={getCategoryBadgeVariant(category)}>
+            {category}
+          </Badge>
           {subcategory && (
-            <span className="text-text-tertiary text-xs ml-1">
+            <span className="text-text-tertiary text-xs">
               / {subcategory}
             </span>
           )}
