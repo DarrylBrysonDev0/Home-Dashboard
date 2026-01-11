@@ -198,10 +198,10 @@
 
 ### Implementation for User Story 4
 
-- [ ] T045 [US4] Add ThemeToggle to header in `app/layout.tsx` alongside UserMenu
-- [ ] T046 [US4] Ensure ThemeToggle displays correct icon (Sun for light, Moon for dark)
-- [ ] T047 [US4] Style ThemeToggle for mobile responsiveness (remains visible in mobile header)
-- [ ] T048 [US4] Verify all acceptance scenarios pass for US4
+- [x] T045 [US4] Add ThemeToggle to header in `app/layout.tsx` alongside UserMenu
+- [x] T046 [US4] Ensure ThemeToggle displays correct icon (Sun for light, Moon for dark)
+- [x] T047 [US4] Style ThemeToggle for mobile responsiveness (remains visible in mobile header)
+- [x] T048 [US4] Verify all acceptance scenarios pass for US4
 
 **Checkpoint**: User Story 4 complete - theme toggle accessible from every page
 
@@ -215,16 +215,16 @@
 
 ### Tests for User Story 5 (TDD - Write FIRST, Ensure FAIL)
 
-- [ ] T049 [P] [US5] E2E test: transaction table uses theme colors in `__tests__/e2e/theme-components.spec.ts`
-- [ ] T050 [P] [US5] E2E test: modal dialogs use theme colors in `__tests__/e2e/theme-components.spec.ts`
-- [ ] T051 [P] [US5] E2E test: form inputs use theme colors in `__tests__/e2e/theme-components.spec.ts`
-- [ ] T052 [P] [US5] E2E test: cards and badges use theme colors in `__tests__/e2e/theme-components.spec.ts`
-- [ ] T053 [P] [US5] E2E test: navigation sidebar uses theme colors in `__tests__/e2e/theme-components.spec.ts`
+- [x] T049 [P] [US5] E2E test: transaction table uses theme colors in `__tests__/e2e/theme-components.spec.ts`
+- [x] T050 [P] [US5] E2E test: modal dialogs use theme colors in `__tests__/e2e/theme-components.spec.ts`
+- [x] T051 [P] [US5] E2E test: form inputs use theme colors in `__tests__/e2e/theme-components.spec.ts`
+- [x] T052 [P] [US5] E2E test: cards and badges use theme colors in `__tests__/e2e/theme-components.spec.ts`
+- [x] T053 [P] [US5] E2E test: navigation sidebar uses theme colors in `__tests__/e2e/theme-components.spec.ts`
 
 ### Implementation for User Story 5
 
-- [ ] T054 [P] [US5] Audit and update `components/ui/` shadcn components to consume Cemdash CSS variables
-- [ ] T055 [US5] Update `components/dashboard/transactions/` table styling with Cemdash recurring items specs
+- [x] T054 [P] [US5] Audit and update `components/ui/` shadcn components to consume Cemdash CSS variables
+- [x] T055 [US5] Update `components/dashboard/transactions/` table styling with Cemdash recurring items specs
 - [ ] T055a [US5] Apply Cemdash category badge styling (rounded pills with 20% opacity background)
 - [ ] T056 [US5] Update `components/dashboard/kpi-card.tsx` with Cemdash gradient borders and glow effects
 - [ ] T056a [US5] Implement 6 specific gradient borders for different KPI card types

@@ -12,7 +12,7 @@ import {
   type ColumnFiltersState,
 } from "@tanstack/react-table";
 import { format } from "date-fns";
-import { ArrowUpDown, ArrowUp, ArrowDown, Download, Search } from "lucide-react";
+import { ArrowUpDown, ArrowUp, ArrowDown, Download, Search, RefreshCw } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -24,6 +24,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
 import { NoData } from "@/components/dashboard/empty-states/no-data";
 import { useFilters } from "@/lib/contexts/filter-context";
 import { downloadCsv } from "@/lib/utils/csv-export";
@@ -92,18 +93,34 @@ function formatCurrency(value: number): string {
 }
 
 /**
- * Get the appropriate color class based on transaction type
+ * Get the appropriate color class based on transaction type (Cemdash semantic colors)
  */
 function getAmountColorClass(transactionType: string): string {
   switch (transactionType) {
     case "Income":
-      return "text-green-600 dark:text-green-400";
+      return "text-positive";
     case "Expense":
-      return "text-red-600 dark:text-red-400";
+      return "text-negative";
     case "Transfer":
-      return "text-blue-600 dark:text-blue-400";
+      return "text-info";
     default:
-      return "";
+      return "text-text-secondary";
+  }
+}
+
+/**
+ * Get badge variant based on transaction type
+ */
+function getTransactionTypeBadgeVariant(type: string): "income" | "expense" | "transfer" | "secondary" {
+  switch (type) {
+    case "Income":
+      return "income";
+    case "Expense":
+      return "expense";
+    case "Transfer":
+      return "transfer";
+    default:
+      return "secondary";
   }
 }
 
@@ -158,9 +175,21 @@ const columns: ColumnDef<TransactionRow>[] = [
     },
     cell: ({ row }) => {
       const description = row.getValue("description") as string;
+      const isRecurring = row.original.is_recurring;
+      const recurringFrequency = row.original.recurring_frequency;
       return (
-        <div className="max-w-[200px] truncate" title={description}>
-          {description}
+        <div className="flex items-center gap-2">
+          <span className="max-w-[180px] truncate text-text-primary" title={description}>
+            {description}
+          </span>
+          {isRecurring && (
+            <span
+              className="inline-flex items-center gap-1 text-text-muted"
+              title={`Recurring: ${recurringFrequency || 'Yes'}`}
+            >
+              <RefreshCw className="h-3 w-3" />
+            </span>
+          )}
         </div>
       );
     },
@@ -190,9 +219,9 @@ const columns: ColumnDef<TransactionRow>[] = [
       const subcategory = row.original.subcategory;
       return (
         <div>
-          <span>{category}</span>
+          <span className="text-text-primary">{category}</span>
           {subcategory && (
-            <span className="text-muted-foreground text-xs ml-1">
+            <span className="text-text-tertiary text-xs ml-1">
               / {subcategory}
             </span>
           )}
@@ -205,7 +234,7 @@ const columns: ColumnDef<TransactionRow>[] = [
     header: "Account",
     cell: ({ row }) => {
       return (
-        <div className="max-w-[120px] truncate" title={row.getValue("account_name")}>
+        <div className="max-w-[120px] truncate text-text-secondary" title={row.getValue("account_name")}>
           {row.getValue("account_name")}
         </div>
       );
@@ -246,17 +275,10 @@ const columns: ColumnDef<TransactionRow>[] = [
     header: "Type",
     cell: ({ row }) => {
       const type = row.getValue("transaction_type") as string;
-      const typeColors: Record<string, string> = {
-        Income: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-        Expense: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
-        Transfer: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-      };
       return (
-        <span
-          className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${typeColors[type] || ""}`}
-        >
+        <Badge variant={getTransactionTypeBadgeVariant(type)}>
           {type}
-        </span>
+        </Badge>
       );
     },
   },
@@ -269,17 +291,17 @@ function TransactionTableSkeleton() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-4">
-        <Skeleton className="h-9 w-64" />
-        <Skeleton className="h-9 w-32" />
+        <Skeleton className="h-9 w-64 bg-bg-tertiary" />
+        <Skeleton className="h-9 w-32 bg-bg-tertiary" />
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-lg border border-border-default bg-bg-secondary shadow-sm">
         <Table>
           <TableHeader>
             <TableRow>
               {["Date", "Description", "Category", "Account", "Amount", "Type"].map(
                 (header) => (
                   <TableHead key={header}>
-                    <Skeleton className="h-4 w-16" />
+                    <Skeleton className="h-4 w-16 bg-bg-tertiary" />
                   </TableHead>
                 )
               )}
@@ -290,7 +312,7 @@ function TransactionTableSkeleton() {
               <TableRow key={i}>
                 {Array.from({ length: 6 }).map((_, j) => (
                   <TableCell key={j}>
-                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full bg-bg-tertiary" />
                   </TableCell>
                 ))}
               </TableRow>
@@ -461,7 +483,7 @@ export function TransactionTable({
   if (error) {
     return (
       <div
-        className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-destructive"
+        className="rounded-lg border border-negative/30 bg-negative/10 p-4 text-negative"
         role="alert"
       >
         <p className="font-medium">Failed to load transactions</p>
@@ -486,7 +508,7 @@ export function TransactionTable({
       {/* Toolbar: Search and Export */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
         <div className="relative w-full sm:w-64">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-muted" />
           <Input
             placeholder="Search transactions..."
             value={globalFilter}
@@ -496,7 +518,7 @@ export function TransactionTable({
           />
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-text-tertiary">
             {globalFilter
               ? `${filteredRowCount} of ${totalCount} transactions`
               : `${totalCount} transactions`}
@@ -515,7 +537,7 @@ export function TransactionTable({
       </div>
 
       {/* Table - horizontal scroll on tablet */}
-      <div className="rounded-md border overflow-x-auto">
+      <div className="rounded-lg border border-border-default bg-bg-secondary overflow-x-auto shadow-sm">
         <Table className="min-w-[640px]">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -549,7 +571,7 @@ export function TransactionTable({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell colSpan={columns.length} className="h-24 text-center text-text-tertiary">
                   No results found.
                 </TableCell>
               </TableRow>
