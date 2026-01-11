@@ -1539,3 +1539,321 @@
     --fc-border-color: hsl(var(--border));
   }
 }
+
+/* ==========================================================================
+   CEMDASH AURORA BACKGROUND EFFECT
+   Subtle ambient gradient animation for dark mode visual interest
+   Respects prefers-reduced-motion for accessibility
+   ========================================================================== */
+
+@layer components {
+  /* Aurora container - adds ambient glow effect in dark mode */
+  .aurora-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background: var(--color-bg-page);
+  }
+
+  /* Aurora gradient orbs */
+  .aurora-bg::before,
+  .aurora-bg::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0;
+    animation: aurora-pulse 8s ease-in-out infinite;
+  }
+
+  .aurora-bg::before {
+    top: -20%;
+    left: -10%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(249, 112, 102, 0.15) 0%,
+      transparent 70%
+    );
+    animation-delay: 0s;
+  }
+
+  .aurora-bg::after {
+    bottom: -20%;
+    right: -10%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(20, 184, 166, 0.12) 0%,
+      transparent 70%
+    );
+    animation-delay: 4s;
+  }
+
+  /* Only show aurora in dark mode */
+  .dark .aurora-bg::before,
+  .dark .aurora-bg::after {
+    opacity: 1;
+  }
+
+  /* Additional aurora layers for more depth */
+  .aurora-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .aurora-layer::before {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(34, 211, 238, 0.1) 0%,
+      transparent 70%
+    );
+    animation: aurora-drift 12s ease-in-out infinite;
+  }
+
+  .dark .aurora-layer::before {
+    opacity: 1;
+  }
+
+  /* Subtle aurora variant - less intense */
+  .aurora-bg--subtle::before,
+  .aurora-bg--subtle::after {
+    filter: blur(150px);
+  }
+
+  .dark .aurora-bg--subtle::before {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(249, 112, 102, 0.08) 0%,
+      transparent 70%
+    );
+  }
+
+  .dark .aurora-bg--subtle::after {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(20, 184, 166, 0.06) 0%,
+      transparent 70%
+    );
+  }
+}
+
+/* Aurora animations */
+@keyframes aurora-pulse {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(10%, 5%) scale(1.1);
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 1;
+  }
+}
+
+@keyframes aurora-drift {
+  0%, 100% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 0;
+  }
+  33% {
+    transform: translate(-40%, -10%) scale(1.2);
+    opacity: 0.6;
+  }
+  66% {
+    transform: translate(-60%, 10%) scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+/* Reduced motion support - disable all aurora animations */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg::before,
+  .aurora-bg::after,
+  .aurora-layer::before {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+
+  .dark .aurora-bg::before,
+  .dark .aurora-bg::after,
+  .dark .aurora-layer::before {
+    /* Static subtle glow instead of animation */
+    opacity: 0.3 !important;
+    transform: none !important;
+  }
+
+  /* Disable shimmer animations for skeletons */
+  .cemdash-skeleton::after {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /* Disable loading spinner animations */
+  .cemdash-btn--loading::after {
+    animation: none !important;
+  }
+
+  /* Disable dropdown/tooltip animations */
+  .cemdash-dropdown-content,
+  .cemdash-tooltip {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   Force light theme for printing to ensure readability and save ink
+   ========================================================================== */
+
+@media print {
+  /* Override dark theme - force light theme values for all print output */
+  :root,
+  .dark {
+    /* Background Colors - Light theme values */
+    --color-bg-page: #FFFFFF !important;
+    --color-bg-primary: #FFFFFF !important;
+    --color-bg-secondary: #F9FAFB !important;
+    --color-bg-tertiary: #F2F4F7 !important;
+    --color-bg-hover: #E5E7EB !important;
+    --color-bg-active: #D1D5DB !important;
+
+    /* Text Colors - Light theme values (high contrast for print) */
+    --color-text-primary: #000000 !important;
+    --color-text-secondary: #1F2937 !important;
+    --color-text-tertiary: #4B5563 !important;
+    --color-text-muted: #6B7280 !important;
+    --color-text-inverse: #FFFFFF !important;
+
+    /* Semantic Colors - Darker for print */
+    --color-positive: #059669 !important;
+    --color-negative: #DC2626 !important;
+    --color-warning: #D97706 !important;
+    --color-info: #2563EB !important;
+
+    /* Border Colors - More visible for print */
+    --color-border-subtle: #D1D5DB !important;
+    --color-border-default: #9CA3AF !important;
+    --color-border-emphasis: #6B7280 !important;
+
+    /* Disable shadows for print */
+    --shadow-sm: none !important;
+    --shadow-md: none !important;
+    --shadow-lg: none !important;
+    --shadow-xl: none !important;
+    --shadow-inner: none !important;
+
+    /* Disable glow effects for print */
+    --shadow-glow-coral: none !important;
+    --shadow-glow-mint: none !important;
+    --shadow-glow-teal: none !important;
+    --shadow-glow-cyan: none !important;
+    --shadow-glow-white: none !important;
+    --shadow-glow-coral-intense: none !important;
+  }
+
+  /* Reset body to light background */
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Remove dark class effects in print */
+  .dark {
+    color-scheme: light !important;
+  }
+
+  /* Hide interactive elements that don't make sense in print */
+  .cemdash-btn,
+  .cemdash-dropdown-trigger,
+  button[aria-label="Toggle theme"],
+  .theme-toggle,
+  [data-radix-popper-content-wrapper] {
+    display: none !important;
+  }
+
+  /* Ensure cards print with borders instead of shadows */
+  .kpi-card {
+    border: 1px solid #D1D5DB !important;
+    box-shadow: none !important;
+  }
+
+  .kpi-card::before {
+    display: none !important;
+  }
+
+  /* Ensure tables are print-friendly */
+  .cemdash-table-wrapper {
+    box-shadow: none !important;
+    border: 1px solid #9CA3AF !important;
+  }
+
+  .cemdash-table-body tr {
+    page-break-inside: avoid;
+  }
+
+  /* Disable animations in print */
+  .cemdash-skeleton::after {
+    animation: none !important;
+    display: none !important;
+  }
+
+  /* Category badges should use solid colors for print */
+  .cemdash-badge {
+    border: 1px solid currentColor !important;
+    background: transparent !important;
+  }
+
+  /* Chart elements - ensure print visibility */
+  .recharts-wrapper {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Trend indicators - ensure visibility */
+  .cemdash-trend--positive {
+    color: #059669 !important;
+  }
+
+  .cemdash-trend--negative {
+    color: #DC2626 !important;
+  }
+
+  /* Remove Aurora effect if present */
+  .aurora-bg,
+  .aurora-effect {
+    display: none !important;
+    background: transparent !important;
+  }
+
+  /* Page break handling */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  .kpi-card,
+  .card,
+  table,
+  figure {
+    page-break-inside: avoid;
+  }
+}

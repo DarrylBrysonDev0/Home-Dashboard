@@ -245,20 +245,17 @@
 
 **Purpose**: Final validation, edge cases, and documentation
 
-- [ ] T061 [P] Add CSS variable utilities for runtiCemdash text/background combinations
-- [ ] T068 Performance validation: theme switch < 100ms, zero layout shift
-- [ ] T069 [P] Implement optional Cemdash Aurora background effect with prefers-reduced-motion support
-- [ ] T069a [P] Add loading skeleton styles with Cemdash shimmer animation
-- [ ] T069b [P] Add empty state styling with Cemdash dashed border and icon colors
-- [ ] T069c [P] Add trend indicator components (positive/negative/neutral with Cemdash colors and icons)
-- [ ] T070 Run `quickstart.md` validation checklist
-- [ ] T071 Update documentation/README with Cemdas mode OS setting (don't override)
-- [ ] T065 Handle edge case: print styles (force light theme)
-- [ ] T066 [P] Add unit tests for CSS variable utilities in `__tests__/unit/theme/css-variables.test.ts`
-- [ ] T067 WCAG 2.1 AA contrast validation for all text/background combinations
-- [ ] T068 Performance validation: theme switch < 100ms, zero layout shift
-- [ ] T069 Run `quickstart.md` validation checklist
-- [ ] T070 Update documentation/README with theme system usage
+- [x] T061 [P] Add CSS variable utilities for runtime Cemdash text/background combinations
+- [x] T065 Handle edge case: print styles (force light theme)
+- [x] T066 [P] Add unit tests for CSS variable utilities in `__tests__/unit/theme/css-variables.test.ts`
+- [x] T067 WCAG 2.1 AA contrast validation for all text/background combinations
+- [x] T068 Performance validation: theme switch < 100ms, zero layout shift
+- [x] T069 [P] Implement optional Cemdash Aurora background effect with prefers-reduced-motion support
+- [x] T069a [P] Add loading skeleton styles with Cemdash shimmer animation
+- [x] T069b [P] Add empty state styling with Cemdash dashed border and icon colors
+- [x] T069c [P] Add trend indicator components (positive/negative/neutral with Cemdash colors and icons)
+- [x] T070 Run `quickstart.md` validation checklist
+- [x] T071 Update documentation/README with theme system usage
 
 ---
 
