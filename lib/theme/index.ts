@@ -10,9 +10,8 @@
 // Types - all TypeScript interfaces for the theme system
 export * from './types';
 
-// Theme definitions will be added in Phase 2
-// export * from './themes';
+// Theme definitions - Phase 2 complete
+export * from './themes';
 
-// Hooks will be added in Phase 3
-// export { useTheme } from './hooks/useTheme';
-// export { useChartTheme } from './hooks/useChartTheme';
+// Hooks - Phase 3 (User Story 1)
+export { useTheme } from './hooks/useTheme';
