@@ -29,17 +29,21 @@ let transporter: Transporter | null = null;
 function getTransporter(): Transporter {
   if (transporter) return transporter;
 
+  const host = process.env.SMTP_HOST;
+  const port = process.env.SMTP_PORT;
   const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_APP_PASSWORD;
+  const pass = process.env.SMTP_PASSWORD || process.env.SMTP_APP_PASSWORD;
 
-  if (!user || !pass) {
+  if (!host || !port || !user || !pass) {
     throw new Error(
-      "Missing SMTP configuration. Set SMTP_USER and SMTP_APP_PASSWORD environment variables."
+      "Missing SMTP configuration. Set SMTP_HOST, SMTP_PORT, SMTP_USER, and SMTP_PASSWORD environment variables."
     );
   }
 
   transporter = nodemailer.createTransport({
-    service: "Gmail",
+    host,
+    port: parseInt(port, 10),
+    secure: parseInt(port, 10) === 465, // true for port 465, false for other ports
     auth: {
       user,
       pass,
@@ -183,4 +187,44 @@ export async function verifyEmailConfiguration(): Promise<boolean> {
     console.error("Email configuration verification failed:", error);
     return false;
   }
+}
+
+/**
+ * Send a test email to verify SMTP configuration
+ *
+ * @param recipientEmail - Email address to send test email to
+ * @returns Promise that resolves when email is sent
+ * @throws Error if SMTP configuration is missing or email fails to send
+ */
+export async function sendTestEmail(recipientEmail: string): Promise<void> {
+  const transport = getTransporter();
+  const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
+
+  if (!fromEmail) {
+    throw new Error("Missing SMTP_FROM configuration");
+  }
+
+  await transport.sendMail({
+    from: fromEmail,
+    to: recipientEmail,
+    subject: "Test Email - Home Dashboard",
+    text: `This is a test email from your Home Dashboard to verify SMTP configuration.\n\nIf you received this email, your email settings are working correctly!`,
+    html: `
+      <div style="font-family: system-ui, -apple-system, sans-serif; max-width: 600px; padding: 20px;">
+        <h2 style="color: #1f2937; margin-bottom: 16px;">✅ Test Email Successful</h2>
+        <p style="color: #4b5563; margin: 16px 0;">
+          This is a test email from your Home Dashboard to verify SMTP configuration.
+        </p>
+        <p style="color: #4b5563; margin: 16px 0;">
+          If you received this email, your email settings are working correctly!
+        </p>
+        <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb;">
+          <p style="color: #6b7280; font-size: 14px; margin: 0;">
+            Sent from Home Dashboard<br>
+            ${new Date().toLocaleString()}
+          </p>
+        </div>
+      </div>
+    `,
+  });
 }

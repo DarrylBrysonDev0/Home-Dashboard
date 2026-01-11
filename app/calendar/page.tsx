@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { CalendarView, type CalendarEvent } from "@/components/calendar/calendar-view";
 import { EventDetails, type EventDetailsData } from "@/components/calendar/event-details";
+import { EventModal } from "@/components/calendar/event-modal";
 import { CategoryFilter, type FilterCategory } from "@/components/calendar/category-filter";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -37,12 +38,23 @@ import { AlertCircle } from "lucide-react";
 export default function CalendarPage() {
   const [selectedEvent, setSelectedEvent] = useState<EventDetailsData | null>(null);
   const [isDetailDialogOpen, setIsDetailDialogOpen] = useState(false);
+  
+  // Create event modal state (US3)
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [createModalDefaults, setCreateModalDefaults] = useState<{
+    startTime?: Date;
+    endTime?: Date;
+    allDay?: boolean;
+  }>({});
 
   // Category filtering state (US5)
   const [categories, setCategories] = useState<FilterCategory[]>([]);
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const [categoriesError, setCategoriesError] = useState<string | null>(null);
+
+  // Calendar refresh key - increment to force refresh
+  const [calendarRefreshKey, setCalendarRefreshKey] = useState(0);
 
   /**
    * Fetch categories on mount (US5)
@@ -98,11 +110,14 @@ export default function CalendarPage() {
 
   /**
    * Handle date selection for creating events (US3)
-   * Currently a placeholder for future implementation
    */
   const handleDateSelect = (start: Date, end: Date, allDay: boolean) => {
-    // TODO: Open create event modal (US3 - T058)
-    console.log("Date selected:", { start, end, allDay });
+    setCreateModalDefaults({
+      startTime: start,
+      endTime: end,
+      allDay
+    });
+    setIsCreateModalOpen(true);
   };
 
   /**
@@ -158,6 +173,7 @@ export default function CalendarPage() {
         {/* Calendar View */}
         <div className="min-w-0">
           <CalendarView
+            key={calendarRefreshKey}
             initialView="dayGridMonth"
             onEventClick={handleEventClick}
             onDateSelect={handleDateSelect}
@@ -178,6 +194,21 @@ export default function CalendarPage() {
           {selectedEvent && <EventDetails event={selectedEvent} />}
         </DialogContent>
       </Dialog>
+
+      {/* Create Event Modal */}
+      <EventModal
+        open={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSuccess={() => {
+          setIsCreateModalOpen(false);
+          // Trigger calendar refresh by incrementing the key
+          setCalendarRefreshKey(prev => prev + 1);
+        }}
+        defaultStartTime={createModalDefaults.startTime}
+        defaultEndTime={createModalDefaults.endTime}
+        defaultAllDay={createModalDefaults.allDay}
+        categories={categories}
+      />
     </div>
   );
 }

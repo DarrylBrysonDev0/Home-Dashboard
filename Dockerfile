@@ -15,6 +15,13 @@ COPY . .
 # Set dummy DATABASE_URL for build-time Prisma generation
 ENV DATABASE_URL="sqlserver://localhost:1433;database=dummy;user=sa;password=dummy;trustServerCertificate=true"
 
+# Set dummy DB environment variables for build-time (required by Prisma adapter)
+ENV DB_HOST="localhost"
+ENV DB_PORT="1433"
+ENV DB_USER="sa"
+ENV DB_PASSWORD="dummy"
+ENV DB_NAME="dummy"
+
 # Generate Prisma Client
 RUN npx prisma generate
 

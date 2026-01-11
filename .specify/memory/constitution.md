@@ -1,16 +1,23 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version Change: 1.0.2 → 1.1.0 (TDD Red-Green methodology mandated)
-Modified Principles: Updated Development Workflow to mandate TDD Red-Green-Refactor cycle
-Added Sections: "Testing Standards (TDD Red-Green-Refactor)" with comprehensive test requirements
-Removed Sections: "Testing Standards (Pragmatic)" - replaced with mandatory TDD approach
+Version Change: 1.1.0 → 1.2.0 (Authentication & Authorization principle added)
+Modified Principles: Added Core Principle VI - Authentication & Authorization (NON-NEGOTIABLE)
+Added Sections: 
+  - Authentication & Authorization principle with comprehensive rules and implementation details
+  - Authentication (Mandatory) section in Technology Stack
+Removed Sections: None
+Modified Sections:
+  - Technology Stack: Moved NextAuth.js from Optional to Mandatory Authentication section
 Templates Status:
-  ⚠️ .specify/templates/plan-template.md - Should verify testing approach aligns with TDD
-  ⚠️ .specify/templates/spec-template.md - Should include TDD Red-Green section template
-  ⚠️ .specify/templates/tasks-template.md - Should include test-writing tasks before implementation
-Follow-up TODOs: Update spec template to include TDD section; update task template to include RED-GREEN-REFACTOR phases
-Bump Rationale: MINOR - Added mandatory TDD requirement which represents a substantial change to development workflow without breaking existing specs that already include TDD sections.
+  ⚠️ .specify/templates/plan-template.md - Should verify authentication requirements in Constitution Check
+  ⚠️ .specify/templates/spec-template.md - Should include authentication requirements in API contracts
+  ⚠️ .specify/templates/tasks-template.md - Should include authentication implementation tasks
+Follow-up TODOs: 
+  - Update spec template to include authentication/authorization section for all features
+  - Update task template to include middleware.ts updates when new routes are added
+  - Update plan template to include authentication verification in Constitution Check
+Bump Rationale: MINOR - Added new mandatory principle for authentication which represents a substantial change to security requirements for all future features. Existing implementations already follow this pattern, so this codifies existing practice.
 -->
 
 # Home Dashboard Constitution
@@ -82,6 +89,31 @@ Start with the simplest working solution; complexity MUST be justified.
 
 **Rationale**: MVP-first approach delivers value faster, enables user feedback earlier, and prevents over-engineering. For a home lab dashboard, simplicity and maintainability trump theoretical scalability.
 
+### VI. Authentication & Authorization (NON-NEGOTIABLE)
+
+All pages and API routes MUST require active authentication unless explicitly designated as public.
+
+**Rules**:
+- NextAuth.js middleware MUST protect all routes by default
+- Protected routes MUST be explicitly listed in `middleware.ts` matcher configuration
+- Public routes are LIMITED to: `/login`, `/api/auth/*`, and static assets
+- All page routes (`/dashboard`, `/calendar`, `/admin`, etc.) MUST require authentication
+- All API routes MUST require authentication except `/api/auth/*`
+- Admin routes (`/admin/*`) MUST additionally verify ADMIN role
+- Session duration MUST be configured (default: 7 days with JWT strategy)
+- Authentication state MUST be validated on both client and server side
+- Unauthenticated requests MUST redirect to `/login` with callback URL
+
+**Implementation**:
+- Use `withAuth` from `next-auth/middleware` in `middleware.ts`
+- Define explicit `matcher` array with all protected routes
+- Implement `authorized` callback to validate JWT tokens
+- Use role-based checks in middleware for admin routes
+- Server components MUST use `getServerSession` for auth checks
+- Client components MUST use `useSession` hook for auth state
+
+**Rationale**: Authentication is critical for household data privacy and security. Middleware-based protection ensures consistent enforcement across all routes without requiring per-page implementation. Explicit route listing in matcher prevents accidental exposure of sensitive features.
+
 ## Technology Stack
 
 ### Core Stack (Mandatory)
@@ -103,9 +135,13 @@ Start with the simplest working solution; complexity MUST be justified.
 - **TanStack Table** - Data tables with sorting/filtering
 - **sonner** - Toast notifications
 
+### Authentication (Mandatory)
+- **NextAuth.js** - Authentication system for household member login
+- **bcrypt** - Password hashing
+- **JWT** - Session token strategy
+
 ### Optional (As Needed)
 - **TanStack Query** - Server state management (for complex data fetching)
-- **NextAuth.js** - Authentication (if multi-user access required)
 - **date-fns** - Date manipulation
 
 ### Infrastructure (Mandatory)
@@ -325,4 +361,4 @@ See [DATABASE_SETUP.md](../../DATABASE_SETUP.md) for complete documentation.
 - Update if patterns emerge that aren't captured
 - Remove principles that prove impractical (via MAJOR version bump)
 
-**Version**: 1.1.0 | **Ratified**: 2026-01-07 | **Last Amended**: 2026-01-10
+**Version**: 1.2.0 | **Ratified**: 2026-01-07 | **Last Amended**: 2026-01-10

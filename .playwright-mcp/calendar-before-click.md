@@ -1,0 +1,330 @@
+### Page state
+- Page URL: http://localhost:3001/calendar
+- Page Title: Calendar | Home Dashboard
+- Page Snapshot:
+```yaml
+- generic:
+  - banner:
+    - generic:
+      - generic:
+        - heading [level=1]: Home Dashboard
+      - button [expanded]:
+        - generic: A
+  - generic:
+    - navigation:
+      - generic:
+        - generic:
+          - generic:
+            - link:
+              - /url: /dashboard
+              - img
+              - generic: Dashboard
+            - img
+            - generic:
+              - img
+              - generic: Calendar
+    - main:
+      - generic:
+        - generic:
+          - heading [level=1]: Calendar
+          - paragraph: View and manage your family events
+        - generic:
+          - complementary:
+            - generic:
+              - heading [level=2]: Filter by Category
+              - group:
+                - generic:
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - img
+                      - generic: Family
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - img
+                      - generic: Finance
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - img
+                      - generic: Medical
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - img
+                      - generic: Other
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - img
+                      - generic: Social
+                  - generic:
+                    - checkbox [checked]
+                    - generic:
+                      - img
+                      - generic: Work
+                - generic:
+                  - checkbox [checked]
+                  - generic: Show All
+          - generic:
+            - region:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button:
+                        - img: 
+                      - button:
+                        - img: 
+                    - button [disabled]: today
+                  - generic:
+                    - heading [level=2]: January 2026
+                  - generic:
+                    - generic:
+                      - button [pressed]: month
+                      - button: week
+                      - button: day
+                - generic:
+                  - generic:
+                    - grid:
+                      - rowgroup:
+                        - generic:
+                          - generic:
+                            - row:
+                              - columnheader:
+                                - generic:
+                                  - generic: Sun
+                              - columnheader:
+                                - generic:
+                                  - generic: Mon
+                              - columnheader:
+                                - generic:
+                                  - generic: Tue
+                              - columnheader:
+                                - generic:
+                                  - generic: Wed
+                              - columnheader:
+                                - generic:
+                                  - generic: Thu
+                              - columnheader:
+                                - generic:
+                                  - generic: Fri
+                              - columnheader:
+                                - generic:
+                                  - generic: Sat
+                      - rowgroup:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - row:
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "28"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "29"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "30"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "31"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "1"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "2"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "3"
+                              - row:
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "4"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "5"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "6"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "7"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "8"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "9"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "10"
+                              - row:
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "11"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "12"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "13"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "14"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "15"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "16"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "17"
+                              - row:
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "18"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "19"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "20"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "21"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "22"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "23"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "24"
+                              - row:
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "25"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "26"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "27"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "28"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "29"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "30"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "31"
+                              - row:
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "1"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "2"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "3"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "4"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "5"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "6"
+                                - gridcell:
+                                  - generic:
+                                    - generic:
+                                      - generic: "7"
+  - region "Notifications alt+T"
+  - generic:
+    - menu "Next.js Dev Tools Items" [ref=e465]:
+      - generic [ref=e466]:
+        - menuitem "Route Static" [ref=e467] [cursor=pointer]:
+          - generic [ref=e468]: Route
+          - generic [ref=e469]: Static
+        - generic "Turbopack is enabled." [ref=e470]:
+          - generic [ref=e471]: Bundler
+          - generic [ref=e472]: Turbopack
+        - menuitem "Route Info" [ref=e473]:
+          - generic [ref=e474]: Route Info
+          - img [ref=e476]
+      - menuitem "Preferences" [ref=e479]:
+        - generic [ref=e480]: Preferences
+        - img [ref=e482]
+    - button "Close Next.js Dev Tools" [expanded] [ref=e484] [cursor=pointer]:
+      - img [ref=e380]
+  - alert
+  - menu "User menu" [active] [ref=e485]:
+    - generic [ref=e487]:
+      - paragraph [ref=e488]: Admin
+      - paragraph [ref=e489]: admin@home.local
+      - paragraph [ref=e490]: Administrator
+    - separator [ref=e491]
+    - menuitem "Admin Panel" [ref=e492] [cursor=pointer]:
+      - img [ref=e493]
+      - generic [ref=e496]: Admin Panel
+    - separator [ref=e497]
+    - menuitem "Profile" [disabled]:
+      - img
+      - generic: Profile
+    - separator [ref=e498]
+    - menuitem "Log out" [ref=e499]:
+      - img [ref=e500]
+      - generic [ref=e503]: Log out
+```
