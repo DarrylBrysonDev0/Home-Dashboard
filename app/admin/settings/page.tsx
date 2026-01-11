@@ -11,36 +11,20 @@
  * - Allows sending a test email to verify configuration
  * - Provides setup instructions
  *
+ * Note: SMTP config is fetched via API route (/api/admin/smtp-config)
+ * to ensure environment variables are read at request time, not build time.
+ * This fixes the static rendering issue in Next.js standalone mode.
+ *
  * @see lib/email.ts for email service implementation
+ * @see app/api/admin/smtp-config/route.ts for config API
  */
 
 import SMTPSettingsClient from "./settings-client";
 
-// Force dynamic rendering to always read fresh env variables
-export const dynamic = 'force-dynamic';
-
 /**
- * Server Component - Loads SMTP configuration from environment
+ * Server Component - Renders SMTP settings client
+ * Config is fetched client-side from API to ensure runtime env vars
  */
 export default function SMTPSettingsPage() {
-  // Log raw env vars
-  console.log('[SMTP Settings] Raw Env Vars:', {
-    SMTP_HOST: process.env.SMTP_HOST,
-    SMTP_PORT: process.env.SMTP_PORT,
-    SMTP_USER: process.env.SMTP_USER,
-    SMTP_PASSWORD: process.env.SMTP_PASSWORD ? '***' : undefined,
-    SMTP_FROM: process.env.SMTP_FROM,
-  });
-
-  const smtpConfig = {
-    host: process.env.SMTP_HOST || "",
-    port: process.env.SMTP_PORT || "",
-    user: process.env.SMTP_USER || "",
-    from: process.env.SMTP_FROM || "",
-    hasPassword: !!process.env.SMTP_PASSWORD,
-  };
-
-  console.log('[SMTP Settings] Config Object:', smtpConfig);
-
-  return <SMTPSettingsClient config={smtpConfig} />;
+  return <SMTPSettingsClient />;
 }

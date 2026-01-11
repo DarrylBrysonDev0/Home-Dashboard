@@ -4,11 +4,11 @@
  * SMTP Settings Client Component
  *
  * Displays SMTP configuration and allows testing email sending.
- * Receives configuration from server component parent.
+ * Fetches configuration from API to ensure runtime env vars are used.
  */
 
-import { useState } from "react";
-import { Mail, CheckCircle, XCircle, AlertCircle, Send } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Mail, CheckCircle, XCircle, AlertCircle, Send, Loader2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,11 +23,35 @@ interface SMTPConfig {
   hasPassword: boolean;
 }
 
-interface SMTPSettingsClientProps {
-  config: SMTPConfig;
-}
+export default function SMTPSettingsClient() {
+  // SMTP config state - fetched from API to ensure runtime values
+  const [config, setConfig] = useState<SMTPConfig | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [configError, setConfigError] = useState<string | null>(null);
 
-export default function SMTPSettingsClient({ config }: SMTPSettingsClientProps) {
+  // Fetch SMTP config from API on mount
+  useEffect(() => {
+    async function fetchConfig() {
+      try {
+        const response = await fetch("/api/admin/smtp-config");
+        const data = await response.json();
+
+        if (response.ok && data.data) {
+          setConfig(data.data);
+        } else {
+          setConfigError(data.error || "Failed to load configuration");
+        }
+      } catch (error) {
+        console.error("Error fetching SMTP config:", error);
+        setConfigError("Failed to load SMTP configuration");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchConfig();
+  }, []);
+
   // Test email state
   const [testEmail, setTestEmail] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -78,6 +102,44 @@ export default function SMTPSettingsClient({ config }: SMTPSettingsClientProps) 
     } finally {
       setIsSending(false);
     }
+  }
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Email Settings</h1>
+          <p className="text-muted-foreground">
+            Configure SMTP settings for calendar invite emails
+          </p>
+        </div>
+        <Card>
+          <CardContent className="flex items-center justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            <span className="ml-2 text-muted-foreground">Loading configuration...</span>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  // Error state
+  if (configError || !config) {
+    return (
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">Email Settings</h1>
+          <p className="text-muted-foreground">
+            Configure SMTP settings for calendar invite emails
+          </p>
+        </div>
+        <Alert variant="destructive">
+          <XCircle className="h-4 w-4" />
+          <p className="ml-2">{configError || "Failed to load configuration"}</p>
+        </Alert>
+      </div>
+    );
   }
 
   return (
@@ -144,7 +206,7 @@ export default function SMTPSettingsClient({ config }: SMTPSettingsClientProps) 
               <p className="font-medium">Configuration via Environment Variables</p>
               <p className="text-sm text-muted-foreground mt-1">
                 SMTP settings are configured in your <code className="bg-muted px-1 rounded">.env</code> file.
-                Update the file and restart the server to apply changes.
+                Update the file and restart the server to apply changes. Refresh this page to see updated values.
               </p>
             </div>
           </Alert>
