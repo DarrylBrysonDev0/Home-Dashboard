@@ -51,6 +51,11 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  User: 'User',
+  EventCategory: 'EventCategory',
+  Event: 'Event',
+  EventAttendee: 'EventAttendee',
+  EventInvite: 'EventInvite',
   transactions: 'transactions'
 } as const
 
@@ -69,6 +74,72 @@ export const TransactionIsolationLevel = {
 } as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const UserScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  name: 'name',
+  passwordHash: 'passwordHash',
+  role: 'role',
+  avatarColor: 'avatarColor',
+  failedLoginAttempts: 'failedLoginAttempts',
+  lockedUntil: 'lockedUntil',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const EventCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  color: 'color',
+  icon: 'icon',
+  createdAt: 'createdAt'
+} as const
+
+export type EventCategoryScalarFieldEnum = (typeof EventCategoryScalarFieldEnum)[keyof typeof EventCategoryScalarFieldEnum]
+
+
+export const EventScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  location: 'location',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  allDay: 'allDay',
+  timezone: 'timezone',
+  recurrenceRule: 'recurrenceRule',
+  categoryId: 'categoryId',
+  createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const EventAttendeeScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  userId: 'userId',
+  status: 'status'
+} as const
+
+export type EventAttendeeScalarFieldEnum = (typeof EventAttendeeScalarFieldEnum)[keyof typeof EventAttendeeScalarFieldEnum]
+
+
+export const EventInviteScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  recipientEmail: 'recipientEmail',
+  sentAt: 'sentAt'
+} as const
+
+export type EventInviteScalarFieldEnum = (typeof EventInviteScalarFieldEnum)[keyof typeof EventInviteScalarFieldEnum]
 
 
 export const TransactionsScalarFieldEnum = {

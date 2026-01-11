@@ -1,16 +1,23 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version Change: 1.0.1 → 1.0.2 (Database setup documentation)
-Modified Principles: Updated Core Stack to MSSQL Server 2025
-Added Sections: "Development Environment" with database setup and re-initialization procedures
-Removed Sections: N/A
+Version Change: 1.1.0 → 1.2.0 (Authentication & Authorization principle added)
+Modified Principles: Added Core Principle VI - Authentication & Authorization (NON-NEGOTIABLE)
+Added Sections: 
+  - Authentication & Authorization principle with comprehensive rules and implementation details
+  - Authentication (Mandatory) section in Technology Stack
+Removed Sections: None
+Modified Sections:
+  - Technology Stack: Moved NextAuth.js from Optional to Mandatory Authentication section
 Templates Status:
-  ✅ .specify/templates/plan-template.md - No updates required
-  ✅ .specify/templates/spec-template.md - No updates required
-  ✅ .specify/templates/tasks-template.md - No updates required
-Follow-up TODOs: None
-Bump Rationale: PATCH - Added development database setup documentation and updated MSSQL version without changing core principles or architectural requirements.
+  ⚠️ .specify/templates/plan-template.md - Should verify authentication requirements in Constitution Check
+  ⚠️ .specify/templates/spec-template.md - Should include authentication requirements in API contracts
+  ⚠️ .specify/templates/tasks-template.md - Should include authentication implementation tasks
+Follow-up TODOs: 
+  - Update spec template to include authentication/authorization section for all features
+  - Update task template to include middleware.ts updates when new routes are added
+  - Update plan template to include authentication verification in Constitution Check
+Bump Rationale: MINOR - Added new mandatory principle for authentication which represents a substantial change to security requirements for all future features. Existing implementations already follow this pattern, so this codifies existing practice.
 -->
 
 # Home Dashboard Constitution
@@ -82,6 +89,31 @@ Start with the simplest working solution; complexity MUST be justified.
 
 **Rationale**: MVP-first approach delivers value faster, enables user feedback earlier, and prevents over-engineering. For a home lab dashboard, simplicity and maintainability trump theoretical scalability.
 
+### VI. Authentication & Authorization (NON-NEGOTIABLE)
+
+All pages and API routes MUST require active authentication unless explicitly designated as public.
+
+**Rules**:
+- NextAuth.js middleware MUST protect all routes by default
+- Protected routes MUST be explicitly listed in `middleware.ts` matcher configuration
+- Public routes are LIMITED to: `/login`, `/api/auth/*`, and static assets
+- All page routes (`/dashboard`, `/calendar`, `/admin`, etc.) MUST require authentication
+- All API routes MUST require authentication except `/api/auth/*`
+- Admin routes (`/admin/*`) MUST additionally verify ADMIN role
+- Session duration MUST be configured (default: 7 days with JWT strategy)
+- Authentication state MUST be validated on both client and server side
+- Unauthenticated requests MUST redirect to `/login` with callback URL
+
+**Implementation**:
+- Use `withAuth` from `next-auth/middleware` in `middleware.ts`
+- Define explicit `matcher` array with all protected routes
+- Implement `authorized` callback to validate JWT tokens
+- Use role-based checks in middleware for admin routes
+- Server components MUST use `getServerSession` for auth checks
+- Client components MUST use `useSession` hook for auth state
+
+**Rationale**: Authentication is critical for household data privacy and security. Middleware-based protection ensures consistent enforcement across all routes without requiring per-page implementation. Explicit route listing in matcher prevents accidental exposure of sensitive features.
+
 ## Technology Stack
 
 ### Core Stack (Mandatory)
@@ -103,9 +135,13 @@ Start with the simplest working solution; complexity MUST be justified.
 - **TanStack Table** - Data tables with sorting/filtering
 - **sonner** - Toast notifications
 
+### Authentication (Mandatory)
+- **NextAuth.js** - Authentication system for household member login
+- **bcrypt** - Password hashing
+- **JWT** - Session token strategy
+
 ### Optional (As Needed)
 - **TanStack Query** - Server state management (for complex data fetching)
-- **NextAuth.js** - Authentication (if multi-user access required)
 - **date-fns** - Date manipulation
 
 ### Infrastructure (Mandatory)
@@ -137,17 +173,21 @@ Start with the simplest working solution; complexity MUST be justified.
    - File paths MUST be explicit in task descriptions
    - Parallel tasks MUST be marked with `[P]`
 
-4. **Implementation**
+4. **Implementation** (TDD Red-Green-Refactor)
    - Start with P1 user story only
-   - Database schema → API routes → UI components → Integration
-   - Test as you build (manual testing acceptable for MVP)
+   - **RED**: Write failing test for each acceptance scenario
+   - **GREEN**: Implement minimum code to pass the test
+   - **REFACTOR**: Clean up while keeping tests green
+   - Follow order: Database schema → API routes → UI components → Integration
    - Use `prisma studio` for database inspection during development
+   - Commit after each RED, GREEN, and REFACTOR phase
 
 5. **Validation**
    - Feature MUST satisfy acceptance criteria from spec
+   - All tests MUST pass (`npm test`)
+   - Minimum 80% code coverage for business logic
    - Type errors MUST be resolved (`npm run lint`)
    - Docker build MUST succeed (`docker-compose up`)
-   - Manual testing MUST cover all acceptance scenarios
 
 ### Directory Structure Standards
 
@@ -189,13 +229,18 @@ Home-Dashboard/
 - **Build**: `npm run build` MUST succeed
 - **Commits**: Use conventional commit format (feat:, fix:, docs:, refactor:)
 
-### Testing Standards (Pragmatic)
+### Testing Standards (TDD Red-Green-Refactor)
 
-Given this is a home lab MVP:
-- Automated testing is OPTIONAL for P1 features
-- Manual acceptance testing MUST cover all user scenarios
-- If bugs are found, document them in tasks and fix before adding new features
-- As the project matures, add tests for critical paths
+**Mandatory for All Features**:
+- Test-Driven Development (TDD) MUST be used for all new features
+- Write tests BEFORE implementation (RED → GREEN → REFACTOR cycle)
+- Unit tests MUST cover all business logic and utility functions
+- Integration tests MUST cover database queries and API endpoints
+- End-to-End tests MUST cover all P1 user story acceptance scenarios
+- Minimum 80% code coverage for business logic
+- 100% coverage for P1 acceptance scenarios
+- All tests MUST pass before merging (`npm test`)
+- Use Vitest for unit/integration tests, Playwright for E2E tests
 
 ### Sample Data & Agent Boundaries
 
@@ -316,4 +361,4 @@ See [DATABASE_SETUP.md](../../DATABASE_SETUP.md) for complete documentation.
 - Update if patterns emerge that aren't captured
 - Remove principles that prove impractical (via MAJOR version bump)
 
-**Version**: 1.0.2 | **Ratified**: 2026-01-07 | **Last Amended**: 2026-01-07
+**Version**: 1.2.0 | **Ratified**: 2026-01-07 | **Last Amended**: 2026-01-10
