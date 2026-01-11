@@ -174,8 +174,8 @@
 - [x] T036 [US3] Export useChartTheme from `lib/theme/index.ts`
 - [x] T037 [US3] Update `components/dashboard/spending-by-category.tsx` to use Cemdash donut chart styling
 - [x] T038 [US3] Update bar chart components to use Cemdash gradient fills
-- [ ] T038a [US3] Update line chart components to use Cemdash account colors with glow effects
-- [ ] T038b [US3] Apply Cemdash chart tooltip styling (backdrop blur, border, shadow)
+- [x] T038a [US3] Update line chart components to use Cemdash account colors with glow effects
+- [x] T038b [US3] Apply Cemdash chart tooltip styling (backdrop blur, border, shadow)
 - [x] T039 [US3] Verify all acceptance scenarios pass for US3
 
 **Checkpoint**: User Story 3 complete - all charts use theme-appropriate colors
@@ -190,11 +190,11 @@
 
 ### Tests for User Story 4 (TDD - Write FIRST, Ensure FAIL)
 
-- [ ] T040 [P] [US4] E2E test: theme toggle visible on dashboard page in `__tests__/e2e/theme-visibility.spec.ts`
-- [ ] T041 [P] [US4] E2E test: theme toggle visible on calendar page in `__tests__/e2e/theme-visibility.spec.ts`
-- [ ] T042 [P] [US4] E2E test: theme toggle visible on admin page in `__tests__/e2e/theme-visibility.spec.ts`
-- [ ] T043 [P] [US4] E2E test: theme toggle icon updates (sun/moon) based on theme in `__tests__/e2e/theme-visibility.spec.ts`
-- [ ] T044 [P] [US4] E2E test: theme toggle visible on mobile viewport in `__tests__/e2e/theme-visibility.spec.ts`
+- [x] T040 [P] [US4] E2E test: theme toggle visible on dashboard page in `__tests__/e2e/theme-visibility.spec.ts`
+- [x] T041 [P] [US4] E2E test: theme toggle visible on calendar page in `__tests__/e2e/theme-visibility.spec.ts`
+- [x] T042 [P] [US4] E2E test: theme toggle visible on admin page in `__tests__/e2e/theme-visibility.spec.ts`
+- [x] T043 [P] [US4] E2E test: theme toggle icon updates (sun/moon) based on theme in `__tests__/e2e/theme-visibility.spec.ts`
+- [x] T044 [P] [US4] E2E test: theme toggle visible on mobile viewport in `__tests__/e2e/theme-visibility.spec.ts`
 
 ### Implementation for User Story 4
 

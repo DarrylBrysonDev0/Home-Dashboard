@@ -6,6 +6,12 @@
  * Reusable tooltip component for Recharts visualizations.
  * Displays formatted values with semantic colors based on data type.
  *
+ * Uses Cemdash chart tooltip styling:
+ * - Dark mode: backdrop blur, enhanced shadows, semi-transparent background
+ * - Light mode: solid background with subtle shadow
+ *
+ * T038b: Updated to use Cemdash chart tooltip styling
+ *
  * @example
  * <BarChart>
  *   <Tooltip content={<ChartTooltip valueFormatter={formatCurrency} />} />
@@ -104,8 +110,9 @@ function getSemanticColor(dataKey: string): string | undefined {
 /**
  * Custom tooltip component for Recharts
  *
- * Renders a styled tooltip with:
- * - Period label header
+ * Renders a styled tooltip with Cemdash design:
+ * - Backdrop blur and enhanced shadows in dark mode
+ * - Period label header with emphasis
  * - Color-coded data series values
  * - Formatted numbers (currency, percentage, etc.)
  */
@@ -121,29 +128,29 @@ export function ChartTooltip({
   }
 
   return (
-    <div className="rounded-lg border border-border bg-background px-3 py-2 shadow-lg">
+    <div className="cemdash-chart-tooltip">
       {/* Period label header */}
       {label && (
-        <p className="mb-1.5 text-sm font-medium text-foreground">
+        <p className="cemdash-chart-tooltip-label">
           {labelFormatter(label)}
         </p>
       )}
 
       {/* Data series values */}
-      <div className="space-y-1">
+      <div className="space-y-0.5">
         {payload.map((entry, index) => {
           const color = getSemanticColor(entry.dataKey) || entry.color;
           return (
             <div
               key={`tooltip-${entry.dataKey}-${index}`}
-              className="flex items-center justify-between gap-4 text-sm"
+              className="cemdash-chart-tooltip-row"
             >
               <span className="flex items-center gap-2">
                 <span
-                  className="inline-block h-2.5 w-2.5 rounded-full"
+                  className="cemdash-chart-tooltip-dot"
                   style={{ backgroundColor: color }}
                 />
-                <span className="text-muted-foreground capitalize">
+                <span className="cemdash-chart-tooltip-value capitalize">
                   {entry.name}
                 </span>
               </span>
