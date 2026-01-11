@@ -255,7 +255,11 @@ export function CalendarView({
     .filter((event) => {
       // Apply category filter if provided
       if (categoryFilter && categoryFilter.length > 0) {
-        return event.category && categoryFilter.includes(event.category.id);
+        // Include uncategorized events, or events matching selected categories
+        if (!event.category) {
+          return true; // Always show uncategorized events
+        }
+        return categoryFilter.includes(event.category.id);
       }
       return true;
     })
