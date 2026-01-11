@@ -7,8 +7,9 @@
  * Transfers are excluded from calculations (handled by API).
  *
  * Features:
- * - Grouped bars for income (green) and expenses (coral)
- * - Custom tooltip with formatted currency values
+ * - Theme-aware Cemdash gradient fills for income/expense bars
+ * - Income: green→teal gradient | Expenses: coral→orange gradient
+ * - Custom tooltip with Cemdash styling
  * - Responsive sizing with Recharts ResponsiveContainer
  * - Support for daily, weekly, and monthly granularity
  * - Loading, error, and empty states
@@ -30,7 +31,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { CashFlowChartSkeleton } from "../loading-skeleton";
 import { NoData } from "../empty-states/no-data";
 import { ChartTooltip, formatCurrency, formatPeriodLabel } from "./chart-tooltip";
-import { SEMANTIC_COLORS } from "@/lib/constants/colors";
+import { useChartTheme } from "@/lib/theme";
 import { useFilters } from "@/lib/contexts/filter-context";
 import type { CashFlowPeriod, Granularity } from "@/lib/validations/analytics";
 
@@ -190,9 +191,10 @@ function formatYAxisTick(value: number): string {
  * CashFlowChart - Displays income vs expenses over time
  *
  * Shows a grouped bar chart with:
- * - Green bars for income
- * - Coral/red bars for expenses
- * - Custom tooltip with period details and formatted amounts
+ * - Theme-aware Cemdash gradient fills
+ * - Income: green→teal gradient
+ * - Expenses: coral→orange gradient
+ * - Cemdash tooltip styling
  */
 export function CashFlowChart({
   startDate,
@@ -205,6 +207,9 @@ export function CashFlowChart({
   className,
   showNet = false,
 }: CashFlowChartProps) {
+  // Get theme-aware chart colors with gradients
+  const { income, expenses, gradients, grid, axis } = useChartTheme();
+
   const { data, isLoading, error } = useCashFlowData({
     startDate,
     endDate,
@@ -270,21 +275,32 @@ export function CashFlowChart({
             data={data}
             margin={{ top: 10, right: 30, left: 10, bottom: 5 }}
           >
+            {/* Cemdash gradient definitions for income/expense bars */}
+            <defs>
+              <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={gradients.income[0]} stopOpacity={1} />
+                <stop offset="100%" stopColor={gradients.income[1]} stopOpacity={0.85} />
+              </linearGradient>
+              <linearGradient id="expenseGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor={gradients.expenses[0]} stopOpacity={1} />
+                <stop offset="100%" stopColor={gradients.expenses[1]} stopOpacity={0.85} />
+              </linearGradient>
+            </defs>
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="hsl(var(--border))"
+              stroke={grid}
             />
             <XAxis
               dataKey="period"
               tickFormatter={formatPeriodLabel}
-              tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 12, fill: axis }}
               tickLine={false}
-              axisLine={{ stroke: "hsl(var(--border))" }}
+              axisLine={{ stroke: grid }}
             />
             <YAxis
               tickFormatter={formatYAxisTick}
-              tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 12, fill: axis }}
               tickLine={false}
               axisLine={false}
               width={60}
@@ -307,14 +323,14 @@ export function CashFlowChart({
             <Bar
               dataKey="income"
               name="Income"
-              fill={SEMANTIC_COLORS.income}
+              fill="url(#incomeGradient)"
               radius={[4, 4, 0, 0]}
               maxBarSize={50}
             />
             <Bar
               dataKey="expenses"
               name="Expenses"
-              fill={SEMANTIC_COLORS.expense}
+              fill="url(#expenseGradient)"
               radius={[4, 4, 0, 0]}
               maxBarSize={50}
             />
@@ -322,7 +338,7 @@ export function CashFlowChart({
               <Bar
                 dataKey="net"
                 name="Net"
-                fill={SEMANTIC_COLORS.neutral}
+                fill={income}
                 radius={[4, 4, 0, 0]}
                 maxBarSize={50}
               />

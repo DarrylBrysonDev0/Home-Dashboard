@@ -165,18 +165,18 @@
 
 ### Implementation for User Story 3
 
-- [ ] T033 [US3] Create useChartTheme hook in `lib/theme/hooks/useChartTheme.ts`
-- [ ] T034 [US3] Define light theme chart palette (10 colors) in `lib/theme/themes/light.ts`
-- [ ] T035 [US3] Define dark theme chart palette (10 Cemdash rainbow colors) in `lib/theme/themes/dark.ts`
-- [ ] T035a [US3] Add Cemdash gradient definitions for bar charts (income: green→teal, expense: red→orange)
-- [ ] T035b [US3] Add Cemdash category color mappings (13 spending categories) to useChartTheme
-- [ ] T035c [US3] Add Cemdash account line colors (6 accounts) to useChartTheme
-- [ ] T036 [US3] Export useChartTheme from `lib/theme/index.ts`
-- [ ] T037 [US3] Update `components/dashboard/spending-by-category.tsx` to use Cemdash donut chart styling
-- [ ] T038 [US3] Update bar chart components to use Cemdash gradient fills
+- [x] T033 [US3] Create useChartTheme hook in `lib/theme/hooks/useChartTheme.ts`
+- [x] T034 [US3] Define light theme chart palette (10 colors) in `lib/theme/themes/light.ts`
+- [x] T035 [US3] Define dark theme chart palette (10 Cemdash rainbow colors) in `lib/theme/themes/dark.ts`
+- [x] T035a [US3] Add Cemdash gradient definitions for bar charts (income: green→teal, expense: red→orange)
+- [x] T035b [US3] Add Cemdash category color mappings (13 spending categories) to useChartTheme
+- [x] T035c [US3] Add Cemdash account line colors (6 accounts) to useChartTheme
+- [x] T036 [US3] Export useChartTheme from `lib/theme/index.ts`
+- [x] T037 [US3] Update `components/dashboard/spending-by-category.tsx` to use Cemdash donut chart styling
+- [x] T038 [US3] Update bar chart components to use Cemdash gradient fills
 - [ ] T038a [US3] Update line chart components to use Cemdash account colors with glow effects
 - [ ] T038b [US3] Apply Cemdash chart tooltip styling (backdrop blur, border, shadow)
-- [ ] T039 [US3] Verify all acceptance scenarios pass for US3
+- [x] T039 [US3] Verify all acceptance scenarios pass for US3
 
 **Checkpoint**: User Story 3 complete - all charts use theme-appropriate colors
 

@@ -13,5 +13,6 @@ export * from './types';
 // Theme definitions - Phase 2 complete
 export * from './themes';
 
-// Hooks - Phase 3 (User Story 1)
+// Hooks - Phase 3 (User Story 1) and Phase 5 (User Story 3)
 export { useTheme } from './hooks/useTheme';
+export { useChartTheme } from './hooks/useChartTheme';

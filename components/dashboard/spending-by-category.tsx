@@ -30,7 +30,7 @@ import { NoData } from "./empty-states/no-data";
 import { CategoryDonut } from "./charts/category-donut";
 import { CategoryBar } from "./charts/category-bar";
 import { formatCurrency } from "./charts/chart-tooltip";
-import { getChartColor } from "@/lib/constants/colors";
+import { useChartTheme } from "@/lib/theme";
 import { useFilters } from "@/lib/contexts/filter-context";
 import type { CategoryBreakdown } from "@/lib/validations/analytics";
 
@@ -165,6 +165,7 @@ function useCategoryData(filters: SpendingByCategoryFilterProps, includeSubcateg
 
 /**
  * Subcategory drill-down modal content
+ * Uses theme-aware Cemdash category colors
  */
 interface SubcategoryModalProps {
   category: CategoryBreakdown | null;
@@ -173,11 +174,23 @@ interface SubcategoryModalProps {
 }
 
 function SubcategoryModal({ category, isOpen, onClose }: SubcategoryModalProps) {
+  // Get theme-aware chart colors
+  const { categories, palette } = useChartTheme();
+
   if (!category) return null;
 
   const subcategories = category.subcategories || [];
-  const categoryIndex = 0; // We'll use the first color for the parent
-  const categoryColor = getChartColor(categoryIndex);
+
+  /**
+   * Get color for a category - uses category-specific colors when available,
+   * falls back to palette colors for unrecognized categories
+   */
+  const getCategoryColor = (categoryName: string, index: number): string => {
+    const normalizedName = categoryName.toLowerCase().replace(/\s+/g, '') as keyof typeof categories;
+    return categories[normalizedName] || palette[index % palette.length];
+  };
+
+  const categoryColor = getCategoryColor(category.category, 0);
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -214,7 +227,7 @@ function SubcategoryModal({ category, isOpen, onClose }: SubcategoryModalProps) 
                   <div className="flex items-center gap-2">
                     <span
                       className="inline-block h-2.5 w-2.5 rounded-full"
-                      style={{ backgroundColor: getChartColor(index) }}
+                      style={{ backgroundColor: palette[index % palette.length] }}
                     />
                     <span className="font-medium">{sub.subcategory}</span>
                     <span className="text-sm text-muted-foreground">

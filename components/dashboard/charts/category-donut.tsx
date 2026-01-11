@@ -8,8 +8,9 @@
  *
  * Features:
  * - Donut chart with center hole for total display
- * - WCAG AA compliant color palette
- * - Custom tooltip with category details
+ * - Theme-aware Cemdash color palette
+ * - Category-specific colors for consistent recognition
+ * - Custom tooltip with Cemdash styling
  * - Legend with color indicators
  * - Responsive sizing with Recharts ResponsiveContainer
  */
@@ -22,7 +23,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { getChartColor } from "@/lib/constants/colors";
+import { useChartTheme } from "@/lib/theme";
 import { formatCurrency } from "./chart-tooltip";
 import type { CategoryBreakdown } from "@/lib/validations/analytics";
 
@@ -45,7 +46,8 @@ export interface CategoryDonutProps {
 }
 
 /**
- * Custom tooltip for the donut chart
+ * Custom tooltip for the donut chart with Cemdash styling
+ * Uses backdrop blur, theme-aware border and shadow
  */
 interface DonutTooltipProps {
   active?: boolean;
@@ -65,7 +67,7 @@ function DonutTooltip({ active, payload }: DonutTooltipProps) {
   const category = data.payload;
 
   return (
-    <div className="rounded-lg border border-border bg-background px-3 py-2 shadow-lg">
+    <div className="cemdash-tooltip rounded-lg border border-border/60 bg-background/95 px-3 py-2 shadow-lg backdrop-blur-sm">
       <p className="mb-1 font-medium text-foreground">{category.category}</p>
       <div className="space-y-0.5 text-sm">
         <div className="flex justify-between gap-4">
@@ -93,8 +95,9 @@ function DonutTooltip({ active, payload }: DonutTooltipProps) {
  * CategoryDonut - Displays category spending as a donut chart
  *
  * Shows proportional spending across categories with:
- * - Color-coded segments
- * - Hover tooltip with details
+ * - Theme-aware Cemdash color palette
+ * - Category-specific colors for consistent recognition
+ * - Hover tooltip with Cemdash styling
  * - Optional legend
  * - Click handler for drill-down
  */
@@ -106,10 +109,25 @@ export function CategoryDonut({
   showLegend = true,
   onCategoryClick,
 }: CategoryDonutProps) {
-  // Add fill color to data for chart
+  // Get theme-aware chart colors
+  const { categories, palette } = useChartTheme();
+
+  /**
+   * Get color for a category - uses category-specific colors when available,
+   * falls back to palette colors for unrecognized categories
+   */
+  const getCategoryColor = (categoryName: string, index: number): string => {
+    // Normalize category name for lookup (lowercase, remove spaces)
+    const normalizedName = categoryName.toLowerCase().replace(/\s+/g, '') as keyof typeof categories;
+
+    // Use category-specific color if available, otherwise fall back to palette
+    return categories[normalizedName] || palette[index % palette.length];
+  };
+
+  // Add fill color to data for chart - uses category-specific colors
   const coloredData = data.map((item, index) => ({
     ...item,
-    fill: getChartColor(index),
+    fill: getCategoryColor(item.category, index),
   }));
 
   const handleClick = (entry: CategoryBreakdown) => {

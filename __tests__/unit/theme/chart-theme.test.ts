@@ -85,9 +85,8 @@ vi.mock("next-themes", () => ({
   ThemeProvider: ({ children }: { children: ReactNode }) => children,
 }));
 
-// Import after mocking - hook will be created in T033
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const { useChartTheme } = require("@/lib/theme/hooks/useChartTheme");
+// Import after mocking - vitest hoists vi.mock() above imports
+import { useChartTheme } from "@/lib/theme/hooks/useChartTheme";
 
 describe("T029: useChartTheme returns light palette when theme is light", () => {
   beforeEach(() => {
