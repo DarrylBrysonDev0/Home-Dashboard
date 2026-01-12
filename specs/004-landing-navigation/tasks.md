@@ -52,11 +52,11 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T010 [P] [US1] E2E test for nav bar visibility across pages in __tests__/e2e/navigation.spec.ts
-- [ ] T011 [P] [US1] Unit test for Logo component in __tests__/unit/components/navigation/logo.test.tsx
-- [ ] T012 [P] [US1] Unit test for NavItem component (active state detection) in __tests__/unit/components/navigation/nav-item.test.tsx
-- [ ] T013 [P] [US1] Unit test for NavItems collection in __tests__/unit/components/navigation/nav-items.test.tsx
-- [ ] T014 [P] [US1] Unit test for NavBar component in __tests__/unit/components/navigation/nav-bar.test.tsx
+- [X] T010 [P] [US1] E2E test for nav bar visibility across pages in __tests__/e2e/navigation.spec.ts
+- [X] T011 [P] [US1] Unit test for Logo component in __tests__/unit/components/navigation/logo.test.tsx
+- [X] T012 [P] [US1] Unit test for NavItem component (active state detection) in __tests__/unit/components/navigation/nav-item.test.tsx
+- [X] T013 [P] [US1] Unit test for NavItems collection in __tests__/unit/components/navigation/nav-items.test.tsx
+- [X] T014 [P] [US1] Unit test for NavBar component in __tests__/unit/components/navigation/nav-bar.test.tsx
 
 ### Implementation for User Story 1
 
@@ -80,10 +80,10 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T020 [P] [US2] E2E test for landing page content and app card navigation in __tests__/e2e/landing.spec.ts
-- [ ] T021 [P] [US2] Unit test for AppCard component (hover effects, navigation) in __tests__/unit/components/home/app-card.test.tsx
-- [ ] T022 [P] [US2] Unit test for AppSelectionPanel in __tests__/unit/components/home/app-selection-panel.test.tsx
-- [ ] T023 [P] [US2] Unit test for HeroSection (greeting display) in __tests__/unit/components/home/hero-section.test.tsx
+- [X] T020 [P] [US2] E2E test for landing page content and app card navigation in __tests__/e2e/landing.spec.ts
+- [X] T021 [P] [US2] Unit test for AppCard component (hover effects, navigation) in __tests__/unit/components/home/app-card.test.tsx
+- [X] T022 [P] [US2] Unit test for AppSelectionPanel in __tests__/unit/components/home/app-selection-panel.test.tsx
+- [X] T023 [P] [US2] Unit test for HeroSection (greeting display) in __tests__/unit/components/home/hero-section.test.tsx
 
 ### Implementation for User Story 2
 
