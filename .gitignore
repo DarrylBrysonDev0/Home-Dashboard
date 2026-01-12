@@ -41,3 +41,5 @@ yarn-error.log*
 next-env.d.ts
 .github/ 
 .claude/
+/playwright-report/
+.playwright-mcp/
