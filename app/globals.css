@@ -5,6 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* ==========================================================================
+     SHADCN/UI DEFAULT MAPPINGS
+     ========================================================================== */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -45,6 +48,133 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
+  /* ==========================================================================
+     CEMDASH BACKGROUND COLORS
+     Usage: bg-bg-page, bg-bg-primary, bg-bg-hover, etc.
+     ========================================================================== */
+  --color-bg-page: var(--color-bg-page);
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+  --color-bg-hover: var(--color-bg-hover);
+  --color-bg-active: var(--color-bg-active);
+
+  /* ==========================================================================
+     CEMDASH TEXT COLORS
+     Usage: text-text-primary, text-text-secondary, etc.
+     ========================================================================== */
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverse: var(--color-text-inverse);
+
+  /* ==========================================================================
+     CEMDASH ACCENT COLORS
+     Usage: bg-accent-coral, text-accent-mint, border-accent-teal, etc.
+     ========================================================================== */
+  --color-accent-coral: var(--color-accent-coral);
+  --color-accent-coral-hover: var(--color-accent-coral-hover);
+  --color-accent-mint: var(--color-accent-mint);
+  --color-accent-mint-hover: var(--color-accent-mint-hover);
+  --color-accent-teal: var(--color-accent-teal);
+  --color-accent-cyan: var(--color-accent-cyan);
+
+  /* ==========================================================================
+     CEMDASH SEMANTIC COLORS
+     Usage: text-positive, bg-negative, border-warning, etc.
+     ========================================================================== */
+  --color-positive: var(--color-positive);
+  --color-negative: var(--color-negative);
+  --color-warning: var(--color-warning);
+  --color-info: var(--color-info);
+
+  /* ==========================================================================
+     CEMDASH BORDER COLORS
+     Usage: border-border-subtle, border-border-default, etc.
+     ========================================================================== */
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-default: var(--color-border-default);
+  --color-border-emphasis: var(--color-border-emphasis);
+
+  /* ==========================================================================
+     CEMDASH CATEGORY COLORS
+     Usage: bg-category-groceries, text-category-dining, etc.
+     ========================================================================== */
+  --color-category-charity: var(--color-category-charity);
+  --color-category-daily: var(--color-category-daily);
+  --color-category-dining: var(--color-category-dining);
+  --color-category-entertainment: var(--color-category-entertainment);
+  --color-category-gifts: var(--color-category-gifts);
+  --color-category-groceries: var(--color-category-groceries);
+  --color-category-healthcare: var(--color-category-healthcare);
+  --color-category-financing: var(--color-category-financing);
+  --color-category-shopping: var(--color-category-shopping);
+  --color-category-subscriptions: var(--color-category-subscriptions);
+  --color-category-transportation: var(--color-category-transportation);
+  --color-category-travel: var(--color-category-travel);
+  --color-category-utilities: var(--color-category-utilities);
+
+  /* ==========================================================================
+     CEMDASH RAINBOW SPECTRUM - Chart Colors
+     Usage: bg-rainbow-1, text-rainbow-2, etc.
+     ========================================================================== */
+  --color-rainbow-1: var(--color-rainbow-1);
+  --color-rainbow-2: var(--color-rainbow-2);
+  --color-rainbow-3: var(--color-rainbow-3);
+  --color-rainbow-4: var(--color-rainbow-4);
+  --color-rainbow-5: var(--color-rainbow-5);
+  --color-rainbow-6: var(--color-rainbow-6);
+  --color-rainbow-7: var(--color-rainbow-7);
+  --color-rainbow-8: var(--color-rainbow-8);
+  --color-rainbow-9: var(--color-rainbow-9);
+  --color-rainbow-10: var(--color-rainbow-10);
+
+  /* ==========================================================================
+     CEMDASH ACCOUNT COLORS
+     Usage: bg-account-joint-checking, text-account-user1-savings, etc.
+     ========================================================================== */
+  --color-account-joint-checking: var(--color-account-joint-checking);
+  --color-account-joint-savings: var(--color-account-joint-savings);
+  --color-account-user1-checking: var(--color-account-user1-checking);
+  --color-account-user1-savings: var(--color-account-user1-savings);
+  --color-account-user2-checking: var(--color-account-user2-checking);
+  --color-account-user2-savings: var(--color-account-user2-savings);
+
+  /* ==========================================================================
+     CEMDASH SHADOW UTILITIES
+     Usage: shadow-shadow-sm, shadow-shadow-lg, etc.
+     ========================================================================== */
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-inner: var(--shadow-inner);
+  --shadow-glow-coral: var(--shadow-glow-coral);
+  --shadow-glow-mint: var(--shadow-glow-mint);
+  --shadow-glow-teal: var(--shadow-glow-teal);
+  --shadow-glow-cyan: var(--shadow-glow-cyan);
+  --shadow-glow-white: var(--shadow-glow-white);
+  --shadow-glow-coral-intense: var(--shadow-glow-coral-intense);
+
+  /* ==========================================================================
+     CEMDASH SPACING SCALE
+     Usage: p-spacing-4, m-spacing-6, gap-spacing-2, etc.
+     ========================================================================== */
+  --spacing-0: var(--spacing-0);
+  --spacing-1: var(--spacing-1);
+  --spacing-2: var(--spacing-2);
+  --spacing-3: var(--spacing-3);
+  --spacing-4: var(--spacing-4);
+  --spacing-5: var(--spacing-5);
+  --spacing-6: var(--spacing-6);
+  --spacing-8: var(--spacing-8);
+  --spacing-10: var(--spacing-10);
+  --spacing-12: var(--spacing-12);
+  --spacing-16: var(--spacing-16);
+  --spacing-20: var(--spacing-20);
+  --spacing-24: var(--spacing-24);
 }
 
 :root {
@@ -80,6 +210,201 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* ==========================================================================
+     CEMDASH THEME SYSTEM - LIGHT THEME
+     ========================================================================== */
+
+  /* Background Colors - Layered surfaces for depth hierarchy */
+  --color-bg-page: #F2F4F7;
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F9FAFB;
+  --color-bg-tertiary: #F2F4F7;
+  --color-bg-hover: #E5E7EB;
+  --color-bg-active: #D1D5DB;
+
+  /* Text Colors - Hierarchical text for readability */
+  --color-text-primary: #101828;
+  --color-text-secondary: #344054;
+  --color-text-tertiary: #667085;
+  --color-text-muted: #9CA3AF;
+  --color-text-inverse: #FFFFFF;
+
+  /* Accent Colors - Brand colors (consistent across themes) */
+  --color-accent-coral: #F97066;
+  --color-accent-coral-hover: #EF4444;
+  --color-accent-mint: #12B76A;
+  --color-accent-mint-hover: #059669;
+  --color-accent-teal: #14B8A6;
+  --color-accent-cyan: #22D3EE;
+
+  /* Semantic Colors - Contextual meaning */
+  --color-positive: #12B76A;
+  --color-negative: #F97066;
+  --color-warning: #F59E0B;
+  --color-info: #3B82F6;
+
+  /* Border Colors - Separation and definition */
+  --color-border-subtle: #E5E7EB;
+  --color-border-default: #D0D5DD;
+  --color-border-emphasis: #9CA3AF;
+
+  /* Shadow System - Depth perception for light theme */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  /* Glow Effects - Disabled in light theme */
+  --shadow-glow-coral: none;
+  --shadow-glow-mint: none;
+  --shadow-glow-teal: none;
+  --shadow-glow-cyan: none;
+  --shadow-glow-white: none;
+  --shadow-glow-coral-intense: none;
+
+  /* Spacing Scale - Consistent spacing tokens */
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-8: 32px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-16: 64px;
+  --spacing-20: 80px;
+  --spacing-24: 96px;
+
+  /* Border Radius Scale - Consistent rounded corners */
+  --radius-none: 0px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ==========================================================================
+     CEMDASH TYPOGRAPHY SCALE - 13 Text Styles
+     ========================================================================== */
+
+  /* Display - For hero sections and large visual numbers */
+  --text-display-lg-size: 3.5rem;     /* 56px */
+  --text-display-lg-line: 1.1;
+  --text-display-lg-weight: 700;
+  --text-display-lg-tracking: -0.02em;
+
+  --text-display-size: 3rem;          /* 48px */
+  --text-display-line: 1.15;
+  --text-display-weight: 700;
+  --text-display-tracking: -0.02em;
+
+  /* Headings - Content hierarchy */
+  --text-h1-size: 2.25rem;            /* 36px */
+  --text-h1-line: 1.2;
+  --text-h1-weight: 700;
+  --text-h1-tracking: -0.015em;
+
+  --text-h2-size: 1.875rem;           /* 30px */
+  --text-h2-line: 1.25;
+  --text-h2-weight: 600;
+  --text-h2-tracking: -0.01em;
+
+  --text-h3-size: 1.5rem;             /* 24px */
+  --text-h3-line: 1.3;
+  --text-h3-weight: 600;
+  --text-h3-tracking: -0.01em;
+
+  --text-h4-size: 1.25rem;            /* 20px */
+  --text-h4-line: 1.35;
+  --text-h4-weight: 600;
+  --text-h4-tracking: 0;
+
+  --text-h5-size: 1.125rem;           /* 18px */
+  --text-h5-line: 1.4;
+  --text-h5-weight: 600;
+  --text-h5-tracking: 0;
+
+  --text-h6-size: 1rem;               /* 16px */
+  --text-h6-line: 1.4;
+  --text-h6-weight: 600;
+  --text-h6-tracking: 0;
+
+  /* Body - Main content */
+  --text-body-lg-size: 1.125rem;      /* 18px */
+  --text-body-lg-line: 1.6;
+  --text-body-lg-weight: 400;
+  --text-body-lg-tracking: 0;
+
+  --text-body-size: 1rem;             /* 16px */
+  --text-body-line: 1.5;
+  --text-body-weight: 400;
+  --text-body-tracking: 0;
+
+  --text-body-sm-size: 0.875rem;      /* 14px */
+  --text-body-sm-line: 1.5;
+  --text-body-sm-weight: 400;
+  --text-body-sm-tracking: 0;
+
+  /* Caption & Labels - Supporting text */
+  --text-caption-size: 0.75rem;       /* 12px */
+  --text-caption-line: 1.4;
+  --text-caption-weight: 400;
+  --text-caption-tracking: 0.01em;
+
+  --text-overline-size: 0.75rem;      /* 12px */
+  --text-overline-line: 1.4;
+  --text-overline-weight: 600;
+  --text-overline-tracking: 0.1em;
+  --text-overline-transform: uppercase;
+
+  /* ==========================================================================
+     CEMDASH CATEGORY COLOR PALETTE - 13 Spending Categories
+     ========================================================================== */
+
+  --color-category-charity: #60A5FA;
+  --color-category-daily: #34D399;
+  --color-category-dining: #FBBF24;
+  --color-category-entertainment: #F97066;
+  --color-category-gifts: #A78BFA;
+  --color-category-groceries: #4ADE80;
+  --color-category-healthcare: #FB7185;
+  --color-category-financing: #38BDF8;
+  --color-category-shopping: #C084FC;
+  --color-category-subscriptions: #2DD4BF;
+  --color-category-transportation: #FB923C;
+  --color-category-travel: #FACC15;
+  --color-category-utilities: #818CF8;
+
+  /* ==========================================================================
+     CEMDASH RAINBOW SPECTRUM - 10 Chart Colors
+     ========================================================================== */
+
+  --color-rainbow-1: #F97066;   /* Coral - Expenses, primary negative */
+  --color-rainbow-2: #12B76A;   /* Mint - Income, primary positive */
+  --color-rainbow-3: #3B82F6;   /* Blue - Series 3 */
+  --color-rainbow-4: #F59E0B;   /* Amber - Series 4 */
+  --color-rainbow-5: #8B5CF6;   /* Purple - Series 5 */
+  --color-rainbow-6: #EC4899;   /* Pink - Series 6 */
+  --color-rainbow-7: #14B8A6;   /* Teal - Series 7 */
+  --color-rainbow-8: #F97316;   /* Orange - Series 8 */
+  --color-rainbow-9: #06B6D4;   /* Cyan - Series 9 */
+  --color-rainbow-10: #84CC16;  /* Lime - Series 10 */
+
+  /* ==========================================================================
+     CEMDASH ACCOUNT LINE COLORS - 6 Account Types
+     ========================================================================== */
+
+  --color-account-joint-checking: #12B76A;
+  --color-account-joint-savings: #14B8A6;
+  --color-account-user1-checking: #F59E0B;
+  --color-account-user1-savings: #F97316;
+  --color-account-user2-checking: #8B5CF6;
+  --color-account-user2-savings: #EC4899;
 }
 
 .dark {
@@ -114,6 +439,85 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* ==========================================================================
+     CEMDASH THEME SYSTEM - DARK THEME (Abyss Palette)
+     ========================================================================== */
+
+  /* Background Colors - Deep black with subtle layering */
+  --color-bg-page: #050505;
+  --color-bg-primary: #0A0A0A;
+  --color-bg-secondary: #111111;
+  --color-bg-tertiary: #1A1A1A;
+  --color-bg-hover: #222222;
+  --color-bg-active: #2A2A2A;
+
+  /* Text Colors - High contrast for dark backgrounds */
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #CCCCCC;
+  --color-text-tertiary: #888888;
+  --color-text-muted: #666666;
+  --color-text-inverse: #101828;
+
+  /* Accent Colors - Brighter hover states for dark theme */
+  --color-accent-coral: #F97066;
+  --color-accent-coral-hover: #FF8A80;
+  --color-accent-mint: #12B76A;
+  --color-accent-mint-hover: #4ADE80;
+  --color-accent-teal: #14B8A6;
+  --color-accent-cyan: #22D3EE;
+
+  /* Semantic Colors - Brighter for dark backgrounds */
+  --color-positive: #4ADE80;
+  --color-negative: #F97066;
+  --color-warning: #FBBF24;
+  --color-info: #60A5FA;
+
+  /* Border Colors - Subtle on dark */
+  --color-border-subtle: #222222;
+  --color-border-default: #333333;
+  --color-border-emphasis: #444444;
+
+  /* Shadow System - Deeper shadows for dark theme */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.7);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.8);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+
+  /* Glow Effects - Neon glow for dark theme accents */
+  --shadow-glow-coral: 0 0 20px rgba(249, 112, 102, 0.4);
+  --shadow-glow-mint: 0 0 20px rgba(18, 183, 106, 0.4);
+  --shadow-glow-teal: 0 0 20px rgba(20, 184, 166, 0.4);
+  --shadow-glow-cyan: 0 0 20px rgba(34, 211, 238, 0.4);
+  --shadow-glow-white: 0 0 15px rgba(255, 255, 255, 0.2);
+  --shadow-glow-coral-intense: 0 0 30px rgba(249, 112, 102, 0.6);
+
+  /* ==========================================================================
+     CEMDASH RAINBOW SPECTRUM - Dark Theme (Neon Palette)
+     ========================================================================== */
+
+  --color-rainbow-1: #FF4444;   /* Neon Red - Expenses */
+  --color-rainbow-2: #00FF7F;   /* Neon Green - Income */
+  --color-rainbow-3: #1E90FF;   /* Neon Blue */
+  --color-rainbow-4: #FFD700;   /* Neon Yellow */
+  --color-rainbow-5: #9370DB;   /* Neon Purple */
+  --color-rainbow-6: #FF00FF;   /* Neon Magenta */
+  --color-rainbow-7: #00CED1;   /* Neon Teal */
+  --color-rainbow-8: #FF8C00;   /* Neon Orange */
+  --color-rainbow-9: #00FFFF;   /* Neon Cyan */
+  --color-rainbow-10: #ADFF2F;  /* Neon Lime */
+
+  /* ==========================================================================
+     CEMDASH ACCOUNT LINE COLORS - Dark Theme (Brighter)
+     ========================================================================== */
+
+  --color-account-joint-checking: #4ADE80;
+  --color-account-joint-savings: #22D3EE;
+  --color-account-user1-checking: #FBBF24;
+  --color-account-user1-savings: #FB923C;
+  --color-account-user2-checking: #A78BFA;
+  --color-account-user2-savings: #F472B6;
 }
 
 @layer base {
@@ -122,6 +526,964 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* ==========================================================================
+   CEMDASH KPI CARD GRADIENT BORDERS
+   6 card types with specific gradient top borders for visual distinction
+   ========================================================================== */
+
+@layer components {
+  /* Base KPI card with gradient border setup */
+  .kpi-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-5);
+    transition: box-shadow 150ms ease, transform 150ms ease;
+  }
+
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .kpi-card:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Card Type 1: Coral - Expenses, Net Spending */
+  .kpi-card--coral {
+    border-color: rgba(249, 112, 102, 0.3);
+  }
+
+  .kpi-card--coral::before {
+    background: linear-gradient(90deg, #F97066 0%, rgba(249, 112, 102, 0.5) 100%);
+  }
+
+  .dark .kpi-card--coral {
+    box-shadow: var(--shadow-glow-coral);
+  }
+
+  .dark .kpi-card--coral:hover {
+    box-shadow: var(--shadow-glow-coral-intense);
+  }
+
+  /* Card Type 2: Mint - Income, Positive Cash Flow */
+  .kpi-card--mint {
+    border-color: rgba(18, 183, 106, 0.3);
+  }
+
+  .kpi-card--mint::before {
+    background: linear-gradient(90deg, #12B76A 0%, rgba(18, 183, 106, 0.5) 100%);
+  }
+
+  .dark .kpi-card--mint {
+    box-shadow: var(--shadow-glow-mint);
+  }
+
+  .dark .kpi-card--mint:hover {
+    box-shadow: 0 0 30px rgba(18, 183, 106, 0.6);
+  }
+
+  /* Card Type 3: Teal - Total Balance, Account Totals */
+  .kpi-card--teal {
+    border-color: rgba(20, 184, 166, 0.3);
+  }
+
+  .kpi-card--teal::before {
+    background: linear-gradient(90deg, #14B8A6 0%, #22D3EE 100%);
+  }
+
+  .dark .kpi-card--teal {
+    box-shadow: var(--shadow-glow-teal);
+  }
+
+  .dark .kpi-card--teal:hover {
+    box-shadow: 0 0 30px rgba(20, 184, 166, 0.6);
+  }
+
+  /* Card Type 4: Cyan - Informational, Savings Rate */
+  .kpi-card--cyan {
+    border-color: rgba(34, 211, 238, 0.3);
+  }
+
+  .kpi-card--cyan::before {
+    background: linear-gradient(90deg, #22D3EE 0%, #06B6D4 100%);
+  }
+
+  .dark .kpi-card--cyan {
+    box-shadow: var(--shadow-glow-cyan);
+  }
+
+  .dark .kpi-card--cyan:hover {
+    box-shadow: 0 0 30px rgba(34, 211, 238, 0.6);
+  }
+
+  /* Card Type 5: Purple - Budget, Goals */
+  .kpi-card--purple {
+    border-color: rgba(139, 92, 246, 0.3);
+  }
+
+  .kpi-card--purple::before {
+    background: linear-gradient(90deg, #8B5CF6 0%, #A78BFA 100%);
+  }
+
+  .dark .kpi-card--purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+  }
+
+  .dark .kpi-card--purple:hover {
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.6);
+  }
+
+  /* Card Type 6: Neutral - Default, No Emphasis */
+  .kpi-card--neutral {
+    border-color: var(--color-border-default);
+  }
+
+  .kpi-card--neutral::before {
+    background: transparent;
+  }
+
+  .kpi-card--neutral:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* ==========================================================================
+   CEMDASH COMPONENT STYLES - Buttons
+   Themed button variants with states
+   ========================================================================== */
+
+@layer components {
+  /* Base button styles */
+  .cemdash-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: all 150ms ease;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .cemdash-btn:focus-visible {
+    outline: 2px solid var(--color-accent-coral);
+    outline-offset: 2px;
+  }
+
+  .cemdash-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* Button sizes */
+  .cemdash-btn--sm {
+    height: 2rem;
+    padding: 0 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .cemdash-btn--md {
+    height: 2.5rem;
+    padding: 0 1rem;
+    font-size: 0.875rem;
+  }
+
+  .cemdash-btn--lg {
+    height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+  }
+
+  /* Primary button - Coral accent */
+  .cemdash-btn--primary {
+    background-color: var(--color-accent-coral);
+    color: var(--color-text-inverse);
+    border: none;
+  }
+
+  .cemdash-btn--primary:hover:not(:disabled) {
+    background-color: var(--color-accent-coral-hover);
+  }
+
+  .cemdash-btn--primary:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  .dark .cemdash-btn--primary {
+    box-shadow: var(--shadow-glow-coral);
+  }
+
+  .dark .cemdash-btn--primary:hover:not(:disabled) {
+    box-shadow: var(--shadow-glow-coral-intense);
+  }
+
+  /* Secondary button */
+  .cemdash-btn--secondary {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .cemdash-btn--secondary:hover:not(:disabled) {
+    background-color: var(--color-bg-hover);
+    border-color: var(--color-border-emphasis);
+  }
+
+  .cemdash-btn--secondary:active:not(:disabled) {
+    background-color: var(--color-bg-active);
+  }
+
+  /* Ghost button - Minimal styling */
+  .cemdash-btn--ghost {
+    background-color: transparent;
+    color: var(--color-text-secondary);
+    border: none;
+  }
+
+  .cemdash-btn--ghost:hover:not(:disabled) {
+    background-color: var(--color-bg-hover);
+    color: var(--color-text-primary);
+  }
+
+  .cemdash-btn--ghost:active:not(:disabled) {
+    background-color: var(--color-bg-active);
+  }
+
+  /* Outline button */
+  .cemdash-btn--outline {
+    background-color: transparent;
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-default);
+  }
+
+  .cemdash-btn--outline:hover:not(:disabled) {
+    background-color: var(--color-bg-hover);
+    border-color: var(--color-border-emphasis);
+  }
+
+  /* Destructive button */
+  .cemdash-btn--destructive {
+    background-color: var(--color-negative);
+    color: var(--color-text-inverse);
+    border: none;
+  }
+
+  .cemdash-btn--destructive:hover:not(:disabled) {
+    background-color: #DC2626;
+  }
+
+  .cemdash-btn--destructive:active:not(:disabled) {
+    background-color: #B91C1C;
+  }
+
+  /* Loading state */
+  .cemdash-btn--loading {
+    position: relative;
+    pointer-events: none;
+  }
+
+  .cemdash-btn--loading::after {
+    content: '';
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: cemdash-spin 600ms linear infinite;
+  }
+
+  .cemdash-btn--loading > * {
+    visibility: hidden;
+  }
+}
+
+/* ==========================================================================
+   CEMDASH COMPONENT STYLES - Dropdowns/Selects
+   ========================================================================== */
+
+@layer components {
+  /* Dropdown trigger */
+  .cemdash-dropdown-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    min-width: 8rem;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .cemdash-dropdown-trigger:hover {
+    background-color: var(--color-bg-hover);
+    border-color: var(--color-border-emphasis);
+  }
+
+  .cemdash-dropdown-trigger:focus-visible {
+    outline: 2px solid var(--color-accent-coral);
+    outline-offset: 2px;
+  }
+
+  .cemdash-dropdown-trigger[data-placeholder] {
+    color: var(--color-text-muted);
+  }
+
+  /* Dropdown chevron icon */
+  .cemdash-dropdown-chevron {
+    color: var(--color-text-muted);
+    transition: transform 200ms ease;
+  }
+
+  .cemdash-dropdown-trigger[data-state="open"] .cemdash-dropdown-chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown content panel */
+  .cemdash-dropdown-content {
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.25rem;
+    min-width: 8rem;
+    overflow: hidden;
+    animation: cemdash-dropdown-in 150ms ease;
+  }
+
+  .dark .cemdash-dropdown-content {
+    box-shadow: var(--shadow-xl), var(--shadow-glow-white);
+  }
+
+  /* Dropdown item */
+  .cemdash-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 100ms ease;
+  }
+
+  .cemdash-dropdown-item:hover {
+    background-color: var(--color-bg-hover);
+    color: var(--color-text-primary);
+  }
+
+  .cemdash-dropdown-item[data-highlighted] {
+    background-color: var(--color-bg-hover);
+    color: var(--color-text-primary);
+  }
+
+  .cemdash-dropdown-item[data-selected] {
+    background-color: var(--color-accent-coral);
+    color: var(--color-text-inverse);
+  }
+
+  .cemdash-dropdown-item[data-disabled] {
+    color: var(--color-text-muted);
+    pointer-events: none;
+  }
+
+  /* Dropdown separator */
+  .cemdash-dropdown-separator {
+    height: 1px;
+    margin: 0.25rem 0;
+    background-color: var(--color-border-subtle);
+  }
+}
+
+/* ==========================================================================
+   CEMDASH COMPONENT STYLES - Tooltips
+   ========================================================================== */
+
+@layer components {
+  .cemdash-tooltip {
+    padding: 0.5rem 0.75rem;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    max-width: 16rem;
+    z-index: 50;
+    animation: cemdash-tooltip-in 150ms ease;
+  }
+
+  .dark .cemdash-tooltip {
+    background-color: var(--color-bg-secondary);
+    backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-xl), var(--shadow-glow-white);
+  }
+
+  /* Chart tooltip - special styling for data visualization */
+  .cemdash-chart-tooltip {
+    padding: 0.75rem;
+    background-color: var(--color-bg-primary);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    font-size: 0.875rem;
+  }
+
+  .dark .cemdash-chart-tooltip {
+    background-color: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    border-color: var(--color-border-emphasis);
+    box-shadow: var(--shadow-xl), var(--shadow-glow-white);
+  }
+
+  .cemdash-chart-tooltip-label {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .cemdash-chart-tooltip-value {
+    color: var(--color-text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cemdash-chart-tooltip-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.125rem 0;
+  }
+
+  .cemdash-chart-tooltip-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+}
+
+/* ==========================================================================
+   CEMDASH COMPONENT STYLES - Tables
+   ========================================================================== */
+
+@layer components {
+  /* Table container */
+  .cemdash-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .cemdash-table-wrapper {
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background-color: var(--color-bg-secondary);
+  }
+
+  /* Table header */
+  .cemdash-table-header {
+    background-color: var(--color-bg-tertiary);
+  }
+
+  .cemdash-table-header th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-tertiary);
+    border-bottom: 1px solid var(--color-border-default);
+  }
+
+  .cemdash-table-header th[data-sortable] {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .cemdash-table-header th[data-sortable]:hover {
+    color: var(--color-text-primary);
+  }
+
+  /* Table body */
+  .cemdash-table-body tr {
+    border-bottom: 1px solid var(--color-border-subtle);
+    transition: background-color 100ms ease;
+  }
+
+  .cemdash-table-body tr:last-child {
+    border-bottom: none;
+  }
+
+  .cemdash-table-body tr:hover {
+    background-color: var(--color-bg-hover);
+  }
+
+  /* Zebra striping */
+  .cemdash-table--striped .cemdash-table-body tr:nth-child(even) {
+    background-color: var(--color-bg-primary);
+  }
+
+  .cemdash-table--striped .cemdash-table-body tr:nth-child(odd) {
+    background-color: var(--color-bg-secondary);
+  }
+
+  .cemdash-table--striped .cemdash-table-body tr:hover {
+    background-color: var(--color-bg-hover);
+  }
+
+  /* Table cells */
+  .cemdash-table-body td {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    vertical-align: middle;
+  }
+
+  /* Selected row */
+  .cemdash-table-body tr[data-selected] {
+    background-color: var(--color-accent-coral);
+    background-color: rgba(249, 112, 102, 0.1);
+  }
+
+  .dark .cemdash-table-body tr[data-selected] {
+    background-color: rgba(249, 112, 102, 0.2);
+  }
+
+  /* Recurring item indicator for transactions */
+  .cemdash-table-recurring {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+  }
+
+  .cemdash-table-recurring-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+}
+
+/* ==========================================================================
+   CEMDASH COMPONENT STYLES - Category Badges
+   Rounded pills with 20% opacity background
+   ========================================================================== */
+
+@layer components {
+  .cemdash-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+  }
+
+  /* Category-specific badge colors */
+  .cemdash-badge--charity {
+    background-color: rgba(96, 165, 250, 0.2);
+    color: var(--color-category-charity);
+    border-color: rgba(96, 165, 250, 0.3);
+  }
+
+  .cemdash-badge--daily {
+    background-color: rgba(52, 211, 153, 0.2);
+    color: var(--color-category-daily);
+    border-color: rgba(52, 211, 153, 0.3);
+  }
+
+  .cemdash-badge--dining {
+    background-color: rgba(251, 191, 36, 0.2);
+    color: var(--color-category-dining);
+    border-color: rgba(251, 191, 36, 0.3);
+  }
+
+  .cemdash-badge--entertainment {
+    background-color: rgba(249, 112, 102, 0.2);
+    color: var(--color-category-entertainment);
+    border-color: rgba(249, 112, 102, 0.3);
+  }
+
+  .cemdash-badge--gifts {
+    background-color: rgba(167, 139, 250, 0.2);
+    color: var(--color-category-gifts);
+    border-color: rgba(167, 139, 250, 0.3);
+  }
+
+  .cemdash-badge--groceries {
+    background-color: rgba(74, 222, 128, 0.2);
+    color: var(--color-category-groceries);
+    border-color: rgba(74, 222, 128, 0.3);
+  }
+
+  .cemdash-badge--healthcare {
+    background-color: rgba(251, 113, 133, 0.2);
+    color: var(--color-category-healthcare);
+    border-color: rgba(251, 113, 133, 0.3);
+  }
+
+  .cemdash-badge--financing {
+    background-color: rgba(56, 189, 248, 0.2);
+    color: var(--color-category-financing);
+    border-color: rgba(56, 189, 248, 0.3);
+  }
+
+  .cemdash-badge--shopping {
+    background-color: rgba(192, 132, 252, 0.2);
+    color: var(--color-category-shopping);
+    border-color: rgba(192, 132, 252, 0.3);
+  }
+
+  .cemdash-badge--subscriptions {
+    background-color: rgba(45, 212, 191, 0.2);
+    color: var(--color-category-subscriptions);
+    border-color: rgba(45, 212, 191, 0.3);
+  }
+
+  .cemdash-badge--transportation {
+    background-color: rgba(251, 146, 60, 0.2);
+    color: var(--color-category-transportation);
+    border-color: rgba(251, 146, 60, 0.3);
+  }
+
+  .cemdash-badge--travel {
+    background-color: rgba(250, 204, 21, 0.2);
+    color: var(--color-category-travel);
+    border-color: rgba(250, 204, 21, 0.3);
+  }
+
+  .cemdash-badge--utilities {
+    background-color: rgba(129, 140, 248, 0.2);
+    color: var(--color-category-utilities);
+    border-color: rgba(129, 140, 248, 0.3);
+  }
+
+  /* Semantic badges */
+  .cemdash-badge--positive {
+    background-color: rgba(18, 183, 106, 0.2);
+    color: var(--color-positive);
+    border-color: rgba(18, 183, 106, 0.3);
+  }
+
+  .cemdash-badge--negative {
+    background-color: rgba(249, 112, 102, 0.2);
+    color: var(--color-negative);
+    border-color: rgba(249, 112, 102, 0.3);
+  }
+
+  .cemdash-badge--warning {
+    background-color: rgba(245, 158, 11, 0.2);
+    color: var(--color-warning);
+    border-color: rgba(245, 158, 11, 0.3);
+  }
+
+  .cemdash-badge--info {
+    background-color: rgba(59, 130, 246, 0.2);
+    color: var(--color-info);
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+
+  .cemdash-badge--neutral {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    border-color: var(--color-border-subtle);
+  }
+}
+
+/* ==========================================================================
+   CEMDASH COMPONENT STYLES - Form Inputs
+   ========================================================================== */
+
+@layer components {
+  .cemdash-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+    font-size: 0.875rem;
+    transition: all 150ms ease;
+  }
+
+  .cemdash-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .cemdash-input:hover:not(:disabled):not(:focus) {
+    border-color: var(--color-border-emphasis);
+  }
+
+  .cemdash-input:focus {
+    outline: none;
+    border-color: var(--color-accent-coral);
+    box-shadow: 0 0 0 3px rgba(249, 112, 102, 0.15);
+  }
+
+  .dark .cemdash-input:focus {
+    box-shadow: 0 0 0 3px rgba(249, 112, 102, 0.25);
+  }
+
+  .cemdash-input:disabled {
+    background-color: var(--color-bg-tertiary);
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+  }
+
+  .cemdash-input--error {
+    border-color: var(--color-negative);
+  }
+
+  .cemdash-input--error:focus {
+    box-shadow: 0 0 0 3px rgba(249, 112, 102, 0.2);
+  }
+
+  /* Input label */
+  .cemdash-label {
+    display: block;
+    margin-bottom: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+  }
+
+  .cemdash-label--required::after {
+    content: ' *';
+    color: var(--color-negative);
+  }
+
+  /* Input helper text */
+  .cemdash-helper {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .cemdash-helper--error {
+    color: var(--color-negative);
+  }
+}
+
+/* ==========================================================================
+   CEMDASH COMPONENT STYLES - Skeleton Loading
+   ========================================================================== */
+
+@layer components {
+  .cemdash-skeleton {
+    background-color: var(--color-bg-tertiary);
+    border-radius: var(--radius-md);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cemdash-skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-bg-hover),
+      transparent
+    );
+    transform: translateX(-100%);
+    animation: cemdash-shimmer 1.5s infinite;
+  }
+
+  .cemdash-skeleton--text {
+    height: 1rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .cemdash-skeleton--heading {
+    height: 1.5rem;
+    width: 60%;
+    border-radius: var(--radius-sm);
+  }
+
+  .cemdash-skeleton--avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-full);
+  }
+
+  .cemdash-skeleton--card {
+    height: 8rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .cemdash-skeleton--chart {
+    height: 12rem;
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* ==========================================================================
+   CEMDASH COMPONENT STYLES - Empty State
+   ========================================================================== */
+
+@layer components {
+  .cemdash-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    border: 2px dashed var(--color-border-default);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-bg-primary);
+    text-align: center;
+  }
+
+  .dark .cemdash-empty-state {
+    background-color: rgba(10, 10, 10, 0.5);
+  }
+
+  .cemdash-empty-state-icon {
+    width: 3rem;
+    height: 3rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .cemdash-empty-state-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+  }
+
+  .cemdash-empty-state-description {
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    max-width: 20rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* ==========================================================================
+   CEMDASH COMPONENT STYLES - Trend Indicators
+   ========================================================================== */
+
+@layer components {
+  .cemdash-trend {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .cemdash-trend--positive {
+    color: var(--color-positive);
+  }
+
+  .cemdash-trend--negative {
+    color: var(--color-negative);
+  }
+
+  .cemdash-trend--neutral {
+    color: var(--color-text-muted);
+  }
+
+  .cemdash-trend-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+/* ==========================================================================
+   CEMDASH COMPONENT STYLES - Time Period Buttons
+   ========================================================================== */
+
+@layer components {
+  .cemdash-period-btn {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 150ms ease;
+  }
+
+  .cemdash-period-btn:hover {
+    background-color: var(--color-bg-hover);
+    border-color: var(--color-border-subtle);
+  }
+
+  .cemdash-period-btn--active {
+    background-color: var(--color-bg-hover);
+    border-color: var(--color-accent-coral);
+    color: var(--color-text-primary);
+  }
+
+  .dark .cemdash-period-btn--active {
+    box-shadow: var(--shadow-glow-coral);
+  }
+}
+
+/* ==========================================================================
+   CEMDASH ANIMATIONS
+   ========================================================================== */
+
+@keyframes cemdash-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cemdash-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes cemdash-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cemdash-tooltip-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -175,5 +1537,323 @@
 @media (max-width: 767px) {
   .fc {
     --fc-border-color: hsl(var(--border));
+  }
+}
+
+/* ==========================================================================
+   CEMDASH AURORA BACKGROUND EFFECT
+   Subtle ambient gradient animation for dark mode visual interest
+   Respects prefers-reduced-motion for accessibility
+   ========================================================================== */
+
+@layer components {
+  /* Aurora container - adds ambient glow effect in dark mode */
+  .aurora-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background: var(--color-bg-page);
+  }
+
+  /* Aurora gradient orbs */
+  .aurora-bg::before,
+  .aurora-bg::after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0;
+    animation: aurora-pulse 8s ease-in-out infinite;
+  }
+
+  .aurora-bg::before {
+    top: -20%;
+    left: -10%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(249, 112, 102, 0.15) 0%,
+      transparent 70%
+    );
+    animation-delay: 0s;
+  }
+
+  .aurora-bg::after {
+    bottom: -20%;
+    right: -10%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(20, 184, 166, 0.12) 0%,
+      transparent 70%
+    );
+    animation-delay: 4s;
+  }
+
+  /* Only show aurora in dark mode */
+  .dark .aurora-bg::before,
+  .dark .aurora-bg::after {
+    opacity: 1;
+  }
+
+  /* Additional aurora layers for more depth */
+  .aurora-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .aurora-layer::before {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(34, 211, 238, 0.1) 0%,
+      transparent 70%
+    );
+    animation: aurora-drift 12s ease-in-out infinite;
+  }
+
+  .dark .aurora-layer::before {
+    opacity: 1;
+  }
+
+  /* Subtle aurora variant - less intense */
+  .aurora-bg--subtle::before,
+  .aurora-bg--subtle::after {
+    filter: blur(150px);
+  }
+
+  .dark .aurora-bg--subtle::before {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(249, 112, 102, 0.08) 0%,
+      transparent 70%
+    );
+  }
+
+  .dark .aurora-bg--subtle::after {
+    background: radial-gradient(
+      ellipse at center,
+      rgba(20, 184, 166, 0.06) 0%,
+      transparent 70%
+    );
+  }
+}
+
+/* Aurora animations */
+@keyframes aurora-pulse {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(10%, 5%) scale(1.1);
+    opacity: 0.8;
+  }
+  75% {
+    opacity: 1;
+  }
+}
+
+@keyframes aurora-drift {
+  0%, 100% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 0;
+  }
+  33% {
+    transform: translate(-40%, -10%) scale(1.2);
+    opacity: 0.6;
+  }
+  66% {
+    transform: translate(-60%, 10%) scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+/* Reduced motion support - disable all aurora animations */
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg::before,
+  .aurora-bg::after,
+  .aurora-layer::before {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+
+  .dark .aurora-bg::before,
+  .dark .aurora-bg::after,
+  .dark .aurora-layer::before {
+    /* Static subtle glow instead of animation */
+    opacity: 0.3 !important;
+    transform: none !important;
+  }
+
+  /* Disable shimmer animations for skeletons */
+  .cemdash-skeleton::after {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /* Disable loading spinner animations */
+  .cemdash-btn--loading::after {
+    animation: none !important;
+  }
+
+  /* Disable dropdown/tooltip animations */
+  .cemdash-dropdown-content,
+  .cemdash-tooltip {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   Force light theme for printing to ensure readability and save ink
+   ========================================================================== */
+
+@media print {
+  /* Override dark theme - force light theme values for all print output */
+  :root,
+  .dark {
+    /* Background Colors - Light theme values */
+    --color-bg-page: #FFFFFF !important;
+    --color-bg-primary: #FFFFFF !important;
+    --color-bg-secondary: #F9FAFB !important;
+    --color-bg-tertiary: #F2F4F7 !important;
+    --color-bg-hover: #E5E7EB !important;
+    --color-bg-active: #D1D5DB !important;
+
+    /* Text Colors - Light theme values (high contrast for print) */
+    --color-text-primary: #000000 !important;
+    --color-text-secondary: #1F2937 !important;
+    --color-text-tertiary: #4B5563 !important;
+    --color-text-muted: #6B7280 !important;
+    --color-text-inverse: #FFFFFF !important;
+
+    /* Semantic Colors - Darker for print */
+    --color-positive: #059669 !important;
+    --color-negative: #DC2626 !important;
+    --color-warning: #D97706 !important;
+    --color-info: #2563EB !important;
+
+    /* Border Colors - More visible for print */
+    --color-border-subtle: #D1D5DB !important;
+    --color-border-default: #9CA3AF !important;
+    --color-border-emphasis: #6B7280 !important;
+
+    /* Disable shadows for print */
+    --shadow-sm: none !important;
+    --shadow-md: none !important;
+    --shadow-lg: none !important;
+    --shadow-xl: none !important;
+    --shadow-inner: none !important;
+
+    /* Disable glow effects for print */
+    --shadow-glow-coral: none !important;
+    --shadow-glow-mint: none !important;
+    --shadow-glow-teal: none !important;
+    --shadow-glow-cyan: none !important;
+    --shadow-glow-white: none !important;
+    --shadow-glow-coral-intense: none !important;
+  }
+
+  /* Reset body to light background */
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Remove dark class effects in print */
+  .dark {
+    color-scheme: light !important;
+  }
+
+  /* Hide interactive elements that don't make sense in print */
+  .cemdash-btn,
+  .cemdash-dropdown-trigger,
+  button[aria-label="Toggle theme"],
+  .theme-toggle,
+  [data-radix-popper-content-wrapper] {
+    display: none !important;
+  }
+
+  /* Ensure cards print with borders instead of shadows */
+  .kpi-card {
+    border: 1px solid #D1D5DB !important;
+    box-shadow: none !important;
+  }
+
+  .kpi-card::before {
+    display: none !important;
+  }
+
+  /* Ensure tables are print-friendly */
+  .cemdash-table-wrapper {
+    box-shadow: none !important;
+    border: 1px solid #9CA3AF !important;
+  }
+
+  .cemdash-table-body tr {
+    page-break-inside: avoid;
+  }
+
+  /* Disable animations in print */
+  .cemdash-skeleton::after {
+    animation: none !important;
+    display: none !important;
+  }
+
+  /* Category badges should use solid colors for print */
+  .cemdash-badge {
+    border: 1px solid currentColor !important;
+    background: transparent !important;
+  }
+
+  /* Chart elements - ensure print visibility */
+  .recharts-wrapper {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Trend indicators - ensure visibility */
+  .cemdash-trend--positive {
+    color: #059669 !important;
+  }
+
+  .cemdash-trend--negative {
+    color: #DC2626 !important;
+  }
+
+  /* Remove Aurora effect if present */
+  .aurora-bg,
+  .aurora-effect {
+    display: none !important;
+    background: transparent !important;
+  }
+
+  /* Page break handling */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  .kpi-card,
+  .card,
+  table,
+  figure {
+    page-break-inside: avoid;
   }
 }

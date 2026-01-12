@@ -8,8 +8,9 @@
  *
  * Features:
  * - Horizontal bars sorted by amount (largest at top)
- * - WCAG AA compliant color palette
- * - Custom tooltip with category details
+ * - Theme-aware Cemdash color palette
+ * - Category-specific colors for consistent recognition
+ * - Custom tooltip with Cemdash styling
  * - Responsive sizing with Recharts ResponsiveContainer
  * - Click handler for drill-down to subcategories
  */
@@ -24,7 +25,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from "recharts";
-import { getChartColor } from "@/lib/constants/colors";
+import { useChartTheme } from "@/lib/theme";
 import { formatCurrency } from "./chart-tooltip";
 import type { CategoryBreakdown } from "@/lib/validations/analytics";
 
@@ -47,7 +48,8 @@ export interface CategoryBarProps {
 }
 
 /**
- * Custom tooltip for the bar chart
+ * Custom tooltip for the bar chart with Cemdash styling
+ * Uses backdrop blur, theme-aware border and shadow
  */
 interface BarTooltipProps {
   active?: boolean;
@@ -66,7 +68,7 @@ function BarTooltip({ active, payload }: BarTooltipProps) {
   const category = data.payload;
 
   return (
-    <div className="rounded-lg border border-border bg-background px-3 py-2 shadow-lg">
+    <div className="cemdash-tooltip rounded-lg border border-border/60 bg-background/95 px-3 py-2 shadow-lg backdrop-blur-sm">
       <p className="mb-1 font-medium text-foreground">{category.category}</p>
       <div className="space-y-0.5 text-sm">
         <div className="flex justify-between gap-4">
@@ -150,10 +152,10 @@ function renderBarLabel({ x = 0, y = 0, width = 0, height = 0, percentage }: Bar
  * CategoryBar - Displays category spending as a horizontal bar chart
  *
  * Shows spending amounts with:
+ * - Theme-aware Cemdash category colors
  * - Category names on Y-axis
  * - Currency amounts on X-axis
- * - Color-coded bars
- * - Hover tooltip with details
+ * - Cemdash tooltip styling
  * - Click handler for drill-down
  */
 export function CategoryBar({
@@ -164,12 +166,24 @@ export function CategoryBar({
   onCategoryClick,
   showPercentage = true,
 }: CategoryBarProps) {
+  // Get theme-aware chart colors
+  const { categories, palette } = useChartTheme();
+
+  /**
+   * Get color for a category - uses category-specific colors when available,
+   * falls back to palette colors for unrecognized categories
+   */
+  const getCategoryColor = (categoryName: string, index: number): string => {
+    const normalizedName = categoryName.toLowerCase().replace(/\s+/g, '') as keyof typeof categories;
+    return categories[normalizedName] || palette[index % palette.length];
+  };
+
   // Limit data to maxCategories and add colors
   const displayData = data
     .slice(0, maxCategories)
     .map((item, index) => ({
       ...item,
-      fill: getChartColor(index),
+      fill: getCategoryColor(item.category, index),
     }));
 
   // Calculate dynamic height based on number of categories

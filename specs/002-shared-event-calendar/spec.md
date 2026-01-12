@@ -2,7 +2,7 @@
 
 **Feature Branch**: `002-shared-event-calendar`  
 **Created**: January 10, 2026  
-**Status**: Draft  
+**Status**: Complete  
 **Input**: User description: "Shared Event Calendar and Authentication System - includes household member login, local calendar with FullCalendar, event CRUD, and Google Calendar invites via email"
 
 ---

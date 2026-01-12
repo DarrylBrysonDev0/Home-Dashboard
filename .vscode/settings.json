@@ -10,7 +10,8 @@
         ".specify/scripts/bash/": true,
         ".specify/scripts/powershell/": true,
         "openssl": true,
-        "docker-compose": true
+        "docker-compose": true,
+        "npx playwright": true
     }
 }
 

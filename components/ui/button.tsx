@@ -5,20 +5,33 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-coral focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
+        // Primary - Coral accent with glow in dark mode
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "bg-accent-coral text-text-inverse shadow-sm hover:bg-accent-coral-hover active:scale-[0.98] dark:shadow-glow-coral dark:hover:shadow-glow-coral-intense",
+        // Destructive - Negative/red styling
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+          "bg-negative text-text-inverse shadow-sm hover:brightness-110 active:brightness-90",
+        // Outline - Border only, transparent background
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+          "border border-border-default bg-transparent text-text-primary shadow-sm hover:bg-bg-hover hover:border-border-emphasis active:bg-bg-active",
+        // Secondary - Tertiary background with border
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-bg-tertiary text-text-primary border border-border-default shadow-sm hover:bg-bg-hover hover:border-border-emphasis active:bg-bg-active",
+        // Ghost - Minimal styling, no border
+        ghost:
+          "text-text-secondary hover:bg-bg-hover hover:text-text-primary active:bg-bg-active",
+        // Link - Underline on hover
+        link: "text-accent-coral underline-offset-4 hover:underline",
+        // Period - Time period button (inactive state) for sidebar filters
+        period:
+          "border border-transparent bg-transparent text-text-secondary hover:bg-bg-hover hover:border-border-subtle active:bg-bg-active",
+        // Period Active - Time period button (active state) with coral accent
+        periodActive:
+          "border border-accent-coral bg-bg-hover text-text-primary dark:shadow-glow-coral",
       },
       size: {
         default: "h-9 px-4 py-2",

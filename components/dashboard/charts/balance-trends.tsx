@@ -4,10 +4,11 @@
  * BalanceTrendsChart Component
  *
  * Displays account balance trends as a multi-line chart over time.
- * Each account gets its own line with a unique color from the CHART_COLORS palette.
+ * Each account gets its own line with a unique color from the Cemdash account palette.
  *
  * Features:
- * - Multi-line chart with one line per account
+ * - Multi-line chart with one line per account using Cemdash account colors
+ * - Glow effects on lines in dark mode for visual emphasis
  * - Toggleable legend to show/hide individual accounts
  * - Custom tooltip with formatted currency values
  * - Responsive sizing with Recharts ResponsiveContainer
@@ -15,6 +16,7 @@
  * - Loading, error, and empty states
  *
  * User Story 5: Track Account Balance Trends
+ * T038a: Updated to use Cemdash account colors with glow effects
  */
 
 import { useEffect, useState, useCallback } from "react";
@@ -33,9 +35,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { BalanceTrendsChartSkeleton } from "../loading-skeleton";
 import { NoData } from "../empty-states/no-data";
 import { ChartTooltip, formatCurrency } from "./chart-tooltip";
-import { CHART_COLORS, getChartColor } from "@/lib/constants/colors";
+import { useChartTheme } from "@/lib/theme";
+import { useTheme } from "next-themes";
 import { useFilters } from "@/lib/contexts/filter-context";
-import type { Granularity, AccountTrend, BalancePoint } from "@/lib/validations/analytics";
+import type { Granularity, AccountTrend } from "@/lib/validations/analytics";
 
 /**
  * Filter props for balance trend data fetching
@@ -92,6 +95,52 @@ interface AccountInfo {
   accountId: string;
   accountName: string;
   color: string;
+  /** Key for SVG glow filter reference */
+  glowFilterId: string;
+}
+
+/**
+ * Maps account names from API to Cemdash theme account color keys.
+ * Falls back to palette colors for unrecognized accounts.
+ *
+ * Account name patterns:
+ * - "Joint Checking" / "Joint Savings" → jointChecking / jointSavings
+ * - "User1 Checking" / "User1 Savings" → user1Checking / user1Savings
+ * - "User2 Checking" / "User2 Savings" → user2Checking / user2Savings
+ */
+function getAccountColorKey(accountName: string): string | null {
+  const normalized = accountName.toLowerCase().replace(/\s+/g, "");
+
+  const mappings: Record<string, string> = {
+    jointchecking: "jointChecking",
+    jointsavings: "jointSavings",
+    user1checking: "user1Checking",
+    user1savings: "user1Savings",
+    user2checking: "user2Checking",
+    user2savings: "user2Savings",
+    // Common variations
+    "joint-checking": "jointChecking",
+    "joint-savings": "jointSavings",
+  };
+
+  return mappings[normalized] || null;
+}
+
+/**
+ * Get account color from theme, falling back to palette for unknown accounts.
+ */
+function getAccountColor(
+  accountName: string,
+  accounts: Record<string, string>,
+  palette: string[],
+  fallbackIndex: number
+): string {
+  const colorKey = getAccountColorKey(accountName);
+  if (colorKey && accounts[colorKey]) {
+    return accounts[colorKey];
+  }
+  // Fall back to palette color for unknown accounts
+  return palette[fallbackIndex % palette.length];
 }
 
 /**
@@ -136,21 +185,29 @@ function formatDateLabel(dateStr: string): string {
 }
 
 /**
+ * Basic account info from API (without theme colors)
+ */
+interface RawAccountInfo {
+  accountId: string;
+  accountName: string;
+}
+
+/**
  * Transform API response to chart data format
- * Flattens the nested account/balances structure into rows with date + account columns
+ * Flattens the nested account/balances structure into rows with date + account columns.
+ * Colors are assigned later in the component using theme-aware values.
  */
 function transformToChartData(
   accounts: AccountTrend[]
-): { data: ChartDataPoint[]; accountInfos: AccountInfo[] } {
+): { data: ChartDataPoint[]; rawAccountInfos: RawAccountInfo[] } {
   if (!accounts || accounts.length === 0) {
-    return { data: [], accountInfos: [] };
+    return { data: [], rawAccountInfos: [] };
   }
 
-  // Build account info array with colors
-  const accountInfos: AccountInfo[] = accounts.map((account, index) => ({
+  // Build account info array (colors assigned later with theme)
+  const rawAccountInfos: RawAccountInfo[] = accounts.map((account) => ({
     accountId: account.account_id,
     accountName: account.account_name,
-    color: getChartColor(index),
   }));
 
   // Collect all unique dates across all accounts
@@ -179,7 +236,7 @@ function transformToChartData(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
   );
 
-  return { data: sortedData, accountInfos };
+  return { data: sortedData, rawAccountInfos };
 }
 
 /**
@@ -187,7 +244,7 @@ function transformToChartData(
  */
 function useAccountBalanceData(filters: BalanceTrendsChartFilterProps) {
   const [data, setData] = useState<ChartDataPoint[] | null>(null);
-  const [accountInfos, setAccountInfos] = useState<AccountInfo[]>([]);
+  const [rawAccountInfos, setRawAccountInfos] = useState<RawAccountInfo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -216,17 +273,17 @@ function useAccountBalanceData(filters: BalanceTrendsChartFilterProps) {
         throw new Error("Invalid response: missing accounts data");
       }
 
-      const { data: chartData, accountInfos: infos } = transformToChartData(
+      const { data: chartData, rawAccountInfos: infos } = transformToChartData(
         json.data.accounts
       );
       setData(chartData);
-      setAccountInfos(infos);
+      setRawAccountInfos(infos);
     } catch (err) {
       const message =
         err instanceof Error ? err.message : "An unexpected error occurred";
       setError(message);
       setData(null);
-      setAccountInfos([]);
+      setRawAccountInfos([]);
     } finally {
       setIsLoading(false);
     }
@@ -236,7 +293,7 @@ function useAccountBalanceData(filters: BalanceTrendsChartFilterProps) {
     fetchData();
   }, [fetchData]);
 
-  return { data, accountInfos, isLoading, error, refetch: fetchData };
+  return { data, rawAccountInfos, isLoading, error, refetch: fetchData };
 }
 
 /**
@@ -256,7 +313,8 @@ function formatYAxisTick(value: number): string {
  * BalanceTrendsChart - Displays account balance trends over time
  *
  * Shows a multi-line chart with:
- * - One line per account with unique colors
+ * - One line per account with Cemdash account colors
+ * - Glow effects on lines in dark mode
  * - Toggleable legend to show/hide accounts
  * - Custom tooltip with account details and formatted amounts
  */
@@ -270,22 +328,34 @@ export function BalanceTrendsChart({
   height = 350,
   className,
 }: BalanceTrendsChartProps) {
-  const { data, accountInfos, isLoading, error } = useAccountBalanceData({
+  // Get theme-aware chart colors and current theme mode
+  const { accounts, palette, grid, axis } = useChartTheme();
+  const { resolvedTheme } = useTheme();
+  const isDarkMode = resolvedTheme === "dark";
+
+  const { data, rawAccountInfos, isLoading, error } = useAccountBalanceData({
     startDate,
     endDate,
     accountIds,
     granularity,
   });
 
+  // Build account infos with theme colors
+  const accountInfos: AccountInfo[] = rawAccountInfos.map((raw, index) => ({
+    ...raw,
+    color: getAccountColor(raw.accountName, accounts, palette, index),
+    glowFilterId: `glow-${raw.accountId.replace(/[^a-zA-Z0-9]/g, "")}`,
+  }));
+
   // Track which accounts are visible (for legend toggle)
   const [visibleAccounts, setVisibleAccounts] = useState<Set<string>>(new Set());
 
-  // Initialize visible accounts when accountInfos change
+  // Initialize visible accounts when rawAccountInfos change
   useEffect(() => {
-    if (accountInfos.length > 0) {
-      setVisibleAccounts(new Set(accountInfos.map((a) => a.accountId)));
+    if (rawAccountInfos.length > 0) {
+      setVisibleAccounts(new Set(rawAccountInfos.map((a) => a.accountId)));
     }
-  }, [accountInfos]);
+  }, [rawAccountInfos]);
 
   // Handle legend click to toggle account visibility
   const handleLegendClick = (dataKey: string) => {
@@ -361,20 +431,54 @@ export function BalanceTrendsChart({
             data={data}
             margin={{ top: 10, right: 30, left: 10, bottom: 5 }}
           >
+            {/* SVG glow filters for dark mode line effects */}
+            <defs>
+              {accountInfos.map((account) => (
+                <filter
+                  key={account.glowFilterId}
+                  id={account.glowFilterId}
+                  x="-50%"
+                  y="-50%"
+                  width="200%"
+                  height="200%"
+                >
+                  <feGaussianBlur
+                    in="SourceGraphic"
+                    stdDeviation="3"
+                    result="blur"
+                  />
+                  <feFlood
+                    floodColor={account.color}
+                    floodOpacity="0.4"
+                    result="color"
+                  />
+                  <feComposite
+                    in="color"
+                    in2="blur"
+                    operator="in"
+                    result="glow"
+                  />
+                  <feMerge>
+                    <feMergeNode in="glow" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              ))}
+            </defs>
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="hsl(var(--border))"
+              stroke={grid}
             />
             <XAxis
               dataKey="dateLabel"
-              tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 12, fill: axis }}
               tickLine={false}
-              axisLine={{ stroke: "hsl(var(--border))" }}
+              axisLine={{ stroke: grid }}
             />
             <YAxis
               tickFormatter={formatYAxisTick}
-              tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 12, fill: axis }}
               tickLine={false}
               axisLine={false}
               width={70}
@@ -415,11 +519,18 @@ export function BalanceTrendsChart({
                 dataKey={account.accountId}
                 name={account.accountName}
                 stroke={account.color}
-                strokeWidth={2}
-                dot={{ r: 3, fill: account.color }}
-                activeDot={{ r: 5, strokeWidth: 0 }}
+                strokeWidth={2.5}
+                dot={{ r: 3, fill: account.color, strokeWidth: 0 }}
+                activeDot={{
+                  r: 6,
+                  strokeWidth: 2,
+                  stroke: account.color,
+                  fill: "var(--color-bg-primary, #fff)",
+                }}
                 hide={!visibleAccounts.has(account.accountId)}
                 connectNulls
+                // Apply glow filter only in dark mode for visual emphasis
+                filter={isDarkMode ? `url(#${account.glowFilterId})` : undefined}
               />
             ))}
           </LineChart>
