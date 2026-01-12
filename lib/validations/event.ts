@@ -114,3 +114,38 @@ export const sendInviteSchema = z.object({
   recipientEmail: z.string().email("Invalid email address").max(320),
 });
 export type SendInviteInput = z.infer<typeof sendInviteSchema>;
+
+/**
+ * Upcoming events query schema
+ * GET /api/events/upcoming
+ *
+ * Fetches upcoming calendar events for landing page display
+ * - limit: Maximum events to return (1-10, default: 3)
+ * - days: Days to look ahead (1-30, default: 7)
+ */
+export const upcomingEventsQuerySchema = z.object({
+  limit: z.coerce.number().int().min(1).max(10).optional().default(3),
+  days: z.coerce.number().int().min(1).max(30).optional().default(7),
+});
+export type UpcomingEventsQuery = z.infer<typeof upcomingEventsQuerySchema>;
+
+/**
+ * Upcoming event item schema
+ * Response item for /api/events/upcoming
+ */
+export const upcomingEventSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  startTime: z.string().datetime(),
+  location: z.string().nullable(),
+});
+export type UpcomingEvent = z.infer<typeof upcomingEventSchema>;
+
+/**
+ * Upcoming events response schema
+ * Full response for GET /api/events/upcoming
+ */
+export const upcomingEventsResponseSchema = z.object({
+  data: z.array(upcomingEventSchema),
+});
+export type UpcomingEventsResponse = z.infer<typeof upcomingEventsResponseSchema>;

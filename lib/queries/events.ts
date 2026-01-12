@@ -390,3 +390,51 @@ export async function deleteEvent(id: string) {
     where: { id },
   });
 }
+
+/**
+ * Select configuration for upcoming events (minimal fields for landing page)
+ */
+const upcomingEventSelect = {
+  id: true,
+  title: true,
+  startTime: true,
+  location: true,
+} as const;
+
+/**
+ * Get upcoming events for landing page display
+ *
+ * Fetches events occurring within the specified number of days from now.
+ * Optimized for landing page - only returns fields needed for EventCardMini.
+ *
+ * Performance optimizations:
+ * - Uses `select` to minimize data transfer (4 fields only)
+ * - Leverages [startTime, endTime] composite index
+ * - Results sorted by startTime ascending (soonest first)
+ *
+ * @param options.limit - Maximum events to return (default: 3)
+ * @param options.days - Days to look ahead from now (default: 7)
+ * @returns Array of upcoming events sorted by startTime
+ */
+export async function getUpcomingEvents(
+  options: { limit?: number; days?: number } = {}
+) {
+  const { limit = 3, days = 7 } = options;
+
+  const now = new Date();
+  const endDate = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+
+  return prisma.event.findMany({
+    where: {
+      startTime: {
+        gte: now,
+        lte: endDate,
+      },
+    },
+    orderBy: {
+      startTime: "asc",
+    },
+    take: limit,
+    select: upcomingEventSelect,
+  });
+}

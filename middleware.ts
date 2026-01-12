@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
  * Next.js middleware for route protection
  *
  * Protected routes (requires authentication):
+ * - / - Landing page (home)
  * - /dashboard - Main financial dashboard
  * - /calendar - Shared event calendar
  * - /admin - Admin panel (also requires ADMIN role)
@@ -17,7 +18,6 @@ import { NextResponse } from "next/server";
  * - /api/users/* - User management
  *
  * Public routes (no authentication required):
- * - / (home page - redirects to dashboard)
  * - /login - Login page
  * - /api/auth/* - NextAuth endpoints
  *
@@ -58,6 +58,7 @@ export default withAuth(
  * Matcher config - defines which routes this middleware runs on
  *
  * Protected routes (requires authentication):
+ * - / (landing page)
  * - /dashboard and all sub-routes
  * - /calendar and all sub-routes
  * - /admin and all sub-routes (also requires ADMIN role)
@@ -70,7 +71,6 @@ export default withAuth(
  * - /api/users/* - User management
  *
  * Does NOT run on (public routes):
- * - / (home page - redirects to dashboard)
  * - /login
  * - /api/auth/* (NextAuth endpoints)
  * - /_next/* (Next.js internals)
@@ -78,6 +78,7 @@ export default withAuth(
  */
 export const config = {
   matcher: [
+    "/",
     "/dashboard/:path*",
     "/calendar/:path*",
     "/admin/:path*",

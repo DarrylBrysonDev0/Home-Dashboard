@@ -19,11 +19,11 @@
 
 **Purpose**: Install dependencies and create directory structure
 
-- [ ] T001 Install shadcn Sheet and Tooltip components via `npx shadcn@latest add sheet tooltip`
-- [ ] T002 [P] Create navigation components directory at components/navigation/
-- [ ] T003 [P] Create home components directory at components/home/
-- [ ] T004 [P] Create navigation test directory at __tests__/unit/components/navigation/
-- [ ] T005 [P] Create home test directory at __tests__/unit/components/home/
+- [X] T001 Install shadcn Sheet and Tooltip components via `npx shadcn@latest add sheet tooltip`
+- [X] T002 [P] Create navigation components directory at components/navigation/
+- [X] T003 [P] Create home components directory at components/home/
+- [X] T004 [P] Create navigation test directory at __tests__/unit/components/navigation/
+- [X] T005 [P] Create home test directory at __tests__/unit/components/home/
 
 ---
 
@@ -33,10 +33,10 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 Update middleware.ts to protect root `/` route for authenticated users only
-- [ ] T007 [P] Create use-media-query hook at lib/hooks/use-media-query.ts for responsive behavior
-- [ ] T008 [P] Add Zod schemas for upcoming events API at lib/validations/event.ts (upcomingEventsQuerySchema, upcomingEventsResponseSchema)
-- [ ] T009 Add getUpcomingEvents query function in lib/queries/events.ts
+- [X] T006 Update middleware.ts to protect root `/` route for authenticated users only
+- [X] T007 [P] Create use-media-query hook at lib/hooks/use-media-query.ts for responsive behavior
+- [X] T008 [P] Add Zod schemas for upcoming events API at lib/validations/event.ts (upcomingEventsQuerySchema, upcomingEventsResponseSchema)
+- [X] T009 Add getUpcomingEvents query function in lib/queries/events.ts
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
