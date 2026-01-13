@@ -150,15 +150,15 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T036 [P] [US5] Unit test for MobileDrawer component (open/close, backdrop, nav items) in __tests__/unit/components/navigation/mobile-drawer.test.tsx
-- [ ] T037 [P] [US5] E2E test for mobile navigation flow in __tests__/e2e/navigation.spec.ts (viewport 375px)
+- [X] T036 [P] [US5] Unit test for MobileDrawer component (open/close, backdrop, nav items) in __tests__/unit/components/navigation/mobile-drawer.test.tsx
+- [X] T037 [P] [US5] E2E test for mobile navigation flow in __tests__/e2e/navigation.spec.ts (viewport 375px)
 
 ### Implementation for User Story 5
 
-- [ ] T038 [US5] Create MobileDrawer component at components/navigation/mobile-drawer.tsx using shadcn Sheet (side="left", 200ms animation)
-- [ ] T039 [US5] Update NavBar to show hamburger on mobile (md:hidden), hide desktop nav (hidden md:flex)
-- [ ] T040 [US5] Add drawer close behavior on navigation item click and backdrop tap
-- [ ] T041 [US5] Include user section and sign out in mobile drawer
+- [X] T038 [US5] Create MobileDrawer component at components/navigation/mobile-drawer.tsx using shadcn Sheet (side="left", 200ms animation)
+- [X] T039 [US5] Update NavBar to show hamburger on mobile (md:hidden), hide desktop nav (hidden md:flex)
+- [X] T040 [US5] Add drawer close behavior on navigation item click and backdrop tap
+- [X] T041 [US5] Include user section and sign out in mobile drawer
 
 **Checkpoint**: User Story 5 complete - mobile navigation fully functional with drawer
 

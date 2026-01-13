@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import { Menu } from "lucide-react";
 import { Logo } from "./logo";
 import { NavItems } from "./nav-items";
+import { MobileDrawer } from "./mobile-drawer";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { UserMenu } from "@/components/auth/user-menu";
 import { Button } from "@/components/ui/button";
@@ -104,6 +105,12 @@ export function NavBar({ className }: NavBarProps) {
           <UserMenu />
         </div>
       </div>
+
+      {/* Mobile Drawer - Rendered outside nav for proper overlay positioning */}
+      <MobileDrawer
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+      />
     </nav>
   );
 }
