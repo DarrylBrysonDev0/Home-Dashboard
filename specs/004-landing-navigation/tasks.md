@@ -195,9 +195,9 @@
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T051 [P] Add keyboard accessibility verification for all navigation elements (Tab, Enter, focus states)
-- [ ] T052 [P] Verify WCAG 2.1 AA contrast requirements in both themes for all new components
-- [ ] T053 [P] Update ARCHITECTURE.md with navigation and landing page component documentation
+- [X] T051 [P] Add keyboard accessibility verification for all navigation elements (Tab, Enter, focus states)
+- [X] T052 [P] Verify WCAG 2.1 AA contrast requirements in both themes for all new components
+- [X] T053 [P] Update ARCHITECTURE.md with navigation and landing page component documentation
 - [ ] T054 Run quickstart.md validation to verify all setup steps work
 - [ ] T055 Performance verification: theme toggle <100ms, landing page <500ms, drawer animation 200ms
 - [ ] T056 Final E2E test pass for all user stories in __tests__/e2e/

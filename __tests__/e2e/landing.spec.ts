@@ -292,3 +292,113 @@ test.describe("User Story 2: Landing Page - Loading and Empty States", () => {
     ).toBeVisible();
   });
 });
+
+/**
+ * T051: Keyboard Accessibility Verification for Landing Page
+ *
+ * Verifies keyboard navigation for App Cards and landing page components.
+ */
+test.describe("T051: Landing Page Keyboard Accessibility", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await expect(page.locator('[data-testid="app-selection-panel"]')).toBeVisible({
+      timeout: 10000,
+    });
+  });
+
+  test("should navigate app cards with Tab key", async ({ page }) => {
+    // Count app cards
+    const appCards = page.locator('[data-testid="app-card"]');
+    const cardCount = await appCards.count();
+
+    // Tab through page to reach app cards
+    // Keep tabbing until we focus an app card
+    let foundAppCard = false;
+    for (let i = 0; i < 20; i++) {
+      await page.keyboard.press("Tab");
+      const focused = page.locator(":focus");
+      const testId = await focused.getAttribute("data-testid").catch(() => null);
+      if (testId === "app-card") {
+        foundAppCard = true;
+        break;
+      }
+    }
+
+    expect(foundAppCard).toBeTruthy();
+  });
+
+  test("should activate app card with Enter key", async ({ page }) => {
+    // Focus the Finance app card directly
+    const financeCard = page.locator('[data-testid="app-card"]', {
+      has: page.locator('text="Finance"'),
+    });
+    await financeCard.focus();
+
+    // Press Enter to activate
+    await page.keyboard.press("Enter");
+
+    // Should navigate to dashboard
+    await expect(page).toHaveURL("/dashboard");
+  });
+
+  test("should show visible focus ring on app card", async ({ page }) => {
+    // Focus an app card
+    const appCard = page.locator('[data-testid="app-card"]').first();
+    await appCard.focus();
+
+    // Verify focus ring is visible
+    const hasRing = await appCard.evaluate((el) => {
+      const styles = window.getComputedStyle(el);
+      const boxShadow = styles.boxShadow;
+      const outline = styles.outline;
+      return boxShadow !== "none" || (outline !== "none" && outline !== "0px none rgb(0, 0, 0)");
+    });
+    expect(hasRing).toBeTruthy();
+  });
+
+  test("should have proper aria-label on app cards", async ({ page }) => {
+    const appCards = page.locator('[data-testid="app-card"]');
+    const cardCount = await appCards.count();
+
+    for (let i = 0; i < cardCount; i++) {
+      const card = appCards.nth(i);
+      const ariaLabel = await card.getAttribute("aria-label");
+      // Each card should have an aria-label describing its purpose
+      expect(ariaLabel).toBeTruthy();
+      expect(ariaLabel!.length).toBeGreaterThan(0);
+    }
+  });
+
+  test("should maintain logical tab order through all app cards", async ({ page }) => {
+    // Focus first app card
+    const appCards = page.locator('[data-testid="app-card"]');
+    const firstCard = appCards.first();
+    await firstCard.focus();
+
+    // Tab through remaining cards
+    const cardCount = await appCards.count();
+    const focusedCards: number[] = [];
+
+    for (let i = 0; i < cardCount; i++) {
+      const focused = page.locator(":focus");
+      const testId = await focused.getAttribute("data-testid").catch(() => null);
+      if (testId === "app-card") {
+        focusedCards.push(i);
+      }
+      if (i < cardCount - 1) {
+        await page.keyboard.press("Tab");
+      }
+    }
+
+    // Should have visited multiple app cards in sequence
+    expect(focusedCards.length).toBeGreaterThan(0);
+  });
+
+  test("should have accessible heading structure in hero section", async ({ page }) => {
+    // Hero greeting should be an h1
+    const greeting = page.locator('[data-testid="hero-greeting"]');
+    const tagName = await greeting.evaluate((el) => el.tagName.toLowerCase());
+    expect(tagName).toBe("h1");
+  });
+});

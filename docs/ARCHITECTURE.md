@@ -51,6 +51,7 @@ Home-Dashboard is a self-hosted personal finance and household management applic
 
 | Feature | User Stories | Components | API Endpoints |
 |---------|--------------|------------|---------------|
+| Navigation & Landing | 6 | 10 | 1 |
 | Finance Dashboard | 8 | 20+ | 14 |
 | Shared Calendar | 5 | 12 | 10 |
 | Theme System | 1 | 2 | 0 |
@@ -168,9 +169,20 @@ RootLayout
 ├── SessionProvider (NextAuth)
 └── App Content
     │
-    ├── Header (global)
-    │   ├── ThemeToggle
-    │   └── UserMenu
+    ├── NavBar (persistent navigation - all authenticated pages)
+    │   ├── Logo (links to /)
+    │   ├── NavItems (Home, Finance, Calendar, Settings)
+    │   │   └── NavItem (individual nav link with active state)
+    │   ├── ThemeToggle (with Tooltip wrapper)
+    │   ├── UserMenu (avatar dropdown)
+    │   └── MobileDrawer (hamburger menu for < 768px)
+    │
+    ├── / (Landing Page)
+    │   ├── HeroSection (personalized greeting)
+    │   │   └── UpcomingEvents (next 3 calendar events)
+    │   │       └── EventCardMini (compact event display)
+    │   └── AppSelectionPanel (app card grid)
+    │       └── AppCard (module navigation cards)
     │
     ├── /dashboard
     │   └── DashboardShell (FilterProvider context)
@@ -224,10 +236,10 @@ Home-Dashboard/
 
 ```
 app/
-├── layout.tsx              # Root layout (ThemeProvider, SessionProvider, Header)
+├── layout.tsx              # Root layout (ThemeProvider, SessionProvider, NavBar)
 ├── providers.tsx           # Context providers wrapper
 ├── globals.css             # Global styles + CSS variables
-├── page.tsx                # Home redirect → /dashboard
+├── page.tsx                # Landing page (HeroSection, AppSelectionPanel)
 │
 ├── api/                    # API route handlers
 │   ├── auth/
@@ -293,8 +305,24 @@ components/
 │   ├── form.tsx
 │   ├── input.tsx
 │   ├── select.tsx
+│   ├── sheet.tsx           # Mobile drawer component
 │   ├── table.tsx
+│   ├── tooltip.tsx         # Theme toggle tooltip
 │   └── ...
+│
+├── navigation/             # Navigation components
+│   ├── nav-bar.tsx         # Main persistent navigation (64px height)
+│   ├── nav-item.tsx        # Individual nav link (active state, loading)
+│   ├── nav-items.tsx       # Nav items collection (Home, Finance, Calendar, Settings)
+│   ├── mobile-drawer.tsx   # Slide-out mobile navigation (< 768px)
+│   └── logo.tsx            # Application logo (links to /)
+│
+├── home/                   # Landing page components
+│   ├── hero-section.tsx    # Welcome greeting with events slot
+│   ├── upcoming-events.tsx # Events container (fetches, displays max 3)
+│   ├── event-card-mini.tsx # Compact event display (title, date, location)
+│   ├── app-selection-panel.tsx # App card grid container
+│   └── app-card.tsx        # Individual app card (icon, title, description)
 │
 ├── dashboard/              # Finance dashboard components
 │   ├── dashboard-shell.tsx       # Main wrapper with FilterProvider
@@ -396,7 +424,8 @@ lib/
 │   └── date-ranges.ts      # Quick date range presets
 │
 ├── hooks/                  # Custom React hooks
-│   └── use-session.ts      # Session access hook
+│   ├── use-session.ts      # Session access hook
+│   └── use-media-query.ts  # Responsive breakpoint detection
 │
 ├── middleware/             # Request middleware
 │   └── admin-check.ts      # Admin role verification
@@ -416,14 +445,20 @@ lib/
 ```
 __tests__/
 ├── unit/                   # Unit tests (Vitest)
-│   ├── components/         # Component tests
+│   ├── components/
+│   │   ├── navigation/     # NavBar, NavItem, Logo, MobileDrawer tests
+│   │   ├── home/           # HeroSection, AppCard, UpcomingEvents tests
+│   │   └── ...             # Other component tests
 │   ├── queries/            # Query function tests
 │   └── theme/              # Theme system tests
 │
 ├── integration/            # Integration tests (Vitest)
-│   └── api/                # API route tests
+│   └── api/
+│       └── events-upcoming.test.ts  # Upcoming events API test
 │
 ├── e2e/                    # End-to-end tests (Playwright)
+│   ├── navigation.spec.ts  # NavBar, mobile drawer, keyboard a11y tests
+│   ├── landing.spec.ts     # Landing page, app cards tests
 │   └── *.spec.ts
 │
 └── helpers/                # Test utilities
@@ -692,6 +727,7 @@ export async function GET(request: NextRequest) {
 |--------|----------|-------------|
 | GET | `/api/events` | List events with optional filters |
 | POST | `/api/events` | Create new event |
+| GET | `/api/events/upcoming` | Get next N events within M days (landing page) |
 | GET | `/api/events/[id]` | Get event with attendees |
 | PUT | `/api/events/[id]` | Update event |
 | DELETE | `/api/events/[id]` | Delete event |
