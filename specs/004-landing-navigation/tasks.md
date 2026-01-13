@@ -174,9 +174,9 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T042 [P] [US6] Integration test for /api/events/upcoming endpoint in __tests__/integration/api/events-upcoming.test.ts
-- [ ] T043 [P] [US6] Unit test for EventCardMini component in __tests__/unit/components/home/event-card-mini.test.tsx
-- [ ] T044 [P] [US6] Unit test for UpcomingEvents component (loading, empty, error, data states) in __tests__/unit/components/home/upcoming-events.test.tsx
+- [X] T042 [P] [US6] Integration test for /api/events/upcoming endpoint in __tests__/integration/api/events-upcoming.test.ts
+- [X] T043 [P] [US6] Unit test for EventCardMini component in __tests__/unit/components/home/event-card-mini.test.tsx
+- [X] T044 [P] [US6] Unit test for UpcomingEvents component (loading, empty, error, data states) in __tests__/unit/components/home/upcoming-events.test.tsx
 
 ### Implementation for User Story 6
 
