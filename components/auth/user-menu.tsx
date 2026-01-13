@@ -108,10 +108,20 @@ export function UserMenu() {
           </>
         )}
 
-        {/* Profile Link (future enhancement) */}
-        <DropdownMenuItem disabled>
-          <User className="mr-2 h-4 w-4" />
-          <span>Profile</span>
+        {/* Profile Link */}
+        <DropdownMenuItem asChild>
+          <Link href="/settings/profile" className="cursor-pointer">
+            <User className="mr-2 h-4 w-4" />
+            <span>Profile</span>
+          </Link>
+        </DropdownMenuItem>
+
+        {/* Settings Link */}
+        <DropdownMenuItem asChild>
+          <Link href="/settings" className="cursor-pointer">
+            <Settings className="mr-2 h-4 w-4" />
+            <span>Settings</span>
+          </Link>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />

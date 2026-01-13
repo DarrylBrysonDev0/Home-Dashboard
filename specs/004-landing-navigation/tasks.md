@@ -127,14 +127,14 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T031 [P] [US4] Unit test for enhanced UserMenu with Profile and Settings links in __tests__/unit/components/auth/user-menu.test.tsx
-- [ ] T032 [P] [US4] E2E test for sign out flow (no confirmation, redirect to login) in __tests__/e2e/navigation.spec.ts
+- [X] T031 [P] [US4] Unit test for enhanced UserMenu with Profile and Settings links in __tests__/unit/components/auth/user-menu.test.tsx
+- [X] T032 [P] [US4] E2E test for sign out flow (no confirmation, redirect to login) in __tests__/e2e/navigation.spec.ts
 
 ### Implementation for User Story 4
 
-- [ ] T033 [US4] Enhance UserMenu at components/auth/user-menu.tsx (enable Profile link → /settings/profile, add Settings link → /settings)
-- [ ] T034 [US4] Integrate UserMenu into NavBar component (avatar display with initials logic)
-- [ ] T035 [US4] Verify sign out works immediately without confirmation and redirects to /login
+- [X] T033 [US4] Enhance UserMenu at components/auth/user-menu.tsx (enable Profile link → /settings/profile, add Settings link → /settings)
+- [X] T034 [US4] Integrate UserMenu into NavBar component (avatar display with initials logic)
+- [X] T035 [US4] Verify sign out works immediately without confirmation and redirects to /login
 
 **Checkpoint**: User Story 4 complete - avatar dropdown with Profile, Settings, Sign Out all functional
 

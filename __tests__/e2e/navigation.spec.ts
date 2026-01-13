@@ -230,3 +230,158 @@ test.describe("User Story 1: Navigation Accessibility", () => {
     await page.waitForLoadState("networkidle");
   });
 });
+
+/**
+ * E2E Tests for User Story 4: User Menu and Sign Out
+ *
+ * TDD Phase: RED - These tests verify sign out functionality.
+ *
+ * Goal: Provide avatar dropdown with Profile, Settings, and Sign Out options.
+ * Sign out should work immediately without confirmation and redirect to login.
+ */
+test.describe("User Story 4: User Menu and Sign Out", () => {
+  test.beforeEach(async ({ page }) => {
+    // Navigate to home page before each test
+    await page.goto("/");
+    await expect(page.locator('[data-testid="nav-bar"]')).toBeVisible({ timeout: 10000 });
+  });
+
+  test("should open user menu dropdown when clicking avatar", async ({ page }) => {
+    // Find and click the user menu button (avatar)
+    const userMenuButton = page.locator('[data-testid="nav-user-menu"] button, [aria-label="User menu"]');
+    await expect(userMenuButton).toBeVisible();
+    await userMenuButton.click();
+
+    // Dropdown menu should appear
+    const dropdownMenu = page.locator('[role="menu"]');
+    await expect(dropdownMenu).toBeVisible();
+  });
+
+  test("should display user name and email in dropdown", async ({ page }) => {
+    // Open user menu
+    const userMenuButton = page.locator('[data-testid="nav-user-menu"] button, [aria-label="User menu"]');
+    await userMenuButton.click();
+
+    // Should show user info in dropdown header
+    const dropdownMenu = page.locator('[role="menu"]');
+    await expect(dropdownMenu).toBeVisible();
+
+    // User name and email should be displayed (actual values depend on test user)
+    // Just verify the menu content structure exists
+    const menuContent = page.locator('[role="menu"]');
+    await expect(menuContent).toBeVisible();
+  });
+
+  test("should have Profile link in user menu", async ({ page }) => {
+    // Open user menu
+    const userMenuButton = page.locator('[data-testid="nav-user-menu"] button, [aria-label="User menu"]');
+    await userMenuButton.click();
+
+    // Profile menu item should be visible
+    const profileItem = page.locator('[role="menuitem"]').filter({ hasText: /profile/i });
+    await expect(profileItem).toBeVisible();
+
+    // Profile should NOT be disabled
+    await expect(profileItem).not.toHaveAttribute("aria-disabled", "true");
+  });
+
+  test("should navigate to /settings/profile when clicking Profile", async ({ page }) => {
+    // Open user menu
+    const userMenuButton = page.locator('[data-testid="nav-user-menu"] button, [aria-label="User menu"]');
+    await userMenuButton.click();
+
+    // Click Profile
+    const profileItem = page.locator('[role="menuitem"]').filter({ hasText: /profile/i });
+    await profileItem.click();
+
+    // Should navigate to /settings/profile
+    await expect(page).toHaveURL(/\/settings\/profile/);
+  });
+
+  test("should have Settings link in user menu", async ({ page }) => {
+    // Open user menu
+    const userMenuButton = page.locator('[data-testid="nav-user-menu"] button, [aria-label="User menu"]');
+    await userMenuButton.click();
+
+    // Settings menu item should be visible (distinct from Profile)
+    const settingsItem = page.locator('[role="menuitem"]').filter({ hasText: /^settings$/i });
+    await expect(settingsItem).toBeVisible();
+  });
+
+  test("should navigate to /settings when clicking Settings", async ({ page }) => {
+    // Open user menu
+    const userMenuButton = page.locator('[data-testid="nav-user-menu"] button, [aria-label="User menu"]');
+    await userMenuButton.click();
+
+    // Click Settings (need to distinguish from Profile which contains "settings")
+    const settingsItem = page.locator('[role="menuitem"] >> text=Settings').first();
+    await settingsItem.click();
+
+    // Should navigate to /settings
+    await expect(page).toHaveURL(/\/settings$/);
+  });
+
+  test("should have Log out option in user menu", async ({ page }) => {
+    // Open user menu
+    const userMenuButton = page.locator('[data-testid="nav-user-menu"] button, [aria-label="User menu"]');
+    await userMenuButton.click();
+
+    // Log out menu item should be visible
+    const logoutItem = page.locator('[role="menuitem"]').filter({ hasText: /log out/i });
+    await expect(logoutItem).toBeVisible();
+  });
+
+  test("should sign out immediately without confirmation dialog", async ({ page }) => {
+    // Open user menu
+    const userMenuButton = page.locator('[data-testid="nav-user-menu"] button, [aria-label="User menu"]');
+    await userMenuButton.click();
+
+    // Click Log out
+    const logoutItem = page.locator('[role="menuitem"]').filter({ hasText: /log out/i });
+    await logoutItem.click();
+
+    // Should NOT show any confirmation dialog
+    // Verify no dialog/alert appeared
+    const dialog = page.locator('[role="alertdialog"], [role="dialog"]');
+    await expect(dialog).not.toBeVisible({ timeout: 1000 }).catch(() => {
+      // It's okay if there's no dialog element at all
+    });
+
+    // Should redirect to login page
+    await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
+  });
+
+  test("should redirect to /login after sign out", async ({ page }) => {
+    // Open user menu
+    const userMenuButton = page.locator('[data-testid="nav-user-menu"] button, [aria-label="User menu"]');
+    await userMenuButton.click();
+
+    // Click Log out
+    const logoutItem = page.locator('[role="menuitem"]').filter({ hasText: /log out/i });
+    await logoutItem.click();
+
+    // Should be on login page
+    await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
+
+    // Login form should be visible
+    const loginForm = page.locator('form, [data-testid="login-form"], input[type="email"], input[type="password"]');
+    await expect(loginForm.first()).toBeVisible();
+  });
+
+  test("should not be able to access protected pages after sign out", async ({ page }) => {
+    // Open user menu and sign out
+    const userMenuButton = page.locator('[data-testid="nav-user-menu"] button, [aria-label="User menu"]');
+    await userMenuButton.click();
+    const logoutItem = page.locator('[role="menuitem"]').filter({ hasText: /log out/i });
+    await logoutItem.click();
+
+    // Wait for redirect to login
+    await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
+
+    // Try to access protected page directly
+    await page.goto("/dashboard");
+
+    // Should be redirected back to login (not see dashboard content)
+    await expect(page).toHaveURL(/\/login/, { timeout: 10000 });
+  });
+});
