@@ -180,12 +180,12 @@
 
 ### Implementation for User Story 6
 
-- [ ] T045 [US6] Create /api/events/upcoming API route at app/api/events/upcoming/route.ts (limit, days params, Zod validation)
-- [ ] T046 [P] [US6] Create EventCardMini component at components/home/event-card-mini.tsx (title, date/time, location)
-- [ ] T047 [US6] Create UpcomingEvents component at components/home/upcoming-events.tsx (fetch, display max 3, empty state with link to /calendar?create=true)
-- [ ] T048 [US6] Integrate UpcomingEvents into HeroSection on landing page
-- [ ] T049 [US6] Add horizontal scroll with snap points for mobile events display
-- [ ] T050 [US6] Handle API error state (show error message, no retry button per clarification)
+- [X] T045 [US6] Create /api/events/upcoming API route at app/api/events/upcoming/route.ts (limit, days params, Zod validation)
+- [X] T046 [P] [US6] Create EventCardMini component at components/home/event-card-mini.tsx (title, date/time, location)
+- [X] T047 [US6] Create UpcomingEvents component at components/home/upcoming-events.tsx (fetch, display max 3, empty state with link to /calendar?create=true)
+- [X] T048 [US6] Integrate UpcomingEvents into HeroSection on landing page
+- [X] T049 [US6] Add horizontal scroll with snap points for mobile events display
+- [X] T050 [US6] Handle API error state (show error message, no retry button per clarification)
 
 **Checkpoint**: User Story 6 complete - upcoming events display on landing page with all states handled
 
