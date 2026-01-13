@@ -60,11 +60,11 @@
 
 ### Implementation for User Story 1
 
-- [ ] T015 [P] [US1] Create Logo component at components/navigation/logo.tsx (links to Home `/`)
-- [ ] T016 [P] [US1] Create NavItem component at components/navigation/nav-item.tsx (active state with usePathname, loading spinner support)
-- [ ] T017 [US1] Create NavItems component at components/navigation/nav-items.tsx (Home, Finance, Calendar, Settings links)
-- [ ] T018 [US1] Create NavBar component at components/navigation/nav-bar.tsx (64px height, desktop layout, integrates Logo, NavItems, ThemeToggle placeholder, UserMenu placeholder)
-- [ ] T019 [US1] Integrate NavBar into app/layout.tsx for authenticated pages (replace/update current header)
+- [X] T015 [P] [US1] Create Logo component at components/navigation/logo.tsx (links to Home `/`)
+- [X] T016 [P] [US1] Create NavItem component at components/navigation/nav-item.tsx (active state with usePathname, loading spinner support)
+- [X] T017 [US1] Create NavItems component at components/navigation/nav-items.tsx (Home, Finance, Calendar, Settings links)
+- [X] T018 [US1] Create NavBar component at components/navigation/nav-bar.tsx (64px height, desktop layout, integrates Logo, NavItems, ThemeToggle placeholder, UserMenu placeholder)
+- [X] T019 [US1] Integrate NavBar into app/layout.tsx for authenticated pages (replace/update current header)
 
 **Checkpoint**: User Story 1 complete - navigation works across all authenticated pages with active states
 
