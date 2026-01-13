@@ -87,10 +87,10 @@
 
 ### Implementation for User Story 2
 
-- [ ] T024 [P] [US2] Create AppCard component at components/home/app-card.tsx (icon 48px, title, description, hover animation scale 1.02)
-- [ ] T025 [US2] Create AppSelectionPanel component at components/home/app-selection-panel.tsx (grid with Home, Finance, Calendar, Settings cards)
-- [ ] T026 [US2] Create HeroSection component at components/home/hero-section.tsx (greeting "Welcome back, [Name]", events placeholder slot)
-- [ ] T027 [US2] Update app/page.tsx to render landing page with HeroSection and AppSelectionPanel (remove redirect to /dashboard)
+- [X] T024 [P] [US2] Create AppCard component at components/home/app-card.tsx (icon 48px, title, description, hover animation scale 1.02)
+- [X] T025 [US2] Create AppSelectionPanel component at components/home/app-selection-panel.tsx (grid with Home, Finance, Calendar, Settings cards)
+- [X] T026 [US2] Create HeroSection component at components/home/hero-section.tsx (greeting "Welcome back, [Name]", events placeholder slot)
+- [X] T027 [US2] Update app/page.tsx to render landing page with HeroSection and AppSelectionPanel (remove redirect to /dashboard)
 
 **Checkpoint**: User Story 2 complete - landing page shows greeting and app cards, navigation works
 
@@ -106,12 +106,12 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T028 [P] [US3] Unit test for ThemeToggle with Tooltip wrapper in __tests__/unit/components/navigation/theme-toggle-nav.test.tsx
+- [X] T028 [P] [US3] Unit test for ThemeToggle with Tooltip wrapper in __tests__/unit/components/navigation/theme-toggle-nav.test.tsx
 
 ### Implementation for User Story 3
 
-- [ ] T029 [US3] Wrap existing ThemeToggle with Tooltip in NavBar (tooltip text: "Switch to dark/light mode")
-- [ ] T030 [US3] Verify existing theme persistence works from navigation context
+- [X] T029 [US3] Wrap existing ThemeToggle with Tooltip in NavBar (tooltip text: "Switch to dark/light mode")
+- [X] T030 [US3] Verify existing theme persistence works from navigation context
 
 **Checkpoint**: User Story 3 complete - theme toggle in nav bar with tooltip, persistence verified
 

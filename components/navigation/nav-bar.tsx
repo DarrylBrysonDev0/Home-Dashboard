@@ -1,12 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import { useTheme } from "next-themes";
 import { Menu } from "lucide-react";
 import { Logo } from "./logo";
 import { NavItems } from "./nav-items";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { UserMenu } from "@/components/auth/user-menu";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 /**
@@ -40,6 +46,11 @@ export interface NavBarProps {
  */
 export function NavBar({ className }: NavBarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { resolvedTheme } = useTheme();
+
+  // Dynamic tooltip text based on current theme
+  const tooltipText =
+    resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
 
   return (
     <nav
@@ -79,7 +90,16 @@ export function NavBar({ className }: NavBarProps) {
 
       {/* Right section: ThemeToggle + UserMenu */}
       <div className="flex items-center gap-2">
-        <ThemeToggle />
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <span>
+              <ThemeToggle />
+            </span>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{tooltipText}</p>
+          </TooltipContent>
+        </Tooltip>
         <div data-testid="nav-user-menu">
           <UserMenu />
         </div>

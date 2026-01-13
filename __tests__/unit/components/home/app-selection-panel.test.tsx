@@ -116,30 +116,48 @@ describe("AppSelectionPanel", () => {
       render(<AppSelectionPanel />);
 
       expect(screen.getByText("Finance")).toBeInTheDocument();
-      // Description should contain relevant finance text
-      expect(
-        screen.getByText(/finance|money|expense|income|track/i)
-      ).toBeInTheDocument();
+      // Description should contain relevant finance text (use getAllByText since title also matches)
+      const financeDescription = screen
+        .getAllByText(/finance|money|expense|income|track/i)
+        .find(
+          (el) =>
+            el.tagName.toLowerCase() === "p" ||
+            el.textContent?.toLowerCase().includes("track") ||
+            el.textContent?.toLowerCase().includes("expense")
+        );
+      expect(financeDescription).toBeDefined();
     });
 
     it("should display Calendar app title and description", () => {
       render(<AppSelectionPanel />);
 
       expect(screen.getByText("Calendar")).toBeInTheDocument();
-      // Description should contain relevant calendar text
-      expect(
-        screen.getByText(/calendar|schedule|event|appointment/i)
-      ).toBeInTheDocument();
+      // Description should contain relevant calendar text (use getAllByText since title also matches)
+      const calendarDescription = screen
+        .getAllByText(/calendar|schedule|event|appointment/i)
+        .find(
+          (el) =>
+            el.tagName.toLowerCase() === "p" ||
+            el.textContent?.toLowerCase().includes("schedule") ||
+            el.textContent?.toLowerCase().includes("event")
+        );
+      expect(calendarDescription).toBeDefined();
     });
 
     it("should display Settings app title and description", () => {
       render(<AppSelectionPanel />);
 
       expect(screen.getByText("Settings")).toBeInTheDocument();
-      // Description should contain relevant settings text
-      expect(
-        screen.getByText(/settings|preference|configure|customize/i)
-      ).toBeInTheDocument();
+      // Description should contain relevant settings text (use getAllByText since title also matches)
+      const settingsDescription = screen
+        .getAllByText(/settings|preference|configure|customize/i)
+        .find(
+          (el) =>
+            el.tagName.toLowerCase() === "p" ||
+            el.textContent?.toLowerCase().includes("configure") ||
+            el.textContent?.toLowerCase().includes("preference")
+        );
+      expect(settingsDescription).toBeDefined();
     });
   });
 
@@ -245,11 +263,10 @@ describe("AppSelectionPanel - Order and Consistency", () => {
 
     const appCards = screen.getAllByTestId("app-card");
 
-    // Get titles in order
+    // Get titles in order - the app-card IS the link, so get aria-label or find heading within
     const titles = appCards.map((card) => {
-      // Find the title within each card
-      const title = within(card).getByRole("link");
-      return title.getAttribute("aria-label") || within(card).getByRole("heading")?.textContent;
+      // Card is the link itself, so check aria-label or find heading within
+      return card.getAttribute("aria-label") || within(card).queryByRole("heading")?.textContent;
     });
 
     // Verify order contains the expected apps (order may vary, but all should be present)

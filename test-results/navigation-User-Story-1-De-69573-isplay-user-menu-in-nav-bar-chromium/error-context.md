@@ -1,0 +1,48 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation "Main navigation" [ref=e2]:
+    - generic [ref=e3]:
+      - link "Cemdash Home Dashboard - Go to home page" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]: Cemdash
+      - generic [ref=e6]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - img [ref=e10]
+          - generic [ref=e13]: Home
+        - link "Finance" [ref=e16] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e17]
+          - generic [ref=e19]: Finance
+        - link "Calendar" [ref=e22] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e23]
+          - generic [ref=e25]: Calendar
+        - link "Settings" [ref=e28] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e29]
+          - generic [ref=e32]: Settings
+    - button "Switch to dark theme" [ref=e35]:
+      - img
+  - main [ref=e36]:
+    - generic [ref=e38]:
+      - generic [ref=e39]:
+        - generic [ref=e40]: Welcome back
+        - generic [ref=e41]: Enter your email and password to access the calendar
+      - form "Sign in form" [ref=e43]:
+        - generic [ref=e44]:
+          - text: Email
+          - textbox "Email" [ref=e45]:
+            - /placeholder: admin@home.local
+        - generic [ref=e46]:
+          - text: Password
+          - textbox "Password" [ref=e47]:
+            - /placeholder: ••••••••
+        - button "Sign in" [ref=e48]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e58]
+```

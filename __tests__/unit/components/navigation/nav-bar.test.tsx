@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { NavBar } from "@/components/navigation/nav-bar";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 /**
  * Unit Tests: NavBar Component
@@ -34,6 +35,24 @@ vi.mock("next-auth/react", () => ({
   signOut: vi.fn(),
 }));
 
+/**
+ * Wrapper component that provides TooltipProvider context
+ */
+function TestWrapper({ children }: { children: React.ReactNode }) {
+  return <TooltipProvider delayDuration={0}>{children}</TooltipProvider>;
+}
+
+/**
+ * Helper to render NavBar with required providers
+ */
+function renderNavBar(props: React.ComponentProps<typeof NavBar> = {}) {
+  return render(
+    <TestWrapper>
+      <NavBar {...props} />
+    </TestWrapper>
+  );
+}
+
 describe("NavBar", () => {
   beforeEach(() => {
     mockUsePathname.mockReturnValue("/");
@@ -50,21 +69,21 @@ describe("NavBar", () => {
 
   describe("Basic Rendering", () => {
     it("should render nav bar container", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       expect(navBar).toBeInTheDocument();
     });
 
     it("should render as a nav element", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const nav = screen.getByRole("navigation");
       expect(nav).toBeInTheDocument();
     });
 
     it("should have aria-label for accessibility", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const nav = screen.getByRole("navigation");
       expect(nav).toHaveAttribute("aria-label");
@@ -73,21 +92,21 @@ describe("NavBar", () => {
 
   describe("Structure", () => {
     it("should contain Logo component", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const logo = screen.getByTestId("nav-logo");
       expect(logo).toBeInTheDocument();
     });
 
     it("should contain NavItems component", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navItems = screen.getByTestId("nav-items");
       expect(navItems).toBeInTheDocument();
     });
 
     it("should contain theme toggle or placeholder", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       // Theme toggle should be present
       const themeToggle = screen.queryByTestId("theme-toggle") ||
@@ -96,7 +115,7 @@ describe("NavBar", () => {
     });
 
     it("should contain user menu", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       // User menu should be present
       const userMenu = screen.queryByTestId("user-menu") ||
@@ -108,7 +127,7 @@ describe("NavBar", () => {
 
   describe("Fixed Height", () => {
     it("should have fixed height of 64px (h-16)", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       // Should have h-16 class (64px)
@@ -116,7 +135,7 @@ describe("NavBar", () => {
     });
 
     it("should be fixed/sticky at top", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       // Should have fixed or sticky positioning
@@ -126,28 +145,28 @@ describe("NavBar", () => {
 
   describe("Desktop Layout", () => {
     it("should use flexbox layout", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       expect(navBar.className).toMatch(/flex/);
     });
 
     it("should align items center vertically", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       expect(navBar.className).toMatch(/items-center/);
     });
 
     it("should justify content between logo and actions", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       expect(navBar.className).toMatch(/justify-between|justify/);
     });
 
     it("should show nav items on desktop (md and above)", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navItems = screen.getByTestId("nav-items");
       // Should be visible by default, hidden only on mobile
@@ -158,7 +177,7 @@ describe("NavBar", () => {
 
   describe("Mobile Menu", () => {
     it("should have hamburger button for mobile", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       // Hamburger menu button should exist (may be hidden on desktop)
       const hamburgerButton = screen.queryByTestId("mobile-menu-button") ||
@@ -167,7 +186,7 @@ describe("NavBar", () => {
     });
 
     it("should hide hamburger button on desktop", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const hamburgerButton = screen.queryByTestId("mobile-menu-button") ||
                               screen.queryByRole("button", { name: /menu|hamburger/i });
@@ -179,7 +198,7 @@ describe("NavBar", () => {
     });
 
     it("should hide desktop nav items on mobile", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navItems = screen.getByTestId("nav-items");
       // Should have hidden md:flex pattern for responsive behavior
@@ -189,14 +208,14 @@ describe("NavBar", () => {
 
   describe("Styling", () => {
     it("should apply custom className when provided", () => {
-      render(<NavBar className="custom-nav-class" />);
+      renderNavBar({ className: "custom-nav-class" });
 
       const navBar = screen.getByTestId("nav-bar");
       expect(navBar.className).toContain("custom-nav-class");
     });
 
     it("should have background color for visibility", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       // Should have background styling
@@ -204,7 +223,7 @@ describe("NavBar", () => {
     });
 
     it("should have border or shadow for separation from content", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       // Should have visual separation (border or shadow)
@@ -212,7 +231,7 @@ describe("NavBar", () => {
     });
 
     it("should have horizontal padding", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       // Should have padding for content spacing
@@ -220,7 +239,7 @@ describe("NavBar", () => {
     });
 
     it("should have proper z-index for layering", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       // Should have z-index for fixed positioning
@@ -230,14 +249,14 @@ describe("NavBar", () => {
 
   describe("Accessibility", () => {
     it("should have role navigation", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const nav = screen.getByRole("navigation");
       expect(nav).toBeInTheDocument();
     });
 
     it("should have descriptive aria-label", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const nav = screen.getByRole("navigation");
       const ariaLabel = nav.getAttribute("aria-label");
@@ -245,7 +264,7 @@ describe("NavBar", () => {
     });
 
     it("should be at top of page (landmark)", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       // Nav should be the primary navigation landmark
       const nav = screen.getByRole("navigation");
@@ -265,7 +284,7 @@ describe("NavBar", () => {
         status: "authenticated",
       });
 
-      render(<NavBar />);
+      renderNavBar();
 
       // User menu should be visible
       const userMenu = screen.queryByTestId("user-menu") ||
@@ -280,7 +299,7 @@ describe("NavBar", () => {
         status: "loading",
       });
 
-      render(<NavBar />);
+      renderNavBar();
 
       // Should render without crashing
       const navBar = screen.getByTestId("nav-bar");
@@ -290,7 +309,7 @@ describe("NavBar", () => {
 
   describe("Full Width Layout", () => {
     it("should span full width of viewport", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const navBar = screen.getByTestId("nav-bar");
       // Should have full width
@@ -298,7 +317,7 @@ describe("NavBar", () => {
     });
 
     it("should have max-width container for content", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       // Inner content should be constrained
       const navBar = screen.getByTestId("nav-bar");
@@ -309,7 +328,7 @@ describe("NavBar", () => {
 
   describe("Logo Position", () => {
     it("should render logo on the left side", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const logo = screen.getByTestId("nav-logo");
       const navBar = screen.getByTestId("nav-bar");
@@ -322,7 +341,7 @@ describe("NavBar", () => {
 
   describe("Actions Position", () => {
     it("should render theme toggle and user menu on the right side", () => {
-      render(<NavBar />);
+      renderNavBar();
 
       const themeToggle = screen.queryByTestId("theme-toggle") ||
                           screen.queryByRole("button", { name: /theme|dark|light/i });
