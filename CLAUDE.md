@@ -27,6 +27,14 @@ npx prisma studio        # Visual database browser
 npx prisma generate      # Regenerate Prisma client after schema changes
 ```
 
+## Development Workflow (TDD)
+
+All features MUST use Test-Driven Development:
+1. **RED**: Write failing test for acceptance scenario
+2. **GREEN**: Implement minimum code to pass
+3. **REFACTOR**: Clean up while keeping tests green
+4. **COMMIT**: Use conventional format (`feat:`, `fix:`, `test:`, `refactor:`)
+
 ## Architecture
 
 ### Next.js App Router Pattern
@@ -65,8 +73,12 @@ Prisma → MSSQL
 - `lib/validations/` - Zod schemas for API input/output types
 - `lib/contexts/` - React Context providers
 - `lib/constants/` - Static configuration (colors, date ranges)
+- `lib/theme/` - Theme system (hooks, CSS variables, light/dark configs)
 - `components/ui/` - shadcn/ui components (do not modify directly)
-- `components/dashboard/` - Feature-specific dashboard components
+- `components/dashboard/` - Finance dashboard components
+- `components/navigation/` - NavBar, NavItem, MobileDrawer, Logo
+- `components/home/` - Landing page (HeroSection, AppCard, UpcomingEvents)
+- `components/calendar/` - Calendar/events components (FullCalendar wrapper)
 
 ### API Contract Pattern
 
@@ -88,6 +100,23 @@ return NextResponse.json({ data: result });
 - `__tests__/integration/api/` - API route integration tests
 - `__tests__/e2e/` - Playwright browser tests
 - `__tests__/helpers/` - Test utilities (test database with Testcontainers)
+
+### Authentication (NON-NEGOTIABLE)
+
+All routes require authentication via NextAuth.js middleware:
+- **Protected by default**: All pages and API routes require auth
+- **Public routes only**: `/login`, `/api/auth/*`, static assets
+- **Admin routes** (`/admin/*`): Require ADMIN role check
+- Server components: Use `getServerSession()` for auth checks
+- Client components: Use `useSession()` hook
+- Session: JWT strategy, 7-day duration
+
+### Theme System
+
+Light/dark mode via `next-themes` with CSS variables:
+- Toggle: `ThemeToggle` component in navbar
+- Chart colors: Use `useChartTheme()` hook for theme-aware colors
+- CSS variables: `--bg-page`, `--text-primary`, etc. defined in `globals.css`
 
 ## Key Conventions
 
@@ -125,9 +154,15 @@ Components inside the dashboard should use `FilteredX` variants that consume con
 ## Feature Specifications
 
 Feature specs live in `specs/[###-feature-name]/`:
-- `spec.md` - Requirements and user stories
+- `spec.md` - Requirements and user stories (P1, P2, P3 priorities)
 - `plan.md` - Technical design and architecture
 - `tasks.md` - Implementation checklist
 - `contracts/` - OpenAPI specs for APIs
 
-Use `/speckit.implement` command to execute tasks from `tasks.md`.
+Speckit workflow commands:
+- `/speckit.specify` - Create feature spec from description
+- `/speckit.plan` - Generate technical plan
+- `/speckit.tasks` - Generate implementation tasks
+- `/speckit.implement` - Execute tasks from `tasks.md`
+
+Project constitution: `.specify/memory/constitution.md` (core principles and standards)
