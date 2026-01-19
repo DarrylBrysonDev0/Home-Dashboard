@@ -1,0 +1,598 @@
+openapi: 3.1.0
+info:
+  title: Markdown Reader API
+  description: |
+    REST API for the Markdown Reader feature providing file navigation,
+    content retrieval, search, and user preferences for a read-only
+    documentation viewer.
+  version: 1.0.0
+  contact:
+    name: Cemdash Development
+
+servers:
+  - url: /api/reader
+    description: Reader API routes
+
+security:
+  - sessionAuth: []
+
+tags:
+  - name: Navigation
+    description: File tree and directory operations
+  - name: Content
+    description: File content retrieval
+  - name: Search
+    description: File search functionality
+  - name: Preferences
+    description: User preferences (favorites, recents, display mode)
+  - name: Images
+    description: Image serving for markdown documents
+
+paths:
+  /tree:
+    get:
+      operationId: getDirectoryTree
+      summary: Get directory contents
+      description: |
+        Returns the contents of a directory. If no path is provided,
+        returns the root directory contents. Directories include a
+        `hasChildren` flag to indicate if they contain subdirectories
+        (for lazy loading expand icons).
+      tags:
+        - Navigation
+      parameters:
+        - name: path
+          in: query
+          required: false
+          description: Relative path from docs root (defaults to root "/")
+          schema:
+            type: string
+            default: "/"
+            example: "/projects"
+      responses:
+        "200":
+          description: Directory contents retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TreeResponse"
+              example:
+                success: true
+                data:
+                  path: "/projects"
+                  children:
+                    - name: "readme.md"
+                      path: "/projects/readme.md"
+                      type: "file"
+                      extension: ".md"
+                      size: 2048
+                      modifiedAt: "2026-01-15T10:30:00Z"
+                    - name: "diagrams"
+                      path: "/projects/diagrams"
+                      type: "directory"
+                      hasChildren: true
+        "400":
+          description: Invalid path parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Path traversal blocked or path outside docs root
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Directory not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /file:
+    get:
+      operationId: getFileContent
+      summary: Get file content
+      description: |
+        Retrieves the content of a specific file. Only supports
+        .md, .mmd, and .txt files. Path must be within the docs root
+        directory.
+      tags:
+        - Content
+      parameters:
+        - name: path
+          in: query
+          required: true
+          description: Relative path to file from docs root
+          schema:
+            type: string
+            example: "/projects/readme.md"
+      responses:
+        "200":
+          description: File content retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FileResponse"
+              example:
+                success: true
+                data:
+                  path: "/projects/readme.md"
+                  name: "readme.md"
+                  content: "# Project README\n\nWelcome to the project..."
+                  extension: ".md"
+                  modifiedAt: "2026-01-15T10:30:00Z"
+                  size: 2048
+        "400":
+          description: Missing or invalid path parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Path traversal blocked, unsupported extension, or path outside docs root
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: File not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /search:
+    get:
+      operationId: searchFiles
+      summary: Search files by name
+      description: |
+        Searches for files matching the query string in their name or path.
+        Returns matching files sorted by relevance (exact matches first,
+        then partial matches). Case-insensitive search.
+      tags:
+        - Search
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Search query string (minimum 1 character)
+          schema:
+            type: string
+            minLength: 1
+            example: "readme"
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of results to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        "200":
+          description: Search results retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
+              example:
+                success: true
+                data:
+                  - name: "readme.md"
+                    path: "/readme.md"
+                    type: "file"
+                    extension: ".md"
+                  - name: "project-readme.md"
+                    path: "/projects/project-readme.md"
+                    type: "file"
+                    extension: ".md"
+                query: "readme"
+                total: 2
+        "400":
+          description: Missing or invalid query parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /preferences:
+    get:
+      operationId: getPreferences
+      summary: Get user preferences
+      description: |
+        Retrieves the current user preferences including favorites,
+        recent files, and display mode. Returns default preferences
+        if no preferences file exists.
+      tags:
+        - Preferences
+      responses:
+        "200":
+          description: Preferences retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PreferencesResponse"
+              example:
+                success: true
+                data:
+                  version: 1
+                  favorites:
+                    - path: "/projects/important.md"
+                      name: "important.md"
+                      addedAt: "2026-01-10T08:00:00Z"
+                  recents:
+                    - path: "/readme.md"
+                      name: "readme.md"
+                      viewedAt: "2026-01-19T14:00:00Z"
+                  displayMode: "themed"
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    put:
+      operationId: updatePreferences
+      summary: Update user preferences
+      description: |
+        Updates user preferences. Supports partial updates - only
+        provided fields will be updated. Recents list is limited
+        to 10 entries (oldest removed if exceeded).
+      tags:
+        - Preferences
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PreferencesUpdate"
+            example:
+              favorites:
+                - path: "/projects/important.md"
+                  name: "important.md"
+                  addedAt: "2026-01-10T08:00:00Z"
+              displayMode: "reading"
+      responses:
+        "200":
+          description: Preferences updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PreferencesResponse"
+        "400":
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /image:
+    get:
+      operationId: getImage
+      summary: Get image file
+      description: |
+        Serves image files referenced in markdown documents. Only
+        supports images within the docs root directory with allowed
+        extensions (png, jpg, jpeg, gif, svg, webp).
+      tags:
+        - Images
+      parameters:
+        - name: path
+          in: query
+          required: true
+          description: Relative path to image from docs root
+          schema:
+            type: string
+            example: "/images/diagram.png"
+      responses:
+        "200":
+          description: Image file
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+            image/gif:
+              schema:
+                type: string
+                format: binary
+            image/svg+xml:
+              schema:
+                type: string
+                format: binary
+            image/webp:
+              schema:
+                type: string
+                format: binary
+        "400":
+          description: Missing or invalid path parameter
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Path traversal blocked or unsupported image type
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: next-auth.session-token
+      description: NextAuth.js session cookie
+
+  schemas:
+    FileNode:
+      type: object
+      required:
+        - name
+        - path
+        - type
+      properties:
+        name:
+          type: string
+          description: File or directory name
+          example: "readme.md"
+        path:
+          type: string
+          description: Relative path from docs root
+          example: "/projects/readme.md"
+        type:
+          type: string
+          enum: [file, directory]
+          description: Whether this is a file or directory
+        extension:
+          type: string
+          description: File extension (files only)
+          example: ".md"
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Last modification timestamp
+        size:
+          type: integer
+          description: File size in bytes (files only)
+        hasChildren:
+          type: boolean
+          description: Whether directory contains subdirectories
+
+    FileContent:
+      type: object
+      required:
+        - path
+        - name
+        - content
+        - extension
+        - modifiedAt
+        - size
+      properties:
+        path:
+          type: string
+          description: Relative path from docs root
+        name:
+          type: string
+          description: File name
+        content:
+          type: string
+          description: Raw file content
+        extension:
+          type: string
+          enum: [".md", ".mmd", ".txt"]
+          description: File extension
+        modifiedAt:
+          type: string
+          format: date-time
+          description: Last modification timestamp
+        size:
+          type: integer
+          description: File size in bytes
+
+    Favorite:
+      type: object
+      required:
+        - path
+        - name
+        - addedAt
+      properties:
+        path:
+          type: string
+          description: Relative path from docs root
+        name:
+          type: string
+          description: Display name
+        addedAt:
+          type: string
+          format: date-time
+          description: When the favorite was added
+
+    RecentFile:
+      type: object
+      required:
+        - path
+        - name
+        - viewedAt
+      properties:
+        path:
+          type: string
+          description: Relative path from docs root
+        name:
+          type: string
+          description: Display name
+        viewedAt:
+          type: string
+          format: date-time
+          description: When the file was last viewed
+
+    ReaderPreferences:
+      type: object
+      required:
+        - version
+        - favorites
+        - recents
+        - displayMode
+      properties:
+        version:
+          type: integer
+          const: 1
+          description: Schema version for migrations
+        favorites:
+          type: array
+          items:
+            $ref: "#/components/schemas/Favorite"
+          description: Bookmarked files
+        recents:
+          type: array
+          maxItems: 10
+          items:
+            $ref: "#/components/schemas/RecentFile"
+          description: Recently viewed files (max 10)
+        displayMode:
+          type: string
+          enum: [themed, reading]
+          description: Current display mode
+
+    PreferencesUpdate:
+      type: object
+      description: Partial preferences update
+      properties:
+        favorites:
+          type: array
+          items:
+            $ref: "#/components/schemas/Favorite"
+        recents:
+          type: array
+          items:
+            $ref: "#/components/schemas/RecentFile"
+        displayMode:
+          type: string
+          enum: [themed, reading]
+
+    TreeResponse:
+      type: object
+      required:
+        - success
+        - data
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          type: object
+          required:
+            - path
+            - children
+          properties:
+            path:
+              type: string
+              description: Directory path
+            children:
+              type: array
+              items:
+                $ref: "#/components/schemas/FileNode"
+
+    FileResponse:
+      type: object
+      required:
+        - success
+        - data
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: "#/components/schemas/FileContent"
+
+    SearchResponse:
+      type: object
+      required:
+        - success
+        - data
+        - query
+        - total
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/FileNode"
+        query:
+          type: string
+          description: Original search query
+        total:
+          type: integer
+          description: Total number of matches
+
+    PreferencesResponse:
+      type: object
+      required:
+        - success
+        - data
+      properties:
+        success:
+          type: boolean
+          const: true
+        data:
+          $ref: "#/components/schemas/ReaderPreferences"
+
+    ErrorResponse:
+      type: object
+      required:
+        - success
+        - error
+      properties:
+        success:
+          type: boolean
+          const: false
+        error:
+          type: string
+          description: Human-readable error message

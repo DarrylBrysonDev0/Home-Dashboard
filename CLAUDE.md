@@ -166,3 +166,9 @@ Speckit workflow commands:
 - `/speckit.implement` - Execute tasks from `tasks.md`
 
 Project constitution: `.specify/memory/constitution.md` (core principles and standards)
+
+## Active Technologies
+- TypeScript 5.x (strict mode enabled), React 19.x, Next.js 16.x (005-markdown-reader)
+
+## Recent Changes
+- 005-markdown-reader: Added TypeScript 5.x (strict mode enabled), React 19.x, Next.js 16.x
