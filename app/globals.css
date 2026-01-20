@@ -1857,3 +1857,175 @@
     page-break-inside: avoid;
   }
 }
+
+/* ==========================================================================
+   MARKDOWN READER - DISPLAY MODE STYLES
+   Themed mode (default) uses app aesthetic
+   Reading mode provides clean, neutral styling for distraction-free reading
+   ========================================================================== */
+
+@layer components {
+  /* Reading mode container - applies clean, neutral styling */
+  .reader-reading-mode {
+    /* Override background to clean white/light gray */
+    --reader-bg: #FAFAFA;
+    --reader-bg-secondary: #FFFFFF;
+    --reader-text: #1F2937;
+    --reader-text-secondary: #4B5563;
+    --reader-text-muted: #9CA3AF;
+    --reader-border: #E5E7EB;
+    --reader-link: #2563EB;
+    --reader-link-hover: #1D4ED8;
+    --reader-code-bg: #F3F4F6;
+    --reader-blockquote-border: #D1D5DB;
+    --reader-heading: #111827;
+  }
+
+  /* Reading mode wrapper */
+  .reader-content {
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+
+  /* Reading mode specific overrides */
+  .reader-reading-mode .reader-content {
+    background-color: var(--reader-bg);
+    color: var(--reader-text);
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    line-height: 1.75;
+  }
+
+  /* Markdown prose styling for reading mode */
+  .reader-reading-mode .prose {
+    --tw-prose-body: var(--reader-text);
+    --tw-prose-headings: var(--reader-heading);
+    --tw-prose-links: var(--reader-link);
+    --tw-prose-code: var(--reader-text);
+    --tw-prose-quotes: var(--reader-text-secondary);
+    --tw-prose-quote-borders: var(--reader-blockquote-border);
+  }
+
+  /* Reading mode headings - serif font, comfortable spacing */
+  .reader-reading-mode h1,
+  .reader-reading-mode h2,
+  .reader-reading-mode h3,
+  .reader-reading-mode h4,
+  .reader-reading-mode h5,
+  .reader-reading-mode h6 {
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    color: var(--reader-heading);
+    font-weight: 600;
+  }
+
+  /* Reading mode paragraphs */
+  .reader-reading-mode p {
+    color: var(--reader-text);
+    margin-bottom: 1.25em;
+  }
+
+  /* Reading mode links */
+  .reader-reading-mode a {
+    color: var(--reader-link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .reader-reading-mode a:hover {
+    color: var(--reader-link-hover);
+  }
+
+  /* Reading mode code blocks - neutral styling */
+  .reader-reading-mode pre {
+    background-color: var(--reader-code-bg);
+    border: 1px solid var(--reader-border);
+    border-radius: 0.375rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  .reader-reading-mode code {
+    background-color: var(--reader-code-bg);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+  }
+
+  .reader-reading-mode pre code {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  /* Reading mode blockquotes */
+  .reader-reading-mode blockquote {
+    border-left: 4px solid var(--reader-blockquote-border);
+    padding-left: 1rem;
+    color: var(--reader-text-secondary);
+    font-style: italic;
+    margin: 1.5rem 0;
+  }
+
+  /* Reading mode lists */
+  .reader-reading-mode ul,
+  .reader-reading-mode ol {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .reader-reading-mode li {
+    margin: 0.5rem 0;
+  }
+
+  /* Reading mode tables */
+  .reader-reading-mode table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1.5rem 0;
+  }
+
+  .reader-reading-mode th,
+  .reader-reading-mode td {
+    border: 1px solid var(--reader-border);
+    padding: 0.75rem;
+    text-align: left;
+  }
+
+  .reader-reading-mode th {
+    background-color: var(--reader-code-bg);
+    font-weight: 600;
+  }
+
+  /* Reading mode horizontal rule */
+  .reader-reading-mode hr {
+    border: none;
+    border-top: 1px solid var(--reader-border);
+    margin: 2rem 0;
+  }
+
+  /* Reading mode images */
+  .reader-reading-mode img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
+    margin: 1.5rem 0;
+  }
+
+  /* Themed mode (default) - uses existing app styling */
+  .reader-themed-mode .reader-content {
+    /* Uses default app theme colors */
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+  }
+
+  /* Dark mode reading adjustments */
+  .dark .reader-reading-mode {
+    --reader-bg: #1A1A1A;
+    --reader-bg-secondary: #0F0F0F;
+    --reader-text: #E5E7EB;
+    --reader-text-secondary: #9CA3AF;
+    --reader-text-muted: #6B7280;
+    --reader-border: #374151;
+    --reader-link: #60A5FA;
+    --reader-link-hover: #93C5FD;
+    --reader-code-bg: #111827;
+    --reader-blockquote-border: #4B5563;
+    --reader-heading: #F9FAFB;
+  }
+}

@@ -14,7 +14,9 @@ import { cn } from "@/lib/utils";
 import { FileText, Folder } from "lucide-react";
 import { FileTree } from "./FileTree";
 import { SearchInput } from "./SearchInput";
-import type { FileNode } from "@/types/reader";
+import { RecentFiles } from "./RecentFiles";
+import { Favorites } from "./Favorites";
+import type { FileNode, RecentFile, Favorite } from "@/types/reader";
 
 export interface NavigationPaneProps {
   /** File tree data */
@@ -39,6 +41,12 @@ export interface NavigationPaneProps {
   onSearch?: (query: string) => void;
   /** Handler for clearing search */
   onClearSearch?: () => void;
+  /** Recent files list */
+  recentFiles?: RecentFile[];
+  /** Favorite files list */
+  favorites?: Favorite[];
+  /** Handler for removing a favorite */
+  onRemoveFavorite?: (path: string) => void;
   /** Optional className for styling */
   className?: string;
 }
@@ -55,6 +63,9 @@ export function NavigationPane({
   isSearching = false,
   onSearch,
   onClearSearch,
+  recentFiles = [],
+  favorites = [],
+  onRemoveFavorite,
   className,
 }: NavigationPaneProps) {
   const isSearchActive = searchQuery.trim().length > 0;
@@ -96,7 +107,7 @@ export function NavigationPane({
         )}
       </div>
 
-      {/* Content Area: Search Results or File Tree */}
+      {/* Content Area: Search Results or File Tree + Quick Access */}
       <div className="flex-1 overflow-y-auto">
         {isSearchActive ? (
           <SearchResults
@@ -107,14 +118,43 @@ export function NavigationPane({
             onResultClick={handleResultClick}
           />
         ) : (
-          <FileTree
-            nodes={nodes}
-            selectedPath={selectedPath}
-            expandedPaths={expandedPaths}
-            loadingPaths={loadingPaths}
-            onFileSelect={onFileSelect}
-            onExpandToggle={onExpandToggle}
-          />
+          <div className="flex flex-col">
+            {/* Quick Access: Favorites */}
+            {favorites.length > 0 && (
+              <div className="border-b border-border py-2 px-1">
+                <Favorites
+                  favorites={favorites}
+                  onSelect={onFileSelect}
+                  onRemove={onRemoveFavorite || (() => {})}
+                  currentPath={selectedPath ?? undefined}
+                />
+              </div>
+            )}
+
+            {/* Quick Access: Recent Files */}
+            {recentFiles.length > 0 && (
+              <div className="border-b border-border py-2 px-1">
+                <RecentFiles
+                  recents={recentFiles}
+                  onSelect={onFileSelect}
+                  currentPath={selectedPath ?? undefined}
+                  maxItems={5}
+                />
+              </div>
+            )}
+
+            {/* File Tree */}
+            <div className="py-2">
+              <FileTree
+                nodes={nodes}
+                selectedPath={selectedPath}
+                expandedPaths={expandedPaths}
+                loadingPaths={loadingPaths}
+                onFileSelect={onFileSelect}
+                onExpandToggle={onExpandToggle}
+              />
+            </div>
+          </div>
         )}
       </div>
     </aside>
