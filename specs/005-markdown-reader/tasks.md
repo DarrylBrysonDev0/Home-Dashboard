@@ -166,17 +166,17 @@
 
 ### Tests for User Story 5
 
-- [ ] T055 [P] [US5] Contract tests for GET /api/reader/search endpoint in `__tests__/integration/api/reader/search.test.ts`
-- [ ] T056 [P] [US5] Unit tests for SearchInput component in `__tests__/unit/components/reader/SearchInput.test.tsx`
+- [X] T055 [P] [US5] Contract tests for GET /api/reader/search endpoint in `__tests__/integration/api/reader/search.test.ts`
+- [X] T056 [P] [US5] Unit tests for SearchInput component in `__tests__/unit/components/reader/SearchInput.test.tsx`
 
 ### Implementation for User Story 5
 
-- [ ] T057 [US5] Implement searchFiles method in FileSystemService with recursive file scanning
-- [ ] T058 [US5] Implement GET /api/reader/search route with query validation in `app/api/reader/search/route.ts`
-- [ ] T059 [US5] Create SearchInput component with debounced input in `components/reader/navigation/SearchInput.tsx`
-- [ ] T060 [US5] Add search results display with match highlighting
-- [ ] T061 [US5] Integrate search into NavigationPane with clear/restore functionality
-- [ ] T062 [US5] Handle "No files found" empty state
+- [X] T057 [US5] Implement searchFiles method in FileSystemService with recursive file scanning
+- [X] T058 [US5] Implement GET /api/reader/search route with query validation in `app/api/reader/search/route.ts`
+- [X] T059 [US5] Create SearchInput component with debounced input in `components/reader/navigation/SearchInput.tsx`
+- [X] T060 [US5] Add search results display with match highlighting
+- [X] T061 [US5] Integrate search into NavigationPane with clear/restore functionality
+- [X] T062 [US5] Handle "No files found" empty state
 
 **Checkpoint**: User Story 5 complete - users can search files by name
 

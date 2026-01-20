@@ -183,4 +183,11 @@ export class FileSystemService {
 
     return normalized;
   }
+
+  /**
+   * Get the DOCS_ROOT path
+   */
+  getDocsRoot(): string {
+    return this.docsRoot;
+  }
 }

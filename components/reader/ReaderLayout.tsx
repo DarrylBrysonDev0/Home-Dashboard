@@ -36,10 +36,14 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
     displayMode,
     tocVisible,
     headings,
+    searchQuery,
+    searchResults,
     selectFile,
     toggleExpand,
     toggleToc,
     setHeadings,
+    setSearchQuery,
+    clearSearch,
   } = useReader();
 
   // Track file tree with loaded children
@@ -135,6 +139,11 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
         loadingPaths={loadingPaths}
         onFileSelect={selectFile}
         onExpandToggle={handleExpandToggle}
+        searchQuery={searchQuery}
+        searchResults={searchResults}
+        isSearching={isLoading && searchQuery.length > 0}
+        onSearch={setSearchQuery}
+        onClearSearch={clearSearch}
         className="w-64 flex-shrink-0 hidden md:flex"
       />
 
