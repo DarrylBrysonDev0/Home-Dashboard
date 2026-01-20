@@ -19,12 +19,12 @@
 
 **Purpose**: Project initialization, dependencies, and basic structure
 
-- [ ] T001 Install feature dependencies: `npm install react-markdown remark-gfm shiki mermaid`
-- [ ] T002 [P] Add DOCS_ROOT environment variable to `.env.local` and `.env.example`
-- [ ] T003 [P] Update `docker-compose.yml` with documentation volume mount
-- [ ] T004 [P] Create TypeScript types file `types/reader.ts` with all entity interfaces from data-model.md
-- [ ] T005 [P] Create Zod validation schemas in `lib/validations/reader.ts` per data-model.md
-- [ ] T006 Add `/reader` and `/api/reader/*` routes to NextAuth middleware matcher in `middleware.ts`
+- [X] T001 Install feature dependencies: `npm install react-markdown remark-gfm shiki mermaid`
+- [X] T002 [P] Add DOCS_ROOT environment variable to `.env.local` and `.env.example`
+- [X] T003 [P] Update `docker-compose.yml` with documentation volume mount
+- [X] T004 [P] Create TypeScript types file `types/reader.ts` with all entity interfaces from data-model.md
+- [X] T005 [P] Create Zod validation schemas in `lib/validations/reader.ts` per data-model.md
+- [X] T006 Add `/reader` and `/api/reader/*` routes to NextAuth middleware matcher in `middleware.ts`
 
 ---
 
@@ -36,15 +36,15 @@
 
 ### Tests for Foundation
 
-- [ ] T007 [P] Unit tests for path validation security in `__tests__/unit/lib/reader/file-system.service.test.ts`
-- [ ] T008 [P] Unit tests for preferences service in `__tests__/unit/lib/reader/preferences.service.test.ts`
+- [X] T007 [P] Unit tests for path validation security in `__tests__/unit/lib/reader/file-system.service.test.ts`
+- [X] T008 [P] Unit tests for preferences service in `__tests__/unit/lib/reader/preferences.service.test.ts`
 
 ### Implementation for Foundation
 
-- [ ] T009 Implement FileSystemService with path security validation in `lib/reader/file-system.service.ts`
-- [ ] T010 Implement PreferencesService with atomic file writes in `lib/reader/preferences.service.ts`
-- [ ] T011 Create ReaderContext provider skeleton in `lib/contexts/ReaderContext.tsx`
-- [ ] T012 [P] Create API route structure directories: `app/api/reader/{tree,file,search,preferences,image}/`
+- [X] T009 Implement FileSystemService with path security validation in `lib/reader/file-system.service.ts`
+- [X] T010 Implement PreferencesService with atomic file writes in `lib/reader/preferences.service.ts`
+- [X] T011 Create ReaderContext provider skeleton in `lib/contexts/ReaderContext.tsx`
+- [X] T012 [P] Create API route structure directories: `app/api/reader/{tree,file,search,preferences,image}/`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 

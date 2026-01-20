@@ -8,12 +8,14 @@ import { NextResponse } from "next/server";
  * - / - Landing page (home)
  * - /dashboard - Main financial dashboard
  * - /calendar - Shared event calendar
+ * - /reader - Markdown documentation reader
  * - /admin - Admin panel (also requires ADMIN role)
  * - /api/analytics/* - All analytics endpoints
  * - /api/categories/* - Category management
  * - /api/events/* - Event management
  * - /api/export/* - Data export
  * - /api/filters/* - Filter data
+ * - /api/reader/* - Markdown reader endpoints
  * - /api/transactions/* - Transaction data
  * - /api/users/* - User management
  *
@@ -61,12 +63,14 @@ export default withAuth(
  * - / (landing page)
  * - /dashboard and all sub-routes
  * - /calendar and all sub-routes
+ * - /reader and all sub-routes
  * - /admin and all sub-routes (also requires ADMIN role)
  * - /api/analytics/* - All analytics endpoints
  * - /api/categories/* - Category management
  * - /api/events/* - Event management
  * - /api/export/* - Data export
  * - /api/filters/* - Filter data
+ * - /api/reader/* - Markdown reader endpoints
  * - /api/transactions/* - Transaction data
  * - /api/users/* - User management
  *
@@ -81,12 +85,14 @@ export const config = {
     "/",
     "/dashboard/:path*",
     "/calendar/:path*",
+    "/reader/:path*",
     "/admin/:path*",
     "/api/analytics/:path*",
     "/api/categories/:path*",
     "/api/events/:path*",
     "/api/export/:path*",
     "/api/filters/:path*",
+    "/api/reader/:path*",
     "/api/transactions/:path*",
     "/api/users/:path*",
   ],

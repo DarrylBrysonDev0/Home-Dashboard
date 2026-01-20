@@ -43,8 +43,14 @@ services:
       - SMTP_USER=${SMTP_USER}
       - SMTP_PASSWORD=${SMTP_PASSWORD}
       - SMTP_FROM=${SMTP_FROM}
+      # Markdown Reader Configuration
+      - DOCS_ROOT=/app/docs
     ports:
       - "3000:3000"
+    volumes:
+      # Documentation volume mount for Markdown Reader
+      # Replace ./docs with your local documentation directory
+      - ./docs:/app/docs:rw
     depends_on:
       db:
         condition: service_healthy
