@@ -71,14 +71,17 @@ export function MarkdownRenderer({
   const router = useRouter();
   const { getUniqueId, reset } = useUniqueHeadingIds();
   const headingsRef = React.useRef<DocumentHeading[]>([]);
+  const prevContentRef = React.useRef<string | null>(null);
 
-  // Reset heading tracking when content changes
-  React.useEffect(() => {
+  // Clear headings at render start when content changes (before ReactMarkdown)
+  // This ensures headingsRef is empty before new headings are collected
+  if (content !== prevContentRef.current) {
     reset();
     headingsRef.current = [];
-  }, [content, reset]);
+    prevContentRef.current = content;
+  }
 
-  // Report headings after render
+  // Report headings after render completes
   React.useEffect(() => {
     if (onHeadingsExtracted && headingsRef.current.length > 0) {
       onHeadingsExtracted(headingsRef.current);
