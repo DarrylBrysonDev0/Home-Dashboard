@@ -162,6 +162,10 @@ export function ReaderProvider({
   // Content Actions
   // ==========================================================================
 
+  const setHeadings = React.useCallback((headings: DocumentHeading[]): void => {
+    setState((prev) => ({ ...prev, headings }));
+  }, []);
+
   const refreshContent = React.useCallback(async (): Promise<void> => {
     const currentPath = state.currentPath;
     if (!currentPath) return;
@@ -237,6 +241,7 @@ export function ReaderProvider({
       toggleExpand,
       setSearchQuery,
       clearSearch,
+      setHeadings,
       refreshContent,
       setDisplayMode,
       toggleToc,
@@ -250,6 +255,7 @@ export function ReaderProvider({
       toggleExpand,
       setSearchQuery,
       clearSearch,
+      setHeadings,
       refreshContent,
       setDisplayMode,
       toggleToc,

@@ -142,17 +142,17 @@
 
 ### Tests for User Story 4
 
-- [ ] T047 [P] [US4] Unit tests for heading extraction logic in `__tests__/unit/lib/reader/heading-extractor.test.ts`
-- [ ] T048 [P] [US4] Unit tests for TableOfContents component in `__tests__/unit/components/reader/TableOfContents.test.tsx`
+- [X] T047 [P] [US4] Unit tests for heading extraction logic in `__tests__/unit/lib/reader/heading-extractor.test.ts`
+- [X] T048 [P] [US4] Unit tests for TableOfContents component in `__tests__/unit/components/reader/TableOfContents.test.tsx`
 
 ### Implementation for User Story 4
 
-- [ ] T049 [US4] Create heading extraction utility in `lib/reader/heading-extractor.ts`
-- [ ] T050 [US4] Add heading ID generation to MarkdownRenderer (for anchor links)
-- [ ] T051 [US4] Create TableOfContents component with hierarchy display in `components/reader/content/TableOfContents.tsx`
-- [ ] T052 [US4] Add smooth scroll-to-section on TOC click
-- [ ] T053 [US4] Add TOC toggle visibility for narrow viewports in ReaderLayout
-- [ ] T054 [US4] Handle empty state when document has no headings
+- [X] T049 [US4] Create heading extraction utility in `lib/reader/heading-extractor.ts`
+- [X] T050 [US4] Add heading ID generation to MarkdownRenderer (for anchor links)
+- [X] T051 [US4] Create TableOfContents component with hierarchy display in `components/reader/content/TableOfContents.tsx`
+- [X] T052 [US4] Add smooth scroll-to-section on TOC click
+- [X] T053 [US4] Add TOC toggle visibility for narrow viewports in ReaderLayout
+- [X] T054 [US4] Handle empty state when document has no headings
 
 **Checkpoint**: User Story 4 complete - documents have navigable table of contents
 
