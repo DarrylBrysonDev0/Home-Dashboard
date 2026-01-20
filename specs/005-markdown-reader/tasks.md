@@ -60,30 +60,30 @@
 
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
 
-- [ ] T013 [P] [US1] Contract tests for GET /api/reader/tree endpoint in `__tests__/integration/api/reader/tree.test.ts`
-- [ ] T014 [P] [US1] Contract tests for GET /api/reader/file endpoint in `__tests__/integration/api/reader/file.test.ts`
-- [ ] T015 [P] [US1] Unit tests for FileTree component in `__tests__/unit/components/reader/FileTree.test.tsx`
-- [ ] T016 [P] [US1] Unit tests for MarkdownRenderer component in `__tests__/unit/components/reader/MarkdownRenderer.test.tsx`
+- [X] T013 [P] [US1] Contract tests for GET /api/reader/tree endpoint in `__tests__/integration/api/reader/tree.test.ts`
+- [X] T014 [P] [US1] Contract tests for GET /api/reader/file endpoint in `__tests__/integration/api/reader/file.test.ts`
+- [X] T015 [P] [US1] Unit tests for FileTree component in `__tests__/unit/components/reader/FileTree.test.tsx`
+- [X] T016 [P] [US1] Unit tests for MarkdownRenderer component in `__tests__/unit/components/reader/MarkdownRenderer.test.tsx`
 - [ ] T017 [US1] E2E test for file browsing flow in `__tests__/e2e/reader-browse.spec.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T018 [US1] Implement GET /api/reader/tree route with Zod validation in `app/api/reader/tree/route.ts`
-- [ ] T019 [US1] Implement GET /api/reader/file route with Zod validation in `app/api/reader/file/route.ts`
-- [ ] T020 [P] [US1] Create FileTreeNode component with expand/collapse in `components/reader/navigation/FileTreeNode.tsx`
-- [ ] T021 [US1] Create FileTree component with lazy loading in `components/reader/navigation/FileTree.tsx`
-- [ ] T022 [P] [US1] Create Breadcrumbs component with clickable path segments in `components/reader/navigation/Breadcrumbs.tsx`
-- [ ] T023 [P] [US1] Create NavigationPane container component in `components/reader/navigation/NavigationPane.tsx`
-- [ ] T024 [P] [US1] Create EmptyState component for no file selected in `components/reader/content/EmptyState.tsx`
-- [ ] T025 [US1] Create markdown-config with react-markdown plugins in `lib/reader/markdown-config.ts`
-- [ ] T026 [US1] Create MarkdownRenderer component (basic rendering without code highlighting) in `components/reader/content/MarkdownRenderer.tsx`
-- [ ] T027 [US1] Implement custom link routing (internal docs vs external URLs) in MarkdownRenderer
-- [ ] T028 [P] [US1] Create ContentViewer container component in `components/reader/content/ContentViewer.tsx`
-- [ ] T029 [US1] Create ReaderLayout orchestrator component in `components/reader/ReaderLayout.tsx`
-- [ ] T030 [US1] Implement ReaderContext state management with file tree and selection in `lib/contexts/ReaderContext.tsx`
-- [ ] T031 [US1] Create reader layout with ReaderProvider in `app/reader/layout.tsx`
-- [ ] T032 [US1] Create default reader page (empty state) in `app/reader/page.tsx`
-- [ ] T033 [US1] Create dynamic path handler page in `app/reader/[[...path]]/page.tsx`
+- [X] T018 [US1] Implement GET /api/reader/tree route with Zod validation in `app/api/reader/tree/route.ts`
+- [X] T019 [US1] Implement GET /api/reader/file route with Zod validation in `app/api/reader/file/route.ts`
+- [X] T020 [P] [US1] Create FileTreeNode component with expand/collapse in `components/reader/navigation/FileTreeNode.tsx`
+- [X] T021 [US1] Create FileTree component with lazy loading in `components/reader/navigation/FileTree.tsx`
+- [X] T022 [P] [US1] Create Breadcrumbs component with clickable path segments in `components/reader/navigation/Breadcrumbs.tsx`
+- [X] T023 [P] [US1] Create NavigationPane container component in `components/reader/navigation/NavigationPane.tsx`
+- [X] T024 [P] [US1] Create EmptyState component for no file selected in `components/reader/content/EmptyState.tsx`
+- [X] T025 [US1] Create markdown-config with react-markdown plugins in `lib/reader/markdown-config.ts`
+- [X] T026 [US1] Create MarkdownRenderer component (basic rendering without code highlighting) in `components/reader/content/MarkdownRenderer.tsx`
+- [X] T027 [US1] Implement custom link routing (internal docs vs external URLs) in MarkdownRenderer
+- [X] T028 [P] [US1] Create ContentViewer container component in `components/reader/content/ContentViewer.tsx`
+- [X] T029 [US1] Create ReaderLayout orchestrator component in `components/reader/ReaderLayout.tsx`
+- [X] T030 [US1] Implement ReaderContext state management with file tree and selection in `lib/contexts/ReaderContext.tsx`
+- [X] T031 [US1] Create reader layout with ReaderProvider in `app/reader/layout.tsx`
+- [X] T032 [US1] Create default reader page (empty state) in `app/reader/page.tsx`
+- [X] T033 [US1] Create dynamic path handler page in `app/reader/[[...path]]/page.tsx`
 
 **Checkpoint**: User Story 1 complete - can browse file tree and view rendered markdown
 
