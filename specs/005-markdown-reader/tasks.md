@@ -97,8 +97,8 @@
 
 ### Tests for User Story 2
 
-- [ ] T034 [P] [US2] Unit tests for CodeBlock component with language detection in `__tests__/unit/components/reader/CodeBlock.test.tsx`
-- [ ] T035 [P] [US2] Unit tests for shiki highlighter initialization in `__tests__/unit/lib/reader/shiki-highlighter.test.ts`
+- [X] T034 [P] [US2] Unit tests for CodeBlock component with language detection in `__tests__/unit/components/reader/CodeBlock.test.tsx`
+- [X] T035 [P] [US2] Unit tests for shiki highlighter initialization in `__tests__/unit/lib/reader/shiki-highlighter.test.ts`
 
 ### Implementation for User Story 2
 
