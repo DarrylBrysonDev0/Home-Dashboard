@@ -255,6 +255,9 @@ export interface ReaderActions {
   clearSearch: () => void;
 
   // Content
+  /** Update headings extracted from current file (for TOC) */
+  setHeadings: (headings: DocumentHeading[]) => void;
+
   /** Reload current file from disk */
   refreshContent: () => Promise<void>;
 

@@ -145,9 +145,35 @@ export function ReaderProvider({
     });
   }, []);
 
-  const setSearchQuery = React.useCallback((query: string): void => {
-    setState((prev) => ({ ...prev, searchQuery: query }));
-    // TODO: T057-T061 - Implement search via /api/reader/search
+  const setSearchQuery = React.useCallback(async (query: string): Promise<void> => {
+    setState((prev) => ({ ...prev, searchQuery: query, isLoading: query.length > 0 }));
+
+    // Don't search for empty queries
+    if (!query.trim()) {
+      setState((prev) => ({ ...prev, searchResults: [], isLoading: false }));
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/reader/search?q=${encodeURIComponent(query)}`);
+      if (!response.ok) {
+        throw new Error("Search failed");
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        setState((prev) => ({
+          ...prev,
+          searchResults: data.data,
+          isLoading: false,
+        }));
+      } else {
+        setState((prev) => ({ ...prev, searchResults: [], isLoading: false }));
+      }
+    } catch (error) {
+      console.error("Search error:", error);
+      setState((prev) => ({ ...prev, searchResults: [], isLoading: false }));
+    }
   }, []);
 
   const clearSearch = React.useCallback((): void => {
@@ -161,6 +187,10 @@ export function ReaderProvider({
   // ==========================================================================
   // Content Actions
   // ==========================================================================
+
+  const setHeadings = React.useCallback((headings: DocumentHeading[]): void => {
+    setState((prev) => ({ ...prev, headings }));
+  }, []);
 
   const refreshContent = React.useCallback(async (): Promise<void> => {
     const currentPath = state.currentPath;
@@ -237,6 +267,7 @@ export function ReaderProvider({
       toggleExpand,
       setSearchQuery,
       clearSearch,
+      setHeadings,
       refreshContent,
       setDisplayMode,
       toggleToc,
@@ -250,6 +281,7 @@ export function ReaderProvider({
       toggleExpand,
       setSearchQuery,
       clearSearch,
+      setHeadings,
       refreshContent,
       setDisplayMode,
       toggleToc,

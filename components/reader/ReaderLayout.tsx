@@ -4,18 +4,20 @@
  * ReaderLayout Component
  *
  * Main orchestrator component that combines navigation and content areas.
- * Manages the overall reader interface layout.
+ * Manages the overall reader interface layout with optional table of contents.
  *
- * @see specs/005-markdown-reader/spec.md User Story 1
+ * @see specs/005-markdown-reader/spec.md User Story 1, User Story 4
  */
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { List, X } from "lucide-react";
 import { NavigationPane } from "./navigation/NavigationPane";
 import { Breadcrumbs } from "./navigation/Breadcrumbs";
 import { ContentViewer } from "./content/ContentViewer";
+import { TableOfContents } from "./content/TableOfContents";
 import { useReader } from "@/lib/contexts/ReaderContext";
-import type { FileNode } from "@/types/reader";
+import type { FileNode, DocumentHeading } from "@/types/reader";
 
 export interface ReaderLayoutProps {
   /** Initial file tree data from server */
@@ -32,8 +34,16 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
     isLoading,
     error,
     displayMode,
+    tocVisible,
+    headings,
+    searchQuery,
+    searchResults,
     selectFile,
     toggleExpand,
+    toggleToc,
+    setHeadings,
+    setSearchQuery,
+    clearSearch,
   } = useReader();
 
   // Track file tree with loaded children
@@ -41,6 +51,22 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
   const [loadingPaths, setLoadingPaths] = React.useState<Set<string>>(
     new Set()
   );
+
+  // Track active heading for TOC highlighting
+  const [activeHeadingId, setActiveHeadingId] = React.useState<string | undefined>();
+
+  // Handle headings extracted from markdown content
+  const handleHeadingsExtracted = React.useCallback(
+    (extractedHeadings: DocumentHeading[]) => {
+      setHeadings(extractedHeadings);
+    },
+    [setHeadings]
+  );
+
+  // Handle TOC heading click
+  const handleTocHeadingClick = React.useCallback((headingId: string) => {
+    setActiveHeadingId(headingId);
+  }, []);
 
   // Handle directory expansion with lazy loading
   const handleExpandToggle = React.useCallback(
@@ -94,6 +120,10 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
     [handleExpandToggle, selectFile]
   );
 
+  // Determine if TOC should be shown (only for markdown files with headings)
+  const showToc =
+    currentFile?.extension === ".md" && headings.length > 0 && tocVisible;
+
   return (
     <div
       className={cn(
@@ -109,27 +139,76 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
         loadingPaths={loadingPaths}
         onFileSelect={selectFile}
         onExpandToggle={handleExpandToggle}
+        searchQuery={searchQuery}
+        searchResults={searchResults}
+        isSearching={isLoading && searchQuery.length > 0}
+        onSearch={setSearchQuery}
+        onClearSearch={clearSearch}
         className="w-64 flex-shrink-0 hidden md:flex"
       />
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col min-w-0">
-        {/* Breadcrumbs Header */}
-        <header className="flex-shrink-0 border-b border-border px-4 py-2">
+        {/* Breadcrumbs Header with TOC Toggle */}
+        <header className="flex-shrink-0 border-b border-border px-4 py-2 flex items-center justify-between">
           <Breadcrumbs
             path={currentPath}
             onNavigate={handleBreadcrumbNavigate}
           />
+
+          {/* TOC Toggle Button - only visible when there are headings */}
+          {currentFile?.extension === ".md" && headings.length > 0 && (
+            <button
+              type="button"
+              onClick={toggleToc}
+              aria-label={tocVisible ? "Hide table of contents" : "Show table of contents"}
+              aria-pressed={tocVisible}
+              className={cn(
+                "p-1.5 rounded-md transition-colors",
+                "hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                tocVisible ? "bg-muted text-foreground" : "text-muted-foreground"
+              )}
+            >
+              {tocVisible ? (
+                <X className="h-4 w-4" aria-hidden="true" />
+              ) : (
+                <List className="h-4 w-4" aria-hidden="true" />
+              )}
+            </button>
+          )}
         </header>
 
-        {/* Content Viewer */}
-        <div className="flex-1 min-h-0">
-          <ContentViewer
-            file={currentFile}
-            isLoading={isLoading}
-            error={error}
-            displayMode={displayMode}
-          />
+        {/* Content Area with optional TOC sidebar */}
+        <div className="flex-1 min-h-0 flex">
+          {/* Content Viewer */}
+          <div className={cn(
+            "flex-1 min-w-0 overflow-hidden",
+            showToc && "lg:pr-0"
+          )}>
+            <ContentViewer
+              file={currentFile}
+              isLoading={isLoading}
+              error={error}
+              displayMode={displayMode}
+              onHeadingsExtracted={handleHeadingsExtracted}
+            />
+          </div>
+
+          {/* Table of Contents Sidebar - hidden on narrow viewports */}
+          {showToc && (
+            <aside
+              className={cn(
+                "w-56 flex-shrink-0 border-l border-border overflow-y-auto p-4",
+                "hidden lg:block"
+              )}
+            >
+              <TableOfContents
+                headings={headings}
+                activeHeadingId={activeHeadingId}
+                onHeadingClick={handleTocHeadingClick}
+              />
+            </aside>
+          )}
         </div>
       </main>
     </div>
