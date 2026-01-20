@@ -116,7 +116,8 @@ describe('FileTree', () => {
       );
 
       const fileItem = screen.getByTestId('tree-node-readme.md');
-      expect(fileItem.querySelector('[data-icon="file"]')).toBeInTheDocument();
+      // .md files get file-markdown icon
+      expect(fileItem.querySelector('[data-icon="file-markdown"]')).toBeInTheDocument();
     });
 
     it('should show expand arrow for directories with children', () => {
@@ -270,10 +271,12 @@ describe('FileTree', () => {
         />
       );
 
-      const arrow = screen
+      const arrowButton = screen
         .getByTestId('tree-node-projects')
         .querySelector('[data-expand-arrow]');
-      expect(arrow).toHaveClass('rotate-90');
+      // The rotate-90 class is on the ChevronRight SVG inside the button
+      const arrowSvg = arrowButton?.querySelector('svg');
+      expect(arrowSvg).toHaveClass('rotate-90');
     });
   });
 

@@ -27,6 +27,35 @@ const DEFAULT_FILENAME = '.reader-prefs.json';
 const MAX_RECENTS = 10;
 
 /**
+ * Simple promise-based mutex for serializing file writes.
+ * Prevents race conditions when multiple operations try to write concurrently.
+ */
+class WriteMutex {
+  private locked = false;
+  private queue: Array<() => void> = [];
+
+  async acquire(): Promise<void> {
+    if (!this.locked) {
+      this.locked = true;
+      return;
+    }
+
+    return new Promise<void>((resolve) => {
+      this.queue.push(resolve);
+    });
+  }
+
+  release(): void {
+    const next = this.queue.shift();
+    if (next) {
+      next();
+    } else {
+      this.locked = false;
+    }
+  }
+}
+
+/**
  * Service for managing reader preferences stored in a JSON file.
  * Provides atomic writes and schema validation for data integrity.
  */
@@ -34,6 +63,7 @@ export class PreferencesService {
   private readonly docsRoot: string;
   private readonly filename: string;
   private readonly prefsPath: string;
+  private readonly writeMutex = new WriteMutex();
 
   constructor(config?: PreferencesServiceConfig) {
     const root = config?.docsRoot ?? process.env.DOCS_ROOT;
@@ -81,12 +111,19 @@ export class PreferencesService {
       throw new Error(`Invalid preferences: ${result.error.message}`);
     }
 
-    // Write atomically: write to temp file then rename
-    const tempPath = `${this.prefsPath}.tmp`;
-    const content = JSON.stringify(result.data, null, 2);
+    // Acquire lock to prevent concurrent writes
+    await this.writeMutex.acquire();
 
-    await writeFile(tempPath, content, 'utf-8');
-    await rename(tempPath, this.prefsPath);
+    try {
+      // Write atomically: write to temp file then rename
+      const tempPath = `${this.prefsPath}.tmp`;
+      const content = JSON.stringify(result.data, null, 2);
+
+      await writeFile(tempPath, content, 'utf-8');
+      await rename(tempPath, this.prefsPath);
+    } finally {
+      this.writeMutex.release();
+    }
   }
 
   /**
@@ -95,42 +132,75 @@ export class PreferencesService {
   async updatePreferences(
     update: Partial<Omit<ReaderPreferences, 'version'>>
   ): Promise<void> {
-    const current = await this.getPreferences();
-    const updated: ReaderPreferences = {
+    await this.atomicUpdate((current) => ({
       ...current,
       ...update,
-      version: 1, // Always keep version at 1
-    };
-    await this.savePreferences(updated);
+      version: 1,
+    }));
+  }
+
+  /**
+   * Atomically read, modify, and write preferences.
+   * The entire operation is protected by a mutex to prevent race conditions.
+   */
+  private async atomicUpdate(
+    modifier: (current: ReaderPreferences) => ReaderPreferences
+  ): Promise<void> {
+    await this.writeMutex.acquire();
+
+    try {
+      const current = await this.getPreferences();
+      const updated = modifier(current);
+
+      // Validate before writing
+      const result = readerPreferencesSchema.safeParse(updated);
+      if (!result.success) {
+        throw new Error(`Invalid preferences: ${result.error.message}`);
+      }
+
+      // Write atomically: write to temp file then rename
+      const tempPath = `${this.prefsPath}.tmp`;
+      const content = JSON.stringify(result.data, null, 2);
+
+      await writeFile(tempPath, content, 'utf-8');
+      await rename(tempPath, this.prefsPath);
+    } finally {
+      this.writeMutex.release();
+    }
   }
 
   /**
    * Add a file to favorites
    */
   async addFavorite(filePath: string, name: string): Promise<void> {
-    const prefs = await this.getPreferences();
+    await this.atomicUpdate((prefs) => {
+      // Check for duplicates
+      if (prefs.favorites.some((f) => f.path === filePath)) {
+        return prefs; // Already favorited, no change
+      }
 
-    // Check for duplicates
-    if (prefs.favorites.some((f) => f.path === filePath)) {
-      return; // Already favorited
-    }
-
-    prefs.favorites.push({
-      path: filePath,
-      name,
-      addedAt: new Date().toISOString(),
+      return {
+        ...prefs,
+        favorites: [
+          ...prefs.favorites,
+          {
+            path: filePath,
+            name,
+            addedAt: new Date().toISOString(),
+          },
+        ],
+      };
     });
-
-    await this.savePreferences(prefs);
   }
 
   /**
    * Remove a file from favorites
    */
   async removeFavorite(filePath: string): Promise<void> {
-    const prefs = await this.getPreferences();
-    prefs.favorites = prefs.favorites.filter((f) => f.path !== filePath);
-    await this.savePreferences(prefs);
+    await this.atomicUpdate((prefs) => ({
+      ...prefs,
+      favorites: prefs.favorites.filter((f) => f.path !== filePath),
+    }));
   }
 
   /**
@@ -145,43 +215,65 @@ export class PreferencesService {
    * Toggle favorite status for a path
    */
   async toggleFavorite(filePath: string, name: string): Promise<void> {
-    const isFav = await this.isFavorite(filePath);
-    if (isFav) {
-      await this.removeFavorite(filePath);
-    } else {
-      await this.addFavorite(filePath, name);
-    }
+    await this.atomicUpdate((prefs) => {
+      const isFav = prefs.favorites.some((f) => f.path === filePath);
+
+      if (isFav) {
+        // Remove from favorites
+        return {
+          ...prefs,
+          favorites: prefs.favorites.filter((f) => f.path !== filePath),
+        };
+      } else {
+        // Add to favorites
+        return {
+          ...prefs,
+          favorites: [
+            ...prefs.favorites,
+            {
+              path: filePath,
+              name,
+              addedAt: new Date().toISOString(),
+            },
+          ],
+        };
+      }
+    });
   }
 
   /**
    * Add a file to recents (moves to top if already exists, enforces max 10)
    */
   async addRecent(filePath: string, name: string): Promise<void> {
-    const prefs = await this.getPreferences();
+    await this.atomicUpdate((prefs) => {
+      // Remove if already exists (will be added to top)
+      const filteredRecents = prefs.recents.filter((r) => r.path !== filePath);
 
-    // Remove if already exists (will be added to top)
-    prefs.recents = prefs.recents.filter((r) => r.path !== filePath);
+      // Add to beginning
+      const newRecents = [
+        {
+          path: filePath,
+          name,
+          viewedAt: new Date().toISOString(),
+        },
+        ...filteredRecents,
+      ].slice(0, MAX_RECENTS); // Enforce max limit
 
-    // Add to beginning
-    prefs.recents.unshift({
-      path: filePath,
-      name,
-      viewedAt: new Date().toISOString(),
+      return {
+        ...prefs,
+        recents: newRecents,
+      };
     });
-
-    // Enforce max limit
-    if (prefs.recents.length > MAX_RECENTS) {
-      prefs.recents = prefs.recents.slice(0, MAX_RECENTS);
-    }
-
-    await this.savePreferences(prefs);
   }
 
   /**
    * Clear all recents
    */
   async clearRecents(): Promise<void> {
-    await this.updatePreferences({ recents: [] });
+    await this.atomicUpdate((prefs) => ({
+      ...prefs,
+      recents: [],
+    }));
   }
 
   /**

@@ -99,6 +99,13 @@ async function checkHasChildren(
 export default async function ReaderPathPage({ params }: PageProps) {
   const resolvedParams = await params;
   const pathSegments = resolvedParams.path || [];
+  const initialTree = await getInitialTree();
+
+  // If no path segments, show empty state (reader root)
+  if (pathSegments.length === 0) {
+    return <ReaderLayout initialTree={initialTree} />;
+  }
+
   const requestedPath = "/" + pathSegments.join("/");
 
   // Validate the path
@@ -129,8 +136,6 @@ export default async function ReaderPathPage({ params }: PageProps) {
     // File doesn't exist
     redirect("/reader");
   }
-
-  const initialTree = await getInitialTree();
 
   // Note: The actual file loading happens in ReaderContext via selectFile
   // This page just validates the URL and renders the layout

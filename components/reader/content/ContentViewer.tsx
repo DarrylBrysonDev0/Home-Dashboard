@@ -13,6 +13,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { MarkdownRenderer } from "./MarkdownRenderer";
+import MermaidRenderer from "./MermaidRenderer";
 import { EmptyState } from "./EmptyState";
 import type { FileContent, DisplayMode, DocumentHeading } from "@/types/reader";
 
@@ -102,15 +103,11 @@ export function ContentViewer({
         )}
 
         {file.extension === ".mmd" && (
-          <div className="mermaid-container">
-            {/* Mermaid rendering will be implemented in Phase 5 */}
-            <pre className="bg-muted p-4 rounded-md overflow-x-auto">
-              <code>{file.content}</code>
-            </pre>
-            <p className="text-sm text-muted-foreground mt-2">
-              Mermaid diagram rendering coming soon
-            </p>
-          </div>
+          <MermaidRenderer
+            code={file.content}
+            theme={displayMode === "reading" ? "light" : "dark"}
+            ariaLabel={`Mermaid diagram: ${file.name}`}
+          />
         )}
 
         {file.extension === ".txt" && (
