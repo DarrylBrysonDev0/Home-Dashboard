@@ -342,8 +342,8 @@ describe('MarkdownRenderer', () => {
 
       render(<MarkdownRenderer content={content} />);
 
-      // Mermaid blocks should be handled differently
-      expect(screen.getByTestId('mermaid-block')).toBeInTheDocument();
+      // Mermaid blocks should be rendered by MermaidRenderer
+      expect(screen.getByTestId('mermaid-renderer')).toBeInTheDocument();
       expect(screen.queryByTestId('code-block')).not.toBeInTheDocument();
     });
   });

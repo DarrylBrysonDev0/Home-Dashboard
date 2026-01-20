@@ -17,7 +17,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { CodeBlock } from '@/components/reader/content/CodeBlock';
 
 // Mock the shiki highlighter module
@@ -28,12 +28,19 @@ vi.mock('@/lib/reader/shiki-highlighter', () => ({
     }),
   }),
   highlightCode: vi.fn(async (code: string, _lang: string, theme: string) => {
-    return `<pre class="shiki ${theme}"><code><span class="line">${code}</span></code></pre>`;
+    // Split code by lines and wrap each in a span.line
+    const lines = code.split('\n').map(line => `<span class="line">${line}</span>`).join('');
+    return `<pre class="shiki ${theme}"><code>${lines}</code></pre>`;
   }),
   isLanguageSupported: vi.fn((lang: string) => {
     const supported = ['typescript', 'javascript', 'python', 'bash', 'sql', 'json', 'yaml', 'markdown', 'css', 'html', 'tsx', 'jsx', 'go', 'rust'];
     return supported.includes(lang);
   }),
+  // Theme constants
+  DARK_THEME: 'github-dark',
+  LIGHT_THEME: 'github-light',
+  DEFAULT_THEME: 'github-dark',
+  SUPPORTED_THEMES: ['github-dark', 'github-light', 'one-dark-pro'],
 }));
 
 describe('CodeBlock', () => {
@@ -232,19 +239,23 @@ describe('CodeBlock', () => {
   });
 
   describe('Syntax Highlighting', () => {
-    it('should apply shiki highlighting', () => {
+    it('should apply shiki highlighting', async () => {
       render(<CodeBlock code="const x = 1;" language="typescript" />);
-      // Shiki wraps code in .shiki class
-      const block = screen.getByTestId('code-block');
-      const highlighted = block.querySelector('.shiki');
-      expect(highlighted).toBeInTheDocument();
+      // Wait for async highlighting to complete
+      await waitFor(() => {
+        const block = screen.getByTestId('code-block');
+        const highlighted = block.querySelector('.shiki');
+        expect(highlighted).toBeInTheDocument();
+      });
     });
 
-    it('should contain highlighted HTML from shiki', () => {
+    it('should contain highlighted HTML from shiki', async () => {
       render(<CodeBlock code="const x = 1;" language="typescript" />);
-      // Shiki adds span elements for tokens
-      const spans = screen.getByTestId('code-block').querySelectorAll('span.line');
-      expect(spans.length).toBeGreaterThan(0);
+      // Wait for async highlighting to complete
+      await waitFor(() => {
+        const spans = screen.getByTestId('code-block').querySelectorAll('span.line');
+        expect(spans.length).toBeGreaterThan(0);
+      });
     });
   });
 
@@ -263,26 +274,37 @@ describe('CodeBlock', () => {
   });
 
   describe('Line Numbers', () => {
-    it('should optionally show line numbers', () => {
+    it('should optionally show line numbers', async () => {
+      const multilineCode = `const a = 1;
+const b = 2;
+const c = 3;`;
       render(
         <CodeBlock
-          code="const a = 1;\nconst b = 2;\nconst c = 3;"
+          code={multilineCode}
           language="typescript"
           showLineNumbers
         />
       );
-      // Should have line number indicators
-      const lineNumbers = screen.getByTestId('code-block').querySelectorAll('[data-line-number]');
-      expect(lineNumbers.length).toBeGreaterThanOrEqual(3);
+      // Wait for async highlighting to complete, then check line numbers
+      await waitFor(() => {
+        const lineNumbers = screen.getByTestId('code-block').querySelectorAll('[data-line-number]');
+        expect(lineNumbers.length).toBeGreaterThanOrEqual(3);
+      });
     });
 
-    it('should not show line numbers by default', () => {
+    it('should not show line numbers by default', async () => {
       render(
         <CodeBlock
           code="const a = 1;\nconst b = 2;"
           language="typescript"
         />
       );
+      // Wait for async highlighting to complete
+      await waitFor(() => {
+        const block = screen.getByTestId('code-block');
+        expect(block.querySelector('.shiki')).toBeInTheDocument();
+      });
+      // Then verify no line numbers
       const lineNumbers = screen.getByTestId('code-block').querySelectorAll('[data-line-number]');
       expect(lineNumbers.length).toBe(0);
     });

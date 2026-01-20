@@ -24,6 +24,8 @@ import {
   resolveRelativePath,
   isRelativeImagePath,
 } from "@/lib/reader/markdown-config";
+import { CodeBlock } from "@/components/reader/content/CodeBlock";
+import MermaidRenderer from "@/components/reader/content/MermaidRenderer";
 import type { DocumentHeading, DisplayMode } from "@/types/reader";
 import type { Components } from "react-markdown";
 
@@ -215,13 +217,10 @@ export function MarkdownRenderer({
       );
     },
 
-    // Code blocks
-    pre: ({ children, ...props }) => {
-      return (
-        <pre {...props} className="overflow-x-auto">
-          {children}
-        </pre>
-      );
+    // Code blocks - use custom CodeBlock component for syntax highlighting
+    pre: ({ children }) => {
+      // Pass through children without wrapper - CodeBlock handles its own container
+      return <>{children}</>;
     },
 
     code: ({ className, children, ...props }) => {
@@ -234,28 +233,28 @@ export function MarkdownRenderer({
         className?.includes("language-");
 
       if (isBlock) {
-        // Check for mermaid blocks
+        // Extract text content from children
+        const codeContent = getTextContent(children);
+
+        // Render mermaid diagrams with MermaidRenderer
         if (language === "mermaid") {
+          // Determine theme based on display mode
+          const mermaidTheme = displayMode === "reading" ? "light" : "dark";
           return (
-            <div data-testid="mermaid-block" data-language="mermaid">
-              {/* Mermaid will be rendered in Phase 5 */}
-              <pre>
-                <code>{children}</code>
-              </pre>
-            </div>
+            <MermaidRenderer
+              code={codeContent}
+              theme={mermaidTheme}
+            />
           );
         }
 
+        // Use CodeBlock for syntax-highlighted code
         return (
-          <code
-            data-testid="code-block"
-            data-language={language}
-            aria-label={language ? `${language} code block` : "code block"}
-            className={className}
-            {...props}
-          >
-            {children}
-          </code>
+          <CodeBlock
+            code={codeContent}
+            language={language}
+            theme={displayMode === "reading" ? "light" : "dark"}
+          />
         );
       }
 

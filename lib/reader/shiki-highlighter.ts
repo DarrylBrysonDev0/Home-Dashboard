@@ -2,11 +2,13 @@
  * Shiki Highlighter Service
  *
  * Provides syntax highlighting for code blocks using Shiki.
- * This is a stub file for TDD - implementation pending.
+ * Uses a singleton pattern to avoid reinitializing the highlighter.
  *
  * @see specs/005-markdown-reader/spec.md User Story 2
  * @see specs/005-markdown-reader/research.md Section 2
  */
+
+import { createHighlighter, type Highlighter, type BundledLanguage, type BundledTheme } from 'shiki';
 
 // Theme constants
 export const DARK_THEME = 'github-dark';
@@ -21,7 +23,7 @@ const SUPPORTED_LANGUAGES = [
   'go', 'rust', 'java', 'c', 'cpp',
 ] as const;
 
-// Language aliases
+// Language aliases for common shorthand forms
 const LANGUAGE_ALIASES: Record<string, string> = {
   ts: 'typescript',
   js: 'javascript',
@@ -31,33 +33,79 @@ const LANGUAGE_ALIASES: Record<string, string> = {
   yml: 'yaml',
 };
 
-// Singleton highlighter instance - stub for now
-let highlighterInstance: unknown = null;
+// Singleton highlighter instance
+let highlighterInstance: Highlighter | null = null;
+let highlighterPromise: Promise<Highlighter> | null = null;
+
+/**
+ * Resolve language alias to canonical name
+ */
+function resolveLanguage(language: string): string {
+  if (!language) return 'text';
+  const normalized = language.toLowerCase();
+  return LANGUAGE_ALIASES[normalized] || normalized;
+}
 
 /**
  * Get or create the singleton highlighter instance
- * TODO: Implement with actual shiki initialization
  */
-export async function getHighlighter(): Promise<{
-  codeToHtml: (code: string, options: { lang: string; theme: string }) => string;
-  getLoadedLanguages: () => string[];
-  getLoadedThemes: () => string[];
-}> {
-  // Stub implementation - will be replaced
-  throw new Error('Not implemented: getHighlighter');
+export async function getHighlighter(): Promise<Highlighter> {
+  // Return existing instance if available
+  if (highlighterInstance) {
+    return highlighterInstance;
+  }
+
+  // Wait for pending initialization if in progress
+  if (highlighterPromise) {
+    return highlighterPromise;
+  }
+
+  // Initialize new highlighter
+  highlighterPromise = createHighlighter({
+    themes: SUPPORTED_THEMES as unknown as BundledTheme[],
+    langs: SUPPORTED_LANGUAGES as unknown as BundledLanguage[],
+  });
+
+  highlighterInstance = await highlighterPromise;
+  return highlighterInstance;
 }
 
 /**
  * Highlight code with the specified language and theme
- * TODO: Implement with actual shiki highlighting
  */
 export async function highlightCode(
   code: string,
   language: string,
   theme: string = DEFAULT_THEME
 ): Promise<string> {
-  // Stub implementation - will be replaced
-  throw new Error('Not implemented: highlightCode');
+  // Handle null/undefined code gracefully
+  const safeCode = code ?? '';
+
+  // Resolve language alias and theme
+  const resolvedLang = resolveLanguage(language);
+  const resolvedTheme = SUPPORTED_THEMES.includes(theme as typeof SUPPORTED_THEMES[number])
+    ? theme
+    : DEFAULT_THEME;
+
+  try {
+    const highlighter = await getHighlighter();
+
+    // Check if language is supported, fallback to 'text' if not
+    const loadedLangs = highlighter.getLoadedLanguages();
+    const finalLang = loadedLangs.includes(resolvedLang) ? resolvedLang : 'text';
+
+    return highlighter.codeToHtml(safeCode, {
+      lang: finalLang,
+      theme: resolvedTheme,
+    });
+  } catch {
+    // Fallback: return plain HTML wrapper if highlighting fails
+    const escaped = safeCode
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    return `<pre class="shiki ${resolvedTheme}"><code><span class="line">${escaped}</span></code></pre>`;
+  }
 }
 
 /**
@@ -82,4 +130,5 @@ export function getSupportedLanguages(): string[] {
  */
 export function resetHighlighter(): void {
   highlighterInstance = null;
+  highlighterPromise = null;
 }

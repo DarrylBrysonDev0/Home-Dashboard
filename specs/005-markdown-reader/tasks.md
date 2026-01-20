@@ -102,10 +102,10 @@
 
 ### Implementation for User Story 2
 
-- [ ] T036 [US2] Create shiki highlighter singleton with theme support in `lib/reader/shiki-highlighter.ts`
-- [ ] T037 [US2] Create CodeBlock component with Shiki rendering in `components/reader/content/CodeBlock.tsx`
-- [ ] T038 [US2] Integrate CodeBlock into MarkdownRenderer custom components in `components/reader/content/MarkdownRenderer.tsx`
-- [ ] T039 [US2] Add theme-aware code block styling (light/dark) in CodeBlock component
+- [X] T036 [US2] Create shiki highlighter singleton with theme support in `lib/reader/shiki-highlighter.ts`
+- [X] T037 [US2] Create CodeBlock component with Shiki rendering in `components/reader/content/CodeBlock.tsx`
+- [X] T038 [US2] Integrate CodeBlock into MarkdownRenderer custom components in `components/reader/content/MarkdownRenderer.tsx`
+- [X] T039 [US2] Add theme-aware code block styling (light/dark) in CodeBlock component
 
 **Checkpoint**: User Story 2 complete - code blocks display with proper syntax highlighting
 
@@ -119,16 +119,16 @@
 
 ### Tests for User Story 3
 
-- [ ] T040 [P] [US3] Unit tests for MermaidRenderer component in `__tests__/unit/components/reader/MermaidRenderer.test.tsx`
-- [ ] T041 [P] [US3] Unit tests for mermaid theme configuration in `__tests__/unit/lib/reader/mermaid-themes.test.ts`
+- [X] T040 [P] [US3] Unit tests for MermaidRenderer component in `__tests__/unit/components/reader/MermaidRenderer.test.tsx`
+- [X] T041 [P] [US3] Unit tests for mermaid theme configuration in `__tests__/unit/lib/reader/mermaid-themes.test.ts`
 
 ### Implementation for User Story 3
 
-- [ ] T042 [US3] Create mermaid theme configuration for themed/reading modes in `lib/reader/mermaid-themes.ts`
-- [ ] T043 [US3] Create MermaidRenderer client component with error boundary in `components/reader/content/MermaidRenderer.tsx`
-- [ ] T044 [US3] Detect mermaid code blocks in MarkdownRenderer and delegate to MermaidRenderer
-- [ ] T045 [US3] Handle standalone .mmd files in ContentViewer (render entire file as diagram)
-- [ ] T046 [US3] Add error state UI for invalid Mermaid syntax showing original code
+- [X] T042 [US3] Create mermaid theme configuration for themed/reading modes in `lib/reader/mermaid-themes.ts`
+- [X] T043 [US3] Create MermaidRenderer client component with error boundary in `components/reader/content/MermaidRenderer.tsx`
+- [X] T044 [US3] Detect mermaid code blocks in MarkdownRenderer and delegate to MermaidRenderer
+- [X] T045 [US3] Handle standalone .mmd files in ContentViewer (render entire file as diagram)
+- [X] T046 [US3] Add error state UI for invalid Mermaid syntax showing original code
 
 **Checkpoint**: User Stories 1-3 complete - MVP is functional with browsing, markdown, code highlighting, and diagrams
 

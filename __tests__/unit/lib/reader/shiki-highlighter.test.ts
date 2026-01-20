@@ -81,7 +81,8 @@ describe('Shiki Highlighter Service', () => {
   });
 
   afterEach(() => {
-    vi.resetAllMocks();
+    // Use clearAllMocks instead of resetAllMocks to preserve mock implementations
+    vi.clearAllMocks();
   });
 
   describe('getHighlighter', () => {
