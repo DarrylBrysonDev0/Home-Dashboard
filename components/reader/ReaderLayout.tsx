@@ -16,6 +16,8 @@ import { NavigationPane } from "./navigation/NavigationPane";
 import { Breadcrumbs } from "./navigation/Breadcrumbs";
 import { ContentViewer } from "./content/ContentViewer";
 import { TableOfContents } from "./content/TableOfContents";
+import { DisplayModeToggle } from "./controls/DisplayModeToggle";
+import { FavoriteToggle } from "./controls/FavoriteToggle";
 import { useReader } from "@/lib/contexts/ReaderContext";
 import type { FileNode, DocumentHeading } from "@/types/reader";
 
@@ -38,12 +40,17 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
     headings,
     searchQuery,
     searchResults,
+    recentFiles,
+    favorites,
     selectFile,
     toggleExpand,
     toggleToc,
     setHeadings,
     setSearchQuery,
     clearSearch,
+    setDisplayMode,
+    toggleFavorite,
+    isFavorite,
   } = useReader();
 
   // Track file tree with loaded children
@@ -120,6 +127,17 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
     [handleExpandToggle, selectFile]
   );
 
+  // Handle removing a favorite (looks up name from favorites array)
+  const handleRemoveFavorite = React.useCallback(
+    (path: string) => {
+      const favorite = favorites.find((f) => f.path === path);
+      if (favorite) {
+        toggleFavorite(path, favorite.name);
+      }
+    },
+    [favorites, toggleFavorite]
+  );
+
   // Determine if TOC should be shown (only for markdown files with headings)
   const showToc =
     currentFile?.extension === ".md" && headings.length > 0 && tocVisible;
@@ -144,38 +162,58 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
         isSearching={isLoading && searchQuery.length > 0}
         onSearch={setSearchQuery}
         onClearSearch={clearSearch}
+        recentFiles={recentFiles}
+        favorites={favorites}
+        onRemoveFavorite={handleRemoveFavorite}
         className="w-64 flex-shrink-0 hidden md:flex"
       />
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col min-w-0">
-        {/* Breadcrumbs Header with TOC Toggle */}
+        {/* Breadcrumbs Header with Controls */}
         <header className="flex-shrink-0 border-b border-border px-4 py-2 flex items-center justify-between">
           <Breadcrumbs
             path={currentPath}
             onNavigate={handleBreadcrumbNavigate}
           />
 
-          {/* TOC Toggle Button - only visible when there are headings */}
-          {currentFile?.extension === ".md" && headings.length > 0 && (
-            <button
-              type="button"
-              onClick={toggleToc}
-              aria-label={tocVisible ? "Hide table of contents" : "Show table of contents"}
-              aria-pressed={tocVisible}
-              className={cn(
-                "p-1.5 rounded-md transition-colors",
-                "hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                tocVisible ? "bg-muted text-foreground" : "text-muted-foreground"
-              )}
-            >
-              {tocVisible ? (
-                <X className="h-4 w-4" aria-hidden="true" />
-              ) : (
-                <List className="h-4 w-4" aria-hidden="true" />
-              )}
-            </button>
-          )}
+          {/* Control buttons */}
+          <div className="flex items-center gap-1">
+            {/* Favorite Toggle - visible when a file is selected */}
+            {currentFile && currentPath && (
+              <FavoriteToggle
+                isFavorite={isFavorite(currentPath)}
+                onToggle={() => toggleFavorite(currentPath, currentFile.name)}
+              />
+            )}
+
+            {/* Display Mode Toggle */}
+            <DisplayModeToggle
+              mode={displayMode}
+              onModeChange={setDisplayMode}
+            />
+
+            {/* TOC Toggle Button - only visible when there are headings */}
+            {currentFile?.extension === ".md" && headings.length > 0 && (
+              <button
+                type="button"
+                onClick={toggleToc}
+                aria-label={tocVisible ? "Hide table of contents" : "Show table of contents"}
+                aria-pressed={tocVisible}
+                className={cn(
+                  "p-1.5 rounded-md transition-colors",
+                  "hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  tocVisible ? "bg-muted text-foreground" : "text-muted-foreground"
+                )}
+              >
+                {tocVisible ? (
+                  <X className="h-4 w-4" aria-hidden="true" />
+                ) : (
+                  <List className="h-4 w-4" aria-hidden="true" />
+                )}
+              </button>
+            )}
+          </div>
         </header>
 
         {/* Content Area with optional TOC sidebar */}

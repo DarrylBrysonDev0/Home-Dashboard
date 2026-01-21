@@ -113,17 +113,41 @@ export function ReaderProvider({
       const data = await response.json();
       const fileContent: FileContent = data.data;
 
-      setState((prev) => ({
-        ...prev,
-        currentPath: path,
-        currentFile: fileContent,
-        isLoading: false,
-        error: null,
-        // TODO: Extract headings for TOC
-        headings: [],
-      }));
+      // Extract file name from path
+      const fileName = path.split("/").pop() || path;
 
-      // TODO: T080 - Update recents list via API
+      // Update recents - add to front, remove duplicates, limit to 10
+      const newRecent: RecentFile = {
+        path,
+        name: fileName,
+        viewedAt: new Date().toISOString(),
+      };
+
+      // Calculate updated recents before setState
+      let updatedRecents: RecentFile[] = [];
+
+      setState((prev) => {
+        // Remove if already exists, then prepend
+        const filtered = prev.recentFiles.filter((r) => r.path !== path);
+        updatedRecents = [newRecent, ...filtered].slice(0, 10);
+
+        return {
+          ...prev,
+          currentPath: path,
+          currentFile: fileContent,
+          isLoading: false,
+          error: null,
+          headings: [],
+          recentFiles: updatedRecents,
+        };
+      });
+
+      // Persist recents to API (fire and forget)
+      fetch("/api/reader/preferences", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recents: updatedRecents }),
+      }).catch((err) => console.error("Failed to persist recents:", err));
     } catch (error) {
       setState((prev) => ({
         ...prev,
@@ -204,9 +228,19 @@ export function ReaderProvider({
   // Preference Actions
   // ==========================================================================
 
-  const setDisplayMode = React.useCallback((mode: DisplayMode): void => {
+  const setDisplayMode = React.useCallback(async (mode: DisplayMode): Promise<void> => {
     setState((prev) => ({ ...prev, displayMode: mode }));
-    // TODO: T069 - Persist via /api/reader/preferences
+
+    // Persist to API
+    try {
+      await fetch("/api/reader/preferences", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ displayMode: mode }),
+      });
+    } catch (error) {
+      console.error("Failed to persist display mode:", error);
+    }
   }, []);
 
   const toggleToc = React.useCallback((): void => {
@@ -225,24 +259,24 @@ export function ReaderProvider({
     async (path: string, name: string): Promise<void> => {
       const isFav = state.favorites.some((f) => f.path === path);
 
-      setState((prev) => {
-        if (isFav) {
-          return {
-            ...prev,
-            favorites: prev.favorites.filter((f) => f.path !== path),
-          };
-        } else {
-          return {
-            ...prev,
-            favorites: [
-              ...prev.favorites,
-              { path, name, addedAt: new Date().toISOString() },
-            ],
-          };
-        }
-      });
+      // Calculate updated favorites
+      const updatedFavorites = isFav
+        ? state.favorites.filter((f) => f.path !== path)
+        : [...state.favorites, { path, name, addedAt: new Date().toISOString() }];
 
-      // TODO: T074-T075 - Persist via /api/reader/preferences
+      // Update local state
+      setState((prev) => ({ ...prev, favorites: updatedFavorites }));
+
+      // Persist to API
+      try {
+        await fetch("/api/reader/preferences", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ favorites: updatedFavorites }),
+        });
+      } catch (error) {
+        console.error("Failed to persist favorites:", error);
+      }
     },
     [state.favorites]
   );

@@ -1,7 +1,7 @@
 # Architecture Guide: Home-Dashboard
 
-**Version**: 1.0.0
-**Last Updated**: 2026-01-12
+**Version**: 1.1.0
+**Last Updated**: 2026-01-20
 **Status**: Production Ready
 
 ---
@@ -34,11 +34,15 @@ Home-Dashboard is a self-hosted personal finance and household management applic
 
 | Layer | Technology | Version |
 |-------|------------|---------|
-| **Framework** | Next.js (App Router) | 14+ |
+| **Framework** | Next.js (App Router) | 16.1.1 |
+| **UI Library** | React | 19.2.3 |
 | **Language** | TypeScript | 5.3+ (strict mode) |
 | **Styling** | Tailwind CSS + shadcn/ui | 4.x |
 | **Charts** | Recharts | 3.6 |
 | **Calendar** | FullCalendar | 6.x |
+| **Markdown** | react-markdown + remark-gfm | 10.1.0 / 4.0.1 |
+| **Syntax Highlighting** | Shiki | 3.21.0 |
+| **Diagrams** | Mermaid | 11.12.2 |
 | **State** | React Context | - |
 | **Forms** | React Hook Form + Zod | - |
 | **Auth** | NextAuth.js | 4.24.x |
@@ -54,6 +58,7 @@ Home-Dashboard is a self-hosted personal finance and household management applic
 | Navigation & Landing | 6 | 10 | 1 |
 | Finance Dashboard | 8 | 20+ | 14 |
 | Shared Calendar | 5 | 12 | 10 |
+| Markdown Reader | 9 | 18 | 6 |
 | Theme System | 1 | 2 | 0 |
 
 ---
@@ -204,6 +209,22 @@ RootLayout
     │   ├── EventModal (create/edit)
     │   └── EventDetailsDialog
     │
+    ├── /reader
+    │   └── ReaderProvider (ReaderContext)
+    │       ├── NavigationPane (left sidebar)
+    │       │   ├── SearchInput
+    │       │   ├── FileTree → FileTreeNode (recursive)
+    │       │   ├── RecentFiles
+    │       │   └── Favorites
+    │       ├── Breadcrumbs
+    │       ├── ContentViewer
+    │       │   ├── MarkdownRenderer (react-markdown + remark-gfm)
+    │       │   ├── CodeBlock (Shiki syntax highlighting)
+    │       │   └── MermaidRenderer (Mermaid diagrams)
+    │       ├── TableOfContents (right sidebar)
+    │       ├── DisplayModeToggle (themed/reading modes)
+    │       └── FavoriteToggle
+    │
     ├── /admin
     │   ├── AdminDashboard (stats)
     │   ├── UserList + UserForm
@@ -272,6 +293,14 @@ app/
 │   │   └── date-ranges/route.ts      # GET date range presets
 │   ├── export/
 │   │   └── csv/route.ts              # GET CSV export
+│   ├── reader/
+│   │   ├── tree/route.ts             # GET file tree (lazy loading)
+│   │   ├── file/route.ts             # GET file content
+│   │   ├── search/route.ts           # GET file search results
+│   │   ├── preferences/route.ts      # GET/PUT user preferences
+│   │   └── image/route.ts            # GET images from docs
+│   ├── email/
+│   │   └── test/route.ts             # POST send test email
 │   └── admin/
 │       └── smtp-config/route.ts      # POST SMTP settings
 │
@@ -282,6 +311,10 @@ app/
 ├── calendar/
 │   ├── layout.tsx          # Calendar layout
 │   └── page.tsx            # Calendar page
+│
+├── reader/
+│   ├── layout.tsx          # Reader layout (ReaderProvider)
+│   └── [[...path]]/page.tsx # Dynamic file viewer (catch-all route)
 │
 ├── admin/
 │   ├── layout.tsx          # Admin layout (role check)
@@ -355,6 +388,24 @@ components/
 │   ├── category-filter.tsx       # Category toggles
 │   └── invite-form.tsx           # Email invite form
 │
+├── reader/                 # Markdown reader components
+│   ├── ReaderLayout.tsx          # Main orchestrator
+│   ├── NavigationPane.tsx        # Left sidebar wrapper
+│   ├── FileTree.tsx              # Tree-based file browser
+│   ├── FileTreeNode.tsx          # Individual tree node (recursive)
+│   ├── SearchInput.tsx           # File search
+│   ├── Breadcrumbs.tsx           # Path navigation
+│   ├── RecentFiles.tsx           # Recently viewed files
+│   ├── Favorites.tsx             # Bookmarked files
+│   ├── ContentViewer.tsx         # Main content area
+│   ├── MarkdownRenderer.tsx      # Markdown rendering (react-markdown)
+│   ├── CodeBlock.tsx             # Syntax-highlighted code (Shiki)
+│   ├── MermaidRenderer.tsx       # Mermaid diagrams
+│   ├── TableOfContents.tsx       # Auto-generated TOC
+│   ├── EmptyState.tsx            # Empty state UI
+│   ├── DisplayModeToggle.tsx     # Themed/reading mode switch
+│   └── FavoriteToggle.tsx        # Bookmark toggle
+│
 ├── auth/                   # Authentication components
 │   ├── login-form.tsx            # Login form
 │   ├── user-menu.tsx             # User dropdown
@@ -401,10 +452,12 @@ lib/
 │   ├── auth.ts             # Login/password schemas
 │   ├── category.ts         # Category schemas
 │   ├── event.ts            # Event schemas
+│   ├── reader.ts           # Reader schemas (file, search, preferences)
 │   └── index.ts            # Central exports
 │
 ├── contexts/               # React Context providers
-│   └── filter-context.tsx  # FilterContext (date range, accounts)
+│   ├── filter-context.tsx  # FilterContext (date range, accounts)
+│   └── reader-context.tsx  # ReaderContext (file navigation, preferences)
 │
 ├── theme/                  # Theme system
 │   ├── index.ts            # Public exports
@@ -430,6 +483,14 @@ lib/
 ├── middleware/             # Request middleware
 │   └── admin-check.ts      # Admin role verification
 │
+├── reader/                 # Reader service layer
+│   ├── file-system.service.ts    # Sandboxed file access with security
+│   ├── preferences.service.ts    # User preferences management
+│   ├── heading-extractor.ts      # TOC generation from markdown
+│   ├── markdown-config.ts        # Markdown rendering configuration
+│   ├── shiki-highlighter.ts      # Code syntax highlighting
+│   └── mermaid-themes.ts         # Mermaid diagram theming
+│
 ├── utils/                  # Utility functions
 │   ├── csv-export.ts       # CSV generation
 │   ├── password.ts         # bcrypt utilities
@@ -438,6 +499,14 @@ lib/
 │
 └── server/                 # Server-side utilities
     └── auth-session.ts     # Server session handling
+```
+
+### Type Definitions (`types/`)
+
+```
+types/
+├── next-auth.d.ts          # NextAuth session type extensions
+└── reader.ts               # Reader type definitions (FileNode, ReaderState, etc.)
 ```
 
 ### Test Structure (`__tests__/`)
@@ -760,6 +829,23 @@ export async function GET(request: NextRequest) {
 | GET | `/api/filters/categories` | Transaction categories |
 | GET | `/api/filters/date-ranges` | Date range presets |
 
+#### Reader API
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/reader/tree` | Get directory structure (lazy-loaded) |
+| GET | `/api/reader/file` | Get file content for rendering |
+| GET | `/api/reader/search` | Search files by name |
+| GET | `/api/reader/preferences` | Get user preferences (favorites, recents, display mode) |
+| PUT | `/api/reader/preferences` | Update user preferences |
+| GET | `/api/reader/image` | Serve images from docs directory |
+
+#### Email Utility API
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/email/test` | Send test email (admin only) |
+
 ### Authentication Flow
 
 ```
@@ -793,6 +879,74 @@ Session Storage: JWT tokens (no database session table)
 Session Duration: 7 days
 Lockout: 5 failed attempts → 30 minute lock
 ```
+
+### Service Layer Pattern
+
+The Markdown Reader introduces a service layer for encapsulating business logic:
+
+```typescript
+// Service classes encapsulate domain logic
+export class FileSystemService {
+  private docsRoot: string;
+
+  validatePath(path: string): void;           // Security validation
+  resolvePath(relativePath: string): string;  // Safe path resolution
+  isValidDocumentPath(path: string): boolean; // Extension allowlist check
+}
+
+export class PreferencesService {
+  async getPreferences(): Promise<ReaderPreferences>;
+  async updatePreferences(update: Partial<ReaderPreferences>): Promise<void>;
+  async toggleFavorite(path: string, name: string): Promise<void>;
+  async addRecent(path: string, name: string): Promise<void>;
+}
+```
+
+**Benefits:**
+- Reusable business logic across API routes
+- Testable in isolation (dependency injection)
+- Clear separation of concerns
+- Centralized security validation
+
+**Data Flow with Service Layer:**
+
+```
+API Route (/api/reader/file)
+      ↓
+Zod Validation (reader.ts)
+      ↓
+Service Layer (FileSystemService)
+      ↓
+File System (DOCS_ROOT)
+```
+
+### Security Architecture
+
+#### Path Traversal Prevention (Markdown Reader)
+
+The FileSystemService implements defense-in-depth security:
+
+```typescript
+// Multi-layer validation
+1. Input validation: Rejects "..", null bytes, empty paths
+2. Path resolution: Uses path.join() with DOCS_ROOT
+3. Defense in depth: Verifies resolved path is within DOCS_ROOT
+4. Extension allowlisting: Only .md, .mmd, .txt files allowed
+```
+
+**Security Features:**
+- Regex-based `..` detection (handles URL encoding)
+- Blocks access to hidden files (starting with `.`)
+- Blocks access to `.reader-prefs.json` configuration file
+- All paths normalized before validation
+- Read-only access (no write operations via API except preferences)
+
+#### File System Sandboxing
+
+All file operations are sandboxed within `DOCS_ROOT`:
+- No access to parent directories
+- No symlink following outside sandbox
+- Strict extension allowlist enforcement
 
 ---
 
@@ -873,6 +1027,7 @@ Server Component (layout.tsx)
 | Context | Purpose | Provider Location |
 |---------|---------|-------------------|
 | FilterContext | Dashboard filters (date range, accounts) | `DashboardShell` |
+| ReaderContext | File navigation, content viewing, preferences | `ReaderLayout` |
 | ThemeContext | Light/Dark mode preference | `RootLayout` |
 | SessionContext | Auth state (NextAuth) | `RootLayout` |
 
@@ -895,6 +1050,44 @@ interface FilterContextValue {
 
   // Utilities
   buildFilterQueryParams: () => URLSearchParams;
+}
+```
+
+**ReaderContext State:**
+
+```typescript
+interface ReaderContextValue {
+  // Navigation
+  currentPath: string | null;
+  expandedPaths: Set<string>;
+  searchQuery: string;
+  searchResults: FileNode[];
+
+  // Content
+  currentFile: FileContent | null;
+  headings: DocumentHeading[];
+  isLoading: boolean;
+  error: string | null;
+
+  // Preferences
+  displayMode: 'themed' | 'reading';
+  tocVisible: boolean;
+  navPaneVisible: boolean;
+
+  // Quick Access
+  recentFiles: RecentFile[];
+  favorites: Favorite[];
+
+  // Actions
+  selectFile: (path: string) => Promise<void>;
+  toggleExpand: (path: string) => void;
+  setSearchQuery: (query: string) => void;
+  setHeadings: (headings: DocumentHeading[]) => void;
+  setDisplayMode: (mode: DisplayMode) => void;
+  toggleToc: () => void;
+  toggleNavPane: () => void;
+  toggleFavorite: (path: string, name: string) => Promise<void>;
+  isFavorite: (path: string) => boolean;
 }
 ```
 
@@ -1057,6 +1250,7 @@ DATABASE_URL="sqlserver://localhost:1434;database=HomeFinance-db;user=sa;passwor
 | `DATABASE_URL` | Prisma connection string | Yes |
 | `NEXTAUTH_SECRET` | JWT signing key | Yes |
 | `NEXTAUTH_URL` | Auth callback base URL | Yes |
+| `DOCS_ROOT` | Markdown documentation directory path | Yes (Reader) |
 | `SMTP_HOST` | Email server | Optional |
 | `SMTP_PORT` | Email port | Optional |
 | `SMTP_USER` | Email username | Optional |
@@ -1189,4 +1383,4 @@ Commit message format:
 
 ---
 
-*Generated: 2026-01-12*
+*Generated: 2026-01-20*
