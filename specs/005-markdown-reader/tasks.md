@@ -190,18 +190,18 @@
 
 ### Tests for User Story 6
 
-- [ ] T063 [P] [US6] Unit tests for DisplayModeToggle component in `__tests__/unit/components/reader/DisplayModeToggle.test.tsx`
+- [X] T063 [P] [US6] Unit tests for DisplayModeToggle component in `__tests__/unit/components/reader/DisplayModeToggle.test.tsx`
 
 ### Implementation for User Story 6
 
-- [ ] T064 [US6] Create DisplayModeToggle component in `components/reader/controls/DisplayModeToggle.tsx`
-- [ ] T065 [US6] Add display mode state to ReaderContext
-- [ ] T066 [US6] Create reading mode CSS variables/styles in reader-specific styles
-- [ ] T067 [US6] Update CodeBlock to use mode-appropriate Shiki theme
-- [ ] T068 [US6] Update MermaidRenderer to re-render on mode change with appropriate theme
-- [ ] T069 [US6] Persist display mode preference via PreferencesService
+- [X] T064 [US6] Create DisplayModeToggle component in `components/reader/controls/DisplayModeToggle.tsx`
+- [X] T065 [US6] Add display mode state to ReaderContext
+- [X] T066 [US6] Create reading mode CSS variables/styles in reader-specific styles
+- [X] T067 [US6] Update CodeBlock to use mode-appropriate Shiki theme
+- [X] T068 [US6] Update MermaidRenderer to re-render on mode change with appropriate theme
+- [X] T069 [US6] Persist display mode preference via PreferencesService
 
-**Checkpoint**: User Story 6 complete - users can toggle reading modes with persistence
+**Checkpoint**: User Story 6 complete - users can toggle reading modes with persistence ✓
 
 ---
 
@@ -213,23 +213,23 @@
 
 ### Tests for User Story 7
 
-- [ ] T070 [P] [US7] Contract tests for GET/PUT /api/reader/preferences endpoints in `__tests__/integration/api/reader/preferences.test.ts`
-- [ ] T071 [P] [US7] Unit tests for RecentFiles component in `__tests__/unit/components/reader/RecentFiles.test.tsx`
-- [ ] T072 [P] [US7] Unit tests for Favorites component in `__tests__/unit/components/reader/Favorites.test.tsx`
-- [ ] T073 [P] [US7] Unit tests for FavoriteToggle component in `__tests__/unit/components/reader/FavoriteToggle.test.tsx`
+- [X] T070 [P] [US7] Contract tests for GET/PUT /api/reader/preferences endpoints in `__tests__/integration/api/reader/preferences.test.ts`
+- [X] T071 [P] [US7] Unit tests for RecentFiles component in `__tests__/unit/components/reader/RecentFiles.test.tsx`
+- [X] T072 [P] [US7] Unit tests for Favorites component in `__tests__/unit/components/reader/Favorites.test.tsx`
+- [X] T073 [P] [US7] Unit tests for FavoriteToggle component in `__tests__/unit/components/reader/FavoriteToggle.test.tsx`
 
 ### Implementation for User Story 7
 
-- [ ] T074 [US7] Implement GET /api/reader/preferences route in `app/api/reader/preferences/route.ts`
-- [ ] T075 [US7] Implement PUT /api/reader/preferences route in `app/api/reader/preferences/route.ts`
-- [ ] T076 [US7] Create RecentFiles component displaying last 10 viewed in `components/reader/navigation/RecentFiles.tsx`
-- [ ] T077 [US7] Create Favorites component displaying bookmarked files in `components/reader/navigation/Favorites.tsx`
-- [ ] T078 [US7] Create FavoriteToggle component (bookmark icon) in `components/reader/controls/FavoriteToggle.tsx`
-- [ ] T079 [US7] Add recents/favorites state and actions to ReaderContext
-- [ ] T080 [US7] Auto-update recents list when file is viewed (max 10, newest first)
-- [ ] T081 [US7] Integrate RecentFiles and Favorites into NavigationPane
+- [X] T074 [US7] Implement GET /api/reader/preferences route in `app/api/reader/preferences/route.ts`
+- [X] T075 [US7] Implement PUT /api/reader/preferences route in `app/api/reader/preferences/route.ts`
+- [X] T076 [US7] Create RecentFiles component displaying last 10 viewed in `components/reader/navigation/RecentFiles.tsx`
+- [X] T077 [US7] Create Favorites component displaying bookmarked files in `components/reader/navigation/Favorites.tsx`
+- [X] T078 [US7] Create FavoriteToggle component (bookmark icon) in `components/reader/controls/FavoriteToggle.tsx`
+- [X] T079 [US7] Add recents/favorites state and actions to ReaderContext
+- [X] T080 [US7] Auto-update recents list when file is viewed (max 10, newest first)
+- [X] T081 [US7] Integrate RecentFiles and Favorites into NavigationPane
 
-**Checkpoint**: User Story 7 complete - quick access to recent and favorite files
+**Checkpoint**: User Story 7 complete - quick access to recent and favorite files ✓
 
 ---
 

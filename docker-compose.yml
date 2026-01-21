@@ -50,7 +50,7 @@ services:
     volumes:
       # Documentation volume mount for Markdown Reader
       # Replace ./docs with your local documentation directory
-      - ./docs:/app/docs:rw
+      - /home/dev0/repos/dummy/Workspace001/sprint-reports:/app/docs:rw
     depends_on:
       db:
         condition: service_healthy
