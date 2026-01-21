@@ -302,6 +302,34 @@
 
 ---
 
+## Phase 13: Navigation Integration (Priority: P1)
+
+**Purpose**: Integrate Reader feature into main application navigation and fix authentication flow
+
+**Goal**: Make Reader discoverable from navbar, home page, and fix login redirect to home instead of calendar
+
+### Tests for Navigation Integration
+
+- [ ] T107 [P] Unit tests for Reader nav item in `__tests__/unit/components/navigation/nav-items.test.tsx`
+- [ ] T108 [P] Unit tests for Reader app card in `__tests__/unit/components/home/app-selection-panel.test.tsx`
+- [ ] T109 [P] Unit tests for login redirect change in `__tests__/unit/components/login-form.test.tsx`
+- [ ] T110 E2E test for navigation to Reader from navbar in `__tests__/e2e/reader-navigation.spec.ts`
+
+### Implementation for Navigation Integration
+
+- [ ] T111 [P] Add Reader nav item (BookOpen icon) to navItems array in `components/navigation/nav-items.tsx`
+- [ ] T112 [P] Add Reader app card to apps array in `components/home/app-selection-panel.tsx`
+- [ ] T113 Update LoginForm default callbackUrl from "/calendar" to "/" in `components/auth/login-form.tsx`
+- [ ] T114 Update login page callbackUrl prop from "/calendar" to "/" in `app/login/page.tsx`
+- [ ] T115 Update middleware.ts authenticated redirect from "/calendar" to "/" (line 37)
+- [ ] T116 Update protected-route.tsx non-admin redirect from "/calendar" to "/" in `components/auth/protected-route.tsx`
+- [ ] T117 Update mobile drawer tests to include Reader nav item in `__tests__/unit/components/navigation/mobile-drawer.test.tsx`
+- [ ] T118 Update E2E navigation tests for Reader in `__tests__/e2e/navigation.spec.ts`
+
+**Checkpoint**: Reader is fully integrated into app navigation with proper auth flow to home page
+
+---
+
 ## Dependencies & Execution Order
 
 ### Phase Dependencies
@@ -313,6 +341,7 @@
   - P2 stories (US4-7) are enhancements - complete before P3
   - P3 stories (US8-9) are nice-to-have
 - **Polish (Phase 12)**: Depends on all desired user stories being complete
+- **Navigation Integration (Phase 13)**: Depends on US1 completion (reader route exists) - can run in parallel with Phase 10-12
 
 ### User Story Dependencies
 
@@ -327,6 +356,7 @@
 | US7 - Recents & Favorites | P2 | US1 (NavigationPane exists) | Phase 3 |
 | US8 - Mobile Navigation | P3 | US7 (all nav features for drawer) | Phase 9 |
 | US9 - Refresh Content | P3 | US1 (ContentViewer exists) | Phase 3 |
+| Navigation Integration | P1 | US1 (/reader route exists) | Phase 3 |
 
 ### Within Each User Story (TDD Cycle)
 
@@ -418,10 +448,11 @@ With multiple developers after Foundational:
 | Phase 10 | T082-T090 | US8: Mobile Navigation |
 | Phase 11 | T091-T094 | US9: Refresh Content |
 | Phase 12 | T095-T106 | Polish & Edge Cases |
+| Phase 13 | T107-T118 | Navigation Integration 🎯 |
 
-**Total Tasks**: 106
-**MVP Tasks** (US1-3): 46 tasks
-**Suggested MVP Scope**: Phases 1-5 (Setup + Foundation + US1-3)
+**Total Tasks**: 118
+**MVP Tasks** (US1-3 + Navigation): 58 tasks (includes Phase 13)
+**Suggested MVP Scope**: Phases 1-5 + Phase 13 (Setup + Foundation + US1-3 + Navigation Integration)
 
 ---
 
