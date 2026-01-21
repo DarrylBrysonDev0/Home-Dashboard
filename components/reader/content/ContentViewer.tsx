@@ -57,12 +57,37 @@ export function ContentViewer({
     );
   }
 
-  // Error state
+  // Error state - distinguish between different error types
   if (error) {
+    const lowerError = error.toLowerCase();
+
+    // Detect volume unavailable scenarios
+    const isVolumeUnavailable =
+      lowerError.includes("volume") ||
+      lowerError.includes("not configured") ||
+      lowerError.includes("not accessible") ||
+      lowerError.includes("docs_root");
+
+    // Detect "file not found" or "file deleted" scenarios
+    const isNotFound =
+      !isVolumeUnavailable && (
+        lowerError.includes("not found") ||
+        lowerError.includes("deleted") ||
+        lowerError.includes("does not exist")
+      );
+
+    // Determine empty state type
+    let emptyStateType: "volume-unavailable" | "not-found" | "error" = "error";
+    if (isVolumeUnavailable) {
+      emptyStateType = "volume-unavailable";
+    } else if (isNotFound) {
+      emptyStateType = "not-found";
+    }
+
     return (
       <EmptyState
-        type="error"
-        errorMessage={error}
+        type={emptyStateType}
+        errorMessage={emptyStateType === "error" ? error : undefined}
         className={className}
       />
     );

@@ -289,11 +289,11 @@
 
 ### Implementation for Polish
 
-- [ ] T097 Implement GET /api/reader/image route for relative images in `app/api/reader/image/route.ts`
-- [ ] T098 Create custom MarkdownImage component blocking external URLs in MarkdownRenderer
-- [ ] T099 Handle edge case: empty documentation directory (friendly empty state)
-- [ ] T100 Handle edge case: file deleted while viewing (error message)
-- [ ] T101 Handle edge case: mounted volume unavailable (error state)
+- [X] T097 Implement GET /api/reader/image route for relative images in `app/api/reader/image/route.ts`
+- [X] T098 Create custom MarkdownImage component blocking external URLs in MarkdownRenderer
+- [X] T099 Handle edge case: empty documentation directory (friendly empty state)
+- [X] T100 Handle edge case: file deleted while viewing (error message)
+- [X] T101 Handle edge case: mounted volume unavailable (error state)
 - [ ] T102 Handle edge case: very large files (>1MB) with performance warning
 - [ ] T103 Handle edge case: deeply nested breadcrumbs (scrollable/ellipsis)
 - [ ] T104 Add keyboard navigation support (Tab navigation, Enter activation)

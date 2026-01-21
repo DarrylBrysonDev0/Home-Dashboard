@@ -11,11 +11,11 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { FileText, FolderOpen, ArrowLeft } from "lucide-react";
+import { FileText, FolderOpen, ArrowLeft, ServerOff } from "lucide-react";
 
 export interface EmptyStateProps {
   /** Type of empty state to display */
-  type?: "no-selection" | "empty-folder" | "error" | "not-found";
+  type?: "no-selection" | "empty-folder" | "error" | "not-found" | "volume-unavailable";
   /** Error message to display (for error type) */
   errorMessage?: string;
   /** Optional className for styling */
@@ -93,6 +93,24 @@ export function EmptyState({
           </h2>
           <p className="text-sm text-muted-foreground max-w-sm">
             {errorMessage || "An error occurred while loading the file. Please try again."}
+          </p>
+        </>
+      )}
+
+      {type === "volume-unavailable" && (
+        <>
+          <div className="rounded-full bg-destructive/10 p-4 mb-4">
+            <ServerOff className="h-10 w-10 text-destructive" />
+          </div>
+          <h2 className="text-lg font-semibold text-foreground mb-2">
+            Documentation unavailable
+          </h2>
+          <p className="text-sm text-muted-foreground max-w-sm">
+            The documentation volume is not accessible. This may be because the
+            storage is not mounted or the DOCS_ROOT path is misconfigured.
+          </p>
+          <p className="text-xs text-muted-foreground mt-2 max-w-sm">
+            Please check your Docker volume mounts and environment configuration.
           </p>
         </>
       )}
