@@ -55,11 +55,11 @@ describe("AppSelectionPanel", () => {
   });
 
   describe("App Cards Rendering", () => {
-    it("should render all 4 app cards", () => {
+    it("should render all 5 app cards", () => {
       render(<AppSelectionPanel />);
 
       const appCards = screen.getAllByTestId("app-card");
-      expect(appCards).toHaveLength(4);
+      expect(appCards).toHaveLength(5);
     });
 
     it("should render Home app card with correct link", () => {
@@ -92,6 +92,14 @@ describe("AppSelectionPanel", () => {
       const settingsCard = screen.getByRole("link", { name: /Settings/i });
       expect(settingsCard).toBeInTheDocument();
       expect(settingsCard).toHaveAttribute("href", "/settings");
+    });
+
+    it("should render Reader app card with correct link", () => {
+      render(<AppSelectionPanel />);
+
+      const readerCard = screen.getByRole("link", { name: /Reader/i });
+      expect(readerCard).toBeInTheDocument();
+      expect(readerCard).toHaveAttribute("href", "/reader");
     });
   });
 
@@ -159,6 +167,23 @@ describe("AppSelectionPanel", () => {
         );
       expect(settingsDescription).toBeDefined();
     });
+
+    it("should display Reader app title and description", () => {
+      render(<AppSelectionPanel />);
+
+      expect(screen.getByText("Reader")).toBeInTheDocument();
+      // Description should contain relevant reader/documentation text
+      const readerDescription = screen
+        .getAllByText(/reader|document|docs|markdown|browse/i)
+        .find(
+          (el) =>
+            el.tagName.toLowerCase() === "p" ||
+            el.textContent?.toLowerCase().includes("document") ||
+            el.textContent?.toLowerCase().includes("browse") ||
+            el.textContent?.toLowerCase().includes("markdown")
+        );
+      expect(readerDescription).toBeDefined();
+    });
   });
 
   describe("Grid Layout", () => {
@@ -192,7 +217,7 @@ describe("AppSelectionPanel", () => {
       render(<AppSelectionPanel />);
 
       const icons = screen.getAllByTestId("app-card-icon");
-      expect(icons).toHaveLength(4);
+      expect(icons).toHaveLength(5);
     });
   });
 
@@ -217,7 +242,7 @@ describe("AppSelectionPanel", () => {
       render(<AppSelectionPanel />);
 
       const links = screen.getAllByRole("link");
-      expect(links.length).toBe(4);
+      expect(links.length).toBe(5);
 
       // All links should be focusable
       links.forEach((link) => {
@@ -273,6 +298,46 @@ describe("AppSelectionPanel - Order and Consistency", () => {
     expect(titles.some((t) => t?.includes("Home"))).toBe(true);
     expect(titles.some((t) => t?.includes("Finance"))).toBe(true);
     expect(titles.some((t) => t?.includes("Calendar"))).toBe(true);
+    expect(titles.some((t) => t?.includes("Reader"))).toBe(true);
     expect(titles.some((t) => t?.includes("Settings"))).toBe(true);
+  });
+});
+
+describe("AppSelectionPanel - Reader App Card", () => {
+  it("should mark Reader card as current when on /reader route", async () => {
+    const { usePathname } = await import("next/navigation");
+    vi.mocked(usePathname).mockReturnValue("/reader");
+
+    render(<AppSelectionPanel />);
+
+    // Reader card should be marked as current
+    const readerCard = screen.getByRole("link", { name: /Reader/i });
+    const cardElement = readerCard.closest('[data-testid="app-card"]');
+
+    // Should have current page indication
+    expect(cardElement?.className).toMatch(/current|active|ring|selected/i);
+  });
+
+  it("should mark Reader card as current when on nested /reader path", async () => {
+    const { usePathname } = await import("next/navigation");
+    vi.mocked(usePathname).mockReturnValue("/reader/docs/getting-started.md");
+
+    render(<AppSelectionPanel />);
+
+    // Reader card should be marked as current for nested paths
+    const readerCard = screen.getByRole("link", { name: /Reader/i });
+    const cardElement = readerCard.closest('[data-testid="app-card"]');
+
+    // Should have current page indication
+    expect(cardElement?.className).toMatch(/current|active|ring|selected/i);
+  });
+
+  it("should render Reader card with BookOpen icon", () => {
+    render(<AppSelectionPanel />);
+
+    const readerCard = screen.getByRole("link", { name: /Reader/i });
+    // Should have an SVG icon
+    const icon = readerCard.querySelector("svg");
+    expect(icon).toBeInTheDocument();
   });
 });

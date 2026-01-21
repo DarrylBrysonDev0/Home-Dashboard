@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Home, DollarSign, Calendar, Settings } from "lucide-react";
+import { Home, DollarSign, Calendar, BookOpen, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AppCard } from "./app-card";
 
@@ -35,6 +35,12 @@ const apps = [
     icon: Calendar,
     title: "Calendar",
     description: "Manage your schedule and events",
+  },
+  {
+    href: "/reader",
+    icon: BookOpen,
+    title: "Reader",
+    description: "Browse and read documentation",
   },
   {
     href: "/settings",

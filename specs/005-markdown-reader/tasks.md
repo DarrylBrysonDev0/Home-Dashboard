@@ -310,15 +310,15 @@
 
 ### Tests for Navigation Integration
 
-- [ ] T107 [P] Unit tests for Reader nav item in `__tests__/unit/components/navigation/nav-items.test.tsx`
-- [ ] T108 [P] Unit tests for Reader app card in `__tests__/unit/components/home/app-selection-panel.test.tsx`
-- [ ] T109 [P] Unit tests for login redirect change in `__tests__/unit/components/login-form.test.tsx`
-- [ ] T110 E2E test for navigation to Reader from navbar in `__tests__/e2e/reader-navigation.spec.ts`
+- [X] T107 [P] Unit tests for Reader nav item in `__tests__/unit/components/navigation/nav-items.test.tsx`
+- [X] T108 [P] Unit tests for Reader app card in `__tests__/unit/components/home/app-selection-panel.test.tsx`
+- [X] T109 [P] Unit tests for login redirect change in `__tests__/unit/components/login-form.test.tsx`
+- [X] T110 E2E test for navigation to Reader from navbar in `__tests__/e2e/reader-navigation.spec.ts`
 
 ### Implementation for Navigation Integration
 
-- [ ] T111 [P] Add Reader nav item (BookOpen icon) to navItems array in `components/navigation/nav-items.tsx`
-- [ ] T112 [P] Add Reader app card to apps array in `components/home/app-selection-panel.tsx`
+- [X] T111 [P] Add Reader nav item (BookOpen icon) to navItems array in `components/navigation/nav-items.tsx`
+- [X] T112 [P] Add Reader app card to apps array in `components/home/app-selection-panel.tsx`
 - [ ] T113 Update LoginForm default callbackUrl from "/calendar" to "/" in `components/auth/login-form.tsx`
 - [ ] T114 Update login page callbackUrl prop from "/calendar" to "/" in `app/login/page.tsx`
 - [ ] T115 Update middleware.ts authenticated redirect from "/calendar" to "/" (line 37)
