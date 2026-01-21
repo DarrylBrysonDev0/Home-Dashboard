@@ -33,8 +33,8 @@ export default withAuth(
     // Check admin role for /admin routes
     if (pathname.startsWith("/admin")) {
       if (token?.role !== "ADMIN") {
-        // Redirect non-admin users to calendar page
-        return NextResponse.redirect(new URL("/calendar", req.url));
+        // Redirect non-admin users to home page
+        return NextResponse.redirect(new URL("/", req.url));
       }
     }
 

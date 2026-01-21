@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
  * - Centered card layout with LoginForm
  * - NextAuth.js credentials authentication
  * - Account lockout protection (FR-005)
- * - Redirects to /calendar on successful login
+ * - Redirects to home page on successful login
  *
  * @see contracts/auth-api.md
  */
@@ -34,7 +34,7 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <LoginForm callbackUrl="/calendar" />
+          <LoginForm callbackUrl="/" />
         </CardContent>
       </Card>
     </div>

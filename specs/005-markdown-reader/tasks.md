@@ -319,11 +319,11 @@
 
 - [X] T111 [P] Add Reader nav item (BookOpen icon) to navItems array in `components/navigation/nav-items.tsx`
 - [X] T112 [P] Add Reader app card to apps array in `components/home/app-selection-panel.tsx`
-- [ ] T113 Update LoginForm default callbackUrl from "/calendar" to "/" in `components/auth/login-form.tsx`
-- [ ] T114 Update login page callbackUrl prop from "/calendar" to "/" in `app/login/page.tsx`
-- [ ] T115 Update middleware.ts authenticated redirect from "/calendar" to "/" (line 37)
-- [ ] T116 Update protected-route.tsx non-admin redirect from "/calendar" to "/" in `components/auth/protected-route.tsx`
-- [ ] T117 Update mobile drawer tests to include Reader nav item in `__tests__/unit/components/navigation/mobile-drawer.test.tsx`
+- [X] T113 Update LoginForm default callbackUrl from "/calendar" to "/" in `components/auth/login-form.tsx`
+- [X] T114 Update login page callbackUrl prop from "/calendar" to "/" in `app/login/page.tsx`
+- [X] T115 Update middleware.ts authenticated redirect from "/calendar" to "/" (line 37)
+- [X] T116 Update protected-route.tsx non-admin redirect from "/calendar" to "/" in `components/auth/protected-route.tsx`
+- [X] T117 Update mobile drawer tests to include Reader nav item in `__tests__/unit/components/navigation/mobile-drawer.test.tsx`
 - [ ] T118 Update E2E navigation tests for Reader in `__tests__/e2e/navigation.spec.ts`
 
 **Checkpoint**: Reader is fully integrated into app navigation with proper auth flow to home page

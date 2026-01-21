@@ -38,7 +38,7 @@ export interface LoginFormProps {
  * Implements account lockout protection (FR-005) by displaying lockout messages
  * returned from the NextAuth authorize function.
  */
-export function LoginForm({ callbackUrl = "/calendar" }: LoginFormProps) {
+export function LoginForm({ callbackUrl = "/" }: LoginFormProps) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
