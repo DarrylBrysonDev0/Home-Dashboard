@@ -241,20 +241,20 @@
 
 ### Tests for User Story 8
 
-- [ ] T082 [P] [US8] Unit tests for ReaderDrawer component in `__tests__/unit/components/reader/ReaderDrawer.test.tsx`
-- [ ] T083 [US8] E2E tests for mobile navigation flow in `__tests__/e2e/reader-mobile.spec.ts`
+- [X] T082 [P] [US8] Unit tests for ReaderDrawer component in `__tests__/unit/components/reader/ReaderDrawer.test.tsx`
+- [X] T083 [US8] E2E tests for mobile navigation flow in `__tests__/e2e/reader-mobile.spec.ts`
 
 ### Implementation for User Story 8
 
-- [ ] T084 [US8] Create ReaderDrawer component with slide animation in `components/reader/mobile/ReaderDrawer.tsx`
-- [ ] T085 [US8] Add drawer open/close state to ReaderContext
-- [ ] T086 [US8] Add hamburger menu button for mobile viewports in ReaderLayout
-- [ ] T087 [US8] Implement drawer close on file selection
-- [ ] T088 [US8] Implement drawer close on overlay tap and close button
-- [ ] T089 [US8] Add responsive breakpoint styles (hide nav pane < 768px)
-- [ ] T090 [US8] Ensure content fills viewport with appropriate text sizing on mobile
+- [X] T084 [US8] Create ReaderDrawer component with slide animation in `components/reader/mobile/ReaderDrawer.tsx`
+- [X] T085 [US8] Add drawer open/close state to ReaderContext
+- [X] T086 [US8] Add hamburger menu button for mobile viewports in ReaderLayout
+- [X] T087 [US8] Implement drawer close on file selection
+- [X] T088 [US8] Implement drawer close on overlay tap and close button
+- [X] T089 [US8] Add responsive breakpoint styles (hide nav pane < 768px)
+- [X] T090 [US8] Ensure content fills viewport with appropriate text sizing on mobile
 
-**Checkpoint**: User Story 8 complete - mobile users have drawer navigation
+**Checkpoint**: User Story 8 complete - mobile users have drawer navigation ✓
 
 ---
 
@@ -266,15 +266,15 @@
 
 ### Tests for User Story 9
 
-- [ ] T091 [P] [US9] Unit tests for RefreshButton component in `__tests__/unit/components/reader/RefreshButton.test.tsx`
+- [X] T091 [P] [US9] Unit tests for RefreshButton component in `__tests__/unit/components/reader/RefreshButton.test.tsx`
 
 ### Implementation for User Story 9
 
-- [ ] T092 [US9] Create RefreshButton component with loading state in `components/reader/controls/RefreshButton.tsx`
-- [ ] T093 [US9] Add refreshContent action to ReaderContext
-- [ ] T094 [US9] Integrate RefreshButton into reader controls area
+- [X] T092 [US9] Create RefreshButton component with loading state in `components/reader/controls/RefreshButton.tsx`
+- [X] T093 [US9] Add refreshContent action to ReaderContext
+- [X] T094 [US9] Integrate RefreshButton into reader controls area
 
-**Checkpoint**: User Story 9 complete - users can refresh file content without page reload
+**Checkpoint**: User Story 9 complete - users can refresh file content without page reload ✓
 
 ---
 
