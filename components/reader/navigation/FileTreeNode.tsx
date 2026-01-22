@@ -28,6 +28,8 @@ export interface FileTreeNodeProps {
   level: number;
   /** Whether this node is selected */
   isSelected: boolean;
+  /** Whether this node has keyboard focus (for roving tabindex) */
+  isFocused?: boolean;
   /** Whether this directory is expanded */
   isExpanded: boolean;
   /** Whether this directory is currently loading children */
@@ -60,6 +62,7 @@ export function FileTreeNode({
   node,
   level,
   isSelected,
+  isFocused = false,
   isExpanded,
   isLoading,
   onFileSelect,
@@ -78,6 +81,7 @@ export function FileTreeNode({
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
+    // Only handle Enter/Space here - arrow keys are handled at FileTree level
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       handleClick();
@@ -87,12 +91,17 @@ export function FileTreeNode({
   // Generate a test ID based on the node name
   const testId = `tree-node-${node.name}`;
 
+  // Roving tabindex: only focused node has tabIndex=0
+  // If no node is focused yet, make all tabbable (tabIndex=0)
+  const tabIndex = isFocused ? 0 : -1;
+
   return (
     <>
       <div
         role="treeitem"
-        tabIndex={0}
+        tabIndex={tabIndex}
         data-testid={testId}
+        data-path={node.path}
         data-level={level}
         data-selected={isSelected ? "true" : "false"}
         data-expanded={isDirectory ? (isExpanded ? "true" : "false") : undefined}
