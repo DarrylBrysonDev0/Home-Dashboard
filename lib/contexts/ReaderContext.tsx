@@ -42,7 +42,7 @@ const defaultState: ReaderState = {
   // User preferences
   displayMode: defaultPreferences.displayMode,
   tocVisible: true,
-  navPaneVisible: true,
+  navPaneVisible: false, // Default to false so drawer is closed on page load
 
   // Quick access
   recentFiles: [],

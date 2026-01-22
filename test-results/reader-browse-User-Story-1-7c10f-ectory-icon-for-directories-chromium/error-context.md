@@ -1,0 +1,74 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation "Main navigation" [ref=e2]:
+    - generic [ref=e3]:
+      - link "Cemdash Home Dashboard - Go to home page" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]: Cemdash
+      - generic [ref=e6]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - img [ref=e10]
+          - generic [ref=e13]: Home
+        - link "Finance" [ref=e16] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e17]
+          - generic [ref=e19]: Finance
+        - link "Calendar" [ref=e22] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e23]
+          - generic [ref=e25]: Calendar
+        - link "Reader" [ref=e28] [cursor=pointer]:
+          - /url: /reader
+          - img [ref=e29]
+          - generic [ref=e31]: Reader
+        - link "Settings" [ref=e34] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e35]
+          - generic [ref=e38]: Settings
+    - generic [ref=e39]:
+      - button "Switch to dark theme" [ref=e41]:
+        - img
+      - button "User menu" [ref=e43]:
+        - generic [ref=e44]: A
+  - main [ref=e45]:
+    - generic [ref=e47]:
+      - complementary "File navigation" [ref=e48]:
+        - generic [ref=e49]:
+          - heading "Documents" [level=2] [ref=e50]
+          - generic [ref=e51]:
+            - img [ref=e53]
+            - searchbox "Search files" [ref=e56]
+        - tree "File tree" [ref=e60]:
+          - treeitem "sub-dir" [ref=e61] [cursor=pointer]:
+            - button [ref=e62]:
+              - img [ref=e63]
+            - img [ref=e66]
+            - generic [ref=e68]: sub-dir
+          - treeitem "ARCHITECTURE.md" [ref=e69] [cursor=pointer]:
+            - img [ref=e71]
+            - generic [ref=e76]: ARCHITECTURE.md
+          - treeitem "README.md" [ref=e77] [cursor=pointer]:
+            - img [ref=e79]
+            - generic [ref=e84]: README.md
+      - main [ref=e85]:
+        - generic [ref=e86]:
+          - navigation "Breadcrumb" [ref=e87]:
+            - button "Go to root" [ref=e88]:
+              - img [ref=e89]
+          - button "Switch to reading mode" [ref=e94]:
+            - img [ref=e95]
+        - generic [ref=e103]:
+          - img [ref=e105]
+          - heading "Select a document" [level=2] [ref=e108]
+          - paragraph [ref=e109]: Choose a file from the navigation panel to view its contents. You can browse folders by clicking on them to expand.
+          - generic [ref=e110]:
+            - img [ref=e111]
+            - generic [ref=e113]: Click a file in the sidebar
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e119] [cursor=pointer]:
+    - img [ref=e120]
+  - alert [ref=e123]
+```

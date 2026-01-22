@@ -64,7 +64,7 @@
 - [X] T014 [P] [US1] Contract tests for GET /api/reader/file endpoint in `__tests__/integration/api/reader/file.test.ts`
 - [X] T015 [P] [US1] Unit tests for FileTree component in `__tests__/unit/components/reader/FileTree.test.tsx`
 - [X] T016 [P] [US1] Unit tests for MarkdownRenderer component in `__tests__/unit/components/reader/MarkdownRenderer.test.tsx`
-- [ ] T017 [US1] E2E test for file browsing flow in `__tests__/e2e/reader-browse.spec.ts`
+- [X] T017 [US1] E2E test for file browsing flow in `__tests__/e2e/reader-browse.spec.ts`
 
 ### Implementation for User Story 1
 
@@ -241,20 +241,20 @@
 
 ### Tests for User Story 8
 
-- [ ] T082 [P] [US8] Unit tests for ReaderDrawer component in `__tests__/unit/components/reader/ReaderDrawer.test.tsx`
-- [ ] T083 [US8] E2E tests for mobile navigation flow in `__tests__/e2e/reader-mobile.spec.ts`
+- [X] T082 [P] [US8] Unit tests for ReaderDrawer component in `__tests__/unit/components/reader/ReaderDrawer.test.tsx`
+- [X] T083 [US8] E2E tests for mobile navigation flow in `__tests__/e2e/reader-mobile.spec.ts`
 
 ### Implementation for User Story 8
 
-- [ ] T084 [US8] Create ReaderDrawer component with slide animation in `components/reader/mobile/ReaderDrawer.tsx`
-- [ ] T085 [US8] Add drawer open/close state to ReaderContext
-- [ ] T086 [US8] Add hamburger menu button for mobile viewports in ReaderLayout
-- [ ] T087 [US8] Implement drawer close on file selection
-- [ ] T088 [US8] Implement drawer close on overlay tap and close button
-- [ ] T089 [US8] Add responsive breakpoint styles (hide nav pane < 768px)
-- [ ] T090 [US8] Ensure content fills viewport with appropriate text sizing on mobile
+- [X] T084 [US8] Create ReaderDrawer component with slide animation in `components/reader/mobile/ReaderDrawer.tsx`
+- [X] T085 [US8] Add drawer open/close state to ReaderContext
+- [X] T086 [US8] Add hamburger menu button for mobile viewports in ReaderLayout
+- [X] T087 [US8] Implement drawer close on file selection
+- [X] T088 [US8] Implement drawer close on overlay tap and close button
+- [X] T089 [US8] Add responsive breakpoint styles (hide nav pane < 768px)
+- [X] T090 [US8] Ensure content fills viewport with appropriate text sizing on mobile
 
-**Checkpoint**: User Story 8 complete - mobile users have drawer navigation
+**Checkpoint**: User Story 8 complete - mobile users have drawer navigation ✓
 
 ---
 
@@ -266,15 +266,15 @@
 
 ### Tests for User Story 9
 
-- [ ] T091 [P] [US9] Unit tests for RefreshButton component in `__tests__/unit/components/reader/RefreshButton.test.tsx`
+- [X] T091 [P] [US9] Unit tests for RefreshButton component in `__tests__/unit/components/reader/RefreshButton.test.tsx`
 
 ### Implementation for User Story 9
 
-- [ ] T092 [US9] Create RefreshButton component with loading state in `components/reader/controls/RefreshButton.tsx`
-- [ ] T093 [US9] Add refreshContent action to ReaderContext
-- [ ] T094 [US9] Integrate RefreshButton into reader controls area
+- [X] T092 [US9] Create RefreshButton component with loading state in `components/reader/controls/RefreshButton.tsx`
+- [X] T093 [US9] Add refreshContent action to ReaderContext
+- [X] T094 [US9] Integrate RefreshButton into reader controls area
 
-**Checkpoint**: User Story 9 complete - users can refresh file content without page reload
+**Checkpoint**: User Story 9 complete - users can refresh file content without page reload ✓
 
 ---
 
@@ -285,18 +285,18 @@
 ### Tests for Polish
 
 - [ ] T095 [P] Contract tests for GET /api/reader/image endpoint in `__tests__/integration/api/reader/image.test.ts`
-- [ ] T096 [P] E2E tests for edge cases (empty directory, file not found) in `__tests__/e2e/reader-edge-cases.spec.ts`
+- [X] T096 [P] E2E tests for edge cases (empty directory, file not found) in `__tests__/e2e/reader-edge-cases.spec.ts`
 
 ### Implementation for Polish
 
-- [ ] T097 Implement GET /api/reader/image route for relative images in `app/api/reader/image/route.ts`
-- [ ] T098 Create custom MarkdownImage component blocking external URLs in MarkdownRenderer
-- [ ] T099 Handle edge case: empty documentation directory (friendly empty state)
-- [ ] T100 Handle edge case: file deleted while viewing (error message)
-- [ ] T101 Handle edge case: mounted volume unavailable (error state)
-- [ ] T102 Handle edge case: very large files (>1MB) with performance warning
-- [ ] T103 Handle edge case: deeply nested breadcrumbs (scrollable/ellipsis)
-- [ ] T104 Add keyboard navigation support (Tab navigation, Enter activation)
+- [X] T097 Implement GET /api/reader/image route for relative images in `app/api/reader/image/route.ts`
+- [X] T098 Create custom MarkdownImage component blocking external URLs in MarkdownRenderer
+- [X] T099 Handle edge case: empty documentation directory (friendly empty state)
+- [X] T100 Handle edge case: file deleted while viewing (error message)
+- [X] T101 Handle edge case: mounted volume unavailable (error state)
+- [X] T102 Handle edge case: very large files (>1MB) with performance warning
+- [X] T103 Handle edge case: deeply nested breadcrumbs (scrollable/ellipsis)
+- [X] T104 Add keyboard navigation support (Tab navigation, Enter activation)
 - [ ] T105 Run quickstart.md validation and update if needed
 - [ ] T106 Final test coverage check (target >80%)
 
@@ -310,21 +310,21 @@
 
 ### Tests for Navigation Integration
 
-- [ ] T107 [P] Unit tests for Reader nav item in `__tests__/unit/components/navigation/nav-items.test.tsx`
-- [ ] T108 [P] Unit tests for Reader app card in `__tests__/unit/components/home/app-selection-panel.test.tsx`
-- [ ] T109 [P] Unit tests for login redirect change in `__tests__/unit/components/login-form.test.tsx`
-- [ ] T110 E2E test for navigation to Reader from navbar in `__tests__/e2e/reader-navigation.spec.ts`
+- [X] T107 [P] Unit tests for Reader nav item in `__tests__/unit/components/navigation/nav-items.test.tsx`
+- [X] T108 [P] Unit tests for Reader app card in `__tests__/unit/components/home/app-selection-panel.test.tsx`
+- [X] T109 [P] Unit tests for login redirect change in `__tests__/unit/components/login-form.test.tsx`
+- [X] T110 E2E test for navigation to Reader from navbar in `__tests__/e2e/reader-navigation.spec.ts`
 
 ### Implementation for Navigation Integration
 
-- [ ] T111 [P] Add Reader nav item (BookOpen icon) to navItems array in `components/navigation/nav-items.tsx`
-- [ ] T112 [P] Add Reader app card to apps array in `components/home/app-selection-panel.tsx`
-- [ ] T113 Update LoginForm default callbackUrl from "/calendar" to "/" in `components/auth/login-form.tsx`
-- [ ] T114 Update login page callbackUrl prop from "/calendar" to "/" in `app/login/page.tsx`
-- [ ] T115 Update middleware.ts authenticated redirect from "/calendar" to "/" (line 37)
-- [ ] T116 Update protected-route.tsx non-admin redirect from "/calendar" to "/" in `components/auth/protected-route.tsx`
-- [ ] T117 Update mobile drawer tests to include Reader nav item in `__tests__/unit/components/navigation/mobile-drawer.test.tsx`
-- [ ] T118 Update E2E navigation tests for Reader in `__tests__/e2e/navigation.spec.ts`
+- [X] T111 [P] Add Reader nav item (BookOpen icon) to navItems array in `components/navigation/nav-items.tsx`
+- [X] T112 [P] Add Reader app card to apps array in `components/home/app-selection-panel.tsx`
+- [X] T113 Update LoginForm default callbackUrl from "/calendar" to "/" in `components/auth/login-form.tsx`
+- [X] T114 Update login page callbackUrl prop from "/calendar" to "/" in `app/login/page.tsx`
+- [X] T115 Update middleware.ts authenticated redirect from "/calendar" to "/" (line 37)
+- [X] T116 Update protected-route.tsx non-admin redirect from "/calendar" to "/" in `components/auth/protected-route.tsx`
+- [X] T117 Update mobile drawer tests to include Reader nav item in `__tests__/unit/components/navigation/mobile-drawer.test.tsx`
+- [X] T118 Update E2E navigation tests for Reader in `__tests__/e2e/navigation.spec.ts`
 
 **Checkpoint**: Reader is fully integrated into app navigation with proper auth flow to home page
 

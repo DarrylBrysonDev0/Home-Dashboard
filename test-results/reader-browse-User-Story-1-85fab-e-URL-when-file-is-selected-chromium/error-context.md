@@ -1,0 +1,1409 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation "Main navigation" [ref=e2]:
+    - generic [ref=e3]:
+      - link "Cemdash Home Dashboard - Go to home page" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]: Cemdash
+      - generic [ref=e6]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - img [ref=e10]
+          - generic [ref=e13]: Home
+        - link "Finance" [ref=e16] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e17]
+          - generic [ref=e19]: Finance
+        - link "Calendar" [ref=e22] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e23]
+          - generic [ref=e25]: Calendar
+        - link "Reader" [ref=e28] [cursor=pointer]:
+          - /url: /reader
+          - img [ref=e29]
+          - generic [ref=e31]: Reader
+        - link "Settings" [ref=e34] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e35]
+          - generic [ref=e38]: Settings
+    - generic [ref=e39]:
+      - button "Switch to dark theme" [ref=e41]:
+        - img
+      - button "User menu" [ref=e43]:
+        - generic [ref=e44]: A
+  - main [ref=e45]:
+    - generic [ref=e47]:
+      - complementary "File navigation" [ref=e48]:
+        - generic [ref=e49]:
+          - heading "Documents" [level=2] [ref=e50]
+          - generic [ref=e51]:
+            - img [ref=e53]
+            - searchbox "Search files" [ref=e56]
+        - generic [ref=e58]:
+          - generic [ref=e60]:
+            - heading "Recent Files" [level=3] [ref=e61]:
+              - img [ref=e62]
+              - text: Recent Files
+            - list [ref=e65]:
+              - listitem [ref=e66]:
+                - button "Open ARCHITECTURE.md" [ref=e67]:
+                  - img [ref=e68]
+                  - generic [ref=e71]: ARCHITECTURE.md
+          - tree "File tree" [ref=e73]:
+            - treeitem "sub-dir" [ref=e74] [cursor=pointer]:
+              - button [ref=e75]:
+                - img [ref=e76]
+              - img [ref=e79]
+              - generic [ref=e81]: sub-dir
+            - treeitem "ARCHITECTURE.md" [active] [selected] [ref=e82] [cursor=pointer]:
+              - img [ref=e84]
+              - generic [ref=e89]: ARCHITECTURE.md
+            - treeitem "README.md" [ref=e90] [cursor=pointer]:
+              - img [ref=e92]
+              - generic [ref=e97]: README.md
+      - main [ref=e98]:
+        - generic [ref=e99]:
+          - navigation "Breadcrumb" [ref=e100]:
+            - button "Go to root" [ref=e101]:
+              - img [ref=e102]
+            - img [ref=e105]
+            - generic "ARCHITECTURE.md" [ref=e107]
+          - generic [ref=e108]:
+            - button "Refresh content" [ref=e109]:
+              - img [ref=e110]
+            - button "Add to favorites" [ref=e116]:
+              - img [ref=e117]
+            - button "Switch to reading mode" [ref=e120]:
+              - img [ref=e121]
+            - button "Hide table of contents" [pressed] [ref=e127]:
+              - img [ref=e128]
+        - generic [ref=e131]:
+          - article [ref=e133]:
+            - generic [ref=e134]:
+              - heading "ARCHITECTURE.md" [level=1] [ref=e135]
+              - paragraph [ref=e136]: /ARCHITECTURE.md
+            - generic [ref=e138]:
+              - 'heading "Architecture Guide: Home-Dashboard" [level=1] [ref=e139]'
+              - paragraph [ref=e140]:
+                - strong [ref=e141]: Version
+                - text: ": 1.1.0"
+                - strong [ref=e142]: Last Updated
+                - text: ": 2026-01-20"
+                - strong [ref=e143]: Status
+                - text: ": Production Ready"
+              - separator [ref=e144]
+              - heading "Table of Contents" [level=2] [ref=e145]
+              - list [ref=e146]:
+                - listitem [ref=e147]:
+                  - link "Overview" [ref=e148] [cursor=pointer]:
+                    - /url: "#1-overview"
+                - listitem [ref=e149]:
+                  - link "System Architecture" [ref=e150] [cursor=pointer]:
+                    - /url: "#2-system-architecture"
+                - listitem [ref=e151]:
+                  - link "Directory Structure" [ref=e152] [cursor=pointer]:
+                    - /url: "#3-directory-structure"
+                - listitem [ref=e153]:
+                  - link "Data Model" [ref=e154] [cursor=pointer]:
+                    - /url: "#4-data-model"
+                - listitem [ref=e155]:
+                  - link "API Layer" [ref=e156] [cursor=pointer]:
+                    - /url: "#5-api-layer"
+                - listitem [ref=e157]:
+                  - link "Frontend Architecture" [ref=e158] [cursor=pointer]:
+                    - /url: "#6-frontend-architecture"
+                - listitem [ref=e159]:
+                  - link "Testing Strategy" [ref=e160] [cursor=pointer]:
+                    - /url: "#7-testing-strategy"
+                - listitem [ref=e161]:
+                  - link "Infrastructure" [ref=e162] [cursor=pointer]:
+                    - /url: "#8-infrastructure"
+                - listitem [ref=e163]:
+                  - link "Development Workflow" [ref=e164] [cursor=pointer]:
+                    - /url: "#9-development-workflow"
+              - separator [ref=e165]
+              - heading "1. Overview" [level=2] [ref=e166]
+              - heading "System Purpose" [level=3] [ref=e167]
+              - paragraph [ref=e168]: "Home-Dashboard is a self-hosted personal finance and household management application providing:"
+              - list [ref=e169]:
+                - listitem [ref=e170]:
+                  - strong [ref=e171]: Financial Dashboard
+                  - text: ": Real-time monitoring of cash flow, spending patterns, account balances, and recurring transactions"
+                - listitem [ref=e172]:
+                  - strong [ref=e173]: Shared Calendar
+                  - text: ": Household event scheduling with category filtering and email invitations"
+                - listitem [ref=e174]:
+                  - strong [ref=e175]: Theme System
+                  - text: ": Light/Dark mode with accessibility compliance"
+              - heading "Tech Stack" [level=3] [ref=e176]
+              - table [ref=e178]:
+                - rowgroup [ref=e179]:
+                  - row "Layer Technology Version" [ref=e180]:
+                    - columnheader "Layer" [ref=e181]
+                    - columnheader "Technology" [ref=e182]
+                    - columnheader "Version" [ref=e183]
+                - rowgroup [ref=e184]:
+                  - row "Framework Next.js (App Router) 16.1.1" [ref=e185]:
+                    - cell "Framework" [ref=e186]:
+                      - strong [ref=e187]: Framework
+                    - cell "Next.js (App Router)" [ref=e188]
+                    - cell "16.1.1" [ref=e189]
+                  - row "UI Library React 19.2.3" [ref=e190]:
+                    - cell "UI Library" [ref=e191]:
+                      - strong [ref=e192]: UI Library
+                    - cell "React" [ref=e193]
+                    - cell "19.2.3" [ref=e194]
+                  - row "Language TypeScript 5.3+ (strict mode)" [ref=e195]:
+                    - cell "Language" [ref=e196]:
+                      - strong [ref=e197]: Language
+                    - cell "TypeScript" [ref=e198]
+                    - cell "5.3+ (strict mode)" [ref=e199]
+                  - row "Styling Tailwind CSS + shadcn/ui 4.x" [ref=e200]:
+                    - cell "Styling" [ref=e201]:
+                      - strong [ref=e202]: Styling
+                    - cell "Tailwind CSS + shadcn/ui" [ref=e203]
+                    - cell "4.x" [ref=e204]
+                  - row "Charts Recharts 3.6" [ref=e205]:
+                    - cell "Charts" [ref=e206]:
+                      - strong [ref=e207]: Charts
+                    - cell "Recharts" [ref=e208]
+                    - cell "3.6" [ref=e209]
+                  - row "Calendar FullCalendar 6.x" [ref=e210]:
+                    - cell "Calendar" [ref=e211]:
+                      - strong [ref=e212]: Calendar
+                    - cell "FullCalendar" [ref=e213]
+                    - cell "6.x" [ref=e214]
+                  - row "Markdown react-markdown + remark-gfm 10.1.0 / 4.0.1" [ref=e215]:
+                    - cell "Markdown" [ref=e216]:
+                      - strong [ref=e217]: Markdown
+                    - cell "react-markdown + remark-gfm" [ref=e218]
+                    - cell "10.1.0 / 4.0.1" [ref=e219]
+                  - row "Syntax Highlighting Shiki 3.21.0" [ref=e220]:
+                    - cell "Syntax Highlighting" [ref=e221]:
+                      - strong [ref=e222]: Syntax Highlighting
+                    - cell "Shiki" [ref=e223]
+                    - cell "3.21.0" [ref=e224]
+                  - row "Diagrams Mermaid 11.12.2" [ref=e225]:
+                    - cell "Diagrams" [ref=e226]:
+                      - strong [ref=e227]: Diagrams
+                    - cell "Mermaid" [ref=e228]
+                    - cell "11.12.2" [ref=e229]
+                  - row "State React Context -" [ref=e230]:
+                    - cell "State" [ref=e231]:
+                      - strong [ref=e232]: State
+                    - cell "React Context" [ref=e233]
+                    - cell "-" [ref=e234]
+                  - row "Forms React Hook Form + Zod -" [ref=e235]:
+                    - cell "Forms" [ref=e236]:
+                      - strong [ref=e237]: Forms
+                    - cell "React Hook Form + Zod" [ref=e238]
+                    - cell "-" [ref=e239]
+                  - row "Auth NextAuth.js 4.24.x" [ref=e240]:
+                    - cell "Auth" [ref=e241]:
+                      - strong [ref=e242]: Auth
+                    - cell "NextAuth.js" [ref=e243]
+                    - cell "4.24.x" [ref=e244]
+                  - row "ORM Prisma 5.7+" [ref=e245]:
+                    - cell "ORM" [ref=e246]:
+                      - strong [ref=e247]: ORM
+                    - cell "Prisma" [ref=e248]
+                    - cell "5.7+" [ref=e249]
+                  - row "Database MSSQL Server 2025" [ref=e250]:
+                    - cell "Database" [ref=e251]:
+                      - strong [ref=e252]: Database
+                    - cell "MSSQL Server" [ref=e253]
+                    - cell "2025" [ref=e254]
+                  - row "Testing Vitest + Playwright -" [ref=e255]:
+                    - cell "Testing" [ref=e256]:
+                      - strong [ref=e257]: Testing
+                    - cell "Vitest + Playwright" [ref=e258]
+                    - cell "-" [ref=e259]
+                  - row "Runtime Node.js 18+" [ref=e260]:
+                    - cell "Runtime" [ref=e261]:
+                      - strong [ref=e262]: Runtime
+                    - cell "Node.js" [ref=e263]
+                    - cell "18+" [ref=e264]
+              - heading "Feature Summary" [level=3] [ref=e265]
+              - table [ref=e267]:
+                - rowgroup [ref=e268]:
+                  - row "Feature User Stories Components API Endpoints" [ref=e269]:
+                    - columnheader "Feature" [ref=e270]
+                    - columnheader "User Stories" [ref=e271]
+                    - columnheader "Components" [ref=e272]
+                    - columnheader "API Endpoints" [ref=e273]
+                - rowgroup [ref=e274]:
+                  - row "Navigation & Landing 6 10 1" [ref=e275]:
+                    - cell "Navigation & Landing" [ref=e276]
+                    - cell "6" [ref=e277]
+                    - cell "10" [ref=e278]
+                    - cell "1" [ref=e279]
+                  - row "Finance Dashboard 8 20+ 14" [ref=e280]:
+                    - cell "Finance Dashboard" [ref=e281]
+                    - cell "8" [ref=e282]
+                    - cell "20+" [ref=e283]
+                    - cell "14" [ref=e284]
+                  - row "Shared Calendar 5 12 10" [ref=e285]:
+                    - cell "Shared Calendar" [ref=e286]
+                    - cell "5" [ref=e287]
+                    - cell "12" [ref=e288]
+                    - cell "10" [ref=e289]
+                  - row "Markdown Reader 9 18 6" [ref=e290]:
+                    - cell "Markdown Reader" [ref=e291]
+                    - cell "9" [ref=e292]
+                    - cell "18" [ref=e293]
+                    - cell "6" [ref=e294]
+                  - row "Theme System 1 2 0" [ref=e295]:
+                    - cell "Theme System" [ref=e296]
+                    - cell "1" [ref=e297]
+                    - cell "2" [ref=e298]
+                    - cell "0" [ref=e299]
+              - separator [ref=e300]
+              - heading "2. System Architecture" [level=2] [ref=e301]
+              - heading "High-Level System Diagram" [level=3] [ref=e302]
+              - generic "code block" [ref=e303]:
+                - button "Copy code" [ref=e304]:
+                  - img [ref=e305]
+                - code [ref=e309]: ┌─────────────────────────────────────────────────────────────────────┐ │ CLIENT (Browser) │ ├─────────────────────────────────────────────────────────────────────┤ │ │ │ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ │ │ │ Dashboard │ │ Calendar │ │ Admin │ │ │ │ Page │ │ Page │ │ Pages │ │ │ └──────┬──────┘ └──────┬──────┘ └──────┬──────┘ │ │ │ │ │ │ │ └────────────────┼─────────────────┘ │ │ │ │ │ ┌──────┴──────┐ │ │ │ Contexts │ │ │ │ (Filter, │ │ │ │ Theme) │ │ │ └──────┬──────┘ │ │ │ │ └───────────────────────────┼─────────────────────────────────────────┘ │ HTTP/Fetch ▼ ┌─────────────────────────────────────────────────────────────────────┐ │ SERVER (Next.js) │ ├─────────────────────────────────────────────────────────────────────┤ │ │ │ ┌─────────────────────────────────────────────────────────────┐ │ │ │ API Routes (/api) │ │ │ │ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ │ │ │ │ │Analytics │ │ Events │ │ Users │ │ Auth │ │ │ │ │ └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬─────┘ │ │ │ └───────┼─────────────┼─────────────┼─────────────┼───────────┘ │ │ │ │ │ │ │ │ └─────────────┴─────────────┴─────────────┘ │ │ │ │ │ ┌──────────────┴──────────────┐ │ │ │ Query Functions (lib/) │ │ │ └──────────────┬──────────────┘ │ │ │ │ │ ┌──────────────┴──────────────┐ │ │ │ Prisma ORM Client │ │ │ └──────────────┬──────────────┘ │ │ │ │ └───────────────────────────────────┼─────────────────────────────────┘ │ TCP/1434 ▼ ┌─────────────────────────────────────────────────────────────────────┐ │ DATABASE (MSSQL Server 2025) │ ├─────────────────────────────────────────────────────────────────────┤ │ ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ │ │ │ transactions │ │ events │ │ users │ │ │ └───────────────┘ └───────────────┘ └───────────────┘ │ │ ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ │ │ │event_categories│ │event_attendees│ │ event_invites │ │ │ └───────────────┘ └───────────────┘ └───────────────┘ │ └─────────────────────────────────────────────────────────────────────┘
+              - heading "Data Flow Architecture" [level=3] [ref=e310]
+              - generic "code block" [ref=e311]:
+                - button "Copy code" [ref=e312]:
+                  - img [ref=e313]
+                - code [ref=e317]: ┌──────────────────────────────────────────────────────────────────────────┐ │ Data Flow Pattern │ └──────────────────────────────────────────────────────────────────────────┘ FilterContext (global state) │ ▼ ┌─────────────────────────────────────┐ │ Context-Aware Components │ │ (FilteredKPICards, FilteredChart) │ └─────────────┬───────────────────────┘ │ reads filters via useFilters() ▼ ┌─────────────────────────────────────┐ │ Prop-Based Components │ │ (KPICards, CashFlowChart) │ └─────────────┬───────────────────────┘ │ fetch with filter params ▼ ┌─────────────────────────────────────┐ │ API Routes (/api/analytics/*) │ │ - Zod validation │ │ - Error handling │ └─────────────┬───────────────────────┘ │ calls ▼ ┌─────────────────────────────────────┐ │ Query Functions (lib/queries/) │ │ - Reusable across routes │ │ - Type-safe return values │ └─────────────┬───────────────────────┘ │ executes ▼ ┌─────────────────────────────────────┐ │ Prisma Client │ │ → MSSQL Database │ └─────────────────────────────────────┘
+              - heading "Component Hierarchy" [level=3] [ref=e318]
+              - generic "code block" [ref=e319]:
+                - button "Copy code" [ref=e320]:
+                  - img [ref=e321]
+                - code [ref=e325]: RootLayout ├── ThemeProvider (next-themes) ├── SessionProvider (NextAuth) └── App Content │ ├── NavBar (persistent navigation - all authenticated pages) │ ├── Logo (links to /) │ ├── NavItems (Home, Finance, Calendar, Settings) │ │ └── NavItem (individual nav link with active state) │ ├── ThemeToggle (with Tooltip wrapper) │ ├── UserMenu (avatar dropdown) │ └── MobileDrawer (hamburger menu for < 768px) │ ├── / (Landing Page) │ ├── HeroSection (personalized greeting) │ │ └── UpcomingEvents (next 3 calendar events) │ │ └── EventCardMini (compact event display) │ └── AppSelectionPanel (app card grid) │ └── AppCard (module navigation cards) │ ├── /dashboard │ └── DashboardShell (FilterProvider context) │ ├── FilterSidebar │ │ ├── TimeFilter │ │ └── AccountFilter │ └── DashboardContent │ ├── FilteredKPICards → KPICards │ ├── FilteredCashFlowChart → CashFlowChart │ ├── FilteredBalanceTrendsChart → BalanceTrendsChart │ ├── FilteredSpendingByCategory → SpendingByCategory │ ├── FilteredTransactionTable → TransactionTable │ ├── FilteredRecurringTable → RecurringTable │ └── FilteredTransferFlowChart → TransferFlowChart │ ├── /calendar │ ├── CalendarView (FullCalendar) │ ├── CategoryFilter │ ├── EventModal (create/edit) │ └── EventDetailsDialog │ ├── /reader │ └── ReaderProvider (ReaderContext) │ ├── NavigationPane (left sidebar) │ │ ├── SearchInput │ │ ├── FileTree → FileTreeNode (recursive) │ │ ├── RecentFiles │ │ └── Favorites │ ├── Breadcrumbs │ ├── ContentViewer │ │ ├── MarkdownRenderer (react-markdown + remark-gfm) │ │ ├── CodeBlock (Shiki syntax highlighting) │ │ └── MermaidRenderer (Mermaid diagrams) │ ├── TableOfContents (right sidebar) │ ├── DisplayModeToggle (themed/reading modes) │ └── FavoriteToggle │ ├── /admin │ ├── AdminDashboard (stats) │ ├── UserList + UserForm │ ├── CategoryList + CategoryForm │ └── SMTPSettings │ └── /login └── LoginForm
+              - separator [ref=e326]
+              - heading "3. Directory Structure" [level=2] [ref=e327]
+              - heading "Project Root" [level=3] [ref=e328]
+              - generic "code block" [ref=e329]:
+                - button "Copy code" [ref=e330]:
+                  - img [ref=e331]
+                - code [ref=e335]: "Home-Dashboard/ ├── app/ # Next.js App Router ├── components/ # React components ├── lib/ # Shared utilities and logic ├── prisma/ # Database schema and migrations ├── __tests__/ # Test files ├── docs/ # Documentation ├── specs/ # Feature specifications └── .specify/ # Project constitution"
+              - heading "App Router Structure (app/)" [level=3] [ref=e336]:
+                - text: App Router Structure (
+                - code [ref=e337]: app/
+                - text: )
+              - generic "code block" [ref=e338]:
+                - button "Copy code" [ref=e339]:
+                  - img [ref=e340]
+                - code [ref=e344]: "app/ ├── layout.tsx # Root layout (ThemeProvider, SessionProvider, NavBar) ├── providers.tsx # Context providers wrapper ├── globals.css # Global styles + CSS variables ├── page.tsx # Landing page (HeroSection, AppSelectionPanel) │ ├── api/ # API route handlers │ ├── auth/ │ │ └── [...nextauth]/route.ts # NextAuth credential auth │ ├── analytics/ │ │ ├── kpis/route.ts # GET financial KPIs │ │ ├── cash-flow/route.ts # GET income/expense trends │ │ ├── categories/route.ts # GET spending breakdown │ │ ├── accounts/route.ts # GET account balances │ │ ├── transfers/route.ts # GET transfer flow │ │ └── recurring/ │ │ ├── route.ts # GET recurring patterns │ │ └── [id]/ │ │ ├── confirm/route.ts # POST confirm pattern │ │ └── reject/route.ts # POST reject pattern │ ├── events/ │ │ ├── route.ts # GET/POST events │ │ └── [id]/ │ │ ├── route.ts # GET/PUT/DELETE event │ │ └── send-invite/route.ts # POST send invite │ ├── categories/ │ │ ├── route.ts # GET/POST categories │ │ └── [id]/route.ts # PUT/DELETE category │ ├── users/ │ │ ├── route.ts # GET/POST users │ │ └── [id]/route.ts # GET/PUT/DELETE user │ ├── filters/ │ │ ├── accounts/route.ts # GET filter accounts │ │ ├── categories/route.ts # GET filter categories │ │ └── date-ranges/route.ts # GET date range presets │ ├── export/ │ │ └── csv/route.ts # GET CSV export │ ├── reader/ │ │ ├── tree/route.ts # GET file tree (lazy loading) │ │ ├── file/route.ts # GET file content │ │ ├── search/route.ts # GET file search results │ │ ├── preferences/route.ts # GET/PUT user preferences │ │ └── image/route.ts # GET images from docs │ ├── email/ │ │ └── test/route.ts # POST send test email │ └── admin/ │ └── smtp-config/route.ts # POST SMTP settings │ ├── dashboard/ │ ├── layout.tsx # Dashboard layout (DashboardShell) │ └── page.tsx # Dashboard page │ ├── calendar/ │ ├── layout.tsx # Calendar layout │ └── page.tsx # Calendar page │ ├── reader/ │ ├── layout.tsx # Reader layout (ReaderProvider) │ └── [[...path]]/page.tsx # Dynamic file viewer (catch-all route) │ ├── admin/ │ ├── layout.tsx # Admin layout (role check) │ ├── page.tsx # Admin dashboard │ ├── users/page.tsx # User management │ ├── categories/page.tsx # Category management │ └── settings/page.tsx # SMTP settings │ └── login/ └── page.tsx # Login page"
+              - heading "Components Structure (components/)" [level=3] [ref=e345]:
+                - text: Components Structure (
+                - code [ref=e346]: components/
+                - text: )
+              - generic "code block" [ref=e347]:
+                - button "Copy code" [ref=e348]:
+                  - img [ref=e349]
+                - code [ref=e353]: "components/ ├── ui/ # shadcn/ui components (20+) │ ├── button.tsx │ ├── card.tsx │ ├── dialog.tsx │ ├── form.tsx │ ├── input.tsx │ ├── select.tsx │ ├── sheet.tsx # Mobile drawer component │ ├── table.tsx │ ├── tooltip.tsx # Theme toggle tooltip │ └── ... │ ├── navigation/ # Navigation components │ ├── nav-bar.tsx # Main persistent navigation (64px height) │ ├── nav-item.tsx # Individual nav link (active state, loading) │ ├── nav-items.tsx # Nav items collection (Home, Finance, Calendar, Settings) │ ├── mobile-drawer.tsx # Slide-out mobile navigation (< 768px) │ └── logo.tsx # Application logo (links to /) │ ├── home/ # Landing page components │ ├── hero-section.tsx # Welcome greeting with events slot │ ├── upcoming-events.tsx # Events container (fetches, displays max 3) │ ├── event-card-mini.tsx # Compact event display (title, date, location) │ ├── app-selection-panel.tsx # App card grid container │ └── app-card.tsx # Individual app card (icon, title, description) │ ├── dashboard/ # Finance dashboard components │ ├── dashboard-shell.tsx # Main wrapper with FilterProvider │ ├── kpi-card.tsx # Single KPI display │ ├── kpi-cards.tsx # KPI cards container │ ├── loading-skeleton.tsx # Loading states │ ├── confidence-badge.tsx # Confidence indicator │ ├── spending-by-category.tsx # Category breakdown │ ├── charts/ │ │ ├── cash-flow-chart.tsx # Income vs expenses │ │ ├── balance-trends.tsx # Account balances over time │ │ ├── category-donut.tsx # Donut chart │ │ ├── category-bar.tsx # Bar chart │ │ ├── transfer-flow.tsx # Sankey diagram │ │ └── chart-tooltip.tsx # Shared tooltip │ ├── filters/ │ │ ├── time-filter.tsx # Date range selector │ │ └── account-filter.tsx # Account multi-select │ ├── transactions/ │ │ ├── transaction-table.tsx # Transaction list │ │ └── recurring-table.tsx # Recurring patterns │ └── empty-states/ │ └── no-data.tsx # Empty state UI │ ├── calendar/ # Event calendar components │ ├── calendar-view.tsx # FullCalendar wrapper │ ├── event-modal.tsx # Create/edit event │ ├── event-details.tsx # Event info display │ ├── event-details-dialog.tsx # View event modal │ ├── category-filter.tsx # Category toggles │ └── invite-form.tsx # Email invite form │ ├── reader/ # Markdown reader components │ ├── ReaderLayout.tsx # Main orchestrator │ ├── NavigationPane.tsx # Left sidebar wrapper │ ├── FileTree.tsx # Tree-based file browser │ ├── FileTreeNode.tsx # Individual tree node (recursive) │ ├── SearchInput.tsx # File search │ ├── Breadcrumbs.tsx # Path navigation │ ├── RecentFiles.tsx # Recently viewed files │ ├── Favorites.tsx # Bookmarked files │ ├── ContentViewer.tsx # Main content area │ ├── MarkdownRenderer.tsx # Markdown rendering (react-markdown) │ ├── CodeBlock.tsx # Syntax-highlighted code (Shiki) │ ├── MermaidRenderer.tsx # Mermaid diagrams │ ├── TableOfContents.tsx # Auto-generated TOC │ ├── EmptyState.tsx # Empty state UI │ ├── DisplayModeToggle.tsx # Themed/reading mode switch │ └── FavoriteToggle.tsx # Bookmark toggle │ ├── auth/ # Authentication components │ ├── login-form.tsx # Login form │ ├── user-menu.tsx # User dropdown │ └── protected-route.tsx # Route protection │ ├── admin/ # Admin management components │ ├── user-list.tsx # User table │ ├── user-form.tsx # User create/edit │ ├── category-list.tsx # Category table │ └── category-form.tsx # Category create/edit │ └── theme/ # Theme system components ├── ThemeProvider.tsx # next-themes wrapper └── ThemeToggle.tsx # Light/dark toggle button"
+              - heading "Library Structure (lib/)" [level=3] [ref=e354]:
+                - text: Library Structure (
+                - code [ref=e355]: lib/
+                - text: )
+              - generic "code block" [ref=e356]:
+                - button "Copy code" [ref=e357]:
+                  - img [ref=e358]
+                - code [ref=e362]: "lib/ ├── db.ts # Prisma client singleton ├── auth.ts # NextAuth configuration ├── email.ts # Nodemailer service ├── utils.ts # clsx + tailwind-merge (cn function) │ ├── queries/ # Database query functions │ ├── analytics.ts # KPI calculations │ ├── accounts.ts # Account queries (derived from transactions) │ ├── balance-trends.ts # Balance time series │ ├── cash-flow.ts # Cash flow aggregation │ ├── categories.ts # Category queries │ ├── transactions.ts # Transaction CRUD │ ├── recurring.ts # Recurring detection │ ├── transfers.ts # Transfer flow │ ├── events.ts # Calendar events │ ├── users.ts # User management │ ├── auth.ts # Auth queries │ └── invites.ts # Event invitations │ ├── validations/ # Zod schemas │ ├── filters.ts # Date range, account filters │ ├── analytics.ts # KPI params │ ├── transaction.ts # Transaction schemas │ ├── auth.ts # Login/password schemas │ ├── category.ts # Category schemas │ ├── event.ts # Event schemas │ ├── reader.ts # Reader schemas (file, search, preferences) │ └── index.ts # Central exports │ ├── contexts/ # React Context providers │ ├── filter-context.tsx # FilterContext (date range, accounts) │ └── reader-context.tsx # ReaderContext (file navigation, preferences) │ ├── theme/ # Theme system │ ├── index.ts # Public exports │ ├── types.ts # TypeScript interfaces │ ├── themes/ │ │ ├── light.ts # Light theme config │ │ ├── dark.ts # Dark theme config │ │ └── index.ts # Theme registry │ ├── hooks/ │ │ ├── useTheme.ts # Theme control hook │ │ └── useChartTheme.ts # Chart colors hook │ └── utils/ │ └── css-variables.ts # CSS variable utilities │ ├── constants/ # Static configuration │ ├── colors.ts # Chart color palettes │ └── date-ranges.ts # Quick date range presets │ ├── hooks/ # Custom React hooks │ ├── use-session.ts # Session access hook │ └── use-media-query.ts # Responsive breakpoint detection │ ├── middleware/ # Request middleware │ └── admin-check.ts # Admin role verification │ ├── reader/ # Reader service layer │ ├── file-system.service.ts # Sandboxed file access with security │ ├── preferences.service.ts # User preferences management │ ├── heading-extractor.ts # TOC generation from markdown │ ├── markdown-config.ts # Markdown rendering configuration │ ├── shiki-highlighter.ts # Code syntax highlighting │ └── mermaid-themes.ts # Mermaid diagram theming │ ├── utils/ # Utility functions │ ├── csv-export.ts # CSV generation │ ├── password.ts # bcrypt utilities │ ├── timezone.ts # Timezone conversion │ └── ics-generator.ts # iCalendar generation │ └── server/ # Server-side utilities └── auth-session.ts # Server session handling"
+              - heading "Type Definitions (types/)" [level=3] [ref=e363]:
+                - text: Type Definitions (
+                - code [ref=e364]: types/
+                - text: )
+              - generic "code block" [ref=e365]:
+                - button "Copy code" [ref=e366]:
+                  - img [ref=e367]
+                - code [ref=e371]: "types/ ├── next-auth.d.ts # NextAuth session type extensions └── reader.ts # Reader type definitions (FileNode, ReaderState, etc.)"
+              - heading "Test Structure (__tests__/)" [level=3] [ref=e372]:
+                - text: Test Structure (
+                - code [ref=e373]: __tests__/
+                - text: )
+              - generic "code block" [ref=e374]:
+                - button "Copy code" [ref=e375]:
+                  - img [ref=e376]
+                - code [ref=e380]: "__tests__/ ├── unit/ # Unit tests (Vitest) │ ├── components/ │ │ ├── navigation/ # NavBar, NavItem, Logo, MobileDrawer tests │ │ ├── home/ # HeroSection, AppCard, UpcomingEvents tests │ │ └── ... # Other component tests │ ├── queries/ # Query function tests │ └── theme/ # Theme system tests │ ├── integration/ # Integration tests (Vitest) │ └── api/ │ └── events-upcoming.test.ts # Upcoming events API test │ ├── e2e/ # End-to-end tests (Playwright) │ ├── navigation.spec.ts # NavBar, mobile drawer, keyboard a11y tests │ ├── landing.spec.ts # Landing page, app cards tests │ └── *.spec.ts │ └── helpers/ # Test utilities ├── test-db.ts # Database setup (Testcontainers) ├── auth-helpers.ts # Auth mocking └── calendar-helpers.ts # Calendar test utils"
+              - separator [ref=e381]
+              - heading "4. Data Model" [level=2] [ref=e382]
+              - heading "Entity Relationship Diagram" [level=3] [ref=e383]
+              - generic "code block" [ref=e384]:
+                - button "Copy code" [ref=e385]:
+                  - img [ref=e386]
+                - code [ref=e390]: "┌─────────────────────────────────────────────────────────────────────────────┐ │ Entity Relationships │ └─────────────────────────────────────────────────────────────────────────────┘ ┌─────────────────┐ │ User │ ├─────────────────┤ │ id (PK) │ │ email (unique) │ │ name │ │ passwordHash │ │ role (enum) │ │ avatarColor │ │ failedAttempts │ │ lockedUntil │ └────────┬────────┘ │ ┌────────────────────────┼────────────────────────┐ │ 1:N (creator) │ N:M (attendees) │ ▼ ▼ │ ┌─────────────────────┐ ┌─────────────────────┐ │ │ EventCategory │ │ Event │ │ ├─────────────────────┤ ├─────────────────────┤ │ │ id (PK) │◄───│ categoryId (FK) │ │ │ name (unique) │ 1:N│ createdById (FK) │─────────────┘ │ color │ │ title │ │ icon │ │ description │ └─────────────────────┘ │ location │ │ startTime │ │ endTime │ │ allDay │ │ timezone │ └──────────┬──────────┘ │ ┌────────────────┴────────────────┐ │ 1:N │ 1:N ▼ ▼ ┌─────────────────────┐ ┌─────────────────────┐ │ EventAttendee │ │ EventInvite │ ├─────────────────────┤ ├─────────────────────┤ │ id (PK) │ │ id (PK) │ │ eventId (FK) │ │ eventId (FK) │ │ userId (FK) │ │ recipientEmail │ │ status (enum) │ │ sentAt │ └─────────────────────┘ └─────────────────────┘ ┌─────────────────────────────────────────────────────────────────────────────┐ │ Financial Data (Standalone) │ └─────────────────────────────────────────────────────────────────────────────┘ ┌─────────────────────────────────────────────────────────────────────────────┐ │ transactions │ ├─────────────────────────────────────────────────────────────────────────────┤ │ transaction_id (PK) │ INT, AUTO_INCREMENT │ │ transaction_date │ DATE, NOT NULL │ │ transaction_time │ TIME, NULLABLE │ │ account_id │ VARCHAR(50), NOT NULL (derived entity) │ │ account_name │ VARCHAR(100), NOT NULL │ │ account_type │ VARCHAR(20), CHECK ('Checking', 'Savings') │ │ account_owner │ VARCHAR(50), NOT NULL │ │ description │ VARCHAR(255), NOT NULL │ │ category │ VARCHAR(50), NOT NULL │ │ subcategory │ VARCHAR(50), NULLABLE │ │ amount │ DECIMAL(18,2), NOT NULL │ │ transaction_type │ VARCHAR(20), CHECK ('Income','Expense','Transfer')│ │ balance_after │ DECIMAL(18,2), NULLABLE │ │ is_recurring │ BIT, DEFAULT 0 │ │ recurring_frequency │ VARCHAR(20), NULLABLE │ │ notes │ TEXT, NULLABLE │ │ created_at │ DATETIME, DEFAULT GETDATE() │ │ updated_at │ DATETIME, DEFAULT GETDATE() │ ├─────────────────────────────────────────────────────────────────────────────┤ │ INDEXES: idx_date_account, idx_category_date, idx_type_date, idx_recurring │ └─────────────────────────────────────────────────────────────────────────────┘ Note: Account is a DERIVED entity (computed from distinct account_id values) Category is a DERIVED entity (computed from distinct category/subcategory)"
+              - heading "Prisma Schema Overview" [level=3] [ref=e391]
+              - generic "prisma code block" [ref=e392]:
+                - generic [ref=e393]: prisma
+                - button "Copy code" [ref=e394]:
+                  - img [ref=e395]
+                - code [ref=e399]: "// Enums enum UserRole { ADMIN, MEMBER } enum AttendeeStatus { PENDING, ACCEPTED, DECLINED, TENTATIVE } // Authentication model User { id String @id @default(cuid()) email String @unique name String passwordHash String role UserRole @default(MEMBER) avatarColor String? failedLoginAttempts Int @default(0) lockedUntil DateTime? // Relations eventsCreated Event[] @relation(\"EventCreator\") eventsInvited EventAttendee[] @@map(\"users\") } // Calendar model EventCategory { id String @id @default(cuid()) name String @unique color String icon String? events Event[] @@map(\"event_categories\") } model Event { id String @id @default(cuid()) title String description String? location String? startTime DateTime endTime DateTime allDay Boolean @default(false) timezone String @default(\"America/New_York\") recurrenceRule String? // Relations categoryId String? category EventCategory? @relation(...) createdById String createdBy User @relation(\"EventCreator\", ...) attendees EventAttendee[] invitesSent EventInvite[] @@index([startTime, endTime]) @@map(\"events\") } model EventAttendee { id String @id @default(cuid()) eventId String userId String status AttendeeStatus @default(PENDING) event Event @relation(...) user User @relation(...) @@unique([eventId, userId]) @@map(\"event_attendees\") } model EventInvite { id String @id @default(cuid()) eventId String recipientEmail String sentAt DateTime @default(now()) event Event @relation(...) @@map(\"event_invites\") } // Finance (existing database) model Transaction { transaction_id Int @id @default(autoincrement()) transaction_date DateTime @db.Date transaction_time DateTime? @db.Time account_id String account_name String account_type String account_owner String description String category String subcategory String? amount Decimal @db.Decimal(18, 2) transaction_type String balance_after Decimal? @db.Decimal(18, 2) is_recurring Boolean @default(false) recurring_frequency String? notes String? created_at DateTime @default(now()) updated_at DateTime @updatedAt @@map(\"transactions\") }"
+              - separator [ref=e400]
+              - heading "5. API Layer" [level=2] [ref=e401]
+              - heading "API Contract Pattern" [level=3] [ref=e402]
+              - paragraph [ref=e403]: "All API routes follow a consistent pattern:"
+              - generic "typescript code block" [ref=e404]:
+                - generic [ref=e405]: typescript
+                - button "Copy code" [ref=e406]:
+                  - img [ref=e407]
+                - code [ref=e411]: "// Standard API Route Structure import { NextRequest, NextResponse } from 'next/server'; import { someSchema } from '@/lib/validations'; import { someQuery } from '@/lib/queries'; export async function GET(request: NextRequest) { try { // 1. Parse and validate input const params = Object.fromEntries(request.nextUrl.searchParams); const result = someSchema.safeParse(params); if (!result.success) { return NextResponse.json( { error: result.error.issues[0].message }, { status: 400 } ); } // 2. Execute query const data = await someQuery(result.data); // 3. Return consistent response shape return NextResponse.json({ data }); } catch (error) { console.error('API Error:', error); return NextResponse.json( { error: 'Internal server error' }, { status: 500 } ); } }"
+              - paragraph [ref=e412]:
+                - strong [ref=e413]: "Response Shapes:"
+              - list [ref=e414]:
+                - listitem [ref=e415]:
+                  - text: "Success:"
+                  - code [ref=e416]: "{ data: T }"
+                - listitem [ref=e417]:
+                  - text: "Error:"
+                  - code [ref=e418]: "{ error: string }"
+              - heading "Endpoint Summary" [level=3] [ref=e419]
+              - heading "Analytics API" [level=4] [ref=e420]
+              - table [ref=e422]:
+                - rowgroup [ref=e423]:
+                  - row "Method Endpoint Description" [ref=e424]:
+                    - columnheader "Method" [ref=e425]
+                    - columnheader "Endpoint" [ref=e426]
+                    - columnheader "Description" [ref=e427]
+                - rowgroup [ref=e428]:
+                  - row "GET /api/analytics/kpis Net cash flow, balance, recurring expenses" [ref=e429]:
+                    - cell "GET" [ref=e430]
+                    - cell "/api/analytics/kpis" [ref=e431]:
+                      - code [ref=e432]: /api/analytics/kpis
+                    - cell "Net cash flow, balance, recurring expenses" [ref=e433]
+                  - row "GET /api/analytics/cash-flow Income vs expenses over time" [ref=e434]:
+                    - cell "GET" [ref=e435]
+                    - cell "/api/analytics/cash-flow" [ref=e436]:
+                      - code [ref=e437]: /api/analytics/cash-flow
+                    - cell "Income vs expenses over time" [ref=e438]
+                  - row "GET /api/analytics/categories Spending breakdown by category" [ref=e439]:
+                    - cell "GET" [ref=e440]
+                    - cell "/api/analytics/categories" [ref=e441]:
+                      - code [ref=e442]: /api/analytics/categories
+                    - cell "Spending breakdown by category" [ref=e443]
+                  - row "GET /api/analytics/accounts Account list with balances" [ref=e444]:
+                    - cell "GET" [ref=e445]
+                    - cell "/api/analytics/accounts" [ref=e446]:
+                      - code [ref=e447]: /api/analytics/accounts
+                    - cell "Account list with balances" [ref=e448]
+                  - row "GET /api/analytics/transfers Money flow between accounts" [ref=e449]:
+                    - cell "GET" [ref=e450]
+                    - cell "/api/analytics/transfers" [ref=e451]:
+                      - code [ref=e452]: /api/analytics/transfers
+                    - cell "Money flow between accounts" [ref=e453]
+                  - row "GET /api/analytics/recurring Detected recurring patterns" [ref=e454]:
+                    - cell "GET" [ref=e455]
+                    - cell "/api/analytics/recurring" [ref=e456]:
+                      - code [ref=e457]: /api/analytics/recurring
+                    - cell "Detected recurring patterns" [ref=e458]
+                  - row "POST /api/analytics/recurring/[id]/confirm Confirm recurring pattern" [ref=e459]:
+                    - cell "POST" [ref=e460]
+                    - cell "/api/analytics/recurring/[id]/confirm" [ref=e461]:
+                      - code [ref=e462]: /api/analytics/recurring/[id]/confirm
+                    - cell "Confirm recurring pattern" [ref=e463]
+                  - row "POST /api/analytics/recurring/[id]/reject Reject recurring pattern" [ref=e464]:
+                    - cell "POST" [ref=e465]
+                    - cell "/api/analytics/recurring/[id]/reject" [ref=e466]:
+                      - code [ref=e467]: /api/analytics/recurring/[id]/reject
+                    - cell "Reject recurring pattern" [ref=e468]
+              - heading "Transactions API" [level=4] [ref=e469]
+              - table [ref=e471]:
+                - rowgroup [ref=e472]:
+                  - row "Method Endpoint Description" [ref=e473]:
+                    - columnheader "Method" [ref=e474]
+                    - columnheader "Endpoint" [ref=e475]
+                    - columnheader "Description" [ref=e476]
+                - rowgroup [ref=e477]:
+                  - row "GET /api/transactions List transactions with filters" [ref=e478]:
+                    - cell "GET" [ref=e479]
+                    - cell "/api/transactions" [ref=e480]:
+                      - code [ref=e481]: /api/transactions
+                    - cell "List transactions with filters" [ref=e482]
+                  - row "GET /api/export/csv Export transactions to CSV" [ref=e483]:
+                    - cell "GET" [ref=e484]
+                    - cell "/api/export/csv" [ref=e485]:
+                      - code [ref=e486]: /api/export/csv
+                    - cell "Export transactions to CSV" [ref=e487]
+              - heading "Events API" [level=4] [ref=e488]
+              - table [ref=e490]:
+                - rowgroup [ref=e491]:
+                  - row "Method Endpoint Description" [ref=e492]:
+                    - columnheader "Method" [ref=e493]
+                    - columnheader "Endpoint" [ref=e494]
+                    - columnheader "Description" [ref=e495]
+                - rowgroup [ref=e496]:
+                  - row "GET /api/events List events with optional filters" [ref=e497]:
+                    - cell "GET" [ref=e498]
+                    - cell "/api/events" [ref=e499]:
+                      - code [ref=e500]: /api/events
+                    - cell "List events with optional filters" [ref=e501]
+                  - row "POST /api/events Create new event" [ref=e502]:
+                    - cell "POST" [ref=e503]
+                    - cell "/api/events" [ref=e504]:
+                      - code [ref=e505]: /api/events
+                    - cell "Create new event" [ref=e506]
+                  - row "GET /api/events/upcoming Get next N events within M days (landing page)" [ref=e507]:
+                    - cell "GET" [ref=e508]
+                    - cell "/api/events/upcoming" [ref=e509]:
+                      - code [ref=e510]: /api/events/upcoming
+                    - cell "Get next N events within M days (landing page)" [ref=e511]
+                  - row "GET /api/events/[id] Get event with attendees" [ref=e512]:
+                    - cell "GET" [ref=e513]
+                    - cell "/api/events/[id]" [ref=e514]:
+                      - code [ref=e515]: /api/events/[id]
+                    - cell "Get event with attendees" [ref=e516]
+                  - row "PUT /api/events/[id] Update event" [ref=e517]:
+                    - cell "PUT" [ref=e518]
+                    - cell "/api/events/[id]" [ref=e519]:
+                      - code [ref=e520]: /api/events/[id]
+                    - cell "Update event" [ref=e521]
+                  - row "DELETE /api/events/[id] Delete event" [ref=e522]:
+                    - cell "DELETE" [ref=e523]
+                    - cell "/api/events/[id]" [ref=e524]:
+                      - code [ref=e525]: /api/events/[id]
+                    - cell "Delete event" [ref=e526]
+                  - row "POST /api/events/[id]/send-invite Send email invitation" [ref=e527]:
+                    - cell "POST" [ref=e528]
+                    - cell "/api/events/[id]/send-invite" [ref=e529]:
+                      - code [ref=e530]: /api/events/[id]/send-invite
+                    - cell "Send email invitation" [ref=e531]
+              - heading "Categories API" [level=4] [ref=e532]
+              - table [ref=e534]:
+                - rowgroup [ref=e535]:
+                  - row "Method Endpoint Description" [ref=e536]:
+                    - columnheader "Method" [ref=e537]
+                    - columnheader "Endpoint" [ref=e538]
+                    - columnheader "Description" [ref=e539]
+                - rowgroup [ref=e540]:
+                  - row "GET /api/categories List event categories" [ref=e541]:
+                    - cell "GET" [ref=e542]
+                    - cell "/api/categories" [ref=e543]:
+                      - code [ref=e544]: /api/categories
+                    - cell "List event categories" [ref=e545]
+                  - row "POST /api/categories Create category" [ref=e546]:
+                    - cell "POST" [ref=e547]
+                    - cell "/api/categories" [ref=e548]:
+                      - code [ref=e549]: /api/categories
+                    - cell "Create category" [ref=e550]
+                  - row "PUT /api/categories/[id] Update category" [ref=e551]:
+                    - cell "PUT" [ref=e552]
+                    - cell "/api/categories/[id]" [ref=e553]:
+                      - code [ref=e554]: /api/categories/[id]
+                    - cell "Update category" [ref=e555]
+                  - row "DELETE /api/categories/[id] Delete category" [ref=e556]:
+                    - cell "DELETE" [ref=e557]
+                    - cell "/api/categories/[id]" [ref=e558]:
+                      - code [ref=e559]: /api/categories/[id]
+                    - cell "Delete category" [ref=e560]
+              - heading "Users API (Admin)" [level=4] [ref=e561]
+              - table [ref=e563]:
+                - rowgroup [ref=e564]:
+                  - row "Method Endpoint Description" [ref=e565]:
+                    - columnheader "Method" [ref=e566]
+                    - columnheader "Endpoint" [ref=e567]
+                    - columnheader "Description" [ref=e568]
+                - rowgroup [ref=e569]:
+                  - row "GET /api/users List all users" [ref=e570]:
+                    - cell "GET" [ref=e571]
+                    - cell "/api/users" [ref=e572]:
+                      - code [ref=e573]: /api/users
+                    - cell "List all users" [ref=e574]
+                  - row "POST /api/users Create user" [ref=e575]:
+                    - cell "POST" [ref=e576]
+                    - cell "/api/users" [ref=e577]:
+                      - code [ref=e578]: /api/users
+                    - cell "Create user" [ref=e579]
+                  - row "GET /api/users/[id] Get user details" [ref=e580]:
+                    - cell "GET" [ref=e581]
+                    - cell "/api/users/[id]" [ref=e582]:
+                      - code [ref=e583]: /api/users/[id]
+                    - cell "Get user details" [ref=e584]
+                  - row "PUT /api/users/[id] Update user" [ref=e585]:
+                    - cell "PUT" [ref=e586]
+                    - cell "/api/users/[id]" [ref=e587]:
+                      - code [ref=e588]: /api/users/[id]
+                    - cell "Update user" [ref=e589]
+                  - row "DELETE /api/users/[id] Delete user" [ref=e590]:
+                    - cell "DELETE" [ref=e591]
+                    - cell "/api/users/[id]" [ref=e592]:
+                      - code [ref=e593]: /api/users/[id]
+                    - cell "Delete user" [ref=e594]
+              - heading "Filter Options API" [level=4] [ref=e595]
+              - table [ref=e597]:
+                - rowgroup [ref=e598]:
+                  - row "Method Endpoint Description" [ref=e599]:
+                    - columnheader "Method" [ref=e600]
+                    - columnheader "Endpoint" [ref=e601]
+                    - columnheader "Description" [ref=e602]
+                - rowgroup [ref=e603]:
+                  - row "GET /api/filters/accounts Available accounts" [ref=e604]:
+                    - cell "GET" [ref=e605]
+                    - cell "/api/filters/accounts" [ref=e606]:
+                      - code [ref=e607]: /api/filters/accounts
+                    - cell "Available accounts" [ref=e608]
+                  - row "GET /api/filters/categories Transaction categories" [ref=e609]:
+                    - cell "GET" [ref=e610]
+                    - cell "/api/filters/categories" [ref=e611]:
+                      - code [ref=e612]: /api/filters/categories
+                    - cell "Transaction categories" [ref=e613]
+                  - row "GET /api/filters/date-ranges Date range presets" [ref=e614]:
+                    - cell "GET" [ref=e615]
+                    - cell "/api/filters/date-ranges" [ref=e616]:
+                      - code [ref=e617]: /api/filters/date-ranges
+                    - cell "Date range presets" [ref=e618]
+              - heading "Reader API" [level=4] [ref=e619]
+              - table [ref=e621]:
+                - rowgroup [ref=e622]:
+                  - row "Method Endpoint Description" [ref=e623]:
+                    - columnheader "Method" [ref=e624]
+                    - columnheader "Endpoint" [ref=e625]
+                    - columnheader "Description" [ref=e626]
+                - rowgroup [ref=e627]:
+                  - row "GET /api/reader/tree Get directory structure (lazy-loaded)" [ref=e628]:
+                    - cell "GET" [ref=e629]
+                    - cell "/api/reader/tree" [ref=e630]:
+                      - code [ref=e631]: /api/reader/tree
+                    - cell "Get directory structure (lazy-loaded)" [ref=e632]
+                  - row "GET /api/reader/file Get file content for rendering" [ref=e633]:
+                    - cell "GET" [ref=e634]
+                    - cell "/api/reader/file" [ref=e635]:
+                      - code [ref=e636]: /api/reader/file
+                    - cell "Get file content for rendering" [ref=e637]
+                  - row "GET /api/reader/search Search files by name" [ref=e638]:
+                    - cell "GET" [ref=e639]
+                    - cell "/api/reader/search" [ref=e640]:
+                      - code [ref=e641]: /api/reader/search
+                    - cell "Search files by name" [ref=e642]
+                  - row "GET /api/reader/preferences Get user preferences (favorites, recents, display mode)" [ref=e643]:
+                    - cell "GET" [ref=e644]
+                    - cell "/api/reader/preferences" [ref=e645]:
+                      - code [ref=e646]: /api/reader/preferences
+                    - cell "Get user preferences (favorites, recents, display mode)" [ref=e647]
+                  - row "PUT /api/reader/preferences Update user preferences" [ref=e648]:
+                    - cell "PUT" [ref=e649]
+                    - cell "/api/reader/preferences" [ref=e650]:
+                      - code [ref=e651]: /api/reader/preferences
+                    - cell "Update user preferences" [ref=e652]
+                  - row "GET /api/reader/image Serve images from docs directory" [ref=e653]:
+                    - cell "GET" [ref=e654]
+                    - cell "/api/reader/image" [ref=e655]:
+                      - code [ref=e656]: /api/reader/image
+                    - cell "Serve images from docs directory" [ref=e657]
+              - heading "Email Utility API" [level=4] [ref=e658]
+              - table [ref=e660]:
+                - rowgroup [ref=e661]:
+                  - row "Method Endpoint Description" [ref=e662]:
+                    - columnheader "Method" [ref=e663]
+                    - columnheader "Endpoint" [ref=e664]
+                    - columnheader "Description" [ref=e665]
+                - rowgroup [ref=e666]:
+                  - row "POST /api/email/test Send test email (admin only)" [ref=e667]:
+                    - cell "POST" [ref=e668]
+                    - cell "/api/email/test" [ref=e669]:
+                      - code [ref=e670]: /api/email/test
+                    - cell "Send test email (admin only)" [ref=e671]
+              - heading "Authentication Flow" [level=3] [ref=e672]
+              - generic "code block" [ref=e673]:
+                - button "Copy code" [ref=e674]:
+                  - img [ref=e675]
+                - code [ref=e679]: "┌─────────────────────────────────────────────────────────────────┐ │ Authentication Flow │ └─────────────────────────────────────────────────────────────────┘ User → Login Form → POST /api/auth/[...nextauth] │ ┌──────┴──────┐ │ Validate │ │ Credentials │ └──────┬──────┘ │ ┌──────────────┼──────────────┐ │ │ │ ▼ ▼ ▼ ┌───────────┐ ┌───────────┐ ┌───────────┐ │ Success │ │ Failed │ │ Locked │ └─────┬─────┘ └─────┬─────┘ └─────┬─────┘ │ │ │ ▼ ▼ ▼ Create JWT Increment Return Error Session (7d) Failed Count \"Account locked\" │ │ ▼ ▼ Redirect to 5 failures → Dashboard Lock 30 min Session Storage: JWT tokens (no database session table) Session Duration: 7 days Lockout: 5 failed attempts → 30 minute lock"
+              - heading "Service Layer Pattern" [level=3] [ref=e680]
+              - paragraph [ref=e681]: "The Markdown Reader introduces a service layer for encapsulating business logic:"
+              - generic "typescript code block" [ref=e682]:
+                - generic [ref=e683]: typescript
+                - button "Copy code" [ref=e684]:
+                  - img [ref=e685]
+                - code [ref=e689]: "// Service classes encapsulate domain logic export class FileSystemService { private docsRoot: string; validatePath(path: string): void; // Security validation resolvePath(relativePath: string): string; // Safe path resolution isValidDocumentPath(path: string): boolean; // Extension allowlist check } export class PreferencesService { async getPreferences(): Promise<ReaderPreferences>; async updatePreferences(update: Partial<ReaderPreferences>): Promise<void>; async toggleFavorite(path: string, name: string): Promise<void>; async addRecent(path: string, name: string): Promise<void>; }"
+              - paragraph [ref=e690]:
+                - strong [ref=e691]: "Benefits:"
+              - list [ref=e692]:
+                - listitem [ref=e693]: Reusable business logic across API routes
+                - listitem [ref=e694]: Testable in isolation (dependency injection)
+                - listitem [ref=e695]: Clear separation of concerns
+                - listitem [ref=e696]: Centralized security validation
+              - paragraph [ref=e697]:
+                - strong [ref=e698]: "Data Flow with Service Layer:"
+              - generic "code block" [ref=e699]:
+                - button "Copy code" [ref=e700]:
+                  - img [ref=e701]
+                - code [ref=e705]: API Route (/api/reader/file) ↓ Zod Validation (reader.ts) ↓ Service Layer (FileSystemService) ↓ File System (DOCS_ROOT)
+              - heading "Security Architecture" [level=3] [ref=e706]
+              - heading "Path Traversal Prevention (Markdown Reader)" [level=4] [ref=e707]
+              - paragraph [ref=e708]: "The FileSystemService implements defense-in-depth security:"
+              - generic "typescript code block" [ref=e709]:
+                - generic [ref=e710]: typescript
+                - button "Copy code" [ref=e711]:
+                  - img [ref=e712]
+                - code [ref=e716]: "// Multi-layer validation 1. Input validation: Rejects \"..\", null bytes, empty paths 2. Path resolution: Uses path.join() with DOCS_ROOT 3. Defense in depth: Verifies resolved path is within DOCS_ROOT 4. Extension allowlisting: Only .md, .mmd, .txt files allowed"
+              - paragraph [ref=e717]:
+                - strong [ref=e718]: "Security Features:"
+              - list [ref=e719]:
+                - listitem [ref=e720]:
+                  - text: Regex-based
+                  - code [ref=e721]: ..
+                  - text: detection (handles URL encoding)
+                - listitem [ref=e722]:
+                  - text: Blocks access to hidden files (starting with
+                  - code [ref=e723]: .
+                  - text: )
+                - listitem [ref=e724]:
+                  - text: Blocks access to
+                  - code [ref=e725]: .reader-prefs.json
+                  - text: configuration file
+                - listitem [ref=e726]: All paths normalized before validation
+                - listitem [ref=e727]: Read-only access (no write operations via API except preferences)
+              - heading "File System Sandboxing" [level=4] [ref=e728]
+              - paragraph [ref=e729]:
+                - text: All file operations are sandboxed within
+                - code [ref=e730]: DOCS_ROOT
+                - text: ":"
+              - list [ref=e731]:
+                - listitem [ref=e732]: No access to parent directories
+                - listitem [ref=e733]: No symlink following outside sandbox
+                - listitem [ref=e734]: Strict extension allowlist enforcement
+              - separator [ref=e735]
+              - heading "6. Frontend Architecture" [level=2] [ref=e736]
+              - heading "Context-Aware Component Pattern" [level=3] [ref=e737]
+              - paragraph [ref=e738]: "Dashboard components have dual implementations for flexibility:"
+              - generic "code block" [ref=e739]:
+                - button "Copy code" [ref=e740]:
+                  - img [ref=e741]
+                - code [ref=e745]: ┌─────────────────────────────────────────────────────────────────┐ │ Context-Aware Component Pattern │ └─────────────────────────────────────────────────────────────────┘ ┌─────────────────────────────┐ ┌─────────────────────────────┐ │ Context-Aware Version │ │ Prop-Based Version │ │ (FilteredKPICards) │ │ (KPICards) │ ├─────────────────────────────┤ ├─────────────────────────────┤ │ - Consumes FilterContext │ │ - Accepts props directly │ │ - Used in dashboard pages │───▶│ - Directly testable │ │ - Auto-reacts to filters │ │ - Can be used standalone │ └─────────────────────────────┘ └─────────────────────────────┘
+              - paragraph [ref=e746]:
+                - strong [ref=e747]: "Implementation Example:"
+              - generic "typescript code block" [ref=e748]:
+                - generic [ref=e749]: typescript
+                - button "Copy code" [ref=e750]:
+                  - img [ref=e751]
+                - code [ref=e755]: "// Prop-based (testable) interface KPICardsProps { startDate: Date; endDate: Date; accountIds: string[]; } export function KPICards({ startDate, endDate, accountIds }: KPICardsProps) { // Fetch and render using props } // Context-aware (dashboard use) export function FilteredKPICards() { const { dateRange, selectedAccountIds } = useFilters(); return ( <KPICards startDate={dateRange.start} endDate={dateRange.end} accountIds={selectedAccountIds} /> ); }"
+              - heading "Shell Pattern" [level=3] [ref=e756]
+              - generic "code block" [ref=e757]:
+                - button "Copy code" [ref=e758]:
+                  - img [ref=e759]
+                - code [ref=e763]: ┌─────────────────────────────────────────────────────────────────┐ │ Shell Pattern │ └─────────────────────────────────────────────────────────────────┘ Server Component (layout.tsx) ├── Metadata generation ├── Static shell markup └── Children slot │ └── Client Component (DashboardShell) ├── FilterProvider (context) ├── FilterSidebar (UI) └── Content Area (children)
+              - paragraph [ref=e764]:
+                - strong [ref=e765]: Why this pattern?
+              - list [ref=e766]:
+                - listitem [ref=e767]: Server components handle metadata and SEO
+                - listitem [ref=e768]: Client shell provides interactivity and context
+                - listitem [ref=e769]: Clear separation of concerns
+                - listitem [ref=e770]: Optimal hydration performance
+              - heading "State Management" [level=3] [ref=e771]
+              - table [ref=e773]:
+                - rowgroup [ref=e774]:
+                  - row "Context Purpose Provider Location" [ref=e775]:
+                    - columnheader "Context" [ref=e776]
+                    - columnheader "Purpose" [ref=e777]
+                    - columnheader "Provider Location" [ref=e778]
+                - rowgroup [ref=e779]:
+                  - row "FilterContext Dashboard filters (date range, accounts) DashboardShell" [ref=e780]:
+                    - cell "FilterContext" [ref=e781]
+                    - cell "Dashboard filters (date range, accounts)" [ref=e782]
+                    - cell "DashboardShell" [ref=e783]:
+                      - code [ref=e784]: DashboardShell
+                  - row "ReaderContext File navigation, content viewing, preferences ReaderLayout" [ref=e785]:
+                    - cell "ReaderContext" [ref=e786]
+                    - cell "File navigation, content viewing, preferences" [ref=e787]
+                    - cell "ReaderLayout" [ref=e788]:
+                      - code [ref=e789]: ReaderLayout
+                  - row "ThemeContext Light/Dark mode preference RootLayout" [ref=e790]:
+                    - cell "ThemeContext" [ref=e791]
+                    - cell "Light/Dark mode preference" [ref=e792]
+                    - cell "RootLayout" [ref=e793]:
+                      - code [ref=e794]: RootLayout
+                  - row "SessionContext Auth state (NextAuth) RootLayout" [ref=e795]:
+                    - cell "SessionContext" [ref=e796]
+                    - cell "Auth state (NextAuth)" [ref=e797]
+                    - cell "RootLayout" [ref=e798]:
+                      - code [ref=e799]: RootLayout
+              - paragraph [ref=e800]:
+                - strong [ref=e801]: "FilterContext State:"
+              - generic "typescript code block" [ref=e802]:
+                - generic [ref=e803]: typescript
+                - button "Copy code" [ref=e804]:
+                  - img [ref=e805]
+                - code [ref=e809]: "interface FilterContextValue { // State dateRangeKey: string; // 'this-month', 'last-3-months', etc. dateRange: { start: Date; end: Date }; customDateRange: { start: Date; end: Date } | null; selectedAccountIds: string[]; accounts: Account[]; isLoading: boolean; // Actions setDateRange: (key: string, custom?: DateRange) => void; setSelectedAccounts: (ids: string[]) => void; resetFilters: () => void; // Utilities buildFilterQueryParams: () => URLSearchParams; }"
+              - paragraph [ref=e810]:
+                - strong [ref=e811]: "ReaderContext State:"
+              - generic "typescript code block" [ref=e812]:
+                - generic [ref=e813]: typescript
+                - button "Copy code" [ref=e814]:
+                  - img [ref=e815]
+                - code [ref=e819]: "interface ReaderContextValue { // Navigation currentPath: string | null; expandedPaths: Set<string>; searchQuery: string; searchResults: FileNode[]; // Content currentFile: FileContent | null; headings: DocumentHeading[]; isLoading: boolean; error: string | null; // Preferences displayMode: 'themed' | 'reading'; tocVisible: boolean; navPaneVisible: boolean; // Quick Access recentFiles: RecentFile[]; favorites: Favorite[]; // Actions selectFile: (path: string) => Promise<void>; toggleExpand: (path: string) => void; setSearchQuery: (query: string) => void; setHeadings: (headings: DocumentHeading[]) => void; setDisplayMode: (mode: DisplayMode) => void; toggleToc: () => void; toggleNavPane: () => void; toggleFavorite: (path: string, name: string) => Promise<void>; isFavorite: (path: string) => boolean; }"
+              - heading "Server/Client Component Split" [level=3] [ref=e820]
+              - table [ref=e822]:
+                - rowgroup [ref=e823]:
+                  - row "Type Use For Examples" [ref=e824]:
+                    - columnheader "Type" [ref=e825]
+                    - columnheader "Use For" [ref=e826]
+                    - columnheader "Examples" [ref=e827]
+                - rowgroup [ref=e828]:
+                  - row "Server Metadata, layouts, data fetching layout.tsx, page.tsx (default)" [ref=e829]:
+                    - cell "Server" [ref=e830]:
+                      - strong [ref=e831]: Server
+                    - cell "Metadata, layouts, data fetching" [ref=e832]
+                    - cell "layout.tsx, page.tsx (default)" [ref=e833]:
+                      - code [ref=e834]: layout.tsx
+                      - text: ","
+                      - code [ref=e835]: page.tsx
+                      - text: (default)
+                  - row "Client Interactivity, hooks, events Forms, modals, charts, filters" [ref=e836]:
+                    - cell "Client" [ref=e837]:
+                      - strong [ref=e838]: Client
+                    - cell "Interactivity, hooks, events" [ref=e839]
+                    - cell "Forms, modals, charts, filters" [ref=e840]
+              - paragraph [ref=e841]:
+                - strong [ref=e842]: "Client Component Indicators:"
+              - list [ref=e843]:
+                - listitem [ref=e844]:
+                  - code [ref=e845]: "\"use client\""
+                  - text: directive at top of file
+                - listitem [ref=e846]:
+                  - text: Uses hooks (
+                  - code [ref=e847]: useState
+                  - text: ","
+                  - code [ref=e848]: useEffect
+                  - text: ","
+                  - code [ref=e849]: useContext
+                  - text: )
+                - listitem [ref=e850]:
+                  - text: Event handlers (
+                  - code [ref=e851]: onClick
+                  - text: ","
+                  - code [ref=e852]: onChange
+                  - text: )
+                - listitem [ref=e853]:
+                  - text: Browser APIs (
+                  - code [ref=e854]: localStorage
+                  - text: ","
+                  - code [ref=e855]: window
+                  - text: )
+              - heading "Styling" [level=3] [ref=e856]
+              - table [ref=e858]:
+                - rowgroup [ref=e859]:
+                  - row "Tool Purpose" [ref=e860]:
+                    - columnheader "Tool" [ref=e861]
+                    - columnheader "Purpose" [ref=e862]
+                - rowgroup [ref=e863]:
+                  - row "Tailwind CSS Utility-first styling" [ref=e864]:
+                    - cell "Tailwind CSS" [ref=e865]:
+                      - strong [ref=e866]: Tailwind CSS
+                    - cell "Utility-first styling" [ref=e867]
+                  - row "shadcn/ui Pre-built accessible components" [ref=e868]:
+                    - cell "shadcn/ui" [ref=e869]:
+                      - strong [ref=e870]: shadcn/ui
+                    - cell "Pre-built accessible components" [ref=e871]
+                  - row "CSS Variables Theme tokens (--bg-page, --text-primary)" [ref=e872]:
+                    - cell "CSS Variables" [ref=e873]:
+                      - strong [ref=e874]: CSS Variables
+                    - cell "Theme tokens (--bg-page, --text-primary)" [ref=e875]:
+                      - text: Theme tokens (
+                      - code [ref=e876]: "--bg-page"
+                      - text: ","
+                      - code [ref=e877]: "--text-primary"
+                      - text: )
+                  - row "cn() utility Conditional class merging (clsx + tailwind-merge)" [ref=e878]:
+                    - cell "cn() utility" [ref=e879]:
+                      - strong [ref=e880]: cn() utility
+                    - cell "Conditional class merging (clsx + tailwind-merge)" [ref=e881]
+              - separator [ref=e882]
+              - heading "7. Testing Strategy" [level=2] [ref=e883]
+              - heading "Three-Tier Testing Architecture" [level=3] [ref=e884]
+              - generic "code block" [ref=e885]:
+                - button "Copy code" [ref=e886]:
+                  - img [ref=e887]
+                - code [ref=e891]: ┌─────────────────────────────────────────────────────────────────┐ │ Testing Pyramid │ └─────────────────────────────────────────────────────────────────┘ ┌───────────┐ │ E2E │ Playwright │ (slow) │ Full user workflows └─────┬─────┘ │ ┌─────────┴─────────┐ │ Integration │ Vitest │ (medium) │ API routes + DB └─────────┬─────────┘ │ ┌───────────────┴───────────────┐ │ Unit │ Vitest │ (fast) │ Components, queries, utils └───────────────────────────────┘
+              - heading "Test Categories" [level=3] [ref=e892]
+              - table [ref=e894]:
+                - rowgroup [ref=e895]:
+                  - row "Type Framework Location Purpose" [ref=e896]:
+                    - columnheader "Type" [ref=e897]
+                    - columnheader "Framework" [ref=e898]
+                    - columnheader "Location" [ref=e899]
+                    - columnheader "Purpose" [ref=e900]
+                - rowgroup [ref=e901]:
+                  - row "Unit Vitest + RTL __tests__/unit/ Components, queries, utilities" [ref=e902]:
+                    - cell "Unit" [ref=e903]:
+                      - strong [ref=e904]: Unit
+                    - cell "Vitest + RTL" [ref=e905]
+                    - cell "__tests__/unit/" [ref=e906]:
+                      - code [ref=e907]: __tests__/unit/
+                    - cell "Components, queries, utilities" [ref=e908]
+                  - row "Integration Vitest __tests__/integration/ API routes with real DB" [ref=e909]:
+                    - cell "Integration" [ref=e910]:
+                      - strong [ref=e911]: Integration
+                    - cell "Vitest" [ref=e912]
+                    - cell "__tests__/integration/" [ref=e913]:
+                      - code [ref=e914]: __tests__/integration/
+                    - cell "API routes with real DB" [ref=e915]
+                  - row "E2E Playwright __tests__/e2e/ Full user workflows" [ref=e916]:
+                    - cell "E2E" [ref=e917]:
+                      - strong [ref=e918]: E2E
+                    - cell "Playwright" [ref=e919]
+                    - cell "__tests__/e2e/" [ref=e920]:
+                      - code [ref=e921]: __tests__/e2e/
+                    - cell "Full user workflows" [ref=e922]
+              - heading "Test Database Setup" [level=3] [ref=e923]
+              - generic "typescript code block" [ref=e924]:
+                - generic [ref=e925]: typescript
+                - button "Copy code" [ref=e926]:
+                  - img [ref=e927]
+                - code [ref=e931]: "// __tests__/helpers/test-db.ts // Mode 1: Existing DB (default, fast) // Reuses docker-compose MSSQL on port 1434 // Mode 2: Container (CI/CD) // Spins up ephemeral MSSQL via Testcontainers // Utilities setupTestDatabase() // Initialize test DB teardownTestDatabase() // Cleanup connections clearTestData() // Wipe tables between tests seedTestData(count) // Generate sample transactions"
+              - heading "Coverage Requirements" [level=3] [ref=e932]
+              - table [ref=e934]:
+                - rowgroup [ref=e935]:
+                  - row "Metric Threshold" [ref=e936]:
+                    - columnheader "Metric" [ref=e937]
+                    - columnheader "Threshold" [ref=e938]
+                - rowgroup [ref=e939]:
+                  - row "Statements 80%" [ref=e940]:
+                    - cell "Statements" [ref=e941]
+                    - cell "80%" [ref=e942]
+                  - row "Branches 80%" [ref=e943]:
+                    - cell "Branches" [ref=e944]
+                    - cell "80%" [ref=e945]
+                  - row "Functions 80%" [ref=e946]:
+                    - cell "Functions" [ref=e947]
+                    - cell "80%" [ref=e948]
+                  - row "Lines 80%" [ref=e949]:
+                    - cell "Lines" [ref=e950]
+                    - cell "80%" [ref=e951]
+              - heading "TDD Workflow" [level=3] [ref=e952]
+              - generic "code block" [ref=e953]:
+                - button "Copy code" [ref=e954]:
+                  - img [ref=e955]
+                - code [ref=e959]: "┌─────────┐ ┌─────────┐ ┌──────────┐ ┌────────┐ │ RED │────▶│ GREEN │────▶│ REFACTOR │────▶│ COMMIT │ │ │ │ │ │ │ │ │ │ Write │ │ Minimal │ │ Clean up │ │ test: │ │ failing │ │ code to │ │ keeping │ │ or │ │ test │ │ pass │ │ tests │ │ feat: │ └─────────┘ └─────────┘ │ green │ └────────┘ └──────────┘"
+              - heading "Running Tests" [level=3] [ref=e960]
+              - generic "bash code block" [ref=e961]:
+                - generic [ref=e962]: bash
+                - button "Copy code" [ref=e963]:
+                  - img [ref=e964]
+                - code [ref=e968]: "# Unit and Integration npm test # Run all tests npm run test:ui # Interactive UI npm run test:coverage # With coverage report # E2E npm run test:e2e # Run Playwright tests npm run test:e2e:ui # Interactive Playwright UI # Single file npx vitest run __tests__/unit/components/kpi-card.test.tsx"
+              - separator [ref=e969]
+              - heading "8. Infrastructure" [level=2] [ref=e970]
+              - heading "Docker Configuration" [level=3] [ref=e971]
+              - generic "yaml code block" [ref=e972]:
+                - generic [ref=e973]: yaml
+                - button "Copy code" [ref=e974]:
+                  - img [ref=e975]
+                - code [ref=e979]: "# docker-compose.yml services: db: image: mcr.microsoft.com/mssql/server:2025-latest container_name: cemdash-db ports: - \"1434:1433\" volumes: - mssql-data:/var/opt/mssql healthcheck: test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $$SA_PASSWORD -Q \"SELECT 1\" interval: 10s timeout: 3s retries: 10 web: build: . container_name: cemdash-web ports: - \"3000:3000\" depends_on: db: condition: service_healthy"
+              - heading "Database Connection" [level=3] [ref=e980]
+              - generic "code block" [ref=e981]:
+                - button "Copy code" [ref=e982]:
+                  - img [ref=e983]
+                - code [ref=e987]: "# .env.local DATABASE_URL=\"sqlserver://localhost:1434;database=HomeFinance-db;user=sa;password=YOUR_PASSWORD;encrypt=true;trustServerCertificate=true\""
+              - heading "Environment Variables" [level=3] [ref=e988]
+              - table [ref=e990]:
+                - rowgroup [ref=e991]:
+                  - row "Variable Purpose Required" [ref=e992]:
+                    - columnheader "Variable" [ref=e993]
+                    - columnheader "Purpose" [ref=e994]
+                    - columnheader "Required" [ref=e995]
+                - rowgroup [ref=e996]:
+                  - row "DATABASE_URL Prisma connection string Yes" [ref=e997]:
+                    - cell "DATABASE_URL" [ref=e998]:
+                      - code [ref=e999]: DATABASE_URL
+                    - cell "Prisma connection string" [ref=e1000]
+                    - cell "Yes" [ref=e1001]
+                  - row "NEXTAUTH_SECRET JWT signing key Yes" [ref=e1002]:
+                    - cell "NEXTAUTH_SECRET" [ref=e1003]:
+                      - code [ref=e1004]: NEXTAUTH_SECRET
+                    - cell "JWT signing key" [ref=e1005]
+                    - cell "Yes" [ref=e1006]
+                  - row "NEXTAUTH_URL Auth callback base URL Yes" [ref=e1007]:
+                    - cell "NEXTAUTH_URL" [ref=e1008]:
+                      - code [ref=e1009]: NEXTAUTH_URL
+                    - cell "Auth callback base URL" [ref=e1010]
+                    - cell "Yes" [ref=e1011]
+                  - row "DOCS_ROOT Markdown documentation directory path Yes (Reader)" [ref=e1012]:
+                    - cell "DOCS_ROOT" [ref=e1013]:
+                      - code [ref=e1014]: DOCS_ROOT
+                    - cell "Markdown documentation directory path" [ref=e1015]
+                    - cell "Yes (Reader)" [ref=e1016]
+                  - row "SMTP_HOST Email server Optional" [ref=e1017]:
+                    - cell "SMTP_HOST" [ref=e1018]:
+                      - code [ref=e1019]: SMTP_HOST
+                    - cell "Email server" [ref=e1020]
+                    - cell "Optional" [ref=e1021]
+                  - row "SMTP_PORT Email port Optional" [ref=e1022]:
+                    - cell "SMTP_PORT" [ref=e1023]:
+                      - code [ref=e1024]: SMTP_PORT
+                    - cell "Email port" [ref=e1025]
+                    - cell "Optional" [ref=e1026]
+                  - row "SMTP_USER Email username Optional" [ref=e1027]:
+                    - cell "SMTP_USER" [ref=e1028]:
+                      - code [ref=e1029]: SMTP_USER
+                    - cell "Email username" [ref=e1030]
+                    - cell "Optional" [ref=e1031]
+                  - row "SMTP_PASS Email password Optional" [ref=e1032]:
+                    - cell "SMTP_PASS" [ref=e1033]:
+                      - code [ref=e1034]: SMTP_PASS
+                    - cell "Email password" [ref=e1035]
+                    - cell "Optional" [ref=e1036]
+              - separator [ref=e1037]
+              - heading "9. Development Workflow" [level=2] [ref=e1038]
+              - heading "Getting Started" [level=3] [ref=e1039]
+              - generic "bash code block" [ref=e1040]:
+                - generic [ref=e1041]: bash
+                - button "Copy code" [ref=e1042]:
+                  - img [ref=e1043]
+                - code [ref=e1047]: "# 1. Clone and install git clone <repository> cd Home-Dashboard npm install # 2. Start database docker compose up -d # 3. Setup environment cp .env.example .env.local # Edit DATABASE_URL in .env.local # 4. Generate Prisma client npx prisma generate # 5. Run migrations (if needed) npx prisma migrate dev # 6. Start development server npm run dev"
+              - heading "Common Commands" [level=3] [ref=e1048]
+              - generic "bash code block" [ref=e1049]:
+                - generic [ref=e1050]: bash
+                - button "Copy code" [ref=e1051]:
+                  - img [ref=e1052]
+                - code [ref=e1056]: "# Development npm run dev # Start dev server (localhost:3000) npm run build # Production build npm run start # Run production build # Database docker compose up -d # Start MSSQL docker compose down # Stop MSSQL npx prisma studio # Visual DB browser npx prisma generate # Regenerate client npx prisma migrate dev # Run migrations # Testing npm test # Unit + integration tests npm run test:coverage # With coverage npm run test:e2e # E2E tests # Linting npm run lint # ESLint npm run type-check # TypeScript check"
+              - heading "Feature Development Process" [level=3] [ref=e1057]
+              - generic "code block" [ref=e1058]:
+                - button "Copy code" [ref=e1059]:
+                  - img [ref=e1060]
+                - code [ref=e1064]: "1. Create feature spec └── specs/[###-feature-name]/spec.md 2. Plan implementation └── /speckit.plan → generates plan.md, research.md, contracts/ 3. Generate tasks └── /speckit.tasks → generates tasks.md 4. Implement (TDD) └── /speckit.implement → executes tasks.md For each task: ├── RED: Write failing test ├── GREEN: Implement minimum code ├── REFACTOR: Clean up └── COMMIT: test: or feat: prefix 5. Verify └── npm test && npm run build"
+              - heading "Git Workflow" [level=3] [ref=e1065]
+              - generic "code block" [ref=e1066]:
+                - button "Copy code" [ref=e1067]:
+                  - img [ref=e1068]
+                - code [ref=e1072]: "main │ └── feature/[###-feature-name] │ ├── test: add failing test for X ├── feat: implement X ├── refactor: extract Y └── ... Commit message format: type: description Co-Authored-By: Claude <noreply@anthropic.com>"
+              - separator [ref=e1073]
+              - 'heading "Appendix: Quick Reference" [level=2] [ref=e1074]'
+              - heading "Key Files" [level=3] [ref=e1075]
+              - table [ref=e1077]:
+                - rowgroup [ref=e1078]:
+                  - row "Purpose File" [ref=e1079]:
+                    - columnheader "Purpose" [ref=e1080]
+                    - columnheader "File" [ref=e1081]
+                - rowgroup [ref=e1082]:
+                  - row "Root layout app/layout.tsx" [ref=e1083]:
+                    - cell "Root layout" [ref=e1084]
+                    - cell "app/layout.tsx" [ref=e1085]:
+                      - code [ref=e1086]: app/layout.tsx
+                  - row "Prisma schema prisma/schema.prisma" [ref=e1087]:
+                    - cell "Prisma schema" [ref=e1088]
+                    - cell "prisma/schema.prisma" [ref=e1089]:
+                      - code [ref=e1090]: prisma/schema.prisma
+                  - row "Filter context lib/contexts/filter-context.tsx" [ref=e1091]:
+                    - cell "Filter context" [ref=e1092]
+                    - cell "lib/contexts/filter-context.tsx" [ref=e1093]:
+                      - code [ref=e1094]: lib/contexts/filter-context.tsx
+                  - row "Theme config lib/theme/themes/" [ref=e1095]:
+                    - cell "Theme config" [ref=e1096]
+                    - cell "lib/theme/themes/" [ref=e1097]:
+                      - code [ref=e1098]: lib/theme/themes/
+                  - row "API validations lib/validations/" [ref=e1099]:
+                    - cell "API validations" [ref=e1100]
+                    - cell "lib/validations/" [ref=e1101]:
+                      - code [ref=e1102]: lib/validations/
+                  - row "Query functions lib/queries/" [ref=e1103]:
+                    - cell "Query functions" [ref=e1104]
+                    - cell "lib/queries/" [ref=e1105]:
+                      - code [ref=e1106]: lib/queries/
+                  - row "Test helpers __tests__/helpers/" [ref=e1107]:
+                    - cell "Test helpers" [ref=e1108]
+                    - cell "__tests__/helpers/" [ref=e1109]:
+                      - code [ref=e1110]: __tests__/helpers/
+                  - row "Project constitution .specify/memory/constitution.md" [ref=e1111]:
+                    - cell "Project constitution" [ref=e1112]
+                    - cell ".specify/memory/constitution.md" [ref=e1113]:
+                      - code [ref=e1114]: .specify/memory/constitution.md
+              - heading "Architectural Decisions" [level=3] [ref=e1115]
+              - table [ref=e1117]:
+                - rowgroup [ref=e1118]:
+                  - row "Decision Rationale" [ref=e1119]:
+                    - columnheader "Decision" [ref=e1120]
+                    - columnheader "Rationale" [ref=e1121]
+                - rowgroup [ref=e1122]:
+                  - row "App Router Server/client component optimization" [ref=e1123]:
+                    - cell "App Router" [ref=e1124]
+                    - cell "Server/client component optimization" [ref=e1125]
+                  - row "Context-aware components Testability + dashboard integration" [ref=e1126]:
+                    - cell "Context-aware components" [ref=e1127]
+                    - cell "Testability + dashboard integration" [ref=e1128]
+                  - row "Zod validation Type-safe API contracts" [ref=e1129]:
+                    - cell "Zod validation" [ref=e1130]
+                    - cell "Type-safe API contracts" [ref=e1131]
+                  - row "Query separation Reusable across routes" [ref=e1132]:
+                    - cell "Query separation" [ref=e1133]
+                    - cell "Reusable across routes" [ref=e1134]
+                  - row "CSS variables for themes Runtime switching without re-render" [ref=e1135]:
+                    - cell "CSS variables for themes" [ref=e1136]
+                    - cell "Runtime switching without re-render" [ref=e1137]
+                  - row "Testcontainers Isolated integration tests" [ref=e1138]:
+                    - cell "Testcontainers" [ref=e1139]
+                    - cell "Isolated integration tests" [ref=e1140]
+              - separator [ref=e1141]
+              - paragraph [ref=e1142]:
+                - emphasis [ref=e1143]: "Generated: 2026-01-20"
+          - complementary [ref=e1144]:
+            - navigation "Table of contents" [ref=e1145]:
+              - heading "On this page" [level=2] [ref=e1147]:
+                - img [ref=e1148]
+                - text: On this page
+              - list [ref=e1149]:
+                - listitem [ref=e1150]:
+                  - 'link "Architecture Guide: Home-Dashboard" [ref=e1151] [cursor=pointer]':
+                    - /url: "#architecture-guide-home-dashboard"
+                - listitem [ref=e1152]:
+                  - 'link "Architecture Guide: Home-Dashboard" [ref=e1153] [cursor=pointer]':
+                    - /url: "#architecture-guide-home-dashboard-1"
+                - listitem [ref=e1154]:
+                  - link "Table of Contents" [ref=e1155] [cursor=pointer]:
+                    - /url: "#table-of-contents"
+                - listitem [ref=e1156]:
+                  - link "Table of Contents" [ref=e1157] [cursor=pointer]:
+                    - /url: "#table-of-contents-1"
+                - listitem [ref=e1158]:
+                  - link "1. Overview" [ref=e1159] [cursor=pointer]:
+                    - /url: "#1-overview"
+                - listitem [ref=e1160]:
+                  - link "1. Overview" [ref=e1161] [cursor=pointer]:
+                    - /url: "#1-overview-1"
+                - listitem [ref=e1162]:
+                  - link "System Purpose" [ref=e1163] [cursor=pointer]:
+                    - /url: "#system-purpose"
+                - listitem [ref=e1164]:
+                  - link "System Purpose" [ref=e1165] [cursor=pointer]:
+                    - /url: "#system-purpose-1"
+                - listitem [ref=e1166]:
+                  - link "Tech Stack" [ref=e1167] [cursor=pointer]:
+                    - /url: "#tech-stack"
+                - listitem [ref=e1168]:
+                  - link "Tech Stack" [ref=e1169] [cursor=pointer]:
+                    - /url: "#tech-stack-1"
+                - listitem [ref=e1170]:
+                  - link "Feature Summary" [ref=e1171] [cursor=pointer]:
+                    - /url: "#feature-summary"
+                - listitem [ref=e1172]:
+                  - link "Feature Summary" [ref=e1173] [cursor=pointer]:
+                    - /url: "#feature-summary-1"
+                - listitem [ref=e1174]:
+                  - link "2. System Architecture" [ref=e1175] [cursor=pointer]:
+                    - /url: "#2-system-architecture"
+                - listitem [ref=e1176]:
+                  - link "2. System Architecture" [ref=e1177] [cursor=pointer]:
+                    - /url: "#2-system-architecture-1"
+                - listitem [ref=e1178]:
+                  - link "High-Level System Diagram" [ref=e1179] [cursor=pointer]:
+                    - /url: "#high-level-system-diagram"
+                - listitem [ref=e1180]:
+                  - link "High-Level System Diagram" [ref=e1181] [cursor=pointer]:
+                    - /url: "#high-level-system-diagram-1"
+                - listitem [ref=e1182]:
+                  - link "Data Flow Architecture" [ref=e1183] [cursor=pointer]:
+                    - /url: "#data-flow-architecture"
+                - listitem [ref=e1184]:
+                  - link "Data Flow Architecture" [ref=e1185] [cursor=pointer]:
+                    - /url: "#data-flow-architecture-1"
+                - listitem [ref=e1186]:
+                  - link "Component Hierarchy" [ref=e1187] [cursor=pointer]:
+                    - /url: "#component-hierarchy"
+                - listitem [ref=e1188]:
+                  - link "Component Hierarchy" [ref=e1189] [cursor=pointer]:
+                    - /url: "#component-hierarchy-1"
+                - listitem [ref=e1190]:
+                  - link "3. Directory Structure" [ref=e1191] [cursor=pointer]:
+                    - /url: "#3-directory-structure"
+                - listitem [ref=e1192]:
+                  - link "3. Directory Structure" [ref=e1193] [cursor=pointer]:
+                    - /url: "#3-directory-structure-1"
+                - listitem [ref=e1194]:
+                  - link "Project Root" [ref=e1195] [cursor=pointer]:
+                    - /url: "#project-root"
+                - listitem [ref=e1196]:
+                  - link "Project Root" [ref=e1197] [cursor=pointer]:
+                    - /url: "#project-root-1"
+                - listitem [ref=e1198]:
+                  - link "App Router Structure (app/)" [ref=e1199] [cursor=pointer]:
+                    - /url: "#app-router-structure-app"
+                - listitem [ref=e1200]:
+                  - link "App Router Structure (app/)" [ref=e1201] [cursor=pointer]:
+                    - /url: "#app-router-structure-app-1"
+                - listitem [ref=e1202]:
+                  - link "Components Structure (components/)" [ref=e1203] [cursor=pointer]:
+                    - /url: "#components-structure-components"
+                - listitem [ref=e1204]:
+                  - link "Components Structure (components/)" [ref=e1205] [cursor=pointer]:
+                    - /url: "#components-structure-components-1"
+                - listitem [ref=e1206]:
+                  - link "Library Structure (lib/)" [ref=e1207] [cursor=pointer]:
+                    - /url: "#library-structure-lib"
+                - listitem [ref=e1208]:
+                  - link "Library Structure (lib/)" [ref=e1209] [cursor=pointer]:
+                    - /url: "#library-structure-lib-1"
+                - listitem [ref=e1210]:
+                  - link "Type Definitions (types/)" [ref=e1211] [cursor=pointer]:
+                    - /url: "#type-definitions-types"
+                - listitem [ref=e1212]:
+                  - link "Type Definitions (types/)" [ref=e1213] [cursor=pointer]:
+                    - /url: "#type-definitions-types-1"
+                - listitem [ref=e1214]:
+                  - link "Test Structure (__tests__/)" [ref=e1215] [cursor=pointer]:
+                    - /url: "#test-structure-__tests__"
+                - listitem [ref=e1216]:
+                  - link "Test Structure (__tests__/)" [ref=e1217] [cursor=pointer]:
+                    - /url: "#test-structure-__tests__-1"
+                - listitem [ref=e1218]:
+                  - link "4. Data Model" [ref=e1219] [cursor=pointer]:
+                    - /url: "#4-data-model"
+                - listitem [ref=e1220]:
+                  - link "4. Data Model" [ref=e1221] [cursor=pointer]:
+                    - /url: "#4-data-model-1"
+                - listitem [ref=e1222]:
+                  - link "Entity Relationship Diagram" [ref=e1223] [cursor=pointer]:
+                    - /url: "#entity-relationship-diagram"
+                - listitem [ref=e1224]:
+                  - link "Entity Relationship Diagram" [ref=e1225] [cursor=pointer]:
+                    - /url: "#entity-relationship-diagram-1"
+                - listitem [ref=e1226]:
+                  - link "Prisma Schema Overview" [ref=e1227] [cursor=pointer]:
+                    - /url: "#prisma-schema-overview"
+                - listitem [ref=e1228]:
+                  - link "Prisma Schema Overview" [ref=e1229] [cursor=pointer]:
+                    - /url: "#prisma-schema-overview-1"
+                - listitem [ref=e1230]:
+                  - link "5. API Layer" [ref=e1231] [cursor=pointer]:
+                    - /url: "#5-api-layer"
+                - listitem [ref=e1232]:
+                  - link "5. API Layer" [ref=e1233] [cursor=pointer]:
+                    - /url: "#5-api-layer-1"
+                - listitem [ref=e1234]:
+                  - link "API Contract Pattern" [ref=e1235] [cursor=pointer]:
+                    - /url: "#api-contract-pattern"
+                - listitem [ref=e1236]:
+                  - link "API Contract Pattern" [ref=e1237] [cursor=pointer]:
+                    - /url: "#api-contract-pattern-1"
+                - listitem [ref=e1238]:
+                  - link "Endpoint Summary" [ref=e1239] [cursor=pointer]:
+                    - /url: "#endpoint-summary"
+                - listitem [ref=e1240]:
+                  - link "Endpoint Summary" [ref=e1241] [cursor=pointer]:
+                    - /url: "#endpoint-summary-1"
+                - listitem [ref=e1242]:
+                  - link "Analytics API" [ref=e1243] [cursor=pointer]:
+                    - /url: "#analytics-api"
+                - listitem [ref=e1244]:
+                  - link "Analytics API" [ref=e1245] [cursor=pointer]:
+                    - /url: "#analytics-api-1"
+                - listitem [ref=e1246]:
+                  - link "Transactions API" [ref=e1247] [cursor=pointer]:
+                    - /url: "#transactions-api"
+                - listitem [ref=e1248]:
+                  - link "Transactions API" [ref=e1249] [cursor=pointer]:
+                    - /url: "#transactions-api-1"
+                - listitem [ref=e1250]:
+                  - link "Events API" [ref=e1251] [cursor=pointer]:
+                    - /url: "#events-api"
+                - listitem [ref=e1252]:
+                  - link "Events API" [ref=e1253] [cursor=pointer]:
+                    - /url: "#events-api-1"
+                - listitem [ref=e1254]:
+                  - link "Categories API" [ref=e1255] [cursor=pointer]:
+                    - /url: "#categories-api"
+                - listitem [ref=e1256]:
+                  - link "Categories API" [ref=e1257] [cursor=pointer]:
+                    - /url: "#categories-api-1"
+                - listitem [ref=e1258]:
+                  - link "Users API (Admin)" [ref=e1259] [cursor=pointer]:
+                    - /url: "#users-api-admin"
+                - listitem [ref=e1260]:
+                  - link "Users API (Admin)" [ref=e1261] [cursor=pointer]:
+                    - /url: "#users-api-admin-1"
+                - listitem [ref=e1262]:
+                  - link "Filter Options API" [ref=e1263] [cursor=pointer]:
+                    - /url: "#filter-options-api"
+                - listitem [ref=e1264]:
+                  - link "Filter Options API" [ref=e1265] [cursor=pointer]:
+                    - /url: "#filter-options-api-1"
+                - listitem [ref=e1266]:
+                  - link "Reader API" [ref=e1267] [cursor=pointer]:
+                    - /url: "#reader-api"
+                - listitem [ref=e1268]:
+                  - link "Reader API" [ref=e1269] [cursor=pointer]:
+                    - /url: "#reader-api-1"
+                - listitem [ref=e1270]:
+                  - link "Email Utility API" [ref=e1271] [cursor=pointer]:
+                    - /url: "#email-utility-api"
+                - listitem [ref=e1272]:
+                  - link "Email Utility API" [ref=e1273] [cursor=pointer]:
+                    - /url: "#email-utility-api-1"
+                - listitem [ref=e1274]:
+                  - link "Authentication Flow" [ref=e1275] [cursor=pointer]:
+                    - /url: "#authentication-flow"
+                - listitem [ref=e1276]:
+                  - link "Authentication Flow" [ref=e1277] [cursor=pointer]:
+                    - /url: "#authentication-flow-1"
+                - listitem [ref=e1278]:
+                  - link "Service Layer Pattern" [ref=e1279] [cursor=pointer]:
+                    - /url: "#service-layer-pattern"
+                - listitem [ref=e1280]:
+                  - link "Service Layer Pattern" [ref=e1281] [cursor=pointer]:
+                    - /url: "#service-layer-pattern-1"
+                - listitem [ref=e1282]:
+                  - link "Security Architecture" [ref=e1283] [cursor=pointer]:
+                    - /url: "#security-architecture"
+                - listitem [ref=e1284]:
+                  - link "Security Architecture" [ref=e1285] [cursor=pointer]:
+                    - /url: "#security-architecture-1"
+                - listitem [ref=e1286]:
+                  - link "Path Traversal Prevention (Markdown Reader)" [ref=e1287] [cursor=pointer]:
+                    - /url: "#path-traversal-prevention-markdown-reader"
+                - listitem [ref=e1288]:
+                  - link "Path Traversal Prevention (Markdown Reader)" [ref=e1289] [cursor=pointer]:
+                    - /url: "#path-traversal-prevention-markdown-reader-1"
+                - listitem [ref=e1290]:
+                  - link "File System Sandboxing" [ref=e1291] [cursor=pointer]:
+                    - /url: "#file-system-sandboxing"
+                - listitem [ref=e1292]:
+                  - link "File System Sandboxing" [ref=e1293] [cursor=pointer]:
+                    - /url: "#file-system-sandboxing-1"
+                - listitem [ref=e1294]:
+                  - link "6. Frontend Architecture" [ref=e1295] [cursor=pointer]:
+                    - /url: "#6-frontend-architecture"
+                - listitem [ref=e1296]:
+                  - link "6. Frontend Architecture" [ref=e1297] [cursor=pointer]:
+                    - /url: "#6-frontend-architecture-1"
+                - listitem [ref=e1298]:
+                  - link "Context-Aware Component Pattern" [ref=e1299] [cursor=pointer]:
+                    - /url: "#context-aware-component-pattern"
+                - listitem [ref=e1300]:
+                  - link "Context-Aware Component Pattern" [ref=e1301] [cursor=pointer]:
+                    - /url: "#context-aware-component-pattern-1"
+                - listitem [ref=e1302]:
+                  - link "Shell Pattern" [ref=e1303] [cursor=pointer]:
+                    - /url: "#shell-pattern"
+                - listitem [ref=e1304]:
+                  - link "Shell Pattern" [ref=e1305] [cursor=pointer]:
+                    - /url: "#shell-pattern-1"
+                - listitem [ref=e1306]:
+                  - link "State Management" [ref=e1307] [cursor=pointer]:
+                    - /url: "#state-management"
+                - listitem [ref=e1308]:
+                  - link "State Management" [ref=e1309] [cursor=pointer]:
+                    - /url: "#state-management-1"
+                - listitem [ref=e1310]:
+                  - link "Server/Client Component Split" [ref=e1311] [cursor=pointer]:
+                    - /url: "#serverclient-component-split"
+                - listitem [ref=e1312]:
+                  - link "Server/Client Component Split" [ref=e1313] [cursor=pointer]:
+                    - /url: "#serverclient-component-split-1"
+                - listitem [ref=e1314]:
+                  - link "Styling" [ref=e1315] [cursor=pointer]:
+                    - /url: "#styling"
+                - listitem [ref=e1316]:
+                  - link "Styling" [ref=e1317] [cursor=pointer]:
+                    - /url: "#styling-1"
+                - listitem [ref=e1318]:
+                  - link "7. Testing Strategy" [ref=e1319] [cursor=pointer]:
+                    - /url: "#7-testing-strategy"
+                - listitem [ref=e1320]:
+                  - link "7. Testing Strategy" [ref=e1321] [cursor=pointer]:
+                    - /url: "#7-testing-strategy-1"
+                - listitem [ref=e1322]:
+                  - link "Three-Tier Testing Architecture" [ref=e1323] [cursor=pointer]:
+                    - /url: "#three-tier-testing-architecture"
+                - listitem [ref=e1324]:
+                  - link "Three-Tier Testing Architecture" [ref=e1325] [cursor=pointer]:
+                    - /url: "#three-tier-testing-architecture-1"
+                - listitem [ref=e1326]:
+                  - link "Test Categories" [ref=e1327] [cursor=pointer]:
+                    - /url: "#test-categories"
+                - listitem [ref=e1328]:
+                  - link "Test Categories" [ref=e1329] [cursor=pointer]:
+                    - /url: "#test-categories-1"
+                - listitem [ref=e1330]:
+                  - link "Test Database Setup" [ref=e1331] [cursor=pointer]:
+                    - /url: "#test-database-setup"
+                - listitem [ref=e1332]:
+                  - link "Test Database Setup" [ref=e1333] [cursor=pointer]:
+                    - /url: "#test-database-setup-1"
+                - listitem [ref=e1334]:
+                  - link "Coverage Requirements" [ref=e1335] [cursor=pointer]:
+                    - /url: "#coverage-requirements"
+                - listitem [ref=e1336]:
+                  - link "Coverage Requirements" [ref=e1337] [cursor=pointer]:
+                    - /url: "#coverage-requirements-1"
+                - listitem [ref=e1338]:
+                  - link "TDD Workflow" [ref=e1339] [cursor=pointer]:
+                    - /url: "#tdd-workflow"
+                - listitem [ref=e1340]:
+                  - link "TDD Workflow" [ref=e1341] [cursor=pointer]:
+                    - /url: "#tdd-workflow-1"
+                - listitem [ref=e1342]:
+                  - link "Running Tests" [ref=e1343] [cursor=pointer]:
+                    - /url: "#running-tests"
+                - listitem [ref=e1344]:
+                  - link "Running Tests" [ref=e1345] [cursor=pointer]:
+                    - /url: "#running-tests-1"
+                - listitem [ref=e1346]:
+                  - link "8. Infrastructure" [ref=e1347] [cursor=pointer]:
+                    - /url: "#8-infrastructure"
+                - listitem [ref=e1348]:
+                  - link "8. Infrastructure" [ref=e1349] [cursor=pointer]:
+                    - /url: "#8-infrastructure-1"
+                - listitem [ref=e1350]:
+                  - link "Docker Configuration" [ref=e1351] [cursor=pointer]:
+                    - /url: "#docker-configuration"
+                - listitem [ref=e1352]:
+                  - link "Docker Configuration" [ref=e1353] [cursor=pointer]:
+                    - /url: "#docker-configuration-1"
+                - listitem [ref=e1354]:
+                  - link "Database Connection" [ref=e1355] [cursor=pointer]:
+                    - /url: "#database-connection"
+                - listitem [ref=e1356]:
+                  - link "Database Connection" [ref=e1357] [cursor=pointer]:
+                    - /url: "#database-connection-1"
+                - listitem [ref=e1358]:
+                  - link "Environment Variables" [ref=e1359] [cursor=pointer]:
+                    - /url: "#environment-variables"
+                - listitem [ref=e1360]:
+                  - link "Environment Variables" [ref=e1361] [cursor=pointer]:
+                    - /url: "#environment-variables-1"
+                - listitem [ref=e1362]:
+                  - link "9. Development Workflow" [ref=e1363] [cursor=pointer]:
+                    - /url: "#9-development-workflow"
+                - listitem [ref=e1364]:
+                  - link "9. Development Workflow" [ref=e1365] [cursor=pointer]:
+                    - /url: "#9-development-workflow-1"
+                - listitem [ref=e1366]:
+                  - link "Getting Started" [ref=e1367] [cursor=pointer]:
+                    - /url: "#getting-started"
+                - listitem [ref=e1368]:
+                  - link "Getting Started" [ref=e1369] [cursor=pointer]:
+                    - /url: "#getting-started-1"
+                - listitem [ref=e1370]:
+                  - link "Common Commands" [ref=e1371] [cursor=pointer]:
+                    - /url: "#common-commands"
+                - listitem [ref=e1372]:
+                  - link "Common Commands" [ref=e1373] [cursor=pointer]:
+                    - /url: "#common-commands-1"
+                - listitem [ref=e1374]:
+                  - link "Feature Development Process" [ref=e1375] [cursor=pointer]:
+                    - /url: "#feature-development-process"
+                - listitem [ref=e1376]:
+                  - link "Feature Development Process" [ref=e1377] [cursor=pointer]:
+                    - /url: "#feature-development-process-1"
+                - listitem [ref=e1378]:
+                  - link "Git Workflow" [ref=e1379] [cursor=pointer]:
+                    - /url: "#git-workflow"
+                - listitem [ref=e1380]:
+                  - link "Git Workflow" [ref=e1381] [cursor=pointer]:
+                    - /url: "#git-workflow-1"
+                - listitem [ref=e1382]:
+                  - 'link "Appendix: Quick Reference" [ref=e1383] [cursor=pointer]':
+                    - /url: "#appendix-quick-reference"
+                - listitem [ref=e1384]:
+                  - 'link "Appendix: Quick Reference" [ref=e1385] [cursor=pointer]':
+                    - /url: "#appendix-quick-reference-1"
+                - listitem [ref=e1386]:
+                  - link "Key Files" [ref=e1387] [cursor=pointer]:
+                    - /url: "#key-files"
+                - listitem [ref=e1388]:
+                  - link "Key Files" [ref=e1389] [cursor=pointer]:
+                    - /url: "#key-files-1"
+                - listitem [ref=e1390]:
+                  - link "Architectural Decisions" [ref=e1391] [cursor=pointer]:
+                    - /url: "#architectural-decisions"
+                - listitem [ref=e1392]:
+                  - link "Architectural Decisions" [ref=e1393] [cursor=pointer]:
+                    - /url: "#architectural-decisions-1"
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e1399] [cursor=pointer]:
+    - img [ref=e1400]
+  - alert [ref=e1403]
+```

@@ -5,19 +5,22 @@
  *
  * Main orchestrator component that combines navigation and content areas.
  * Manages the overall reader interface layout with optional table of contents.
+ * Includes mobile drawer navigation for viewports below 768px.
  *
- * @see specs/005-markdown-reader/spec.md User Story 1, User Story 4
+ * @see specs/005-markdown-reader/spec.md User Story 1, User Story 4, User Story 8, User Story 9
  */
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { List, X } from "lucide-react";
+import { List, X, Menu } from "lucide-react";
 import { NavigationPane } from "./navigation/NavigationPane";
 import { Breadcrumbs } from "./navigation/Breadcrumbs";
 import { ContentViewer } from "./content/ContentViewer";
 import { TableOfContents } from "./content/TableOfContents";
 import { DisplayModeToggle } from "./controls/DisplayModeToggle";
 import { FavoriteToggle } from "./controls/FavoriteToggle";
+import { RefreshButton } from "./controls/RefreshButton";
+import { ReaderDrawer } from "./mobile/ReaderDrawer";
 import { useReader } from "@/lib/contexts/ReaderContext";
 import type { FileNode, DocumentHeading } from "@/types/reader";
 
@@ -37,6 +40,7 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
     error,
     displayMode,
     tocVisible,
+    navPaneVisible,
     headings,
     searchQuery,
     searchResults,
@@ -45,13 +49,18 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
     selectFile,
     toggleExpand,
     toggleToc,
+    toggleNavPane,
     setHeadings,
     setSearchQuery,
     clearSearch,
     setDisplayMode,
     toggleFavorite,
     isFavorite,
+    refreshContent,
   } = useReader();
+
+  // Track refreshing state
+  const [isRefreshing, setIsRefreshing] = React.useState(false);
 
   // Track file tree with loaded children
   const [fileTree, setFileTree] = React.useState<FileNode[]>(initialTree);
@@ -142,6 +151,38 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
   const showToc =
     currentFile?.extension === ".md" && headings.length > 0 && tocVisible;
 
+  // Handle refresh content with loading state
+  const handleRefresh = React.useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await refreshContent();
+    } finally {
+      setIsRefreshing(false);
+    }
+  }, [refreshContent]);
+
+  // Handle file selection from drawer (closes drawer)
+  const handleDrawerFileSelect = React.useCallback(
+    (path: string) => {
+      selectFile(path);
+    },
+    [selectFile]
+  );
+
+  // Handle close drawer
+  const handleCloseDrawer = React.useCallback(() => {
+    if (navPaneVisible) {
+      toggleNavPane();
+    }
+  }, [navPaneVisible, toggleNavPane]);
+
+  // Handle open drawer
+  const handleOpenDrawer = React.useCallback(() => {
+    if (!navPaneVisible) {
+      toggleNavPane();
+    }
+  }, [navPaneVisible, toggleNavPane]);
+
   return (
     <div
       className={cn(
@@ -149,7 +190,27 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
         className
       )}
     >
-      {/* Navigation Sidebar */}
+      {/* Mobile Navigation Drawer */}
+      <ReaderDrawer
+        isOpen={navPaneVisible}
+        onClose={handleCloseDrawer}
+        nodes={fileTree}
+        selectedPath={currentPath}
+        expandedPaths={expandedPaths}
+        loadingPaths={loadingPaths}
+        onFileSelect={handleDrawerFileSelect}
+        onExpandToggle={handleExpandToggle}
+        searchQuery={searchQuery}
+        searchResults={searchResults}
+        isSearching={isLoading && searchQuery.length > 0}
+        onSearch={setSearchQuery}
+        onClearSearch={clearSearch}
+        recentFiles={recentFiles}
+        favorites={favorites}
+        onRemoveFavorite={handleRemoveFavorite}
+      />
+
+      {/* Navigation Sidebar - hidden on mobile */}
       <NavigationPane
         nodes={fileTree}
         selectedPath={currentPath}
@@ -171,14 +232,38 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col min-w-0">
         {/* Breadcrumbs Header with Controls */}
-        <header className="flex-shrink-0 border-b border-border px-4 py-2 flex items-center justify-between">
+        <header className="flex-shrink-0 border-b border-border px-4 py-2 flex items-center justify-between gap-2">
+          {/* Mobile hamburger menu button */}
+          <button
+            type="button"
+            data-testid="reader-menu-button"
+            onClick={handleOpenDrawer}
+            aria-label="Open navigation menu"
+            className={cn(
+              "p-1.5 rounded-md transition-colors md:hidden",
+              "text-muted-foreground hover:bg-muted hover:text-foreground",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            )}
+          >
+            <Menu className="h-5 w-5" aria-hidden="true" />
+          </button>
+
           <Breadcrumbs
             path={currentPath}
             onNavigate={handleBreadcrumbNavigate}
+            className="flex-1 min-w-0"
           />
 
           {/* Control buttons */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 flex-shrink-0">
+            {/* Refresh Button - visible when a file is selected */}
+            {currentFile && (
+              <RefreshButton
+                onRefresh={handleRefresh}
+                loading={isRefreshing}
+              />
+            )}
+
             {/* Favorite Toggle - visible when a file is selected */}
             {currentFile && currentPath && (
               <FavoriteToggle
@@ -193,7 +278,7 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
               onModeChange={setDisplayMode}
             />
 
-            {/* TOC Toggle Button - only visible when there are headings */}
+            {/* TOC Toggle Button - only visible when there are headings (hidden on mobile) */}
             {currentFile?.extension === ".md" && headings.length > 0 && (
               <button
                 type="button"
@@ -201,7 +286,7 @@ export function ReaderLayout({ initialTree, className }: ReaderLayoutProps) {
                 aria-label={tocVisible ? "Hide table of contents" : "Show table of contents"}
                 aria-pressed={tocVisible}
                 className={cn(
-                  "p-1.5 rounded-md transition-colors",
+                  "p-1.5 rounded-md transition-colors hidden sm:block",
                   "hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   tocVisible ? "bg-muted text-foreground" : "text-muted-foreground"
                 )}

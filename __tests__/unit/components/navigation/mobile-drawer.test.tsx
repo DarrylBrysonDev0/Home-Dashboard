@@ -124,10 +124,11 @@ describe("MobileDrawer", () => {
     it("should display all navigation items", () => {
       renderMobileDrawer({ isOpen: true });
 
-      // Should display all four main nav items
+      // Should display all five main nav items
       expect(screen.getByText(/home/i)).toBeInTheDocument();
       expect(screen.getByText(/finance/i)).toBeInTheDocument();
       expect(screen.getByText(/calendar/i)).toBeInTheDocument();
+      expect(screen.getByText(/reader/i)).toBeInTheDocument();
       expect(screen.getByText(/settings/i)).toBeInTheDocument();
     });
 

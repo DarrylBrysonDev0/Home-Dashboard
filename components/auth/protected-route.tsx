@@ -74,7 +74,7 @@ export function ProtectedRoute({
 
     // Redirect if admin required but user is not admin
     if (requireAdmin && !isAdmin) {
-      router.push("/calendar"); // Redirect non-admins to calendar
+      router.push("/"); // Redirect non-admins to home
     }
   }, [isAuthenticated, isLoading, isAdmin, requireAdmin, router, redirectTo]);
 

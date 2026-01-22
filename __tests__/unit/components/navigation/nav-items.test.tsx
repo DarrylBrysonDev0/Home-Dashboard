@@ -40,13 +40,14 @@ describe("NavItems", () => {
       expect(container).toBeInTheDocument();
     });
 
-    it("should render all four main navigation items", () => {
+    it("should render all five main navigation items", () => {
       render(<NavItems />);
 
-      // Should have Home, Finance, Calendar, Settings
+      // Should have Home, Finance, Calendar, Reader, Settings
       expect(screen.getByText("Home")).toBeInTheDocument();
       expect(screen.getByText("Finance")).toBeInTheDocument();
       expect(screen.getByText("Calendar")).toBeInTheDocument();
+      expect(screen.getByText("Reader")).toBeInTheDocument();
       expect(screen.getByText("Settings")).toBeInTheDocument();
     });
 
@@ -54,7 +55,7 @@ describe("NavItems", () => {
       render(<NavItems />);
 
       const links = screen.getAllByRole("link");
-      expect(links.length).toBeGreaterThanOrEqual(4);
+      expect(links.length).toBeGreaterThanOrEqual(5);
     });
   });
 
@@ -88,6 +89,13 @@ describe("NavItems", () => {
       const href = settingsLink.getAttribute("href");
       expect(href).toMatch(/\/(settings|admin)/);
     });
+
+    it("should have correct href for Reader link", () => {
+      render(<NavItems />);
+
+      const readerLink = screen.getByRole("link", { name: /reader/i });
+      expect(readerLink).toHaveAttribute("href", "/reader");
+    });
   });
 
   describe("Icons", () => {
@@ -97,8 +105,8 @@ describe("NavItems", () => {
       const container = screen.getByTestId("nav-items");
       const icons = container.querySelectorAll("svg");
 
-      // Should have at least one icon per nav item
-      expect(icons.length).toBeGreaterThanOrEqual(4);
+      // Should have at least one icon per nav item (5 items now)
+      expect(icons.length).toBeGreaterThanOrEqual(5);
     });
   });
 
@@ -213,6 +221,24 @@ describe("NavItems", () => {
       expect(settingsItem).toHaveAttribute("data-active", "true");
     });
 
+    it("should show Reader as active when on reader path", () => {
+      mockUsePathname.mockReturnValue("/reader");
+
+      render(<NavItems />);
+
+      const readerItem = screen.getByTestId("nav-item-reader");
+      expect(readerItem).toHaveAttribute("data-active", "true");
+    });
+
+    it("should show Reader as active when on nested reader path", () => {
+      mockUsePathname.mockReturnValue("/reader/docs/guide.md");
+
+      render(<NavItems />);
+
+      const readerItem = screen.getByTestId("nav-item-reader");
+      expect(readerItem).toHaveAttribute("data-active", "true");
+    });
+
     it("should only have one active item at a time", () => {
       mockUsePathname.mockReturnValue("/dashboard");
 
@@ -241,6 +267,7 @@ describe("NavItems", () => {
       expect(screen.getByRole("link", { name: /home/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /finance/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /calendar/i })).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: /reader/i })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /settings/i })).toBeInTheDocument();
     });
 
@@ -257,7 +284,7 @@ describe("NavItems", () => {
   });
 
   describe("Order", () => {
-    it("should render items in correct order: Home, Finance, Calendar, Settings", () => {
+    it("should render items in correct order: Home, Finance, Calendar, Reader, Settings", () => {
       render(<NavItems />);
 
       const links = screen.getAllByRole("link");
@@ -266,12 +293,47 @@ describe("NavItems", () => {
       const homeIndex = labels.indexOf("home");
       const financeIndex = labels.indexOf("finance");
       const calendarIndex = labels.indexOf("calendar");
+      const readerIndex = labels.indexOf("reader");
       const settingsIndex = labels.indexOf("settings");
 
       // Verify order
       expect(homeIndex).toBeLessThan(financeIndex);
       expect(financeIndex).toBeLessThan(calendarIndex);
-      expect(calendarIndex).toBeLessThan(settingsIndex);
+      expect(calendarIndex).toBeLessThan(readerIndex);
+      expect(readerIndex).toBeLessThan(settingsIndex);
+    });
+  });
+
+  describe("Reader Navigation Item", () => {
+    it("should render Reader nav item with BookOpen icon", () => {
+      render(<NavItems />);
+
+      // Reader link should be present
+      const readerLink = screen.getByRole("link", { name: /reader/i });
+      expect(readerLink).toBeInTheDocument();
+
+      // Should have an icon (SVG)
+      const icon = readerLink.querySelector("svg");
+      expect(icon).toBeInTheDocument();
+    });
+
+    it("should navigate to /reader when Reader is clicked", async () => {
+      render(<NavItems />);
+
+      const readerLink = screen.getByRole("link", { name: /reader/i });
+      expect(readerLink).toHaveAttribute("href", "/reader");
+    });
+
+    it("should trigger onItemClick callback when Reader is clicked", async () => {
+      const user = userEvent.setup();
+      const onItemClick = vi.fn();
+
+      render(<NavItems onItemClick={onItemClick} />);
+
+      const readerLink = screen.getByRole("link", { name: /reader/i });
+      await user.click(readerLink);
+
+      expect(onItemClick).toHaveBeenCalled();
     });
   });
 });

@@ -1,0 +1,2282 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation "Main navigation" [ref=e2]:
+    - generic [ref=e3]:
+      - link "Cemdash Home Dashboard - Go to home page" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]: Cemdash
+      - generic [ref=e6]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - img [ref=e10]
+          - generic [ref=e13]: Home
+        - link "Finance" [ref=e16] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e17]
+          - generic [ref=e19]: Finance
+        - link "Calendar" [ref=e22] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e23]
+          - generic [ref=e25]: Calendar
+        - link "Reader" [ref=e28] [cursor=pointer]:
+          - /url: /reader
+          - img [ref=e29]
+          - generic [ref=e31]: Reader
+        - link "Settings" [ref=e34] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e35]
+          - generic [ref=e38]: Settings
+    - generic [ref=e39]:
+      - button "Switch to dark theme" [ref=e41]:
+        - img
+      - button "User menu" [ref=e43]:
+        - generic [ref=e44]: A
+  - main [ref=e45]:
+    - generic [ref=e47]:
+      - complementary "File navigation" [ref=e48]:
+        - generic [ref=e49]:
+          - heading "Documents" [level=2] [ref=e50]
+          - generic [ref=e51]:
+            - img [ref=e53]
+            - searchbox "Search files" [ref=e56]
+        - generic [ref=e58]:
+          - generic [ref=e60]:
+            - heading "Recent Files" [level=3] [ref=e61]:
+              - img [ref=e62]
+              - text: Recent Files
+            - list [ref=e65]:
+              - listitem [ref=e66]:
+                - button "Open ARCHITECTURE.md" [ref=e67]:
+                  - img [ref=e68]
+                  - generic [ref=e71]: ARCHITECTURE.md
+          - tree "File tree" [ref=e73]:
+            - treeitem "sub-dir" [ref=e74] [cursor=pointer]:
+              - button [ref=e75]:
+                - img [ref=e76]
+              - img [ref=e79]
+              - generic [ref=e81]: sub-dir
+            - treeitem "ARCHITECTURE.md" [active] [selected] [ref=e82] [cursor=pointer]:
+              - img [ref=e84]
+              - generic [ref=e89]: ARCHITECTURE.md
+            - treeitem "README.md" [ref=e90] [cursor=pointer]:
+              - img [ref=e92]
+              - generic [ref=e97]: README.md
+      - main [ref=e98]:
+        - generic [ref=e99]:
+          - navigation "Breadcrumb" [ref=e100]:
+            - button "Go to root" [ref=e101]:
+              - img [ref=e102]
+            - img [ref=e105]
+            - generic "ARCHITECTURE.md" [ref=e107]
+          - generic [ref=e108]:
+            - button "Refresh content" [ref=e109]:
+              - img [ref=e110]
+            - button "Add to favorites" [ref=e116]:
+              - img [ref=e117]
+            - button "Switch to reading mode" [ref=e120]:
+              - img [ref=e121]
+            - button "Hide table of contents" [pressed] [ref=e127]:
+              - img [ref=e128]
+        - generic [ref=e131]:
+          - article [ref=e133]:
+            - generic [ref=e134]:
+              - heading "ARCHITECTURE.md" [level=1] [ref=e135]
+              - paragraph [ref=e136]: /ARCHITECTURE.md
+            - generic [ref=e138]:
+              - 'heading "Architecture Guide: Home-Dashboard" [level=1] [ref=e139]'
+              - paragraph [ref=e140]:
+                - strong [ref=e141]: Version
+                - text: ": 1.1.0"
+                - strong [ref=e142]: Last Updated
+                - text: ": 2026-01-20"
+                - strong [ref=e143]: Status
+                - text: ": Production Ready"
+              - separator [ref=e144]
+              - heading "Table of Contents" [level=2] [ref=e145]
+              - list [ref=e146]:
+                - listitem [ref=e147]:
+                  - link "Overview" [ref=e148] [cursor=pointer]:
+                    - /url: "#1-overview"
+                - listitem [ref=e149]:
+                  - link "System Architecture" [ref=e150] [cursor=pointer]:
+                    - /url: "#2-system-architecture"
+                - listitem [ref=e151]:
+                  - link "Directory Structure" [ref=e152] [cursor=pointer]:
+                    - /url: "#3-directory-structure"
+                - listitem [ref=e153]:
+                  - link "Data Model" [ref=e154] [cursor=pointer]:
+                    - /url: "#4-data-model"
+                - listitem [ref=e155]:
+                  - link "API Layer" [ref=e156] [cursor=pointer]:
+                    - /url: "#5-api-layer"
+                - listitem [ref=e157]:
+                  - link "Frontend Architecture" [ref=e158] [cursor=pointer]:
+                    - /url: "#6-frontend-architecture"
+                - listitem [ref=e159]:
+                  - link "Testing Strategy" [ref=e160] [cursor=pointer]:
+                    - /url: "#7-testing-strategy"
+                - listitem [ref=e161]:
+                  - link "Infrastructure" [ref=e162] [cursor=pointer]:
+                    - /url: "#8-infrastructure"
+                - listitem [ref=e163]:
+                  - link "Development Workflow" [ref=e164] [cursor=pointer]:
+                    - /url: "#9-development-workflow"
+              - separator [ref=e165]
+              - heading "1. Overview" [level=2] [ref=e166]
+              - heading "System Purpose" [level=3] [ref=e167]
+              - paragraph [ref=e168]: "Home-Dashboard is a self-hosted personal finance and household management application providing:"
+              - list [ref=e169]:
+                - listitem [ref=e170]:
+                  - strong [ref=e171]: Financial Dashboard
+                  - text: ": Real-time monitoring of cash flow, spending patterns, account balances, and recurring transactions"
+                - listitem [ref=e172]:
+                  - strong [ref=e173]: Shared Calendar
+                  - text: ": Household event scheduling with category filtering and email invitations"
+                - listitem [ref=e174]:
+                  - strong [ref=e175]: Theme System
+                  - text: ": Light/Dark mode with accessibility compliance"
+              - heading "Tech Stack" [level=3] [ref=e176]
+              - table [ref=e178]:
+                - rowgroup [ref=e179]:
+                  - row "Layer Technology Version" [ref=e180]:
+                    - columnheader "Layer" [ref=e181]
+                    - columnheader "Technology" [ref=e182]
+                    - columnheader "Version" [ref=e183]
+                - rowgroup [ref=e184]:
+                  - row "Framework Next.js (App Router) 16.1.1" [ref=e185]:
+                    - cell "Framework" [ref=e186]:
+                      - strong [ref=e187]: Framework
+                    - cell "Next.js (App Router)" [ref=e188]
+                    - cell "16.1.1" [ref=e189]
+                  - row "UI Library React 19.2.3" [ref=e190]:
+                    - cell "UI Library" [ref=e191]:
+                      - strong [ref=e192]: UI Library
+                    - cell "React" [ref=e193]
+                    - cell "19.2.3" [ref=e194]
+                  - row "Language TypeScript 5.3+ (strict mode)" [ref=e195]:
+                    - cell "Language" [ref=e196]:
+                      - strong [ref=e197]: Language
+                    - cell "TypeScript" [ref=e198]
+                    - cell "5.3+ (strict mode)" [ref=e199]
+                  - row "Styling Tailwind CSS + shadcn/ui 4.x" [ref=e200]:
+                    - cell "Styling" [ref=e201]:
+                      - strong [ref=e202]: Styling
+                    - cell "Tailwind CSS + shadcn/ui" [ref=e203]
+                    - cell "4.x" [ref=e204]
+                  - row "Charts Recharts 3.6" [ref=e205]:
+                    - cell "Charts" [ref=e206]:
+                      - strong [ref=e207]: Charts
+                    - cell "Recharts" [ref=e208]
+                    - cell "3.6" [ref=e209]
+                  - row "Calendar FullCalendar 6.x" [ref=e210]:
+                    - cell "Calendar" [ref=e211]:
+                      - strong [ref=e212]: Calendar
+                    - cell "FullCalendar" [ref=e213]
+                    - cell "6.x" [ref=e214]
+                  - row "Markdown react-markdown + remark-gfm 10.1.0 / 4.0.1" [ref=e215]:
+                    - cell "Markdown" [ref=e216]:
+                      - strong [ref=e217]: Markdown
+                    - cell "react-markdown + remark-gfm" [ref=e218]
+                    - cell "10.1.0 / 4.0.1" [ref=e219]
+                  - row "Syntax Highlighting Shiki 3.21.0" [ref=e220]:
+                    - cell "Syntax Highlighting" [ref=e221]:
+                      - strong [ref=e222]: Syntax Highlighting
+                    - cell "Shiki" [ref=e223]
+                    - cell "3.21.0" [ref=e224]
+                  - row "Diagrams Mermaid 11.12.2" [ref=e225]:
+                    - cell "Diagrams" [ref=e226]:
+                      - strong [ref=e227]: Diagrams
+                    - cell "Mermaid" [ref=e228]
+                    - cell "11.12.2" [ref=e229]
+                  - row "State React Context -" [ref=e230]:
+                    - cell "State" [ref=e231]:
+                      - strong [ref=e232]: State
+                    - cell "React Context" [ref=e233]
+                    - cell "-" [ref=e234]
+                  - row "Forms React Hook Form + Zod -" [ref=e235]:
+                    - cell "Forms" [ref=e236]:
+                      - strong [ref=e237]: Forms
+                    - cell "React Hook Form + Zod" [ref=e238]
+                    - cell "-" [ref=e239]
+                  - row "Auth NextAuth.js 4.24.x" [ref=e240]:
+                    - cell "Auth" [ref=e241]:
+                      - strong [ref=e242]: Auth
+                    - cell "NextAuth.js" [ref=e243]
+                    - cell "4.24.x" [ref=e244]
+                  - row "ORM Prisma 5.7+" [ref=e245]:
+                    - cell "ORM" [ref=e246]:
+                      - strong [ref=e247]: ORM
+                    - cell "Prisma" [ref=e248]
+                    - cell "5.7+" [ref=e249]
+                  - row "Database MSSQL Server 2025" [ref=e250]:
+                    - cell "Database" [ref=e251]:
+                      - strong [ref=e252]: Database
+                    - cell "MSSQL Server" [ref=e253]
+                    - cell "2025" [ref=e254]
+                  - row "Testing Vitest + Playwright -" [ref=e255]:
+                    - cell "Testing" [ref=e256]:
+                      - strong [ref=e257]: Testing
+                    - cell "Vitest + Playwright" [ref=e258]
+                    - cell "-" [ref=e259]
+                  - row "Runtime Node.js 18+" [ref=e260]:
+                    - cell "Runtime" [ref=e261]:
+                      - strong [ref=e262]: Runtime
+                    - cell "Node.js" [ref=e263]
+                    - cell "18+" [ref=e264]
+              - heading "Feature Summary" [level=3] [ref=e265]
+              - table [ref=e267]:
+                - rowgroup [ref=e268]:
+                  - row "Feature User Stories Components API Endpoints" [ref=e269]:
+                    - columnheader "Feature" [ref=e270]
+                    - columnheader "User Stories" [ref=e271]
+                    - columnheader "Components" [ref=e272]
+                    - columnheader "API Endpoints" [ref=e273]
+                - rowgroup [ref=e274]:
+                  - row "Navigation & Landing 6 10 1" [ref=e275]:
+                    - cell "Navigation & Landing" [ref=e276]
+                    - cell "6" [ref=e277]
+                    - cell "10" [ref=e278]
+                    - cell "1" [ref=e279]
+                  - row "Finance Dashboard 8 20+ 14" [ref=e280]:
+                    - cell "Finance Dashboard" [ref=e281]
+                    - cell "8" [ref=e282]
+                    - cell "20+" [ref=e283]
+                    - cell "14" [ref=e284]
+                  - row "Shared Calendar 5 12 10" [ref=e285]:
+                    - cell "Shared Calendar" [ref=e286]
+                    - cell "5" [ref=e287]
+                    - cell "12" [ref=e288]
+                    - cell "10" [ref=e289]
+                  - row "Markdown Reader 9 18 6" [ref=e290]:
+                    - cell "Markdown Reader" [ref=e291]
+                    - cell "9" [ref=e292]
+                    - cell "18" [ref=e293]
+                    - cell "6" [ref=e294]
+                  - row "Theme System 1 2 0" [ref=e295]:
+                    - cell "Theme System" [ref=e296]
+                    - cell "1" [ref=e297]
+                    - cell "2" [ref=e298]
+                    - cell "0" [ref=e299]
+              - separator [ref=e300]
+              - heading "2. System Architecture" [level=2] [ref=e301]
+              - heading "High-Level System Diagram" [level=3] [ref=e302]
+              - generic "code block" [ref=e303]:
+                - button "Copy code" [ref=e304]:
+                  - img [ref=e305]
+                - code [ref=e310]:
+                  - generic [ref=e311]: ┌─────────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e312]: │ CLIENT (Browser) │
+                  - generic [ref=e313]: ├─────────────────────────────────────────────────────────────────────┤
+                  - generic [ref=e314]: │ │
+                  - generic [ref=e315]: │ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ │
+                  - generic [ref=e316]: │ │ Dashboard │ │ Calendar │ │ Admin │ │
+                  - generic [ref=e317]: │ │ Page │ │ Page │ │ Pages │ │
+                  - generic [ref=e318]: │ └──────┬──────┘ └──────┬──────┘ └──────┬──────┘ │
+                  - generic [ref=e319]: │ │ │ │ │
+                  - generic [ref=e320]: │ └────────────────┼─────────────────┘ │
+                  - generic [ref=e321]: │ │ │
+                  - generic [ref=e322]: │ ┌──────┴──────┐ │
+                  - generic [ref=e323]: │ │ Contexts │ │
+                  - generic [ref=e324]: │ │ (Filter, │ │
+                  - generic [ref=e325]: │ │ Theme) │ │
+                  - generic [ref=e326]: │ └──────┬──────┘ │
+                  - generic [ref=e327]: │ │ │
+                  - generic [ref=e328]: └───────────────────────────┼─────────────────────────────────────────┘
+                  - generic [ref=e329]: │ HTTP/Fetch
+                  - generic [ref=e330]: ▼
+                  - generic [ref=e331]: ┌─────────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e332]: │ SERVER (Next.js) │
+                  - generic [ref=e333]: ├─────────────────────────────────────────────────────────────────────┤
+                  - generic [ref=e334]: │ │
+                  - generic [ref=e335]: │ ┌─────────────────────────────────────────────────────────────┐ │
+                  - generic [ref=e336]: │ │ API Routes (/api) │ │
+                  - generic [ref=e337]: │ │ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ │ │
+                  - generic [ref=e338]: │ │ │Analytics │ │ Events │ │ Users │ │ Auth │ │ │
+                  - generic [ref=e339]: │ │ └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬─────┘ │ │
+                  - generic [ref=e340]: │ └───────┼─────────────┼─────────────┼─────────────┼───────────┘ │
+                  - generic [ref=e341]: │ │ │ │ │ │
+                  - generic [ref=e342]: │ └─────────────┴─────────────┴─────────────┘ │
+                  - generic [ref=e343]: │ │ │
+                  - generic [ref=e344]: │ ┌──────────────┴──────────────┐ │
+                  - generic [ref=e345]: │ │ Query Functions (lib/) │ │
+                  - generic [ref=e346]: │ └──────────────┬──────────────┘ │
+                  - generic [ref=e347]: │ │ │
+                  - generic [ref=e348]: │ ┌──────────────┴──────────────┐ │
+                  - generic [ref=e349]: │ │ Prisma ORM Client │ │
+                  - generic [ref=e350]: │ └──────────────┬──────────────┘ │
+                  - generic [ref=e351]: │ │ │
+                  - generic [ref=e352]: └───────────────────────────────────┼─────────────────────────────────┘
+                  - generic [ref=e353]: │ TCP/1434
+                  - generic [ref=e354]: ▼
+                  - generic [ref=e355]: ┌─────────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e356]: │ DATABASE (MSSQL Server 2025) │
+                  - generic [ref=e357]: ├─────────────────────────────────────────────────────────────────────┤
+                  - generic [ref=e358]: │ ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ │
+                  - generic [ref=e359]: │ │ transactions │ │ events │ │ users │ │
+                  - generic [ref=e360]: │ └───────────────┘ └───────────────┘ └───────────────┘ │
+                  - generic [ref=e361]: │ ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ │
+                  - generic [ref=e362]: │ │event_categories│ │event_attendees│ │ event_invites │ │
+                  - generic [ref=e363]: │ └───────────────┘ └───────────────┘ └───────────────┘ │
+                  - generic [ref=e364]: └─────────────────────────────────────────────────────────────────────┘
+              - heading "Data Flow Architecture" [level=3] [ref=e365]
+              - generic "code block" [ref=e366]:
+                - button "Copy code" [ref=e367]:
+                  - img [ref=e368]
+                - code [ref=e373]:
+                  - generic [ref=e374]: ┌──────────────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e375]: │ Data Flow Pattern │
+                  - generic [ref=e376]: └──────────────────────────────────────────────────────────────────────────┘
+                  - generic [ref=e377]: FilterContext (global state)
+                  - generic [ref=e378]: │
+                  - generic [ref=e379]: ▼
+                  - generic [ref=e380]: ┌─────────────────────────────────────┐
+                  - generic [ref=e381]: │ Context-Aware Components │
+                  - generic [ref=e382]: │ (FilteredKPICards, FilteredChart) │
+                  - generic [ref=e383]: └─────────────┬───────────────────────┘
+                  - generic [ref=e384]: │ reads filters via useFilters()
+                  - generic [ref=e385]: ▼
+                  - generic [ref=e386]: ┌─────────────────────────────────────┐
+                  - generic [ref=e387]: │ Prop-Based Components │
+                  - generic [ref=e388]: │ (KPICards, CashFlowChart) │
+                  - generic [ref=e389]: └─────────────┬───────────────────────┘
+                  - generic [ref=e390]: │ fetch with filter params
+                  - generic [ref=e391]: ▼
+                  - generic [ref=e392]: ┌─────────────────────────────────────┐
+                  - generic [ref=e393]: │ API Routes (/api/analytics/*) │
+                  - generic [ref=e394]: │ - Zod validation │
+                  - generic [ref=e395]: │ - Error handling │
+                  - generic [ref=e396]: └─────────────┬───────────────────────┘
+                  - generic [ref=e397]: │ calls
+                  - generic [ref=e398]: ▼
+                  - generic [ref=e399]: ┌─────────────────────────────────────┐
+                  - generic [ref=e400]: │ Query Functions (lib/queries/) │
+                  - generic [ref=e401]: │ - Reusable across routes │
+                  - generic [ref=e402]: │ - Type-safe return values │
+                  - generic [ref=e403]: └─────────────┬───────────────────────┘
+                  - generic [ref=e404]: │ executes
+                  - generic [ref=e405]: ▼
+                  - generic [ref=e406]: ┌─────────────────────────────────────┐
+                  - generic [ref=e407]: │ Prisma Client │
+                  - generic [ref=e408]: │ → MSSQL Database │
+                  - generic [ref=e409]: └─────────────────────────────────────┘
+              - heading "Component Hierarchy" [level=3] [ref=e410]
+              - generic "code block" [ref=e411]:
+                - button "Copy code" [ref=e412]:
+                  - img [ref=e413]
+                - code [ref=e418]:
+                  - generic [ref=e419]: RootLayout
+                  - generic [ref=e420]: ├── ThemeProvider (next-themes)
+                  - generic [ref=e421]: ├── SessionProvider (NextAuth)
+                  - generic [ref=e422]: └── App Content
+                  - generic [ref=e423]: │
+                  - generic [ref=e424]: ├── NavBar (persistent navigation - all authenticated pages)
+                  - generic [ref=e425]: │ ├── Logo (links to /)
+                  - generic [ref=e426]: │ ├── NavItems (Home, Finance, Calendar, Settings)
+                  - generic [ref=e427]: │ │ └── NavItem (individual nav link with active state)
+                  - generic [ref=e428]: │ ├── ThemeToggle (with Tooltip wrapper)
+                  - generic [ref=e429]: │ ├── UserMenu (avatar dropdown)
+                  - generic [ref=e430]: │ └── MobileDrawer (hamburger menu for < 768px)
+                  - generic [ref=e431]: │
+                  - generic [ref=e432]: ├── / (Landing Page)
+                  - generic [ref=e433]: │ ├── HeroSection (personalized greeting)
+                  - generic [ref=e434]: │ │ └── UpcomingEvents (next 3 calendar events)
+                  - generic [ref=e435]: │ │ └── EventCardMini (compact event display)
+                  - generic [ref=e436]: │ └── AppSelectionPanel (app card grid)
+                  - generic [ref=e437]: │ └── AppCard (module navigation cards)
+                  - generic [ref=e438]: │
+                  - generic [ref=e439]: ├── /dashboard
+                  - generic [ref=e440]: │ └── DashboardShell (FilterProvider context)
+                  - generic [ref=e441]: │ ├── FilterSidebar
+                  - generic [ref=e442]: │ │ ├── TimeFilter
+                  - generic [ref=e443]: │ │ └── AccountFilter
+                  - generic [ref=e444]: │ └── DashboardContent
+                  - generic [ref=e445]: │ ├── FilteredKPICards → KPICards
+                  - generic [ref=e446]: │ ├── FilteredCashFlowChart → CashFlowChart
+                  - generic [ref=e447]: │ ├── FilteredBalanceTrendsChart → BalanceTrendsChart
+                  - generic [ref=e448]: │ ├── FilteredSpendingByCategory → SpendingByCategory
+                  - generic [ref=e449]: │ ├── FilteredTransactionTable → TransactionTable
+                  - generic [ref=e450]: │ ├── FilteredRecurringTable → RecurringTable
+                  - generic [ref=e451]: │ └── FilteredTransferFlowChart → TransferFlowChart
+                  - generic [ref=e452]: │
+                  - generic [ref=e453]: ├── /calendar
+                  - generic [ref=e454]: │ ├── CalendarView (FullCalendar)
+                  - generic [ref=e455]: │ ├── CategoryFilter
+                  - generic [ref=e456]: │ ├── EventModal (create/edit)
+                  - generic [ref=e457]: │ └── EventDetailsDialog
+                  - generic [ref=e458]: │
+                  - generic [ref=e459]: ├── /reader
+                  - generic [ref=e460]: │ └── ReaderProvider (ReaderContext)
+                  - generic [ref=e461]: │ ├── NavigationPane (left sidebar)
+                  - generic [ref=e462]: │ │ ├── SearchInput
+                  - generic [ref=e463]: │ │ ├── FileTree → FileTreeNode (recursive)
+                  - generic [ref=e464]: │ │ ├── RecentFiles
+                  - generic [ref=e465]: │ │ └── Favorites
+                  - generic [ref=e466]: │ ├── Breadcrumbs
+                  - generic [ref=e467]: │ ├── ContentViewer
+                  - generic [ref=e468]: │ │ ├── MarkdownRenderer (react-markdown + remark-gfm)
+                  - generic [ref=e469]: │ │ ├── CodeBlock (Shiki syntax highlighting)
+                  - generic [ref=e470]: │ │ └── MermaidRenderer (Mermaid diagrams)
+                  - generic [ref=e471]: │ ├── TableOfContents (right sidebar)
+                  - generic [ref=e472]: │ ├── DisplayModeToggle (themed/reading modes)
+                  - generic [ref=e473]: │ └── FavoriteToggle
+                  - generic [ref=e474]: │
+                  - generic [ref=e475]: ├── /admin
+                  - generic [ref=e476]: │ ├── AdminDashboard (stats)
+                  - generic [ref=e477]: │ ├── UserList + UserForm
+                  - generic [ref=e478]: │ ├── CategoryList + CategoryForm
+                  - generic [ref=e479]: │ └── SMTPSettings
+                  - generic [ref=e480]: │
+                  - generic [ref=e481]: └── /login
+                  - generic [ref=e482]: └── LoginForm
+              - separator [ref=e483]
+              - heading "3. Directory Structure" [level=2] [ref=e484]
+              - heading "Project Root" [level=3] [ref=e485]
+              - generic "code block" [ref=e486]:
+                - button "Copy code" [ref=e487]:
+                  - img [ref=e488]
+                - code [ref=e493]:
+                  - generic [ref=e494]: Home-Dashboard/
+                  - generic [ref=e495]: "├── app/ # Next.js App Router"
+                  - generic [ref=e496]: "├── components/ # React components"
+                  - generic [ref=e497]: "├── lib/ # Shared utilities and logic"
+                  - generic [ref=e498]: "├── prisma/ # Database schema and migrations"
+                  - generic [ref=e499]: "├── __tests__/ # Test files"
+                  - generic [ref=e500]: "├── docs/ # Documentation"
+                  - generic [ref=e501]: "├── specs/ # Feature specifications"
+                  - generic [ref=e502]: "└── .specify/ # Project constitution"
+              - heading "App Router Structure (app/)" [level=3] [ref=e503]:
+                - text: App Router Structure (
+                - code [ref=e504]: app/
+                - text: )
+              - generic "code block" [ref=e505]:
+                - button "Copy code" [ref=e506]:
+                  - img [ref=e507]
+                - code [ref=e512]:
+                  - generic [ref=e513]: app/
+                  - generic [ref=e514]: "├── layout.tsx # Root layout (ThemeProvider, SessionProvider, NavBar)"
+                  - generic [ref=e515]: "├── providers.tsx # Context providers wrapper"
+                  - generic [ref=e516]: "├── globals.css # Global styles + CSS variables"
+                  - generic [ref=e517]: "├── page.tsx # Landing page (HeroSection, AppSelectionPanel)"
+                  - generic [ref=e518]: │
+                  - generic [ref=e519]: "├── api/ # API route handlers"
+                  - generic [ref=e520]: │ ├── auth/
+                  - generic [ref=e521]: "│ │ └── [...nextauth]/route.ts # NextAuth credential auth"
+                  - generic [ref=e522]: │ ├── analytics/
+                  - generic [ref=e523]: "│ │ ├── kpis/route.ts # GET financial KPIs"
+                  - generic [ref=e524]: "│ │ ├── cash-flow/route.ts # GET income/expense trends"
+                  - generic [ref=e525]: "│ │ ├── categories/route.ts # GET spending breakdown"
+                  - generic [ref=e526]: "│ │ ├── accounts/route.ts # GET account balances"
+                  - generic [ref=e527]: "│ │ ├── transfers/route.ts # GET transfer flow"
+                  - generic [ref=e528]: │ │ └── recurring/
+                  - generic [ref=e529]: "│ │ ├── route.ts # GET recurring patterns"
+                  - generic [ref=e530]: │ │ └── [id]/
+                  - generic [ref=e531]: "│ │ ├── confirm/route.ts # POST confirm pattern"
+                  - generic [ref=e532]: "│ │ └── reject/route.ts # POST reject pattern"
+                  - generic [ref=e533]: │ ├── events/
+                  - generic [ref=e534]: "│ │ ├── route.ts # GET/POST events"
+                  - generic [ref=e535]: │ │ └── [id]/
+                  - generic [ref=e536]: "│ │ ├── route.ts # GET/PUT/DELETE event"
+                  - generic [ref=e537]: "│ │ └── send-invite/route.ts # POST send invite"
+                  - generic [ref=e538]: │ ├── categories/
+                  - generic [ref=e539]: "│ │ ├── route.ts # GET/POST categories"
+                  - generic [ref=e540]: "│ │ └── [id]/route.ts # PUT/DELETE category"
+                  - generic [ref=e541]: │ ├── users/
+                  - generic [ref=e542]: "│ │ ├── route.ts # GET/POST users"
+                  - generic [ref=e543]: "│ │ └── [id]/route.ts # GET/PUT/DELETE user"
+                  - generic [ref=e544]: │ ├── filters/
+                  - generic [ref=e545]: "│ │ ├── accounts/route.ts # GET filter accounts"
+                  - generic [ref=e546]: "│ │ ├── categories/route.ts # GET filter categories"
+                  - generic [ref=e547]: "│ │ └── date-ranges/route.ts # GET date range presets"
+                  - generic [ref=e548]: │ ├── export/
+                  - generic [ref=e549]: "│ │ └── csv/route.ts # GET CSV export"
+                  - generic [ref=e550]: │ ├── reader/
+                  - generic [ref=e551]: "│ │ ├── tree/route.ts # GET file tree (lazy loading)"
+                  - generic [ref=e552]: "│ │ ├── file/route.ts # GET file content"
+                  - generic [ref=e553]: "│ │ ├── search/route.ts # GET file search results"
+                  - generic [ref=e554]: "│ │ ├── preferences/route.ts # GET/PUT user preferences"
+                  - generic [ref=e555]: "│ │ └── image/route.ts # GET images from docs"
+                  - generic [ref=e556]: │ ├── email/
+                  - generic [ref=e557]: "│ │ └── test/route.ts # POST send test email"
+                  - generic [ref=e558]: │ └── admin/
+                  - generic [ref=e559]: "│ └── smtp-config/route.ts # POST SMTP settings"
+                  - generic [ref=e560]: │
+                  - generic [ref=e561]: ├── dashboard/
+                  - generic [ref=e562]: "│ ├── layout.tsx # Dashboard layout (DashboardShell)"
+                  - generic [ref=e563]: "│ └── page.tsx # Dashboard page"
+                  - generic [ref=e564]: │
+                  - generic [ref=e565]: ├── calendar/
+                  - generic [ref=e566]: "│ ├── layout.tsx # Calendar layout"
+                  - generic [ref=e567]: "│ └── page.tsx # Calendar page"
+                  - generic [ref=e568]: │
+                  - generic [ref=e569]: ├── reader/
+                  - generic [ref=e570]: "│ ├── layout.tsx # Reader layout (ReaderProvider)"
+                  - generic [ref=e571]: "│ └── [[...path]]/page.tsx # Dynamic file viewer (catch-all route)"
+                  - generic [ref=e572]: │
+                  - generic [ref=e573]: ├── admin/
+                  - generic [ref=e574]: "│ ├── layout.tsx # Admin layout (role check)"
+                  - generic [ref=e575]: "│ ├── page.tsx # Admin dashboard"
+                  - generic [ref=e576]: "│ ├── users/page.tsx # User management"
+                  - generic [ref=e577]: "│ ├── categories/page.tsx # Category management"
+                  - generic [ref=e578]: "│ └── settings/page.tsx # SMTP settings"
+                  - generic [ref=e579]: │
+                  - generic [ref=e580]: └── login/
+                  - generic [ref=e581]: "└── page.tsx # Login page"
+              - heading "Components Structure (components/)" [level=3] [ref=e582]:
+                - text: Components Structure (
+                - code [ref=e583]: components/
+                - text: )
+              - generic "code block" [ref=e584]:
+                - button "Copy code" [ref=e585]:
+                  - img [ref=e586]
+                - code [ref=e591]:
+                  - generic [ref=e592]: components/
+                  - generic [ref=e593]: "├── ui/ # shadcn/ui components (20+)"
+                  - generic [ref=e594]: │ ├── button.tsx
+                  - generic [ref=e595]: │ ├── card.tsx
+                  - generic [ref=e596]: │ ├── dialog.tsx
+                  - generic [ref=e597]: │ ├── form.tsx
+                  - generic [ref=e598]: │ ├── input.tsx
+                  - generic [ref=e599]: │ ├── select.tsx
+                  - generic [ref=e600]: "│ ├── sheet.tsx # Mobile drawer component"
+                  - generic [ref=e601]: │ ├── table.tsx
+                  - generic [ref=e602]: "│ ├── tooltip.tsx # Theme toggle tooltip"
+                  - generic [ref=e603]: │ └── ...
+                  - generic [ref=e604]: │
+                  - generic [ref=e605]: "├── navigation/ # Navigation components"
+                  - generic [ref=e606]: "│ ├── nav-bar.tsx # Main persistent navigation (64px height)"
+                  - generic [ref=e607]: "│ ├── nav-item.tsx # Individual nav link (active state, loading)"
+                  - generic [ref=e608]: "│ ├── nav-items.tsx # Nav items collection (Home, Finance, Calendar, Settings)"
+                  - generic [ref=e609]: "│ ├── mobile-drawer.tsx # Slide-out mobile navigation (< 768px)"
+                  - generic [ref=e610]: "│ └── logo.tsx # Application logo (links to /)"
+                  - generic [ref=e611]: │
+                  - generic [ref=e612]: "├── home/ # Landing page components"
+                  - generic [ref=e613]: "│ ├── hero-section.tsx # Welcome greeting with events slot"
+                  - generic [ref=e614]: "│ ├── upcoming-events.tsx # Events container (fetches, displays max 3)"
+                  - generic [ref=e615]: "│ ├── event-card-mini.tsx # Compact event display (title, date, location)"
+                  - generic [ref=e616]: "│ ├── app-selection-panel.tsx # App card grid container"
+                  - generic [ref=e617]: "│ └── app-card.tsx # Individual app card (icon, title, description)"
+                  - generic [ref=e618]: │
+                  - generic [ref=e619]: "├── dashboard/ # Finance dashboard components"
+                  - generic [ref=e620]: "│ ├── dashboard-shell.tsx # Main wrapper with FilterProvider"
+                  - generic [ref=e621]: "│ ├── kpi-card.tsx # Single KPI display"
+                  - generic [ref=e622]: "│ ├── kpi-cards.tsx # KPI cards container"
+                  - generic [ref=e623]: "│ ├── loading-skeleton.tsx # Loading states"
+                  - generic [ref=e624]: "│ ├── confidence-badge.tsx # Confidence indicator"
+                  - generic [ref=e625]: "│ ├── spending-by-category.tsx # Category breakdown"
+                  - generic [ref=e626]: │ ├── charts/
+                  - generic [ref=e627]: "│ │ ├── cash-flow-chart.tsx # Income vs expenses"
+                  - generic [ref=e628]: "│ │ ├── balance-trends.tsx # Account balances over time"
+                  - generic [ref=e629]: "│ │ ├── category-donut.tsx # Donut chart"
+                  - generic [ref=e630]: "│ │ ├── category-bar.tsx # Bar chart"
+                  - generic [ref=e631]: "│ │ ├── transfer-flow.tsx # Sankey diagram"
+                  - generic [ref=e632]: "│ │ └── chart-tooltip.tsx # Shared tooltip"
+                  - generic [ref=e633]: │ ├── filters/
+                  - generic [ref=e634]: "│ │ ├── time-filter.tsx # Date range selector"
+                  - generic [ref=e635]: "│ │ └── account-filter.tsx # Account multi-select"
+                  - generic [ref=e636]: │ ├── transactions/
+                  - generic [ref=e637]: "│ │ ├── transaction-table.tsx # Transaction list"
+                  - generic [ref=e638]: "│ │ └── recurring-table.tsx # Recurring patterns"
+                  - generic [ref=e639]: │ └── empty-states/
+                  - generic [ref=e640]: "│ └── no-data.tsx # Empty state UI"
+                  - generic [ref=e641]: │
+                  - generic [ref=e642]: "├── calendar/ # Event calendar components"
+                  - generic [ref=e643]: "│ ├── calendar-view.tsx # FullCalendar wrapper"
+                  - generic [ref=e644]: "│ ├── event-modal.tsx # Create/edit event"
+                  - generic [ref=e645]: "│ ├── event-details.tsx # Event info display"
+                  - generic [ref=e646]: "│ ├── event-details-dialog.tsx # View event modal"
+                  - generic [ref=e647]: "│ ├── category-filter.tsx # Category toggles"
+                  - generic [ref=e648]: "│ └── invite-form.tsx # Email invite form"
+                  - generic [ref=e649]: │
+                  - generic [ref=e650]: "├── reader/ # Markdown reader components"
+                  - generic [ref=e651]: "│ ├── ReaderLayout.tsx # Main orchestrator"
+                  - generic [ref=e652]: "│ ├── NavigationPane.tsx # Left sidebar wrapper"
+                  - generic [ref=e653]: "│ ├── FileTree.tsx # Tree-based file browser"
+                  - generic [ref=e654]: "│ ├── FileTreeNode.tsx # Individual tree node (recursive)"
+                  - generic [ref=e655]: "│ ├── SearchInput.tsx # File search"
+                  - generic [ref=e656]: "│ ├── Breadcrumbs.tsx # Path navigation"
+                  - generic [ref=e657]: "│ ├── RecentFiles.tsx # Recently viewed files"
+                  - generic [ref=e658]: "│ ├── Favorites.tsx # Bookmarked files"
+                  - generic [ref=e659]: "│ ├── ContentViewer.tsx # Main content area"
+                  - generic [ref=e660]: "│ ├── MarkdownRenderer.tsx # Markdown rendering (react-markdown)"
+                  - generic [ref=e661]: "│ ├── CodeBlock.tsx # Syntax-highlighted code (Shiki)"
+                  - generic [ref=e662]: "│ ├── MermaidRenderer.tsx # Mermaid diagrams"
+                  - generic [ref=e663]: "│ ├── TableOfContents.tsx # Auto-generated TOC"
+                  - generic [ref=e664]: "│ ├── EmptyState.tsx # Empty state UI"
+                  - generic [ref=e665]: "│ ├── DisplayModeToggle.tsx # Themed/reading mode switch"
+                  - generic [ref=e666]: "│ └── FavoriteToggle.tsx # Bookmark toggle"
+                  - generic [ref=e667]: │
+                  - generic [ref=e668]: "├── auth/ # Authentication components"
+                  - generic [ref=e669]: "│ ├── login-form.tsx # Login form"
+                  - generic [ref=e670]: "│ ├── user-menu.tsx # User dropdown"
+                  - generic [ref=e671]: "│ └── protected-route.tsx # Route protection"
+                  - generic [ref=e672]: │
+                  - generic [ref=e673]: "├── admin/ # Admin management components"
+                  - generic [ref=e674]: "│ ├── user-list.tsx # User table"
+                  - generic [ref=e675]: "│ ├── user-form.tsx # User create/edit"
+                  - generic [ref=e676]: "│ ├── category-list.tsx # Category table"
+                  - generic [ref=e677]: "│ └── category-form.tsx # Category create/edit"
+                  - generic [ref=e678]: │
+                  - generic [ref=e679]: "└── theme/ # Theme system components"
+                  - generic [ref=e680]: "├── ThemeProvider.tsx # next-themes wrapper"
+                  - generic [ref=e681]: "└── ThemeToggle.tsx # Light/dark toggle button"
+              - heading "Library Structure (lib/)" [level=3] [ref=e682]:
+                - text: Library Structure (
+                - code [ref=e683]: lib/
+                - text: )
+              - generic "code block" [ref=e684]:
+                - button "Copy code" [ref=e685]:
+                  - img [ref=e686]
+                - code [ref=e691]:
+                  - generic [ref=e692]: lib/
+                  - generic [ref=e693]: "├── db.ts # Prisma client singleton"
+                  - generic [ref=e694]: "├── auth.ts # NextAuth configuration"
+                  - generic [ref=e695]: "├── email.ts # Nodemailer service"
+                  - generic [ref=e696]: "├── utils.ts # clsx + tailwind-merge (cn function)"
+                  - generic [ref=e697]: │
+                  - generic [ref=e698]: "├── queries/ # Database query functions"
+                  - generic [ref=e699]: "│ ├── analytics.ts # KPI calculations"
+                  - generic [ref=e700]: "│ ├── accounts.ts # Account queries (derived from transactions)"
+                  - generic [ref=e701]: "│ ├── balance-trends.ts # Balance time series"
+                  - generic [ref=e702]: "│ ├── cash-flow.ts # Cash flow aggregation"
+                  - generic [ref=e703]: "│ ├── categories.ts # Category queries"
+                  - generic [ref=e704]: "│ ├── transactions.ts # Transaction CRUD"
+                  - generic [ref=e705]: "│ ├── recurring.ts # Recurring detection"
+                  - generic [ref=e706]: "│ ├── transfers.ts # Transfer flow"
+                  - generic [ref=e707]: "│ ├── events.ts # Calendar events"
+                  - generic [ref=e708]: "│ ├── users.ts # User management"
+                  - generic [ref=e709]: "│ ├── auth.ts # Auth queries"
+                  - generic [ref=e710]: "│ └── invites.ts # Event invitations"
+                  - generic [ref=e711]: │
+                  - generic [ref=e712]: "├── validations/ # Zod schemas"
+                  - generic [ref=e713]: "│ ├── filters.ts # Date range, account filters"
+                  - generic [ref=e714]: "│ ├── analytics.ts # KPI params"
+                  - generic [ref=e715]: "│ ├── transaction.ts # Transaction schemas"
+                  - generic [ref=e716]: "│ ├── auth.ts # Login/password schemas"
+                  - generic [ref=e717]: "│ ├── category.ts # Category schemas"
+                  - generic [ref=e718]: "│ ├── event.ts # Event schemas"
+                  - generic [ref=e719]: "│ ├── reader.ts # Reader schemas (file, search, preferences)"
+                  - generic [ref=e720]: "│ └── index.ts # Central exports"
+                  - generic [ref=e721]: │
+                  - generic [ref=e722]: "├── contexts/ # React Context providers"
+                  - generic [ref=e723]: "│ ├── filter-context.tsx # FilterContext (date range, accounts)"
+                  - generic [ref=e724]: "│ └── reader-context.tsx # ReaderContext (file navigation, preferences)"
+                  - generic [ref=e725]: │
+                  - generic [ref=e726]: "├── theme/ # Theme system"
+                  - generic [ref=e727]: "│ ├── index.ts # Public exports"
+                  - generic [ref=e728]: "│ ├── types.ts # TypeScript interfaces"
+                  - generic [ref=e729]: │ ├── themes/
+                  - generic [ref=e730]: "│ │ ├── light.ts # Light theme config"
+                  - generic [ref=e731]: "│ │ ├── dark.ts # Dark theme config"
+                  - generic [ref=e732]: "│ │ └── index.ts # Theme registry"
+                  - generic [ref=e733]: │ ├── hooks/
+                  - generic [ref=e734]: "│ │ ├── useTheme.ts # Theme control hook"
+                  - generic [ref=e735]: "│ │ └── useChartTheme.ts # Chart colors hook"
+                  - generic [ref=e736]: │ └── utils/
+                  - generic [ref=e737]: "│ └── css-variables.ts # CSS variable utilities"
+                  - generic [ref=e738]: │
+                  - generic [ref=e739]: "├── constants/ # Static configuration"
+                  - generic [ref=e740]: "│ ├── colors.ts # Chart color palettes"
+                  - generic [ref=e741]: "│ └── date-ranges.ts # Quick date range presets"
+                  - generic [ref=e742]: │
+                  - generic [ref=e743]: "├── hooks/ # Custom React hooks"
+                  - generic [ref=e744]: "│ ├── use-session.ts # Session access hook"
+                  - generic [ref=e745]: "│ └── use-media-query.ts # Responsive breakpoint detection"
+                  - generic [ref=e746]: │
+                  - generic [ref=e747]: "├── middleware/ # Request middleware"
+                  - generic [ref=e748]: "│ └── admin-check.ts # Admin role verification"
+                  - generic [ref=e749]: │
+                  - generic [ref=e750]: "├── reader/ # Reader service layer"
+                  - generic [ref=e751]: "│ ├── file-system.service.ts # Sandboxed file access with security"
+                  - generic [ref=e752]: "│ ├── preferences.service.ts # User preferences management"
+                  - generic [ref=e753]: "│ ├── heading-extractor.ts # TOC generation from markdown"
+                  - generic [ref=e754]: "│ ├── markdown-config.ts # Markdown rendering configuration"
+                  - generic [ref=e755]: "│ ├── shiki-highlighter.ts # Code syntax highlighting"
+                  - generic [ref=e756]: "│ └── mermaid-themes.ts # Mermaid diagram theming"
+                  - generic [ref=e757]: │
+                  - generic [ref=e758]: "├── utils/ # Utility functions"
+                  - generic [ref=e759]: "│ ├── csv-export.ts # CSV generation"
+                  - generic [ref=e760]: "│ ├── password.ts # bcrypt utilities"
+                  - generic [ref=e761]: "│ ├── timezone.ts # Timezone conversion"
+                  - generic [ref=e762]: "│ └── ics-generator.ts # iCalendar generation"
+                  - generic [ref=e763]: │
+                  - generic [ref=e764]: "└── server/ # Server-side utilities"
+                  - generic [ref=e765]: "└── auth-session.ts # Server session handling"
+              - heading "Type Definitions (types/)" [level=3] [ref=e766]:
+                - text: Type Definitions (
+                - code [ref=e767]: types/
+                - text: )
+              - generic "code block" [ref=e768]:
+                - button "Copy code" [ref=e769]:
+                  - img [ref=e770]
+                - code [ref=e775]:
+                  - generic [ref=e776]: types/
+                  - generic [ref=e777]: "├── next-auth.d.ts # NextAuth session type extensions"
+                  - generic [ref=e778]: "└── reader.ts # Reader type definitions (FileNode, ReaderState, etc.)"
+              - heading "Test Structure (__tests__/)" [level=3] [ref=e779]:
+                - text: Test Structure (
+                - code [ref=e780]: __tests__/
+                - text: )
+              - generic "code block" [ref=e781]:
+                - button "Copy code" [ref=e782]:
+                  - img [ref=e783]
+                - code [ref=e788]:
+                  - generic [ref=e789]: __tests__/
+                  - generic [ref=e790]: "├── unit/ # Unit tests (Vitest)"
+                  - generic [ref=e791]: │ ├── components/
+                  - generic [ref=e792]: "│ │ ├── navigation/ # NavBar, NavItem, Logo, MobileDrawer tests"
+                  - generic [ref=e793]: "│ │ ├── home/ # HeroSection, AppCard, UpcomingEvents tests"
+                  - generic [ref=e794]: "│ │ └── ... # Other component tests"
+                  - generic [ref=e795]: "│ ├── queries/ # Query function tests"
+                  - generic [ref=e796]: "│ └── theme/ # Theme system tests"
+                  - generic [ref=e797]: │
+                  - generic [ref=e798]: "├── integration/ # Integration tests (Vitest)"
+                  - generic [ref=e799]: │ └── api/
+                  - generic [ref=e800]: "│ └── events-upcoming.test.ts # Upcoming events API test"
+                  - generic [ref=e801]: │
+                  - generic [ref=e802]: "├── e2e/ # End-to-end tests (Playwright)"
+                  - generic [ref=e803]: "│ ├── navigation.spec.ts # NavBar, mobile drawer, keyboard a11y tests"
+                  - generic [ref=e804]: "│ ├── landing.spec.ts # Landing page, app cards tests"
+                  - generic [ref=e805]: │ └── *.spec.ts
+                  - generic [ref=e806]: │
+                  - generic [ref=e807]: "└── helpers/ # Test utilities"
+                  - generic [ref=e808]: "├── test-db.ts # Database setup (Testcontainers)"
+                  - generic [ref=e809]: "├── auth-helpers.ts # Auth mocking"
+                  - generic [ref=e810]: "└── calendar-helpers.ts # Calendar test utils"
+              - separator [ref=e811]
+              - heading "4. Data Model" [level=2] [ref=e812]
+              - heading "Entity Relationship Diagram" [level=3] [ref=e813]
+              - generic "code block" [ref=e814]:
+                - button "Copy code" [ref=e815]:
+                  - img [ref=e816]
+                - code [ref=e821]:
+                  - generic [ref=e822]: ┌─────────────────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e823]: │ Entity Relationships │
+                  - generic [ref=e824]: └─────────────────────────────────────────────────────────────────────────────┘
+                  - generic [ref=e825]: ┌─────────────────┐
+                  - generic [ref=e826]: │ User │
+                  - generic [ref=e827]: ├─────────────────┤
+                  - generic [ref=e828]: │ id (PK) │
+                  - generic [ref=e829]: │ email (unique) │
+                  - generic [ref=e830]: │ name │
+                  - generic [ref=e831]: │ passwordHash │
+                  - generic [ref=e832]: │ role (enum) │
+                  - generic [ref=e833]: │ avatarColor │
+                  - generic [ref=e834]: │ failedAttempts │
+                  - generic [ref=e835]: │ lockedUntil │
+                  - generic [ref=e836]: └────────┬────────┘
+                  - generic [ref=e837]: │
+                  - generic [ref=e838]: ┌────────────────────────┼────────────────────────┐
+                  - generic [ref=e839]: │ 1:N (creator) │ N:M (attendees) │
+                  - generic [ref=e840]: ▼ ▼ │
+                  - generic [ref=e841]: ┌─────────────────────┐ ┌─────────────────────┐ │
+                  - generic [ref=e842]: │ EventCategory │ │ Event │ │
+                  - generic [ref=e843]: ├─────────────────────┤ ├─────────────────────┤ │
+                  - generic [ref=e844]: │ id (PK) │◄───│ categoryId (FK) │ │
+                  - generic [ref=e845]: │ name (unique) │ 1:N│ createdById (FK) │─────────────┘
+                  - generic [ref=e846]: │ color │ │ title │
+                  - generic [ref=e847]: │ icon │ │ description │
+                  - generic [ref=e848]: └─────────────────────┘ │ location │
+                  - generic [ref=e849]: │ startTime │
+                  - generic [ref=e850]: │ endTime │
+                  - generic [ref=e851]: │ allDay │
+                  - generic [ref=e852]: │ timezone │
+                  - generic [ref=e853]: └──────────┬──────────┘
+                  - generic [ref=e854]: │
+                  - generic [ref=e855]: ┌────────────────┴────────────────┐
+                  - generic [ref=e856]: │ 1:N │ 1:N
+                  - generic [ref=e857]: ▼ ▼
+                  - generic [ref=e858]: ┌─────────────────────┐ ┌─────────────────────┐
+                  - generic [ref=e859]: │ EventAttendee │ │ EventInvite │
+                  - generic [ref=e860]: ├─────────────────────┤ ├─────────────────────┤
+                  - generic [ref=e861]: │ id (PK) │ │ id (PK) │
+                  - generic [ref=e862]: │ eventId (FK) │ │ eventId (FK) │
+                  - generic [ref=e863]: │ userId (FK) │ │ recipientEmail │
+                  - generic [ref=e864]: │ status (enum) │ │ sentAt │
+                  - generic [ref=e865]: └─────────────────────┘ └─────────────────────┘
+                  - generic [ref=e866]: ┌─────────────────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e867]: │ Financial Data (Standalone) │
+                  - generic [ref=e868]: └─────────────────────────────────────────────────────────────────────────────┘
+                  - generic [ref=e869]: ┌─────────────────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e870]: │ transactions │
+                  - generic [ref=e871]: ├─────────────────────────────────────────────────────────────────────────────┤
+                  - generic [ref=e872]: │ transaction_id (PK) │ INT, AUTO_INCREMENT │
+                  - generic [ref=e873]: │ transaction_date │ DATE, NOT NULL │
+                  - generic [ref=e874]: │ transaction_time │ TIME, NULLABLE │
+                  - generic [ref=e875]: │ account_id │ VARCHAR(50), NOT NULL (derived entity) │
+                  - generic [ref=e876]: │ account_name │ VARCHAR(100), NOT NULL │
+                  - generic [ref=e877]: │ account_type │ VARCHAR(20), CHECK ('Checking', 'Savings') │
+                  - generic [ref=e878]: │ account_owner │ VARCHAR(50), NOT NULL │
+                  - generic [ref=e879]: │ description │ VARCHAR(255), NOT NULL │
+                  - generic [ref=e880]: │ category │ VARCHAR(50), NOT NULL │
+                  - generic [ref=e881]: │ subcategory │ VARCHAR(50), NULLABLE │
+                  - generic [ref=e882]: │ amount │ DECIMAL(18,2), NOT NULL │
+                  - generic [ref=e883]: │ transaction_type │ VARCHAR(20), CHECK ('Income','Expense','Transfer')│
+                  - generic [ref=e884]: │ balance_after │ DECIMAL(18,2), NULLABLE │
+                  - generic [ref=e885]: │ is_recurring │ BIT, DEFAULT 0 │
+                  - generic [ref=e886]: │ recurring_frequency │ VARCHAR(20), NULLABLE │
+                  - generic [ref=e887]: │ notes │ TEXT, NULLABLE │
+                  - generic [ref=e888]: │ created_at │ DATETIME, DEFAULT GETDATE() │
+                  - generic [ref=e889]: │ updated_at │ DATETIME, DEFAULT GETDATE() │
+                  - generic [ref=e890]: ├─────────────────────────────────────────────────────────────────────────────┤
+                  - generic [ref=e891]: "│ INDEXES: idx_date_account, idx_category_date, idx_type_date, idx_recurring │"
+                  - generic [ref=e892]: └─────────────────────────────────────────────────────────────────────────────┘
+                  - generic [ref=e893]: "Note: Account is a DERIVED entity (computed from distinct account_id values)"
+                  - generic [ref=e894]: Category is a DERIVED entity (computed from distinct category/subcategory)
+              - heading "Prisma Schema Overview" [level=3] [ref=e895]
+              - generic "prisma code block" [ref=e896]:
+                - generic [ref=e897]: prisma
+                - button "Copy code" [ref=e898]:
+                  - img [ref=e899]
+                - code [ref=e904]:
+                  - generic [ref=e905]: // Enums
+                  - generic [ref=e906]: "enum UserRole { ADMIN, MEMBER }"
+                  - generic [ref=e907]: "enum AttendeeStatus { PENDING, ACCEPTED, DECLINED, TENTATIVE }"
+                  - generic [ref=e908]: // Authentication
+                  - generic [ref=e909]: "model User {"
+                  - generic [ref=e910]: id String @id @default(cuid())
+                  - generic [ref=e911]: email String @unique
+                  - generic [ref=e912]: name String
+                  - generic [ref=e913]: passwordHash String
+                  - generic [ref=e914]: role UserRole @default(MEMBER)
+                  - generic [ref=e915]: avatarColor String?
+                  - generic [ref=e916]: failedLoginAttempts Int @default(0)
+                  - generic [ref=e917]: lockedUntil DateTime?
+                  - generic [ref=e918]: // Relations
+                  - generic [ref=e919]: eventsCreated Event[] @relation("EventCreator")
+                  - generic [ref=e920]: eventsInvited EventAttendee[]
+                  - generic [ref=e921]: "@@map(\"users\")"
+                  - generic [ref=e922]: "}"
+                  - generic [ref=e923]: // Calendar
+                  - generic [ref=e924]: "model EventCategory {"
+                  - generic [ref=e925]: id String @id @default(cuid())
+                  - generic [ref=e926]: name String @unique
+                  - generic [ref=e927]: color String
+                  - generic [ref=e928]: icon String?
+                  - generic [ref=e929]: events Event[]
+                  - generic [ref=e930]: "@@map(\"event_categories\")"
+                  - generic [ref=e931]: "}"
+                  - generic [ref=e932]: "model Event {"
+                  - generic [ref=e933]: id String @id @default(cuid())
+                  - generic [ref=e934]: title String
+                  - generic [ref=e935]: description String?
+                  - generic [ref=e936]: location String?
+                  - generic [ref=e937]: startTime DateTime
+                  - generic [ref=e938]: endTime DateTime
+                  - generic [ref=e939]: allDay Boolean @default(false)
+                  - generic [ref=e940]: timezone String @default("America/New_York")
+                  - generic [ref=e941]: recurrenceRule String?
+                  - generic [ref=e942]: // Relations
+                  - generic [ref=e943]: categoryId String?
+                  - generic [ref=e944]: category EventCategory? @relation(...)
+                  - generic [ref=e945]: createdById String
+                  - generic [ref=e946]: createdBy User @relation("EventCreator", ...)
+                  - generic [ref=e947]: attendees EventAttendee[]
+                  - generic [ref=e948]: invitesSent EventInvite[]
+                  - generic [ref=e949]: "@@index([startTime, endTime])"
+                  - generic [ref=e950]: "@@map(\"events\")"
+                  - generic [ref=e951]: "}"
+                  - generic [ref=e952]: "model EventAttendee {"
+                  - generic [ref=e953]: id String @id @default(cuid())
+                  - generic [ref=e954]: eventId String
+                  - generic [ref=e955]: userId String
+                  - generic [ref=e956]: status AttendeeStatus @default(PENDING)
+                  - generic [ref=e957]: event Event @relation(...)
+                  - generic [ref=e958]: user User @relation(...)
+                  - generic [ref=e959]: "@@unique([eventId, userId])"
+                  - generic [ref=e960]: "@@map(\"event_attendees\")"
+                  - generic [ref=e961]: "}"
+                  - generic [ref=e962]: "model EventInvite {"
+                  - generic [ref=e963]: id String @id @default(cuid())
+                  - generic [ref=e964]: eventId String
+                  - generic [ref=e965]: recipientEmail String
+                  - generic [ref=e966]: sentAt DateTime @default(now())
+                  - generic [ref=e967]: event Event @relation(...)
+                  - generic [ref=e968]: "@@map(\"event_invites\")"
+                  - generic [ref=e969]: "}"
+                  - generic [ref=e970]: // Finance (existing database)
+                  - generic [ref=e971]: "model Transaction {"
+                  - generic [ref=e972]: transaction_id Int @id @default(autoincrement())
+                  - generic [ref=e973]: transaction_date DateTime @db.Date
+                  - generic [ref=e974]: transaction_time DateTime? @db.Time
+                  - generic [ref=e975]: account_id String
+                  - generic [ref=e976]: account_name String
+                  - generic [ref=e977]: account_type String
+                  - generic [ref=e978]: account_owner String
+                  - generic [ref=e979]: description String
+                  - generic [ref=e980]: category String
+                  - generic [ref=e981]: subcategory String?
+                  - generic [ref=e982]: amount Decimal @db.Decimal(18, 2)
+                  - generic [ref=e983]: transaction_type String
+                  - generic [ref=e984]: balance_after Decimal? @db.Decimal(18, 2)
+                  - generic [ref=e985]: is_recurring Boolean @default(false)
+                  - generic [ref=e986]: recurring_frequency String?
+                  - generic [ref=e987]: notes String?
+                  - generic [ref=e988]: created_at DateTime @default(now())
+                  - generic [ref=e989]: updated_at DateTime @updatedAt
+                  - generic [ref=e990]: "@@map(\"transactions\")"
+                  - generic [ref=e991]: "}"
+              - separator [ref=e992]
+              - heading "5. API Layer" [level=2] [ref=e993]
+              - heading "API Contract Pattern" [level=3] [ref=e994]
+              - paragraph [ref=e995]: "All API routes follow a consistent pattern:"
+              - generic "typescript code block" [ref=e996]:
+                - generic [ref=e997]: typescript
+                - button "Copy code" [ref=e998]:
+                  - img [ref=e999]
+                - code [ref=e1004]:
+                  - generic [ref=e1005]: // Standard API Route Structure
+                  - generic [ref=e1006]: "import { NextRequest, NextResponse } from 'next/server';"
+                  - generic [ref=e1007]: "import { someSchema } from '@/lib/validations';"
+                  - generic [ref=e1008]: "import { someQuery } from '@/lib/queries';"
+                  - generic [ref=e1009]: "export async function GET(request: NextRequest) {"
+                  - generic [ref=e1010]: "try {"
+                  - generic [ref=e1011]: // 1. Parse and validate input
+                  - generic [ref=e1012]: const params = Object.fromEntries(request.nextUrl.searchParams);
+                  - generic [ref=e1013]: const result = someSchema.safeParse(params);
+                  - generic [ref=e1014]: "if (!result.success) {"
+                  - generic [ref=e1015]: return NextResponse.json(
+                  - generic [ref=e1016]: "{ error: result.error.issues[0].message },"
+                  - generic [ref=e1017]: "{ status: 400 }"
+                  - generic [ref=e1018]: );
+                  - generic [ref=e1019]: "}"
+                  - generic [ref=e1020]: // 2. Execute query
+                  - generic [ref=e1021]: const data = await someQuery(result.data);
+                  - generic [ref=e1022]: // 3. Return consistent response shape
+                  - generic [ref=e1023]: "return NextResponse.json({ data });"
+                  - generic [ref=e1024]: "} catch (error) {"
+                  - generic [ref=e1025]: console.error('API Error:', error);
+                  - generic [ref=e1026]: return NextResponse.json(
+                  - generic [ref=e1027]: "{ error: 'Internal server error' },"
+                  - generic [ref=e1028]: "{ status: 500 }"
+                  - generic [ref=e1029]: );
+                  - generic [ref=e1030]: "}"
+                  - generic [ref=e1031]: "}"
+              - paragraph [ref=e1032]:
+                - strong [ref=e1033]: "Response Shapes:"
+              - list [ref=e1034]:
+                - listitem [ref=e1035]:
+                  - text: "Success:"
+                  - code [ref=e1036]: "{ data: T }"
+                - listitem [ref=e1037]:
+                  - text: "Error:"
+                  - code [ref=e1038]: "{ error: string }"
+              - heading "Endpoint Summary" [level=3] [ref=e1039]
+              - heading "Analytics API" [level=4] [ref=e1040]
+              - table [ref=e1042]:
+                - rowgroup [ref=e1043]:
+                  - row "Method Endpoint Description" [ref=e1044]:
+                    - columnheader "Method" [ref=e1045]
+                    - columnheader "Endpoint" [ref=e1046]
+                    - columnheader "Description" [ref=e1047]
+                - rowgroup [ref=e1048]:
+                  - row "GET /api/analytics/kpis Net cash flow, balance, recurring expenses" [ref=e1049]:
+                    - cell "GET" [ref=e1050]
+                    - cell "/api/analytics/kpis" [ref=e1051]:
+                      - code [ref=e1052]: /api/analytics/kpis
+                    - cell "Net cash flow, balance, recurring expenses" [ref=e1053]
+                  - row "GET /api/analytics/cash-flow Income vs expenses over time" [ref=e1054]:
+                    - cell "GET" [ref=e1055]
+                    - cell "/api/analytics/cash-flow" [ref=e1056]:
+                      - code [ref=e1057]: /api/analytics/cash-flow
+                    - cell "Income vs expenses over time" [ref=e1058]
+                  - row "GET /api/analytics/categories Spending breakdown by category" [ref=e1059]:
+                    - cell "GET" [ref=e1060]
+                    - cell "/api/analytics/categories" [ref=e1061]:
+                      - code [ref=e1062]: /api/analytics/categories
+                    - cell "Spending breakdown by category" [ref=e1063]
+                  - row "GET /api/analytics/accounts Account list with balances" [ref=e1064]:
+                    - cell "GET" [ref=e1065]
+                    - cell "/api/analytics/accounts" [ref=e1066]:
+                      - code [ref=e1067]: /api/analytics/accounts
+                    - cell "Account list with balances" [ref=e1068]
+                  - row "GET /api/analytics/transfers Money flow between accounts" [ref=e1069]:
+                    - cell "GET" [ref=e1070]
+                    - cell "/api/analytics/transfers" [ref=e1071]:
+                      - code [ref=e1072]: /api/analytics/transfers
+                    - cell "Money flow between accounts" [ref=e1073]
+                  - row "GET /api/analytics/recurring Detected recurring patterns" [ref=e1074]:
+                    - cell "GET" [ref=e1075]
+                    - cell "/api/analytics/recurring" [ref=e1076]:
+                      - code [ref=e1077]: /api/analytics/recurring
+                    - cell "Detected recurring patterns" [ref=e1078]
+                  - row "POST /api/analytics/recurring/[id]/confirm Confirm recurring pattern" [ref=e1079]:
+                    - cell "POST" [ref=e1080]
+                    - cell "/api/analytics/recurring/[id]/confirm" [ref=e1081]:
+                      - code [ref=e1082]: /api/analytics/recurring/[id]/confirm
+                    - cell "Confirm recurring pattern" [ref=e1083]
+                  - row "POST /api/analytics/recurring/[id]/reject Reject recurring pattern" [ref=e1084]:
+                    - cell "POST" [ref=e1085]
+                    - cell "/api/analytics/recurring/[id]/reject" [ref=e1086]:
+                      - code [ref=e1087]: /api/analytics/recurring/[id]/reject
+                    - cell "Reject recurring pattern" [ref=e1088]
+              - heading "Transactions API" [level=4] [ref=e1089]
+              - table [ref=e1091]:
+                - rowgroup [ref=e1092]:
+                  - row "Method Endpoint Description" [ref=e1093]:
+                    - columnheader "Method" [ref=e1094]
+                    - columnheader "Endpoint" [ref=e1095]
+                    - columnheader "Description" [ref=e1096]
+                - rowgroup [ref=e1097]:
+                  - row "GET /api/transactions List transactions with filters" [ref=e1098]:
+                    - cell "GET" [ref=e1099]
+                    - cell "/api/transactions" [ref=e1100]:
+                      - code [ref=e1101]: /api/transactions
+                    - cell "List transactions with filters" [ref=e1102]
+                  - row "GET /api/export/csv Export transactions to CSV" [ref=e1103]:
+                    - cell "GET" [ref=e1104]
+                    - cell "/api/export/csv" [ref=e1105]:
+                      - code [ref=e1106]: /api/export/csv
+                    - cell "Export transactions to CSV" [ref=e1107]
+              - heading "Events API" [level=4] [ref=e1108]
+              - table [ref=e1110]:
+                - rowgroup [ref=e1111]:
+                  - row "Method Endpoint Description" [ref=e1112]:
+                    - columnheader "Method" [ref=e1113]
+                    - columnheader "Endpoint" [ref=e1114]
+                    - columnheader "Description" [ref=e1115]
+                - rowgroup [ref=e1116]:
+                  - row "GET /api/events List events with optional filters" [ref=e1117]:
+                    - cell "GET" [ref=e1118]
+                    - cell "/api/events" [ref=e1119]:
+                      - code [ref=e1120]: /api/events
+                    - cell "List events with optional filters" [ref=e1121]
+                  - row "POST /api/events Create new event" [ref=e1122]:
+                    - cell "POST" [ref=e1123]
+                    - cell "/api/events" [ref=e1124]:
+                      - code [ref=e1125]: /api/events
+                    - cell "Create new event" [ref=e1126]
+                  - row "GET /api/events/upcoming Get next N events within M days (landing page)" [ref=e1127]:
+                    - cell "GET" [ref=e1128]
+                    - cell "/api/events/upcoming" [ref=e1129]:
+                      - code [ref=e1130]: /api/events/upcoming
+                    - cell "Get next N events within M days (landing page)" [ref=e1131]
+                  - row "GET /api/events/[id] Get event with attendees" [ref=e1132]:
+                    - cell "GET" [ref=e1133]
+                    - cell "/api/events/[id]" [ref=e1134]:
+                      - code [ref=e1135]: /api/events/[id]
+                    - cell "Get event with attendees" [ref=e1136]
+                  - row "PUT /api/events/[id] Update event" [ref=e1137]:
+                    - cell "PUT" [ref=e1138]
+                    - cell "/api/events/[id]" [ref=e1139]:
+                      - code [ref=e1140]: /api/events/[id]
+                    - cell "Update event" [ref=e1141]
+                  - row "DELETE /api/events/[id] Delete event" [ref=e1142]:
+                    - cell "DELETE" [ref=e1143]
+                    - cell "/api/events/[id]" [ref=e1144]:
+                      - code [ref=e1145]: /api/events/[id]
+                    - cell "Delete event" [ref=e1146]
+                  - row "POST /api/events/[id]/send-invite Send email invitation" [ref=e1147]:
+                    - cell "POST" [ref=e1148]
+                    - cell "/api/events/[id]/send-invite" [ref=e1149]:
+                      - code [ref=e1150]: /api/events/[id]/send-invite
+                    - cell "Send email invitation" [ref=e1151]
+              - heading "Categories API" [level=4] [ref=e1152]
+              - table [ref=e1154]:
+                - rowgroup [ref=e1155]:
+                  - row "Method Endpoint Description" [ref=e1156]:
+                    - columnheader "Method" [ref=e1157]
+                    - columnheader "Endpoint" [ref=e1158]
+                    - columnheader "Description" [ref=e1159]
+                - rowgroup [ref=e1160]:
+                  - row "GET /api/categories List event categories" [ref=e1161]:
+                    - cell "GET" [ref=e1162]
+                    - cell "/api/categories" [ref=e1163]:
+                      - code [ref=e1164]: /api/categories
+                    - cell "List event categories" [ref=e1165]
+                  - row "POST /api/categories Create category" [ref=e1166]:
+                    - cell "POST" [ref=e1167]
+                    - cell "/api/categories" [ref=e1168]:
+                      - code [ref=e1169]: /api/categories
+                    - cell "Create category" [ref=e1170]
+                  - row "PUT /api/categories/[id] Update category" [ref=e1171]:
+                    - cell "PUT" [ref=e1172]
+                    - cell "/api/categories/[id]" [ref=e1173]:
+                      - code [ref=e1174]: /api/categories/[id]
+                    - cell "Update category" [ref=e1175]
+                  - row "DELETE /api/categories/[id] Delete category" [ref=e1176]:
+                    - cell "DELETE" [ref=e1177]
+                    - cell "/api/categories/[id]" [ref=e1178]:
+                      - code [ref=e1179]: /api/categories/[id]
+                    - cell "Delete category" [ref=e1180]
+              - heading "Users API (Admin)" [level=4] [ref=e1181]
+              - table [ref=e1183]:
+                - rowgroup [ref=e1184]:
+                  - row "Method Endpoint Description" [ref=e1185]:
+                    - columnheader "Method" [ref=e1186]
+                    - columnheader "Endpoint" [ref=e1187]
+                    - columnheader "Description" [ref=e1188]
+                - rowgroup [ref=e1189]:
+                  - row "GET /api/users List all users" [ref=e1190]:
+                    - cell "GET" [ref=e1191]
+                    - cell "/api/users" [ref=e1192]:
+                      - code [ref=e1193]: /api/users
+                    - cell "List all users" [ref=e1194]
+                  - row "POST /api/users Create user" [ref=e1195]:
+                    - cell "POST" [ref=e1196]
+                    - cell "/api/users" [ref=e1197]:
+                      - code [ref=e1198]: /api/users
+                    - cell "Create user" [ref=e1199]
+                  - row "GET /api/users/[id] Get user details" [ref=e1200]:
+                    - cell "GET" [ref=e1201]
+                    - cell "/api/users/[id]" [ref=e1202]:
+                      - code [ref=e1203]: /api/users/[id]
+                    - cell "Get user details" [ref=e1204]
+                  - row "PUT /api/users/[id] Update user" [ref=e1205]:
+                    - cell "PUT" [ref=e1206]
+                    - cell "/api/users/[id]" [ref=e1207]:
+                      - code [ref=e1208]: /api/users/[id]
+                    - cell "Update user" [ref=e1209]
+                  - row "DELETE /api/users/[id] Delete user" [ref=e1210]:
+                    - cell "DELETE" [ref=e1211]
+                    - cell "/api/users/[id]" [ref=e1212]:
+                      - code [ref=e1213]: /api/users/[id]
+                    - cell "Delete user" [ref=e1214]
+              - heading "Filter Options API" [level=4] [ref=e1215]
+              - table [ref=e1217]:
+                - rowgroup [ref=e1218]:
+                  - row "Method Endpoint Description" [ref=e1219]:
+                    - columnheader "Method" [ref=e1220]
+                    - columnheader "Endpoint" [ref=e1221]
+                    - columnheader "Description" [ref=e1222]
+                - rowgroup [ref=e1223]:
+                  - row "GET /api/filters/accounts Available accounts" [ref=e1224]:
+                    - cell "GET" [ref=e1225]
+                    - cell "/api/filters/accounts" [ref=e1226]:
+                      - code [ref=e1227]: /api/filters/accounts
+                    - cell "Available accounts" [ref=e1228]
+                  - row "GET /api/filters/categories Transaction categories" [ref=e1229]:
+                    - cell "GET" [ref=e1230]
+                    - cell "/api/filters/categories" [ref=e1231]:
+                      - code [ref=e1232]: /api/filters/categories
+                    - cell "Transaction categories" [ref=e1233]
+                  - row "GET /api/filters/date-ranges Date range presets" [ref=e1234]:
+                    - cell "GET" [ref=e1235]
+                    - cell "/api/filters/date-ranges" [ref=e1236]:
+                      - code [ref=e1237]: /api/filters/date-ranges
+                    - cell "Date range presets" [ref=e1238]
+              - heading "Reader API" [level=4] [ref=e1239]
+              - table [ref=e1241]:
+                - rowgroup [ref=e1242]:
+                  - row "Method Endpoint Description" [ref=e1243]:
+                    - columnheader "Method" [ref=e1244]
+                    - columnheader "Endpoint" [ref=e1245]
+                    - columnheader "Description" [ref=e1246]
+                - rowgroup [ref=e1247]:
+                  - row "GET /api/reader/tree Get directory structure (lazy-loaded)" [ref=e1248]:
+                    - cell "GET" [ref=e1249]
+                    - cell "/api/reader/tree" [ref=e1250]:
+                      - code [ref=e1251]: /api/reader/tree
+                    - cell "Get directory structure (lazy-loaded)" [ref=e1252]
+                  - row "GET /api/reader/file Get file content for rendering" [ref=e1253]:
+                    - cell "GET" [ref=e1254]
+                    - cell "/api/reader/file" [ref=e1255]:
+                      - code [ref=e1256]: /api/reader/file
+                    - cell "Get file content for rendering" [ref=e1257]
+                  - row "GET /api/reader/search Search files by name" [ref=e1258]:
+                    - cell "GET" [ref=e1259]
+                    - cell "/api/reader/search" [ref=e1260]:
+                      - code [ref=e1261]: /api/reader/search
+                    - cell "Search files by name" [ref=e1262]
+                  - row "GET /api/reader/preferences Get user preferences (favorites, recents, display mode)" [ref=e1263]:
+                    - cell "GET" [ref=e1264]
+                    - cell "/api/reader/preferences" [ref=e1265]:
+                      - code [ref=e1266]: /api/reader/preferences
+                    - cell "Get user preferences (favorites, recents, display mode)" [ref=e1267]
+                  - row "PUT /api/reader/preferences Update user preferences" [ref=e1268]:
+                    - cell "PUT" [ref=e1269]
+                    - cell "/api/reader/preferences" [ref=e1270]:
+                      - code [ref=e1271]: /api/reader/preferences
+                    - cell "Update user preferences" [ref=e1272]
+                  - row "GET /api/reader/image Serve images from docs directory" [ref=e1273]:
+                    - cell "GET" [ref=e1274]
+                    - cell "/api/reader/image" [ref=e1275]:
+                      - code [ref=e1276]: /api/reader/image
+                    - cell "Serve images from docs directory" [ref=e1277]
+              - heading "Email Utility API" [level=4] [ref=e1278]
+              - table [ref=e1280]:
+                - rowgroup [ref=e1281]:
+                  - row "Method Endpoint Description" [ref=e1282]:
+                    - columnheader "Method" [ref=e1283]
+                    - columnheader "Endpoint" [ref=e1284]
+                    - columnheader "Description" [ref=e1285]
+                - rowgroup [ref=e1286]:
+                  - row "POST /api/email/test Send test email (admin only)" [ref=e1287]:
+                    - cell "POST" [ref=e1288]
+                    - cell "/api/email/test" [ref=e1289]:
+                      - code [ref=e1290]: /api/email/test
+                    - cell "Send test email (admin only)" [ref=e1291]
+              - heading "Authentication Flow" [level=3] [ref=e1292]
+              - generic "code block" [ref=e1293]:
+                - button "Copy code" [ref=e1294]:
+                  - img [ref=e1295]
+                - code [ref=e1300]:
+                  - generic [ref=e1301]: ┌─────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e1302]: │ Authentication Flow │
+                  - generic [ref=e1303]: └─────────────────────────────────────────────────────────────────┘
+                  - generic [ref=e1304]: User → Login Form → POST /api/auth/[...nextauth]
+                  - generic [ref=e1305]: │
+                  - generic [ref=e1306]: ┌──────┴──────┐
+                  - generic [ref=e1307]: │ Validate │
+                  - generic [ref=e1308]: │ Credentials │
+                  - generic [ref=e1309]: └──────┬──────┘
+                  - generic [ref=e1310]: │
+                  - generic [ref=e1311]: ┌──────────────┼──────────────┐
+                  - generic [ref=e1312]: │ │ │
+                  - generic [ref=e1313]: ▼ ▼ ▼
+                  - generic [ref=e1314]: ┌───────────┐ ┌───────────┐ ┌───────────┐
+                  - generic [ref=e1315]: │ Success │ │ Failed │ │ Locked │
+                  - generic [ref=e1316]: └─────┬─────┘ └─────┬─────┘ └─────┬─────┘
+                  - generic [ref=e1317]: │ │ │
+                  - generic [ref=e1318]: ▼ ▼ ▼
+                  - generic [ref=e1319]: Create JWT Increment Return Error
+                  - generic [ref=e1320]: Session (7d) Failed Count "Account locked"
+                  - generic [ref=e1321]: │ │
+                  - generic [ref=e1322]: ▼ ▼
+                  - generic [ref=e1323]: Redirect to 5 failures →
+                  - generic [ref=e1324]: Dashboard Lock 30 min
+                  - generic [ref=e1325]: "Session Storage: JWT tokens (no database session table)"
+                  - generic [ref=e1326]: "Session Duration: 7 days"
+                  - generic [ref=e1327]: "Lockout: 5 failed attempts → 30 minute lock"
+              - heading "Service Layer Pattern" [level=3] [ref=e1328]
+              - paragraph [ref=e1329]: "The Markdown Reader introduces a service layer for encapsulating business logic:"
+              - generic "typescript code block" [ref=e1330]:
+                - generic [ref=e1331]: typescript
+                - button "Copy code" [ref=e1332]:
+                  - img [ref=e1333]
+                - code [ref=e1338]:
+                  - generic [ref=e1339]: // Service classes encapsulate domain logic
+                  - generic [ref=e1340]: "export class FileSystemService {"
+                  - generic [ref=e1341]: "private docsRoot: string;"
+                  - generic [ref=e1342]: "validatePath(path: string): void; // Security validation"
+                  - generic [ref=e1343]: "resolvePath(relativePath: string): string; // Safe path resolution"
+                  - generic [ref=e1344]: "isValidDocumentPath(path: string): boolean; // Extension allowlist check"
+                  - generic [ref=e1345]: "}"
+                  - generic [ref=e1346]: "export class PreferencesService {"
+                  - generic [ref=e1347]: "async getPreferences(): Promise<ReaderPreferences>;"
+                  - generic [ref=e1348]: "async updatePreferences(update: Partial<ReaderPreferences>): Promise<void>;"
+                  - generic [ref=e1349]: "async toggleFavorite(path: string, name: string): Promise<void>;"
+                  - generic [ref=e1350]: "async addRecent(path: string, name: string): Promise<void>;"
+                  - generic [ref=e1351]: "}"
+              - paragraph [ref=e1352]:
+                - strong [ref=e1353]: "Benefits:"
+              - list [ref=e1354]:
+                - listitem [ref=e1355]: Reusable business logic across API routes
+                - listitem [ref=e1356]: Testable in isolation (dependency injection)
+                - listitem [ref=e1357]: Clear separation of concerns
+                - listitem [ref=e1358]: Centralized security validation
+              - paragraph [ref=e1359]:
+                - strong [ref=e1360]: "Data Flow with Service Layer:"
+              - generic "code block" [ref=e1361]:
+                - button "Copy code" [ref=e1362]:
+                  - img [ref=e1363]
+                - code [ref=e1368]:
+                  - generic [ref=e1369]: API Route (/api/reader/file)
+                  - generic [ref=e1370]: ↓
+                  - generic [ref=e1371]: Zod Validation (reader.ts)
+                  - generic [ref=e1372]: ↓
+                  - generic [ref=e1373]: Service Layer (FileSystemService)
+                  - generic [ref=e1374]: ↓
+                  - generic [ref=e1375]: File System (DOCS_ROOT)
+              - heading "Security Architecture" [level=3] [ref=e1376]
+              - heading "Path Traversal Prevention (Markdown Reader)" [level=4] [ref=e1377]
+              - paragraph [ref=e1378]: "The FileSystemService implements defense-in-depth security:"
+              - generic "typescript code block" [ref=e1379]:
+                - generic [ref=e1380]: typescript
+                - button "Copy code" [ref=e1381]:
+                  - img [ref=e1382]
+                - code [ref=e1387]:
+                  - generic [ref=e1388]: // Multi-layer validation
+                  - generic [ref=e1389]: "1. Input validation: Rejects \"..\", null bytes, empty paths"
+                  - generic [ref=e1390]: "2. Path resolution: Uses path.join() with DOCS_ROOT"
+                  - generic [ref=e1391]: "3. Defense in depth: Verifies resolved path is within DOCS_ROOT"
+                  - generic [ref=e1392]: "4. Extension allowlisting: Only .md, .mmd, .txt files allowed"
+              - paragraph [ref=e1393]:
+                - strong [ref=e1394]: "Security Features:"
+              - list [ref=e1395]:
+                - listitem [ref=e1396]:
+                  - text: Regex-based
+                  - code [ref=e1397]: ..
+                  - text: detection (handles URL encoding)
+                - listitem [ref=e1398]:
+                  - text: Blocks access to hidden files (starting with
+                  - code [ref=e1399]: .
+                  - text: )
+                - listitem [ref=e1400]:
+                  - text: Blocks access to
+                  - code [ref=e1401]: .reader-prefs.json
+                  - text: configuration file
+                - listitem [ref=e1402]: All paths normalized before validation
+                - listitem [ref=e1403]: Read-only access (no write operations via API except preferences)
+              - heading "File System Sandboxing" [level=4] [ref=e1404]
+              - paragraph [ref=e1405]:
+                - text: All file operations are sandboxed within
+                - code [ref=e1406]: DOCS_ROOT
+                - text: ":"
+              - list [ref=e1407]:
+                - listitem [ref=e1408]: No access to parent directories
+                - listitem [ref=e1409]: No symlink following outside sandbox
+                - listitem [ref=e1410]: Strict extension allowlist enforcement
+              - separator [ref=e1411]
+              - heading "6. Frontend Architecture" [level=2] [ref=e1412]
+              - heading "Context-Aware Component Pattern" [level=3] [ref=e1413]
+              - paragraph [ref=e1414]: "Dashboard components have dual implementations for flexibility:"
+              - generic "code block" [ref=e1415]:
+                - button "Copy code" [ref=e1416]:
+                  - img [ref=e1417]
+                - code [ref=e1422]:
+                  - generic [ref=e1423]: ┌─────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e1424]: │ Context-Aware Component Pattern │
+                  - generic [ref=e1425]: └─────────────────────────────────────────────────────────────────┘
+                  - generic [ref=e1426]: ┌─────────────────────────────┐ ┌─────────────────────────────┐
+                  - generic [ref=e1427]: │ Context-Aware Version │ │ Prop-Based Version │
+                  - generic [ref=e1428]: │ (FilteredKPICards) │ │ (KPICards) │
+                  - generic [ref=e1429]: ├─────────────────────────────┤ ├─────────────────────────────┤
+                  - generic [ref=e1430]: │ - Consumes FilterContext │ │ - Accepts props directly │
+                  - generic [ref=e1431]: │ - Used in dashboard pages │───▶│ - Directly testable │
+                  - generic [ref=e1432]: │ - Auto-reacts to filters │ │ - Can be used standalone │
+                  - generic [ref=e1433]: └─────────────────────────────┘ └─────────────────────────────┘
+              - paragraph [ref=e1434]:
+                - strong [ref=e1435]: "Implementation Example:"
+              - generic "typescript code block" [ref=e1436]:
+                - generic [ref=e1437]: typescript
+                - button "Copy code" [ref=e1438]:
+                  - img [ref=e1439]
+                - code [ref=e1444]:
+                  - generic [ref=e1445]: // Prop-based (testable)
+                  - generic [ref=e1446]: "interface KPICardsProps {"
+                  - generic [ref=e1447]: "startDate: Date;"
+                  - generic [ref=e1448]: "endDate: Date;"
+                  - generic [ref=e1449]: "accountIds: string[];"
+                  - generic [ref=e1450]: "}"
+                  - generic [ref=e1451]: "export function KPICards({ startDate, endDate, accountIds }: KPICardsProps) {"
+                  - generic [ref=e1452]: // Fetch and render using props
+                  - generic [ref=e1453]: "}"
+                  - generic [ref=e1454]: // Context-aware (dashboard use)
+                  - generic [ref=e1455]: "export function FilteredKPICards() {"
+                  - generic [ref=e1456]: "const { dateRange, selectedAccountIds } = useFilters();"
+                  - generic [ref=e1457]: return (
+                  - generic [ref=e1458]: <KPICards
+                  - generic [ref=e1459]: "startDate={dateRange.start}"
+                  - generic [ref=e1460]: "endDate={dateRange.end}"
+                  - generic [ref=e1461]: "accountIds={selectedAccountIds}"
+                  - generic [ref=e1462]: />
+                  - generic [ref=e1463]: );
+                  - generic [ref=e1464]: "}"
+              - heading "Shell Pattern" [level=3] [ref=e1465]
+              - generic "code block" [ref=e1466]:
+                - button "Copy code" [ref=e1467]:
+                  - img [ref=e1468]
+                - code [ref=e1473]:
+                  - generic [ref=e1474]: ┌─────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e1475]: │ Shell Pattern │
+                  - generic [ref=e1476]: └─────────────────────────────────────────────────────────────────┘
+                  - generic [ref=e1477]: Server Component (layout.tsx)
+                  - generic [ref=e1478]: ├── Metadata generation
+                  - generic [ref=e1479]: ├── Static shell markup
+                  - generic [ref=e1480]: └── Children slot
+                  - generic [ref=e1481]: │
+                  - generic [ref=e1482]: └── Client Component (DashboardShell)
+                  - generic [ref=e1483]: ├── FilterProvider (context)
+                  - generic [ref=e1484]: ├── FilterSidebar (UI)
+                  - generic [ref=e1485]: └── Content Area (children)
+              - paragraph [ref=e1486]:
+                - strong [ref=e1487]: Why this pattern?
+              - list [ref=e1488]:
+                - listitem [ref=e1489]: Server components handle metadata and SEO
+                - listitem [ref=e1490]: Client shell provides interactivity and context
+                - listitem [ref=e1491]: Clear separation of concerns
+                - listitem [ref=e1492]: Optimal hydration performance
+              - heading "State Management" [level=3] [ref=e1493]
+              - table [ref=e1495]:
+                - rowgroup [ref=e1496]:
+                  - row "Context Purpose Provider Location" [ref=e1497]:
+                    - columnheader "Context" [ref=e1498]
+                    - columnheader "Purpose" [ref=e1499]
+                    - columnheader "Provider Location" [ref=e1500]
+                - rowgroup [ref=e1501]:
+                  - row "FilterContext Dashboard filters (date range, accounts) DashboardShell" [ref=e1502]:
+                    - cell "FilterContext" [ref=e1503]
+                    - cell "Dashboard filters (date range, accounts)" [ref=e1504]
+                    - cell "DashboardShell" [ref=e1505]:
+                      - code [ref=e1506]: DashboardShell
+                  - row "ReaderContext File navigation, content viewing, preferences ReaderLayout" [ref=e1507]:
+                    - cell "ReaderContext" [ref=e1508]
+                    - cell "File navigation, content viewing, preferences" [ref=e1509]
+                    - cell "ReaderLayout" [ref=e1510]:
+                      - code [ref=e1511]: ReaderLayout
+                  - row "ThemeContext Light/Dark mode preference RootLayout" [ref=e1512]:
+                    - cell "ThemeContext" [ref=e1513]
+                    - cell "Light/Dark mode preference" [ref=e1514]
+                    - cell "RootLayout" [ref=e1515]:
+                      - code [ref=e1516]: RootLayout
+                  - row "SessionContext Auth state (NextAuth) RootLayout" [ref=e1517]:
+                    - cell "SessionContext" [ref=e1518]
+                    - cell "Auth state (NextAuth)" [ref=e1519]
+                    - cell "RootLayout" [ref=e1520]:
+                      - code [ref=e1521]: RootLayout
+              - paragraph [ref=e1522]:
+                - strong [ref=e1523]: "FilterContext State:"
+              - generic "typescript code block" [ref=e1524]:
+                - generic [ref=e1525]: typescript
+                - button "Copy code" [ref=e1526]:
+                  - img [ref=e1527]
+                - code [ref=e1532]:
+                  - generic [ref=e1533]: "interface FilterContextValue {"
+                  - generic [ref=e1534]: // State
+                  - generic [ref=e1535]: "dateRangeKey: string; // 'this-month', 'last-3-months', etc."
+                  - generic [ref=e1536]: "dateRange: { start: Date; end: Date };"
+                  - generic [ref=e1537]: "customDateRange: { start: Date; end: Date } | null;"
+                  - generic [ref=e1538]: "selectedAccountIds: string[];"
+                  - generic [ref=e1539]: "accounts: Account[];"
+                  - generic [ref=e1540]: "isLoading: boolean;"
+                  - generic [ref=e1541]: // Actions
+                  - generic [ref=e1542]: "setDateRange: (key: string, custom?: DateRange) => void;"
+                  - generic [ref=e1543]: "setSelectedAccounts: (ids: string[]) => void;"
+                  - generic [ref=e1544]: "resetFilters: () => void;"
+                  - generic [ref=e1545]: // Utilities
+                  - generic [ref=e1546]: "buildFilterQueryParams: () => URLSearchParams;"
+                  - generic [ref=e1547]: "}"
+              - paragraph [ref=e1548]:
+                - strong [ref=e1549]: "ReaderContext State:"
+              - generic "typescript code block" [ref=e1550]:
+                - generic [ref=e1551]: typescript
+                - button "Copy code" [ref=e1552]:
+                  - img [ref=e1553]
+                - code [ref=e1558]:
+                  - generic [ref=e1559]: "interface ReaderContextValue {"
+                  - generic [ref=e1560]: // Navigation
+                  - generic [ref=e1561]: "currentPath: string | null;"
+                  - generic [ref=e1562]: "expandedPaths: Set<string>;"
+                  - generic [ref=e1563]: "searchQuery: string;"
+                  - generic [ref=e1564]: "searchResults: FileNode[];"
+                  - generic [ref=e1565]: // Content
+                  - generic [ref=e1566]: "currentFile: FileContent | null;"
+                  - generic [ref=e1567]: "headings: DocumentHeading[];"
+                  - generic [ref=e1568]: "isLoading: boolean;"
+                  - generic [ref=e1569]: "error: string | null;"
+                  - generic [ref=e1570]: // Preferences
+                  - generic [ref=e1571]: "displayMode: 'themed' | 'reading';"
+                  - generic [ref=e1572]: "tocVisible: boolean;"
+                  - generic [ref=e1573]: "navPaneVisible: boolean;"
+                  - generic [ref=e1574]: // Quick Access
+                  - generic [ref=e1575]: "recentFiles: RecentFile[];"
+                  - generic [ref=e1576]: "favorites: Favorite[];"
+                  - generic [ref=e1577]: // Actions
+                  - generic [ref=e1578]: "selectFile: (path: string) => Promise<void>;"
+                  - generic [ref=e1579]: "toggleExpand: (path: string) => void;"
+                  - generic [ref=e1580]: "setSearchQuery: (query: string) => void;"
+                  - generic [ref=e1581]: "setHeadings: (headings: DocumentHeading[]) => void;"
+                  - generic [ref=e1582]: "setDisplayMode: (mode: DisplayMode) => void;"
+                  - generic [ref=e1583]: "toggleToc: () => void;"
+                  - generic [ref=e1584]: "toggleNavPane: () => void;"
+                  - generic [ref=e1585]: "toggleFavorite: (path: string, name: string) => Promise<void>;"
+                  - generic [ref=e1586]: "isFavorite: (path: string) => boolean;"
+                  - generic [ref=e1587]: "}"
+              - heading "Server/Client Component Split" [level=3] [ref=e1588]
+              - table [ref=e1590]:
+                - rowgroup [ref=e1591]:
+                  - row "Type Use For Examples" [ref=e1592]:
+                    - columnheader "Type" [ref=e1593]
+                    - columnheader "Use For" [ref=e1594]
+                    - columnheader "Examples" [ref=e1595]
+                - rowgroup [ref=e1596]:
+                  - row "Server Metadata, layouts, data fetching layout.tsx, page.tsx (default)" [ref=e1597]:
+                    - cell "Server" [ref=e1598]:
+                      - strong [ref=e1599]: Server
+                    - cell "Metadata, layouts, data fetching" [ref=e1600]
+                    - cell "layout.tsx, page.tsx (default)" [ref=e1601]:
+                      - code [ref=e1602]: layout.tsx
+                      - text: ","
+                      - code [ref=e1603]: page.tsx
+                      - text: (default)
+                  - row "Client Interactivity, hooks, events Forms, modals, charts, filters" [ref=e1604]:
+                    - cell "Client" [ref=e1605]:
+                      - strong [ref=e1606]: Client
+                    - cell "Interactivity, hooks, events" [ref=e1607]
+                    - cell "Forms, modals, charts, filters" [ref=e1608]
+              - paragraph [ref=e1609]:
+                - strong [ref=e1610]: "Client Component Indicators:"
+              - list [ref=e1611]:
+                - listitem [ref=e1612]:
+                  - code [ref=e1613]: "\"use client\""
+                  - text: directive at top of file
+                - listitem [ref=e1614]:
+                  - text: Uses hooks (
+                  - code [ref=e1615]: useState
+                  - text: ","
+                  - code [ref=e1616]: useEffect
+                  - text: ","
+                  - code [ref=e1617]: useContext
+                  - text: )
+                - listitem [ref=e1618]:
+                  - text: Event handlers (
+                  - code [ref=e1619]: onClick
+                  - text: ","
+                  - code [ref=e1620]: onChange
+                  - text: )
+                - listitem [ref=e1621]:
+                  - text: Browser APIs (
+                  - code [ref=e1622]: localStorage
+                  - text: ","
+                  - code [ref=e1623]: window
+                  - text: )
+              - heading "Styling" [level=3] [ref=e1624]
+              - table [ref=e1626]:
+                - rowgroup [ref=e1627]:
+                  - row "Tool Purpose" [ref=e1628]:
+                    - columnheader "Tool" [ref=e1629]
+                    - columnheader "Purpose" [ref=e1630]
+                - rowgroup [ref=e1631]:
+                  - row "Tailwind CSS Utility-first styling" [ref=e1632]:
+                    - cell "Tailwind CSS" [ref=e1633]:
+                      - strong [ref=e1634]: Tailwind CSS
+                    - cell "Utility-first styling" [ref=e1635]
+                  - row "shadcn/ui Pre-built accessible components" [ref=e1636]:
+                    - cell "shadcn/ui" [ref=e1637]:
+                      - strong [ref=e1638]: shadcn/ui
+                    - cell "Pre-built accessible components" [ref=e1639]
+                  - row "CSS Variables Theme tokens (--bg-page, --text-primary)" [ref=e1640]:
+                    - cell "CSS Variables" [ref=e1641]:
+                      - strong [ref=e1642]: CSS Variables
+                    - cell "Theme tokens (--bg-page, --text-primary)" [ref=e1643]:
+                      - text: Theme tokens (
+                      - code [ref=e1644]: "--bg-page"
+                      - text: ","
+                      - code [ref=e1645]: "--text-primary"
+                      - text: )
+                  - row "cn() utility Conditional class merging (clsx + tailwind-merge)" [ref=e1646]:
+                    - cell "cn() utility" [ref=e1647]:
+                      - strong [ref=e1648]: cn() utility
+                    - cell "Conditional class merging (clsx + tailwind-merge)" [ref=e1649]
+              - separator [ref=e1650]
+              - heading "7. Testing Strategy" [level=2] [ref=e1651]
+              - heading "Three-Tier Testing Architecture" [level=3] [ref=e1652]
+              - generic "code block" [ref=e1653]:
+                - button "Copy code" [ref=e1654]:
+                  - img [ref=e1655]
+                - code [ref=e1660]:
+                  - generic [ref=e1661]: ┌─────────────────────────────────────────────────────────────────┐
+                  - generic [ref=e1662]: │ Testing Pyramid │
+                  - generic [ref=e1663]: └─────────────────────────────────────────────────────────────────┘
+                  - generic [ref=e1664]: ┌───────────┐
+                  - generic [ref=e1665]: │ E2E │ Playwright
+                  - generic [ref=e1666]: │ (slow) │ Full user workflows
+                  - generic [ref=e1667]: └─────┬─────┘
+                  - generic [ref=e1668]: │
+                  - generic [ref=e1669]: ┌─────────┴─────────┐
+                  - generic [ref=e1670]: │ Integration │ Vitest
+                  - generic [ref=e1671]: │ (medium) │ API routes + DB
+                  - generic [ref=e1672]: └─────────┬─────────┘
+                  - generic [ref=e1673]: │
+                  - generic [ref=e1674]: ┌───────────────┴───────────────┐
+                  - generic [ref=e1675]: │ Unit │ Vitest
+                  - generic [ref=e1676]: │ (fast) │ Components, queries, utils
+                  - generic [ref=e1677]: └───────────────────────────────┘
+              - heading "Test Categories" [level=3] [ref=e1678]
+              - table [ref=e1680]:
+                - rowgroup [ref=e1681]:
+                  - row "Type Framework Location Purpose" [ref=e1682]:
+                    - columnheader "Type" [ref=e1683]
+                    - columnheader "Framework" [ref=e1684]
+                    - columnheader "Location" [ref=e1685]
+                    - columnheader "Purpose" [ref=e1686]
+                - rowgroup [ref=e1687]:
+                  - row "Unit Vitest + RTL __tests__/unit/ Components, queries, utilities" [ref=e1688]:
+                    - cell "Unit" [ref=e1689]:
+                      - strong [ref=e1690]: Unit
+                    - cell "Vitest + RTL" [ref=e1691]
+                    - cell "__tests__/unit/" [ref=e1692]:
+                      - code [ref=e1693]: __tests__/unit/
+                    - cell "Components, queries, utilities" [ref=e1694]
+                  - row "Integration Vitest __tests__/integration/ API routes with real DB" [ref=e1695]:
+                    - cell "Integration" [ref=e1696]:
+                      - strong [ref=e1697]: Integration
+                    - cell "Vitest" [ref=e1698]
+                    - cell "__tests__/integration/" [ref=e1699]:
+                      - code [ref=e1700]: __tests__/integration/
+                    - cell "API routes with real DB" [ref=e1701]
+                  - row "E2E Playwright __tests__/e2e/ Full user workflows" [ref=e1702]:
+                    - cell "E2E" [ref=e1703]:
+                      - strong [ref=e1704]: E2E
+                    - cell "Playwright" [ref=e1705]
+                    - cell "__tests__/e2e/" [ref=e1706]:
+                      - code [ref=e1707]: __tests__/e2e/
+                    - cell "Full user workflows" [ref=e1708]
+              - heading "Test Database Setup" [level=3] [ref=e1709]
+              - generic "typescript code block" [ref=e1710]:
+                - generic [ref=e1711]: typescript
+                - button "Copy code" [ref=e1712]:
+                  - img [ref=e1713]
+                - code [ref=e1718]:
+                  - generic [ref=e1719]: // __tests__/helpers/test-db.ts
+                  - generic [ref=e1720]: "// Mode 1: Existing DB (default, fast)"
+                  - generic [ref=e1721]: // Reuses docker-compose MSSQL on port 1434
+                  - generic [ref=e1722]: "// Mode 2: Container (CI/CD)"
+                  - generic [ref=e1723]: // Spins up ephemeral MSSQL via Testcontainers
+                  - generic [ref=e1724]: // Utilities
+                  - generic [ref=e1725]: setupTestDatabase() // Initialize test DB
+                  - generic [ref=e1726]: teardownTestDatabase() // Cleanup connections
+                  - generic [ref=e1727]: clearTestData() // Wipe tables between tests
+                  - generic [ref=e1728]: seedTestData(count) // Generate sample transactions
+              - heading "Coverage Requirements" [level=3] [ref=e1729]
+              - table [ref=e1731]:
+                - rowgroup [ref=e1732]:
+                  - row "Metric Threshold" [ref=e1733]:
+                    - columnheader "Metric" [ref=e1734]
+                    - columnheader "Threshold" [ref=e1735]
+                - rowgroup [ref=e1736]:
+                  - row "Statements 80%" [ref=e1737]:
+                    - cell "Statements" [ref=e1738]
+                    - cell "80%" [ref=e1739]
+                  - row "Branches 80%" [ref=e1740]:
+                    - cell "Branches" [ref=e1741]
+                    - cell "80%" [ref=e1742]
+                  - row "Functions 80%" [ref=e1743]:
+                    - cell "Functions" [ref=e1744]
+                    - cell "80%" [ref=e1745]
+                  - row "Lines 80%" [ref=e1746]:
+                    - cell "Lines" [ref=e1747]
+                    - cell "80%" [ref=e1748]
+              - heading "TDD Workflow" [level=3] [ref=e1749]
+              - generic "code block" [ref=e1750]:
+                - button "Copy code" [ref=e1751]:
+                  - img [ref=e1752]
+                - code [ref=e1757]:
+                  - generic [ref=e1758]: ┌─────────┐ ┌─────────┐ ┌──────────┐ ┌────────┐
+                  - generic [ref=e1759]: │ RED │────▶│ GREEN │────▶│ REFACTOR │────▶│ COMMIT │
+                  - generic [ref=e1760]: │ │ │ │ │ │ │ │
+                  - generic [ref=e1761]: "│ Write │ │ Minimal │ │ Clean up │ │ test: │"
+                  - generic [ref=e1762]: │ failing │ │ code to │ │ keeping │ │ or │
+                  - generic [ref=e1763]: "│ test │ │ pass │ │ tests │ │ feat: │"
+                  - generic [ref=e1764]: └─────────┘ └─────────┘ │ green │ └────────┘
+                  - generic [ref=e1765]: └──────────┘
+              - heading "Running Tests" [level=3] [ref=e1766]
+              - generic "bash code block" [ref=e1767]:
+                - generic [ref=e1768]: bash
+                - button "Copy code" [ref=e1769]:
+                  - img [ref=e1770]
+                - code [ref=e1775]:
+                  - generic [ref=e1776]: "# Unit and Integration"
+                  - generic [ref=e1777]: "npm test # Run all tests"
+                  - generic [ref=e1778]: "npm run test:ui # Interactive UI"
+                  - generic [ref=e1779]: "npm run test:coverage # With coverage report"
+                  - generic [ref=e1780]: "# E2E"
+                  - generic [ref=e1781]: "npm run test:e2e # Run Playwright tests"
+                  - generic [ref=e1782]: "npm run test:e2e:ui # Interactive Playwright UI"
+                  - generic [ref=e1783]: "# Single file"
+                  - generic [ref=e1784]: npx vitest run __tests__/unit/components/kpi-card.test.tsx
+              - separator [ref=e1785]
+              - heading "8. Infrastructure" [level=2] [ref=e1786]
+              - heading "Docker Configuration" [level=3] [ref=e1787]
+              - generic "yaml code block" [ref=e1788]:
+                - generic [ref=e1789]: yaml
+                - button "Copy code" [ref=e1790]:
+                  - img [ref=e1791]
+                - code [ref=e1796]:
+                  - generic [ref=e1797]: "# docker-compose.yml"
+                  - generic [ref=e1798]: "services:"
+                  - generic [ref=e1799]: "db:"
+                  - generic [ref=e1800]: "image: mcr.microsoft.com/mssql/server:2025-latest"
+                  - generic [ref=e1801]: "container_name: cemdash-db"
+                  - generic [ref=e1802]: "ports:"
+                  - generic [ref=e1803]: "- \"1434:1433\""
+                  - generic [ref=e1804]: "volumes:"
+                  - generic [ref=e1805]: "- mssql-data:/var/opt/mssql"
+                  - generic [ref=e1806]: "healthcheck:"
+                  - generic [ref=e1807]: "test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $$SA_PASSWORD -Q \"SELECT 1\""
+                  - generic [ref=e1808]: "interval: 10s"
+                  - generic [ref=e1809]: "timeout: 3s"
+                  - generic [ref=e1810]: "retries: 10"
+                  - generic [ref=e1811]: "web:"
+                  - generic [ref=e1812]: "build: ."
+                  - generic [ref=e1813]: "container_name: cemdash-web"
+                  - generic [ref=e1814]: "ports:"
+                  - generic [ref=e1815]: "- \"3000:3000\""
+                  - generic [ref=e1816]: "depends_on:"
+                  - generic [ref=e1817]: "db:"
+                  - generic [ref=e1818]: "condition: service_healthy"
+              - heading "Database Connection" [level=3] [ref=e1819]
+              - generic "code block" [ref=e1820]:
+                - button "Copy code" [ref=e1821]:
+                  - img [ref=e1822]
+                - code [ref=e1827]:
+                  - generic [ref=e1828]: "# .env.local"
+                  - generic [ref=e1829]: DATABASE_URL="sqlserver://localhost:1434;database=HomeFinance-db;user=sa;password=YOUR_PASSWORD;encrypt=true;trustServerCertificate=true"
+              - heading "Environment Variables" [level=3] [ref=e1830]
+              - table [ref=e1832]:
+                - rowgroup [ref=e1833]:
+                  - row "Variable Purpose Required" [ref=e1834]:
+                    - columnheader "Variable" [ref=e1835]
+                    - columnheader "Purpose" [ref=e1836]
+                    - columnheader "Required" [ref=e1837]
+                - rowgroup [ref=e1838]:
+                  - row "DATABASE_URL Prisma connection string Yes" [ref=e1839]:
+                    - cell "DATABASE_URL" [ref=e1840]:
+                      - code [ref=e1841]: DATABASE_URL
+                    - cell "Prisma connection string" [ref=e1842]
+                    - cell "Yes" [ref=e1843]
+                  - row "NEXTAUTH_SECRET JWT signing key Yes" [ref=e1844]:
+                    - cell "NEXTAUTH_SECRET" [ref=e1845]:
+                      - code [ref=e1846]: NEXTAUTH_SECRET
+                    - cell "JWT signing key" [ref=e1847]
+                    - cell "Yes" [ref=e1848]
+                  - row "NEXTAUTH_URL Auth callback base URL Yes" [ref=e1849]:
+                    - cell "NEXTAUTH_URL" [ref=e1850]:
+                      - code [ref=e1851]: NEXTAUTH_URL
+                    - cell "Auth callback base URL" [ref=e1852]
+                    - cell "Yes" [ref=e1853]
+                  - row "DOCS_ROOT Markdown documentation directory path Yes (Reader)" [ref=e1854]:
+                    - cell "DOCS_ROOT" [ref=e1855]:
+                      - code [ref=e1856]: DOCS_ROOT
+                    - cell "Markdown documentation directory path" [ref=e1857]
+                    - cell "Yes (Reader)" [ref=e1858]
+                  - row "SMTP_HOST Email server Optional" [ref=e1859]:
+                    - cell "SMTP_HOST" [ref=e1860]:
+                      - code [ref=e1861]: SMTP_HOST
+                    - cell "Email server" [ref=e1862]
+                    - cell "Optional" [ref=e1863]
+                  - row "SMTP_PORT Email port Optional" [ref=e1864]:
+                    - cell "SMTP_PORT" [ref=e1865]:
+                      - code [ref=e1866]: SMTP_PORT
+                    - cell "Email port" [ref=e1867]
+                    - cell "Optional" [ref=e1868]
+                  - row "SMTP_USER Email username Optional" [ref=e1869]:
+                    - cell "SMTP_USER" [ref=e1870]:
+                      - code [ref=e1871]: SMTP_USER
+                    - cell "Email username" [ref=e1872]
+                    - cell "Optional" [ref=e1873]
+                  - row "SMTP_PASS Email password Optional" [ref=e1874]:
+                    - cell "SMTP_PASS" [ref=e1875]:
+                      - code [ref=e1876]: SMTP_PASS
+                    - cell "Email password" [ref=e1877]
+                    - cell "Optional" [ref=e1878]
+              - separator [ref=e1879]
+              - heading "9. Development Workflow" [level=2] [ref=e1880]
+              - heading "Getting Started" [level=3] [ref=e1881]
+              - generic "bash code block" [ref=e1882]:
+                - generic [ref=e1883]: bash
+                - button "Copy code" [ref=e1884]:
+                  - img [ref=e1885]
+                - code [ref=e1890]:
+                  - generic [ref=e1891]: "# 1. Clone and install"
+                  - generic [ref=e1892]: git clone <repository>
+                  - generic [ref=e1893]: cd Home-Dashboard
+                  - generic [ref=e1894]: npm install
+                  - generic [ref=e1895]: "# 2. Start database"
+                  - generic [ref=e1896]: docker compose up -d
+                  - generic [ref=e1897]: "# 3. Setup environment"
+                  - generic [ref=e1898]: cp .env.example .env.local
+                  - generic [ref=e1899]: "# Edit DATABASE_URL in .env.local"
+                  - generic [ref=e1900]: "# 4. Generate Prisma client"
+                  - generic [ref=e1901]: npx prisma generate
+                  - generic [ref=e1902]: "# 5. Run migrations (if needed)"
+                  - generic [ref=e1903]: npx prisma migrate dev
+                  - generic [ref=e1904]: "# 6. Start development server"
+                  - generic [ref=e1905]: npm run dev
+              - heading "Common Commands" [level=3] [ref=e1906]
+              - generic "bash code block" [ref=e1907]:
+                - generic [ref=e1908]: bash
+                - button "Copy code" [ref=e1909]:
+                  - img [ref=e1910]
+                - code [ref=e1915]:
+                  - generic [ref=e1916]: "# Development"
+                  - generic [ref=e1917]: "npm run dev # Start dev server (localhost:3000)"
+                  - generic [ref=e1918]: "npm run build # Production build"
+                  - generic [ref=e1919]: "npm run start # Run production build"
+                  - generic [ref=e1920]: "# Database"
+                  - generic [ref=e1921]: "docker compose up -d # Start MSSQL"
+                  - generic [ref=e1922]: "docker compose down # Stop MSSQL"
+                  - generic [ref=e1923]: "npx prisma studio # Visual DB browser"
+                  - generic [ref=e1924]: "npx prisma generate # Regenerate client"
+                  - generic [ref=e1925]: "npx prisma migrate dev # Run migrations"
+                  - generic [ref=e1926]: "# Testing"
+                  - generic [ref=e1927]: "npm test # Unit + integration tests"
+                  - generic [ref=e1928]: "npm run test:coverage # With coverage"
+                  - generic [ref=e1929]: "npm run test:e2e # E2E tests"
+                  - generic [ref=e1930]: "# Linting"
+                  - generic [ref=e1931]: "npm run lint # ESLint"
+                  - generic [ref=e1932]: "npm run type-check # TypeScript check"
+              - heading "Feature Development Process" [level=3] [ref=e1933]
+              - generic "code block" [ref=e1934]:
+                - button "Copy code" [ref=e1935]:
+                  - img [ref=e1936]
+                - code [ref=e1941]:
+                  - generic [ref=e1942]: 1. Create feature spec
+                  - generic [ref=e1943]: └── specs/[###-feature-name]/spec.md
+                  - generic [ref=e1944]: 2. Plan implementation
+                  - generic [ref=e1945]: └── /speckit.plan → generates plan.md, research.md, contracts/
+                  - generic [ref=e1946]: 3. Generate tasks
+                  - generic [ref=e1947]: └── /speckit.tasks → generates tasks.md
+                  - generic [ref=e1948]: 4. Implement (TDD)
+                  - generic [ref=e1949]: └── /speckit.implement → executes tasks.md
+                  - generic [ref=e1950]: "For each task:"
+                  - generic [ref=e1951]: "├── RED: Write failing test"
+                  - generic [ref=e1952]: "├── GREEN: Implement minimum code"
+                  - generic [ref=e1953]: "├── REFACTOR: Clean up"
+                  - generic [ref=e1954]: "└── COMMIT: test: or feat: prefix"
+                  - generic [ref=e1955]: 5. Verify
+                  - generic [ref=e1956]: └── npm test && npm run build
+              - heading "Git Workflow" [level=3] [ref=e1957]
+              - generic "code block" [ref=e1958]:
+                - button "Copy code" [ref=e1959]:
+                  - img [ref=e1960]
+                - code [ref=e1965]:
+                  - generic [ref=e1966]: main
+                  - generic [ref=e1967]: │
+                  - generic [ref=e1968]: └── feature/[###-feature-name]
+                  - generic [ref=e1969]: │
+                  - generic [ref=e1970]: "├── test: add failing test for X"
+                  - generic [ref=e1971]: "├── feat: implement X"
+                  - generic [ref=e1972]: "├── refactor: extract Y"
+                  - generic [ref=e1973]: └── ...
+                  - generic [ref=e1974]: "Commit message format:"
+                  - generic [ref=e1975]: "type: description"
+                  - generic [ref=e1976]: "Co-Authored-By: Claude <noreply@anthropic.com>"
+              - separator [ref=e1977]
+              - 'heading "Appendix: Quick Reference" [level=2] [ref=e1978]'
+              - heading "Key Files" [level=3] [ref=e1979]
+              - table [ref=e1981]:
+                - rowgroup [ref=e1982]:
+                  - row "Purpose File" [ref=e1983]:
+                    - columnheader "Purpose" [ref=e1984]
+                    - columnheader "File" [ref=e1985]
+                - rowgroup [ref=e1986]:
+                  - row "Root layout app/layout.tsx" [ref=e1987]:
+                    - cell "Root layout" [ref=e1988]
+                    - cell "app/layout.tsx" [ref=e1989]:
+                      - code [ref=e1990]: app/layout.tsx
+                  - row "Prisma schema prisma/schema.prisma" [ref=e1991]:
+                    - cell "Prisma schema" [ref=e1992]
+                    - cell "prisma/schema.prisma" [ref=e1993]:
+                      - code [ref=e1994]: prisma/schema.prisma
+                  - row "Filter context lib/contexts/filter-context.tsx" [ref=e1995]:
+                    - cell "Filter context" [ref=e1996]
+                    - cell "lib/contexts/filter-context.tsx" [ref=e1997]:
+                      - code [ref=e1998]: lib/contexts/filter-context.tsx
+                  - row "Theme config lib/theme/themes/" [ref=e1999]:
+                    - cell "Theme config" [ref=e2000]
+                    - cell "lib/theme/themes/" [ref=e2001]:
+                      - code [ref=e2002]: lib/theme/themes/
+                  - row "API validations lib/validations/" [ref=e2003]:
+                    - cell "API validations" [ref=e2004]
+                    - cell "lib/validations/" [ref=e2005]:
+                      - code [ref=e2006]: lib/validations/
+                  - row "Query functions lib/queries/" [ref=e2007]:
+                    - cell "Query functions" [ref=e2008]
+                    - cell "lib/queries/" [ref=e2009]:
+                      - code [ref=e2010]: lib/queries/
+                  - row "Test helpers __tests__/helpers/" [ref=e2011]:
+                    - cell "Test helpers" [ref=e2012]
+                    - cell "__tests__/helpers/" [ref=e2013]:
+                      - code [ref=e2014]: __tests__/helpers/
+                  - row "Project constitution .specify/memory/constitution.md" [ref=e2015]:
+                    - cell "Project constitution" [ref=e2016]
+                    - cell ".specify/memory/constitution.md" [ref=e2017]:
+                      - code [ref=e2018]: .specify/memory/constitution.md
+              - heading "Architectural Decisions" [level=3] [ref=e2019]
+              - table [ref=e2021]:
+                - rowgroup [ref=e2022]:
+                  - row "Decision Rationale" [ref=e2023]:
+                    - columnheader "Decision" [ref=e2024]
+                    - columnheader "Rationale" [ref=e2025]
+                - rowgroup [ref=e2026]:
+                  - row "App Router Server/client component optimization" [ref=e2027]:
+                    - cell "App Router" [ref=e2028]
+                    - cell "Server/client component optimization" [ref=e2029]
+                  - row "Context-aware components Testability + dashboard integration" [ref=e2030]:
+                    - cell "Context-aware components" [ref=e2031]
+                    - cell "Testability + dashboard integration" [ref=e2032]
+                  - row "Zod validation Type-safe API contracts" [ref=e2033]:
+                    - cell "Zod validation" [ref=e2034]
+                    - cell "Type-safe API contracts" [ref=e2035]
+                  - row "Query separation Reusable across routes" [ref=e2036]:
+                    - cell "Query separation" [ref=e2037]
+                    - cell "Reusable across routes" [ref=e2038]
+                  - row "CSS variables for themes Runtime switching without re-render" [ref=e2039]:
+                    - cell "CSS variables for themes" [ref=e2040]
+                    - cell "Runtime switching without re-render" [ref=e2041]
+                  - row "Testcontainers Isolated integration tests" [ref=e2042]:
+                    - cell "Testcontainers" [ref=e2043]
+                    - cell "Isolated integration tests" [ref=e2044]
+              - separator [ref=e2045]
+              - paragraph [ref=e2046]:
+                - emphasis [ref=e2047]: "Generated: 2026-01-20"
+          - complementary [ref=e2048]:
+            - navigation "Table of contents" [ref=e2049]:
+              - heading "On this page" [level=2] [ref=e2051]:
+                - img [ref=e2052]
+                - text: On this page
+              - list [ref=e2053]:
+                - listitem [ref=e2054]:
+                  - 'link "Architecture Guide: Home-Dashboard" [ref=e2055] [cursor=pointer]':
+                    - /url: "#architecture-guide-home-dashboard"
+                - listitem [ref=e2056]:
+                  - 'link "Architecture Guide: Home-Dashboard" [ref=e2057] [cursor=pointer]':
+                    - /url: "#architecture-guide-home-dashboard-1"
+                - listitem [ref=e2058]:
+                  - link "Table of Contents" [ref=e2059] [cursor=pointer]:
+                    - /url: "#table-of-contents"
+                - listitem [ref=e2060]:
+                  - link "Table of Contents" [ref=e2061] [cursor=pointer]:
+                    - /url: "#table-of-contents-1"
+                - listitem [ref=e2062]:
+                  - link "1. Overview" [ref=e2063] [cursor=pointer]:
+                    - /url: "#1-overview"
+                - listitem [ref=e2064]:
+                  - link "1. Overview" [ref=e2065] [cursor=pointer]:
+                    - /url: "#1-overview-1"
+                - listitem [ref=e2066]:
+                  - link "System Purpose" [ref=e2067] [cursor=pointer]:
+                    - /url: "#system-purpose"
+                - listitem [ref=e2068]:
+                  - link "System Purpose" [ref=e2069] [cursor=pointer]:
+                    - /url: "#system-purpose-1"
+                - listitem [ref=e2070]:
+                  - link "Tech Stack" [ref=e2071] [cursor=pointer]:
+                    - /url: "#tech-stack"
+                - listitem [ref=e2072]:
+                  - link "Tech Stack" [ref=e2073] [cursor=pointer]:
+                    - /url: "#tech-stack-1"
+                - listitem [ref=e2074]:
+                  - link "Feature Summary" [ref=e2075] [cursor=pointer]:
+                    - /url: "#feature-summary"
+                - listitem [ref=e2076]:
+                  - link "Feature Summary" [ref=e2077] [cursor=pointer]:
+                    - /url: "#feature-summary-1"
+                - listitem [ref=e2078]:
+                  - link "2. System Architecture" [ref=e2079] [cursor=pointer]:
+                    - /url: "#2-system-architecture"
+                - listitem [ref=e2080]:
+                  - link "2. System Architecture" [ref=e2081] [cursor=pointer]:
+                    - /url: "#2-system-architecture-1"
+                - listitem [ref=e2082]:
+                  - link "High-Level System Diagram" [ref=e2083] [cursor=pointer]:
+                    - /url: "#high-level-system-diagram"
+                - listitem [ref=e2084]:
+                  - link "High-Level System Diagram" [ref=e2085] [cursor=pointer]:
+                    - /url: "#high-level-system-diagram-1"
+                - listitem [ref=e2086]:
+                  - link "Data Flow Architecture" [ref=e2087] [cursor=pointer]:
+                    - /url: "#data-flow-architecture"
+                - listitem [ref=e2088]:
+                  - link "Data Flow Architecture" [ref=e2089] [cursor=pointer]:
+                    - /url: "#data-flow-architecture-1"
+                - listitem [ref=e2090]:
+                  - link "Component Hierarchy" [ref=e2091] [cursor=pointer]:
+                    - /url: "#component-hierarchy"
+                - listitem [ref=e2092]:
+                  - link "Component Hierarchy" [ref=e2093] [cursor=pointer]:
+                    - /url: "#component-hierarchy-1"
+                - listitem [ref=e2094]:
+                  - link "3. Directory Structure" [ref=e2095] [cursor=pointer]:
+                    - /url: "#3-directory-structure"
+                - listitem [ref=e2096]:
+                  - link "3. Directory Structure" [ref=e2097] [cursor=pointer]:
+                    - /url: "#3-directory-structure-1"
+                - listitem [ref=e2098]:
+                  - link "Project Root" [ref=e2099] [cursor=pointer]:
+                    - /url: "#project-root"
+                - listitem [ref=e2100]:
+                  - link "Project Root" [ref=e2101] [cursor=pointer]:
+                    - /url: "#project-root-1"
+                - listitem [ref=e2102]:
+                  - link "App Router Structure (app/)" [ref=e2103] [cursor=pointer]:
+                    - /url: "#app-router-structure-app"
+                - listitem [ref=e2104]:
+                  - link "App Router Structure (app/)" [ref=e2105] [cursor=pointer]:
+                    - /url: "#app-router-structure-app-1"
+                - listitem [ref=e2106]:
+                  - link "Components Structure (components/)" [ref=e2107] [cursor=pointer]:
+                    - /url: "#components-structure-components"
+                - listitem [ref=e2108]:
+                  - link "Components Structure (components/)" [ref=e2109] [cursor=pointer]:
+                    - /url: "#components-structure-components-1"
+                - listitem [ref=e2110]:
+                  - link "Library Structure (lib/)" [ref=e2111] [cursor=pointer]:
+                    - /url: "#library-structure-lib"
+                - listitem [ref=e2112]:
+                  - link "Library Structure (lib/)" [ref=e2113] [cursor=pointer]:
+                    - /url: "#library-structure-lib-1"
+                - listitem [ref=e2114]:
+                  - link "Type Definitions (types/)" [ref=e2115] [cursor=pointer]:
+                    - /url: "#type-definitions-types"
+                - listitem [ref=e2116]:
+                  - link "Type Definitions (types/)" [ref=e2117] [cursor=pointer]:
+                    - /url: "#type-definitions-types-1"
+                - listitem [ref=e2118]:
+                  - link "Test Structure (__tests__/)" [ref=e2119] [cursor=pointer]:
+                    - /url: "#test-structure-__tests__"
+                - listitem [ref=e2120]:
+                  - link "Test Structure (__tests__/)" [ref=e2121] [cursor=pointer]:
+                    - /url: "#test-structure-__tests__-1"
+                - listitem [ref=e2122]:
+                  - link "4. Data Model" [ref=e2123] [cursor=pointer]:
+                    - /url: "#4-data-model"
+                - listitem [ref=e2124]:
+                  - link "4. Data Model" [ref=e2125] [cursor=pointer]:
+                    - /url: "#4-data-model-1"
+                - listitem [ref=e2126]:
+                  - link "Entity Relationship Diagram" [ref=e2127] [cursor=pointer]:
+                    - /url: "#entity-relationship-diagram"
+                - listitem [ref=e2128]:
+                  - link "Entity Relationship Diagram" [ref=e2129] [cursor=pointer]:
+                    - /url: "#entity-relationship-diagram-1"
+                - listitem [ref=e2130]:
+                  - link "Prisma Schema Overview" [ref=e2131] [cursor=pointer]:
+                    - /url: "#prisma-schema-overview"
+                - listitem [ref=e2132]:
+                  - link "Prisma Schema Overview" [ref=e2133] [cursor=pointer]:
+                    - /url: "#prisma-schema-overview-1"
+                - listitem [ref=e2134]:
+                  - link "5. API Layer" [ref=e2135] [cursor=pointer]:
+                    - /url: "#5-api-layer"
+                - listitem [ref=e2136]:
+                  - link "5. API Layer" [ref=e2137] [cursor=pointer]:
+                    - /url: "#5-api-layer-1"
+                - listitem [ref=e2138]:
+                  - link "API Contract Pattern" [ref=e2139] [cursor=pointer]:
+                    - /url: "#api-contract-pattern"
+                - listitem [ref=e2140]:
+                  - link "API Contract Pattern" [ref=e2141] [cursor=pointer]:
+                    - /url: "#api-contract-pattern-1"
+                - listitem [ref=e2142]:
+                  - link "Endpoint Summary" [ref=e2143] [cursor=pointer]:
+                    - /url: "#endpoint-summary"
+                - listitem [ref=e2144]:
+                  - link "Endpoint Summary" [ref=e2145] [cursor=pointer]:
+                    - /url: "#endpoint-summary-1"
+                - listitem [ref=e2146]:
+                  - link "Analytics API" [ref=e2147] [cursor=pointer]:
+                    - /url: "#analytics-api"
+                - listitem [ref=e2148]:
+                  - link "Analytics API" [ref=e2149] [cursor=pointer]:
+                    - /url: "#analytics-api-1"
+                - listitem [ref=e2150]:
+                  - link "Transactions API" [ref=e2151] [cursor=pointer]:
+                    - /url: "#transactions-api"
+                - listitem [ref=e2152]:
+                  - link "Transactions API" [ref=e2153] [cursor=pointer]:
+                    - /url: "#transactions-api-1"
+                - listitem [ref=e2154]:
+                  - link "Events API" [ref=e2155] [cursor=pointer]:
+                    - /url: "#events-api"
+                - listitem [ref=e2156]:
+                  - link "Events API" [ref=e2157] [cursor=pointer]:
+                    - /url: "#events-api-1"
+                - listitem [ref=e2158]:
+                  - link "Categories API" [ref=e2159] [cursor=pointer]:
+                    - /url: "#categories-api"
+                - listitem [ref=e2160]:
+                  - link "Categories API" [ref=e2161] [cursor=pointer]:
+                    - /url: "#categories-api-1"
+                - listitem [ref=e2162]:
+                  - link "Users API (Admin)" [ref=e2163] [cursor=pointer]:
+                    - /url: "#users-api-admin"
+                - listitem [ref=e2164]:
+                  - link "Users API (Admin)" [ref=e2165] [cursor=pointer]:
+                    - /url: "#users-api-admin-1"
+                - listitem [ref=e2166]:
+                  - link "Filter Options API" [ref=e2167] [cursor=pointer]:
+                    - /url: "#filter-options-api"
+                - listitem [ref=e2168]:
+                  - link "Filter Options API" [ref=e2169] [cursor=pointer]:
+                    - /url: "#filter-options-api-1"
+                - listitem [ref=e2170]:
+                  - link "Reader API" [ref=e2171] [cursor=pointer]:
+                    - /url: "#reader-api"
+                - listitem [ref=e2172]:
+                  - link "Reader API" [ref=e2173] [cursor=pointer]:
+                    - /url: "#reader-api-1"
+                - listitem [ref=e2174]:
+                  - link "Email Utility API" [ref=e2175] [cursor=pointer]:
+                    - /url: "#email-utility-api"
+                - listitem [ref=e2176]:
+                  - link "Email Utility API" [ref=e2177] [cursor=pointer]:
+                    - /url: "#email-utility-api-1"
+                - listitem [ref=e2178]:
+                  - link "Authentication Flow" [ref=e2179] [cursor=pointer]:
+                    - /url: "#authentication-flow"
+                - listitem [ref=e2180]:
+                  - link "Authentication Flow" [ref=e2181] [cursor=pointer]:
+                    - /url: "#authentication-flow-1"
+                - listitem [ref=e2182]:
+                  - link "Service Layer Pattern" [ref=e2183] [cursor=pointer]:
+                    - /url: "#service-layer-pattern"
+                - listitem [ref=e2184]:
+                  - link "Service Layer Pattern" [ref=e2185] [cursor=pointer]:
+                    - /url: "#service-layer-pattern-1"
+                - listitem [ref=e2186]:
+                  - link "Security Architecture" [ref=e2187] [cursor=pointer]:
+                    - /url: "#security-architecture"
+                - listitem [ref=e2188]:
+                  - link "Security Architecture" [ref=e2189] [cursor=pointer]:
+                    - /url: "#security-architecture-1"
+                - listitem [ref=e2190]:
+                  - link "Path Traversal Prevention (Markdown Reader)" [ref=e2191] [cursor=pointer]:
+                    - /url: "#path-traversal-prevention-markdown-reader"
+                - listitem [ref=e2192]:
+                  - link "Path Traversal Prevention (Markdown Reader)" [ref=e2193] [cursor=pointer]:
+                    - /url: "#path-traversal-prevention-markdown-reader-1"
+                - listitem [ref=e2194]:
+                  - link "File System Sandboxing" [ref=e2195] [cursor=pointer]:
+                    - /url: "#file-system-sandboxing"
+                - listitem [ref=e2196]:
+                  - link "File System Sandboxing" [ref=e2197] [cursor=pointer]:
+                    - /url: "#file-system-sandboxing-1"
+                - listitem [ref=e2198]:
+                  - link "6. Frontend Architecture" [ref=e2199] [cursor=pointer]:
+                    - /url: "#6-frontend-architecture"
+                - listitem [ref=e2200]:
+                  - link "6. Frontend Architecture" [ref=e2201] [cursor=pointer]:
+                    - /url: "#6-frontend-architecture-1"
+                - listitem [ref=e2202]:
+                  - link "Context-Aware Component Pattern" [ref=e2203] [cursor=pointer]:
+                    - /url: "#context-aware-component-pattern"
+                - listitem [ref=e2204]:
+                  - link "Context-Aware Component Pattern" [ref=e2205] [cursor=pointer]:
+                    - /url: "#context-aware-component-pattern-1"
+                - listitem [ref=e2206]:
+                  - link "Shell Pattern" [ref=e2207] [cursor=pointer]:
+                    - /url: "#shell-pattern"
+                - listitem [ref=e2208]:
+                  - link "Shell Pattern" [ref=e2209] [cursor=pointer]:
+                    - /url: "#shell-pattern-1"
+                - listitem [ref=e2210]:
+                  - link "State Management" [ref=e2211] [cursor=pointer]:
+                    - /url: "#state-management"
+                - listitem [ref=e2212]:
+                  - link "State Management" [ref=e2213] [cursor=pointer]:
+                    - /url: "#state-management-1"
+                - listitem [ref=e2214]:
+                  - link "Server/Client Component Split" [ref=e2215] [cursor=pointer]:
+                    - /url: "#serverclient-component-split"
+                - listitem [ref=e2216]:
+                  - link "Server/Client Component Split" [ref=e2217] [cursor=pointer]:
+                    - /url: "#serverclient-component-split-1"
+                - listitem [ref=e2218]:
+                  - link "Styling" [ref=e2219] [cursor=pointer]:
+                    - /url: "#styling"
+                - listitem [ref=e2220]:
+                  - link "Styling" [ref=e2221] [cursor=pointer]:
+                    - /url: "#styling-1"
+                - listitem [ref=e2222]:
+                  - link "7. Testing Strategy" [ref=e2223] [cursor=pointer]:
+                    - /url: "#7-testing-strategy"
+                - listitem [ref=e2224]:
+                  - link "7. Testing Strategy" [ref=e2225] [cursor=pointer]:
+                    - /url: "#7-testing-strategy-1"
+                - listitem [ref=e2226]:
+                  - link "Three-Tier Testing Architecture" [ref=e2227] [cursor=pointer]:
+                    - /url: "#three-tier-testing-architecture"
+                - listitem [ref=e2228]:
+                  - link "Three-Tier Testing Architecture" [ref=e2229] [cursor=pointer]:
+                    - /url: "#three-tier-testing-architecture-1"
+                - listitem [ref=e2230]:
+                  - link "Test Categories" [ref=e2231] [cursor=pointer]:
+                    - /url: "#test-categories"
+                - listitem [ref=e2232]:
+                  - link "Test Categories" [ref=e2233] [cursor=pointer]:
+                    - /url: "#test-categories-1"
+                - listitem [ref=e2234]:
+                  - link "Test Database Setup" [ref=e2235] [cursor=pointer]:
+                    - /url: "#test-database-setup"
+                - listitem [ref=e2236]:
+                  - link "Test Database Setup" [ref=e2237] [cursor=pointer]:
+                    - /url: "#test-database-setup-1"
+                - listitem [ref=e2238]:
+                  - link "Coverage Requirements" [ref=e2239] [cursor=pointer]:
+                    - /url: "#coverage-requirements"
+                - listitem [ref=e2240]:
+                  - link "Coverage Requirements" [ref=e2241] [cursor=pointer]:
+                    - /url: "#coverage-requirements-1"
+                - listitem [ref=e2242]:
+                  - link "TDD Workflow" [ref=e2243] [cursor=pointer]:
+                    - /url: "#tdd-workflow"
+                - listitem [ref=e2244]:
+                  - link "TDD Workflow" [ref=e2245] [cursor=pointer]:
+                    - /url: "#tdd-workflow-1"
+                - listitem [ref=e2246]:
+                  - link "Running Tests" [ref=e2247] [cursor=pointer]:
+                    - /url: "#running-tests"
+                - listitem [ref=e2248]:
+                  - link "Running Tests" [ref=e2249] [cursor=pointer]:
+                    - /url: "#running-tests-1"
+                - listitem [ref=e2250]:
+                  - link "8. Infrastructure" [ref=e2251] [cursor=pointer]:
+                    - /url: "#8-infrastructure"
+                - listitem [ref=e2252]:
+                  - link "8. Infrastructure" [ref=e2253] [cursor=pointer]:
+                    - /url: "#8-infrastructure-1"
+                - listitem [ref=e2254]:
+                  - link "Docker Configuration" [ref=e2255] [cursor=pointer]:
+                    - /url: "#docker-configuration"
+                - listitem [ref=e2256]:
+                  - link "Docker Configuration" [ref=e2257] [cursor=pointer]:
+                    - /url: "#docker-configuration-1"
+                - listitem [ref=e2258]:
+                  - link "Database Connection" [ref=e2259] [cursor=pointer]:
+                    - /url: "#database-connection"
+                - listitem [ref=e2260]:
+                  - link "Database Connection" [ref=e2261] [cursor=pointer]:
+                    - /url: "#database-connection-1"
+                - listitem [ref=e2262]:
+                  - link "Environment Variables" [ref=e2263] [cursor=pointer]:
+                    - /url: "#environment-variables"
+                - listitem [ref=e2264]:
+                  - link "Environment Variables" [ref=e2265] [cursor=pointer]:
+                    - /url: "#environment-variables-1"
+                - listitem [ref=e2266]:
+                  - link "9. Development Workflow" [ref=e2267] [cursor=pointer]:
+                    - /url: "#9-development-workflow"
+                - listitem [ref=e2268]:
+                  - link "9. Development Workflow" [ref=e2269] [cursor=pointer]:
+                    - /url: "#9-development-workflow-1"
+                - listitem [ref=e2270]:
+                  - link "Getting Started" [ref=e2271] [cursor=pointer]:
+                    - /url: "#getting-started"
+                - listitem [ref=e2272]:
+                  - link "Getting Started" [ref=e2273] [cursor=pointer]:
+                    - /url: "#getting-started-1"
+                - listitem [ref=e2274]:
+                  - link "Common Commands" [ref=e2275] [cursor=pointer]:
+                    - /url: "#common-commands"
+                - listitem [ref=e2276]:
+                  - link "Common Commands" [ref=e2277] [cursor=pointer]:
+                    - /url: "#common-commands-1"
+                - listitem [ref=e2278]:
+                  - link "Feature Development Process" [ref=e2279] [cursor=pointer]:
+                    - /url: "#feature-development-process"
+                - listitem [ref=e2280]:
+                  - link "Feature Development Process" [ref=e2281] [cursor=pointer]:
+                    - /url: "#feature-development-process-1"
+                - listitem [ref=e2282]:
+                  - link "Git Workflow" [ref=e2283] [cursor=pointer]:
+                    - /url: "#git-workflow"
+                - listitem [ref=e2284]:
+                  - link "Git Workflow" [ref=e2285] [cursor=pointer]:
+                    - /url: "#git-workflow-1"
+                - listitem [ref=e2286]:
+                  - 'link "Appendix: Quick Reference" [ref=e2287] [cursor=pointer]':
+                    - /url: "#appendix-quick-reference"
+                - listitem [ref=e2288]:
+                  - 'link "Appendix: Quick Reference" [ref=e2289] [cursor=pointer]':
+                    - /url: "#appendix-quick-reference-1"
+                - listitem [ref=e2290]:
+                  - link "Key Files" [ref=e2291] [cursor=pointer]:
+                    - /url: "#key-files"
+                - listitem [ref=e2292]:
+                  - link "Key Files" [ref=e2293] [cursor=pointer]:
+                    - /url: "#key-files-1"
+                - listitem [ref=e2294]:
+                  - link "Architectural Decisions" [ref=e2295] [cursor=pointer]:
+                    - /url: "#architectural-decisions"
+                - listitem [ref=e2296]:
+                  - link "Architectural Decisions" [ref=e2297] [cursor=pointer]:
+                    - /url: "#architectural-decisions-1"
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e2303] [cursor=pointer]:
+    - img [ref=e2304]
+  - alert [ref=e2307]
+```

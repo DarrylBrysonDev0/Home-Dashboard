@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, DollarSign, Calendar, Settings } from "lucide-react";
+import { Home, DollarSign, Calendar, BookOpen, Settings } from "lucide-react";
 import { NavItem } from "./nav-item";
 import { cn } from "@/lib/utils";
 
@@ -28,12 +28,13 @@ interface NavItemConfig {
 
 /**
  * Navigation items configuration
- * Order: Home, Finance, Calendar, Settings
+ * Order: Home, Finance, Calendar, Reader, Settings
  */
 const navItems: NavItemConfig[] = [
   { href: "/", icon: Home, label: "Home" },
   { href: "/dashboard", icon: DollarSign, label: "Finance" },
   { href: "/calendar", icon: Calendar, label: "Calendar" },
+  { href: "/reader", icon: BookOpen, label: "Reader" },
   { href: "/admin", icon: Settings, label: "Settings" },
 ];
 
@@ -44,7 +45,7 @@ const navItems: NavItemConfig[] = [
  * Supports both desktop (horizontal) and mobile (vertical) layouts.
  *
  * Features:
- * - Four main navigation items: Home, Finance, Calendar, Settings
+ * - Five main navigation items: Home, Finance, Calendar, Reader, Settings
  * - Responsive layout (horizontal desktop, vertical mobile)
  * - onItemClick callback for mobile drawer close behavior
  * - Keyboard accessible with proper tab order

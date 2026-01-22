@@ -51,5 +51,9 @@ export async function verifyPassword(
   password: string,
   hash: string
 ): Promise<boolean> {
-  return bcrypt.compare(password, hash);
+  console.log("[PASSWORD] Comparing password length:", password.length);
+  console.log("[PASSWORD] Hash starts with:", hash.substring(0, 10));
+  const result = await bcrypt.compare(password, hash);
+  console.log("[PASSWORD] Compare result:", result);
+  return result;
 }

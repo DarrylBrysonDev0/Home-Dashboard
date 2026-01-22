@@ -48,14 +48,15 @@ test.describe("User Story 1: Desktop Navigation Across Pages", () => {
     // Wait for nav bar
     await expect(page.locator('[data-testid="nav-bar"]')).toBeVisible();
 
-    // Should have all four main nav items
+    // Should have all five main nav items
     const navItems = page.locator('[data-testid="nav-items"]');
     await expect(navItems).toBeVisible();
 
-    // Check for Home, Finance, Calendar, Settings links
+    // Check for Home, Finance, Calendar, Reader, Settings links
     await expect(page.locator('a[href="/"]').filter({ hasText: /home/i })).toBeVisible();
     await expect(page.locator('a[href="/dashboard"]')).toBeVisible();
     await expect(page.locator('a[href="/calendar"]')).toBeVisible();
+    await expect(page.locator('a[href="/reader"]')).toBeVisible();
     await expect(page.locator('a[href="/settings"]').or(page.locator('a[href="/admin"]'))).toBeVisible();
   });
 
@@ -100,6 +101,24 @@ test.describe("User Story 1: Desktop Navigation Across Pages", () => {
     await expect(page.locator('[data-testid="nav-bar"]')).toBeVisible();
   });
 
+  test("should navigate to Reader page", async ({ page }) => {
+    // Wait for nav bar
+    await expect(page.locator('[data-testid="nav-bar"]')).toBeVisible();
+
+    // Click Reader link
+    await page.locator('a[href="/reader"]').click();
+
+    // Should navigate to reader
+    await expect(page).toHaveURL("/reader");
+
+    // Nav bar should still be visible
+    await expect(page.locator('[data-testid="nav-bar"]')).toBeVisible();
+
+    // Reader nav item should be active
+    const readerNavItem = page.locator('[data-testid="nav-item-reader"]');
+    await expect(readerNavItem).toHaveAttribute("data-active", "true");
+  });
+
   test("should display nav bar on dashboard page", async ({ page }) => {
     await page.goto("/dashboard");
 
@@ -122,6 +141,18 @@ test.describe("User Story 1: Desktop Navigation Across Pages", () => {
     await expect(navBar).toBeVisible({ timeout: 10000 });
   });
 
+  test("should display nav bar on reader page", async ({ page }) => {
+    await page.goto("/reader");
+
+    // Nav bar should be visible
+    const navBar = page.locator('[data-testid="nav-bar"]');
+    await expect(navBar).toBeVisible({ timeout: 10000 });
+
+    // Reader nav item should be active
+    const readerNavItem = page.locator('[data-testid="nav-item-reader"]');
+    await expect(readerNavItem).toHaveAttribute("data-active", "true");
+  });
+
   test("should display user menu in nav bar", async ({ page }) => {
     // Wait for nav bar
     await expect(page.locator('[data-testid="nav-bar"]')).toBeVisible();
@@ -141,6 +172,10 @@ test.describe("User Story 1: Desktop Navigation Across Pages", () => {
 
     // Navigate to calendar
     await page.goto("/calendar");
+    await expect(page.locator('[data-testid="nav-bar"]')).toBeVisible();
+
+    // Navigate to reader
+    await page.goto("/reader");
     await expect(page.locator('[data-testid="nav-bar"]')).toBeVisible();
 
     // Navigate back to home
@@ -198,7 +233,7 @@ test.describe("User Story 1: Navigation Accessibility", () => {
     const navLinks = page.locator('[data-testid="nav-items"] a');
     const count = await navLinks.count();
 
-    expect(count).toBeGreaterThanOrEqual(4);
+    expect(count).toBeGreaterThanOrEqual(5);
 
     // Each link should have accessible text
     for (let i = 0; i < count; i++) {
@@ -642,6 +677,7 @@ test.describe("User Story 5: Mobile Navigation with Hamburger Menu", () => {
     await expect(drawer.locator('text=Home')).toBeVisible();
     await expect(drawer.locator('text=Finance')).toBeVisible();
     await expect(drawer.locator('text=Calendar')).toBeVisible();
+    await expect(drawer.locator('text=Reader')).toBeVisible();
     await expect(drawer.locator('text=Settings')).toBeVisible();
   });
 
@@ -709,6 +745,25 @@ test.describe("User Story 5: Mobile Navigation with Hamburger Menu", () => {
 
     // Should navigate to dashboard
     await expect(page).toHaveURL("/dashboard");
+
+    // Drawer should be closed after navigation
+    await expect(drawer).not.toBeVisible();
+  });
+
+  test("should navigate to Reader from mobile drawer", async ({ page }) => {
+    // Open drawer
+    const hamburgerButton = page.locator('[data-testid="mobile-menu-button"]');
+    await hamburgerButton.click();
+
+    const drawer = page.locator('[data-testid="mobile-drawer"]');
+    await expect(drawer).toBeVisible();
+
+    // Click on Reader nav item
+    const readerLink = drawer.locator('text=Reader');
+    await readerLink.click();
+
+    // Should navigate to reader
+    await expect(page).toHaveURL("/reader");
 
     // Drawer should be closed after navigation
     await expect(drawer).not.toBeVisible();

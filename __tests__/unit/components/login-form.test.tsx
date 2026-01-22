@@ -12,17 +12,20 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { signIn } from "next-auth/react";
-import LoginForm from "@/components/auth/login-form";
+import { LoginForm } from "@/components/auth/login-form";
 
 // Mock next-auth
 vi.mock("next-auth/react", () => ({
   signIn: vi.fn(),
 }));
 
-// Mock next/navigation
+
+// Capture router push calls
+const mockRouterPush = vi.fn();
+
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
-    push: vi.fn(),
+    push: mockRouterPush,
     refresh: vi.fn(),
   }),
 }));
@@ -30,6 +33,7 @@ vi.mock("next/navigation", () => ({
 describe("LoginForm Component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockRouterPush.mockClear();
   });
 
   describe("Rendering", () => {
@@ -369,6 +373,88 @@ describe("LoginForm Component", () => {
       // Should submit
       await waitFor(() => {
         expect(mockSignIn).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("Default Callback URL", () => {
+    it("should redirect to home page (/) by default after successful login", async () => {
+      const user = userEvent.setup();
+      const mockSignIn = vi.mocked(signIn);
+      mockSignIn.mockResolvedValue({ ok: true, error: null } as any);
+
+      render(<LoginForm />);
+
+      // Fill form
+      await user.type(screen.getByLabelText(/email/i), "test@example.com");
+      await user.type(screen.getByLabelText(/password/i), "TestPassword123");
+
+      // Submit
+      await user.click(screen.getByRole("button", { name: /log in|sign in/i }));
+
+      await waitFor(() => {
+        // Should redirect to "/" (home) by default, not "/calendar"
+        expect(mockRouterPush).toHaveBeenCalledWith("/");
+      });
+    });
+
+    it("should NOT redirect to /calendar by default", async () => {
+      const user = userEvent.setup();
+      const mockSignIn = vi.mocked(signIn);
+      mockSignIn.mockResolvedValue({ ok: true, error: null } as any);
+
+      render(<LoginForm />);
+
+      // Fill form
+      await user.type(screen.getByLabelText(/email/i), "test@example.com");
+      await user.type(screen.getByLabelText(/password/i), "TestPassword123");
+
+      // Submit
+      await user.click(screen.getByRole("button", { name: /log in|sign in/i }));
+
+      await waitFor(() => {
+        // Should NOT redirect to "/calendar"
+        expect(mockRouterPush).not.toHaveBeenCalledWith("/calendar");
+      });
+    });
+
+    it("should use custom callbackUrl prop when provided", async () => {
+      const user = userEvent.setup();
+      const mockSignIn = vi.mocked(signIn);
+      mockSignIn.mockResolvedValue({ ok: true, error: null } as any);
+
+      render(<LoginForm callbackUrl="/dashboard" />);
+
+      // Fill form
+      await user.type(screen.getByLabelText(/email/i), "test@example.com");
+      await user.type(screen.getByLabelText(/password/i), "TestPassword123");
+
+      // Submit
+      await user.click(screen.getByRole("button", { name: /log in|sign in/i }));
+
+      await waitFor(() => {
+        // Should redirect to custom callback URL
+        expect(mockRouterPush).toHaveBeenCalledWith("/dashboard");
+      });
+    });
+
+    it("should redirect to /reader when callbackUrl is /reader", async () => {
+      const user = userEvent.setup();
+      const mockSignIn = vi.mocked(signIn);
+      mockSignIn.mockResolvedValue({ ok: true, error: null } as any);
+
+      render(<LoginForm callbackUrl="/reader" />);
+
+      // Fill form
+      await user.type(screen.getByLabelText(/email/i), "test@example.com");
+      await user.type(screen.getByLabelText(/password/i), "TestPassword123");
+
+      // Submit
+      await user.click(screen.getByRole("button", { name: /log in|sign in/i }));
+
+      await waitFor(() => {
+        // Should redirect to reader
+        expect(mockRouterPush).toHaveBeenCalledWith("/reader");
       });
     });
   });

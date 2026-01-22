@@ -1,0 +1,463 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - navigation "Main navigation" [ref=e2]:
+    - generic [ref=e3]:
+      - link "Cemdash Home Dashboard - Go to home page" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]: Cemdash
+      - generic [ref=e6]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - img [ref=e10]
+          - generic [ref=e13]: Home
+        - link "Finance" [ref=e16] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e17]
+          - generic [ref=e19]: Finance
+        - link "Calendar" [ref=e22] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e23]
+          - generic [ref=e25]: Calendar
+        - link "Reader" [ref=e28] [cursor=pointer]:
+          - /url: /reader
+          - img [ref=e29]
+          - generic [ref=e31]: Reader
+        - link "Settings" [ref=e34] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e35]
+          - generic [ref=e38]: Settings
+    - generic [ref=e39]:
+      - button "Switch to dark theme" [ref=e41]:
+        - img
+      - button "User menu" [ref=e43]:
+        - generic [ref=e44]: A
+  - main [ref=e45]:
+    - generic [ref=e47]:
+      - complementary "File navigation" [ref=e48]:
+        - generic [ref=e49]:
+          - heading "Documents" [level=2] [ref=e50]
+          - generic [ref=e51]:
+            - img [ref=e53]
+            - searchbox "Search files" [ref=e56]
+        - generic [ref=e58]:
+          - generic [ref=e60]:
+            - heading "Recent Files" [level=3] [ref=e61]:
+              - img [ref=e62]
+              - text: Recent Files
+            - list [ref=e65]:
+              - listitem [ref=e66]:
+                - button "Open ARCHITECTURE.md" [ref=e67]:
+                  - img [ref=e68]
+                  - generic [ref=e71]: ARCHITECTURE.md
+          - tree "File tree" [ref=e73]:
+            - treeitem "sub-dir" [ref=e74] [cursor=pointer]:
+              - button [ref=e75]:
+                - img [ref=e76]
+              - img [ref=e79]
+              - generic [ref=e81]: sub-dir
+            - treeitem "ARCHITECTURE.md" [selected] [ref=e82] [cursor=pointer]:
+              - img [ref=e84]
+              - generic [ref=e89]: ARCHITECTURE.md
+            - treeitem "README.md" [ref=e90] [cursor=pointer]:
+              - img [ref=e92]
+              - generic [ref=e97]: README.md
+      - main [ref=e98]:
+        - generic [ref=e99]:
+          - navigation "Breadcrumb" [ref=e100]:
+            - button "Go to root" [ref=e101]:
+              - img [ref=e102]
+            - img [ref=e105]
+            - generic "ARCHITECTURE.md" [ref=e107]
+          - generic [ref=e108]:
+            - button "Refresh content" [ref=e109]:
+              - img [ref=e110]
+            - button "Add to favorites" [ref=e116]:
+              - img [ref=e117]
+            - button "Switch to reading mode" [ref=e120]:
+              - img [ref=e121]
+            - button "Hide table of contents" [pressed] [ref=e127]:
+              - img [ref=e128]
+        - generic [ref=e131]:
+          - generic [ref=e133]:
+            - img [ref=e135]
+            - heading "Unable to load file" [level=2] [ref=e138]
+            - paragraph [ref=e139]: File no longer exists
+          - complementary [ref=e140]:
+            - navigation "Table of contents" [ref=e141]:
+              - heading "On this page" [level=2] [ref=e143]:
+                - img [ref=e144]
+                - text: On this page
+              - list [ref=e145]:
+                - listitem [ref=e146]:
+                  - 'link "Architecture Guide: Home-Dashboard" [ref=e147] [cursor=pointer]':
+                    - /url: "#architecture-guide-home-dashboard"
+                - listitem [ref=e148]:
+                  - 'link "Architecture Guide: Home-Dashboard" [ref=e149] [cursor=pointer]':
+                    - /url: "#architecture-guide-home-dashboard-1"
+                - listitem [ref=e150]:
+                  - link "Table of Contents" [ref=e151] [cursor=pointer]:
+                    - /url: "#table-of-contents"
+                - listitem [ref=e152]:
+                  - link "Table of Contents" [ref=e153] [cursor=pointer]:
+                    - /url: "#table-of-contents-1"
+                - listitem [ref=e154]:
+                  - link "1. Overview" [ref=e155] [cursor=pointer]:
+                    - /url: "#1-overview"
+                - listitem [ref=e156]:
+                  - link "1. Overview" [ref=e157] [cursor=pointer]:
+                    - /url: "#1-overview-1"
+                - listitem [ref=e158]:
+                  - link "System Purpose" [ref=e159] [cursor=pointer]:
+                    - /url: "#system-purpose"
+                - listitem [ref=e160]:
+                  - link "System Purpose" [ref=e161] [cursor=pointer]:
+                    - /url: "#system-purpose-1"
+                - listitem [ref=e162]:
+                  - link "Tech Stack" [ref=e163] [cursor=pointer]:
+                    - /url: "#tech-stack"
+                - listitem [ref=e164]:
+                  - link "Tech Stack" [ref=e165] [cursor=pointer]:
+                    - /url: "#tech-stack-1"
+                - listitem [ref=e166]:
+                  - link "Feature Summary" [ref=e167] [cursor=pointer]:
+                    - /url: "#feature-summary"
+                - listitem [ref=e168]:
+                  - link "Feature Summary" [ref=e169] [cursor=pointer]:
+                    - /url: "#feature-summary-1"
+                - listitem [ref=e170]:
+                  - link "2. System Architecture" [ref=e171] [cursor=pointer]:
+                    - /url: "#2-system-architecture"
+                - listitem [ref=e172]:
+                  - link "2. System Architecture" [ref=e173] [cursor=pointer]:
+                    - /url: "#2-system-architecture-1"
+                - listitem [ref=e174]:
+                  - link "High-Level System Diagram" [ref=e175] [cursor=pointer]:
+                    - /url: "#high-level-system-diagram"
+                - listitem [ref=e176]:
+                  - link "High-Level System Diagram" [ref=e177] [cursor=pointer]:
+                    - /url: "#high-level-system-diagram-1"
+                - listitem [ref=e178]:
+                  - link "Data Flow Architecture" [ref=e179] [cursor=pointer]:
+                    - /url: "#data-flow-architecture"
+                - listitem [ref=e180]:
+                  - link "Data Flow Architecture" [ref=e181] [cursor=pointer]:
+                    - /url: "#data-flow-architecture-1"
+                - listitem [ref=e182]:
+                  - link "Component Hierarchy" [ref=e183] [cursor=pointer]:
+                    - /url: "#component-hierarchy"
+                - listitem [ref=e184]:
+                  - link "Component Hierarchy" [ref=e185] [cursor=pointer]:
+                    - /url: "#component-hierarchy-1"
+                - listitem [ref=e186]:
+                  - link "3. Directory Structure" [ref=e187] [cursor=pointer]:
+                    - /url: "#3-directory-structure"
+                - listitem [ref=e188]:
+                  - link "3. Directory Structure" [ref=e189] [cursor=pointer]:
+                    - /url: "#3-directory-structure-1"
+                - listitem [ref=e190]:
+                  - link "Project Root" [ref=e191] [cursor=pointer]:
+                    - /url: "#project-root"
+                - listitem [ref=e192]:
+                  - link "Project Root" [ref=e193] [cursor=pointer]:
+                    - /url: "#project-root-1"
+                - listitem [ref=e194]:
+                  - link "App Router Structure (app/)" [ref=e195] [cursor=pointer]:
+                    - /url: "#app-router-structure-app"
+                - listitem [ref=e196]:
+                  - link "App Router Structure (app/)" [ref=e197] [cursor=pointer]:
+                    - /url: "#app-router-structure-app-1"
+                - listitem [ref=e198]:
+                  - link "Components Structure (components/)" [ref=e199] [cursor=pointer]:
+                    - /url: "#components-structure-components"
+                - listitem [ref=e200]:
+                  - link "Components Structure (components/)" [ref=e201] [cursor=pointer]:
+                    - /url: "#components-structure-components-1"
+                - listitem [ref=e202]:
+                  - link "Library Structure (lib/)" [ref=e203] [cursor=pointer]:
+                    - /url: "#library-structure-lib"
+                - listitem [ref=e204]:
+                  - link "Library Structure (lib/)" [ref=e205] [cursor=pointer]:
+                    - /url: "#library-structure-lib-1"
+                - listitem [ref=e206]:
+                  - link "Type Definitions (types/)" [ref=e207] [cursor=pointer]:
+                    - /url: "#type-definitions-types"
+                - listitem [ref=e208]:
+                  - link "Type Definitions (types/)" [ref=e209] [cursor=pointer]:
+                    - /url: "#type-definitions-types-1"
+                - listitem [ref=e210]:
+                  - link "Test Structure (__tests__/)" [ref=e211] [cursor=pointer]:
+                    - /url: "#test-structure-__tests__"
+                - listitem [ref=e212]:
+                  - link "Test Structure (__tests__/)" [ref=e213] [cursor=pointer]:
+                    - /url: "#test-structure-__tests__-1"
+                - listitem [ref=e214]:
+                  - link "4. Data Model" [ref=e215] [cursor=pointer]:
+                    - /url: "#4-data-model"
+                - listitem [ref=e216]:
+                  - link "4. Data Model" [ref=e217] [cursor=pointer]:
+                    - /url: "#4-data-model-1"
+                - listitem [ref=e218]:
+                  - link "Entity Relationship Diagram" [ref=e219] [cursor=pointer]:
+                    - /url: "#entity-relationship-diagram"
+                - listitem [ref=e220]:
+                  - link "Entity Relationship Diagram" [ref=e221] [cursor=pointer]:
+                    - /url: "#entity-relationship-diagram-1"
+                - listitem [ref=e222]:
+                  - link "Prisma Schema Overview" [ref=e223] [cursor=pointer]:
+                    - /url: "#prisma-schema-overview"
+                - listitem [ref=e224]:
+                  - link "Prisma Schema Overview" [ref=e225] [cursor=pointer]:
+                    - /url: "#prisma-schema-overview-1"
+                - listitem [ref=e226]:
+                  - link "5. API Layer" [ref=e227] [cursor=pointer]:
+                    - /url: "#5-api-layer"
+                - listitem [ref=e228]:
+                  - link "5. API Layer" [ref=e229] [cursor=pointer]:
+                    - /url: "#5-api-layer-1"
+                - listitem [ref=e230]:
+                  - link "API Contract Pattern" [ref=e231] [cursor=pointer]:
+                    - /url: "#api-contract-pattern"
+                - listitem [ref=e232]:
+                  - link "API Contract Pattern" [ref=e233] [cursor=pointer]:
+                    - /url: "#api-contract-pattern-1"
+                - listitem [ref=e234]:
+                  - link "Endpoint Summary" [ref=e235] [cursor=pointer]:
+                    - /url: "#endpoint-summary"
+                - listitem [ref=e236]:
+                  - link "Endpoint Summary" [ref=e237] [cursor=pointer]:
+                    - /url: "#endpoint-summary-1"
+                - listitem [ref=e238]:
+                  - link "Analytics API" [ref=e239] [cursor=pointer]:
+                    - /url: "#analytics-api"
+                - listitem [ref=e240]:
+                  - link "Analytics API" [ref=e241] [cursor=pointer]:
+                    - /url: "#analytics-api-1"
+                - listitem [ref=e242]:
+                  - link "Transactions API" [ref=e243] [cursor=pointer]:
+                    - /url: "#transactions-api"
+                - listitem [ref=e244]:
+                  - link "Transactions API" [ref=e245] [cursor=pointer]:
+                    - /url: "#transactions-api-1"
+                - listitem [ref=e246]:
+                  - link "Events API" [ref=e247] [cursor=pointer]:
+                    - /url: "#events-api"
+                - listitem [ref=e248]:
+                  - link "Events API" [ref=e249] [cursor=pointer]:
+                    - /url: "#events-api-1"
+                - listitem [ref=e250]:
+                  - link "Categories API" [ref=e251] [cursor=pointer]:
+                    - /url: "#categories-api"
+                - listitem [ref=e252]:
+                  - link "Categories API" [ref=e253] [cursor=pointer]:
+                    - /url: "#categories-api-1"
+                - listitem [ref=e254]:
+                  - link "Users API (Admin)" [ref=e255] [cursor=pointer]:
+                    - /url: "#users-api-admin"
+                - listitem [ref=e256]:
+                  - link "Users API (Admin)" [ref=e257] [cursor=pointer]:
+                    - /url: "#users-api-admin-1"
+                - listitem [ref=e258]:
+                  - link "Filter Options API" [ref=e259] [cursor=pointer]:
+                    - /url: "#filter-options-api"
+                - listitem [ref=e260]:
+                  - link "Filter Options API" [ref=e261] [cursor=pointer]:
+                    - /url: "#filter-options-api-1"
+                - listitem [ref=e262]:
+                  - link "Reader API" [ref=e263] [cursor=pointer]:
+                    - /url: "#reader-api"
+                - listitem [ref=e264]:
+                  - link "Reader API" [ref=e265] [cursor=pointer]:
+                    - /url: "#reader-api-1"
+                - listitem [ref=e266]:
+                  - link "Email Utility API" [ref=e267] [cursor=pointer]:
+                    - /url: "#email-utility-api"
+                - listitem [ref=e268]:
+                  - link "Email Utility API" [ref=e269] [cursor=pointer]:
+                    - /url: "#email-utility-api-1"
+                - listitem [ref=e270]:
+                  - link "Authentication Flow" [ref=e271] [cursor=pointer]:
+                    - /url: "#authentication-flow"
+                - listitem [ref=e272]:
+                  - link "Authentication Flow" [ref=e273] [cursor=pointer]:
+                    - /url: "#authentication-flow-1"
+                - listitem [ref=e274]:
+                  - link "Service Layer Pattern" [ref=e275] [cursor=pointer]:
+                    - /url: "#service-layer-pattern"
+                - listitem [ref=e276]:
+                  - link "Service Layer Pattern" [ref=e277] [cursor=pointer]:
+                    - /url: "#service-layer-pattern-1"
+                - listitem [ref=e278]:
+                  - link "Security Architecture" [ref=e279] [cursor=pointer]:
+                    - /url: "#security-architecture"
+                - listitem [ref=e280]:
+                  - link "Security Architecture" [ref=e281] [cursor=pointer]:
+                    - /url: "#security-architecture-1"
+                - listitem [ref=e282]:
+                  - link "Path Traversal Prevention (Markdown Reader)" [ref=e283] [cursor=pointer]:
+                    - /url: "#path-traversal-prevention-markdown-reader"
+                - listitem [ref=e284]:
+                  - link "Path Traversal Prevention (Markdown Reader)" [ref=e285] [cursor=pointer]:
+                    - /url: "#path-traversal-prevention-markdown-reader-1"
+                - listitem [ref=e286]:
+                  - link "File System Sandboxing" [ref=e287] [cursor=pointer]:
+                    - /url: "#file-system-sandboxing"
+                - listitem [ref=e288]:
+                  - link "File System Sandboxing" [ref=e289] [cursor=pointer]:
+                    - /url: "#file-system-sandboxing-1"
+                - listitem [ref=e290]:
+                  - link "6. Frontend Architecture" [ref=e291] [cursor=pointer]:
+                    - /url: "#6-frontend-architecture"
+                - listitem [ref=e292]:
+                  - link "6. Frontend Architecture" [ref=e293] [cursor=pointer]:
+                    - /url: "#6-frontend-architecture-1"
+                - listitem [ref=e294]:
+                  - link "Context-Aware Component Pattern" [ref=e295] [cursor=pointer]:
+                    - /url: "#context-aware-component-pattern"
+                - listitem [ref=e296]:
+                  - link "Context-Aware Component Pattern" [ref=e297] [cursor=pointer]:
+                    - /url: "#context-aware-component-pattern-1"
+                - listitem [ref=e298]:
+                  - link "Shell Pattern" [ref=e299] [cursor=pointer]:
+                    - /url: "#shell-pattern"
+                - listitem [ref=e300]:
+                  - link "Shell Pattern" [ref=e301] [cursor=pointer]:
+                    - /url: "#shell-pattern-1"
+                - listitem [ref=e302]:
+                  - link "State Management" [ref=e303] [cursor=pointer]:
+                    - /url: "#state-management"
+                - listitem [ref=e304]:
+                  - link "State Management" [ref=e305] [cursor=pointer]:
+                    - /url: "#state-management-1"
+                - listitem [ref=e306]:
+                  - link "Server/Client Component Split" [ref=e307] [cursor=pointer]:
+                    - /url: "#serverclient-component-split"
+                - listitem [ref=e308]:
+                  - link "Server/Client Component Split" [ref=e309] [cursor=pointer]:
+                    - /url: "#serverclient-component-split-1"
+                - listitem [ref=e310]:
+                  - link "Styling" [ref=e311] [cursor=pointer]:
+                    - /url: "#styling"
+                - listitem [ref=e312]:
+                  - link "Styling" [ref=e313] [cursor=pointer]:
+                    - /url: "#styling-1"
+                - listitem [ref=e314]:
+                  - link "7. Testing Strategy" [ref=e315] [cursor=pointer]:
+                    - /url: "#7-testing-strategy"
+                - listitem [ref=e316]:
+                  - link "7. Testing Strategy" [ref=e317] [cursor=pointer]:
+                    - /url: "#7-testing-strategy-1"
+                - listitem [ref=e318]:
+                  - link "Three-Tier Testing Architecture" [ref=e319] [cursor=pointer]:
+                    - /url: "#three-tier-testing-architecture"
+                - listitem [ref=e320]:
+                  - link "Three-Tier Testing Architecture" [ref=e321] [cursor=pointer]:
+                    - /url: "#three-tier-testing-architecture-1"
+                - listitem [ref=e322]:
+                  - link "Test Categories" [ref=e323] [cursor=pointer]:
+                    - /url: "#test-categories"
+                - listitem [ref=e324]:
+                  - link "Test Categories" [ref=e325] [cursor=pointer]:
+                    - /url: "#test-categories-1"
+                - listitem [ref=e326]:
+                  - link "Test Database Setup" [ref=e327] [cursor=pointer]:
+                    - /url: "#test-database-setup"
+                - listitem [ref=e328]:
+                  - link "Test Database Setup" [ref=e329] [cursor=pointer]:
+                    - /url: "#test-database-setup-1"
+                - listitem [ref=e330]:
+                  - link "Coverage Requirements" [ref=e331] [cursor=pointer]:
+                    - /url: "#coverage-requirements"
+                - listitem [ref=e332]:
+                  - link "Coverage Requirements" [ref=e333] [cursor=pointer]:
+                    - /url: "#coverage-requirements-1"
+                - listitem [ref=e334]:
+                  - link "TDD Workflow" [ref=e335] [cursor=pointer]:
+                    - /url: "#tdd-workflow"
+                - listitem [ref=e336]:
+                  - link "TDD Workflow" [ref=e337] [cursor=pointer]:
+                    - /url: "#tdd-workflow-1"
+                - listitem [ref=e338]:
+                  - link "Running Tests" [ref=e339] [cursor=pointer]:
+                    - /url: "#running-tests"
+                - listitem [ref=e340]:
+                  - link "Running Tests" [ref=e341] [cursor=pointer]:
+                    - /url: "#running-tests-1"
+                - listitem [ref=e342]:
+                  - link "8. Infrastructure" [ref=e343] [cursor=pointer]:
+                    - /url: "#8-infrastructure"
+                - listitem [ref=e344]:
+                  - link "8. Infrastructure" [ref=e345] [cursor=pointer]:
+                    - /url: "#8-infrastructure-1"
+                - listitem [ref=e346]:
+                  - link "Docker Configuration" [ref=e347] [cursor=pointer]:
+                    - /url: "#docker-configuration"
+                - listitem [ref=e348]:
+                  - link "Docker Configuration" [ref=e349] [cursor=pointer]:
+                    - /url: "#docker-configuration-1"
+                - listitem [ref=e350]:
+                  - link "Database Connection" [ref=e351] [cursor=pointer]:
+                    - /url: "#database-connection"
+                - listitem [ref=e352]:
+                  - link "Database Connection" [ref=e353] [cursor=pointer]:
+                    - /url: "#database-connection-1"
+                - listitem [ref=e354]:
+                  - link "Environment Variables" [ref=e355] [cursor=pointer]:
+                    - /url: "#environment-variables"
+                - listitem [ref=e356]:
+                  - link "Environment Variables" [ref=e357] [cursor=pointer]:
+                    - /url: "#environment-variables-1"
+                - listitem [ref=e358]:
+                  - link "9. Development Workflow" [ref=e359] [cursor=pointer]:
+                    - /url: "#9-development-workflow"
+                - listitem [ref=e360]:
+                  - link "9. Development Workflow" [ref=e361] [cursor=pointer]:
+                    - /url: "#9-development-workflow-1"
+                - listitem [ref=e362]:
+                  - link "Getting Started" [ref=e363] [cursor=pointer]:
+                    - /url: "#getting-started"
+                - listitem [ref=e364]:
+                  - link "Getting Started" [ref=e365] [cursor=pointer]:
+                    - /url: "#getting-started-1"
+                - listitem [ref=e366]:
+                  - link "Common Commands" [ref=e367] [cursor=pointer]:
+                    - /url: "#common-commands"
+                - listitem [ref=e368]:
+                  - link "Common Commands" [ref=e369] [cursor=pointer]:
+                    - /url: "#common-commands-1"
+                - listitem [ref=e370]:
+                  - link "Feature Development Process" [ref=e371] [cursor=pointer]:
+                    - /url: "#feature-development-process"
+                - listitem [ref=e372]:
+                  - link "Feature Development Process" [ref=e373] [cursor=pointer]:
+                    - /url: "#feature-development-process-1"
+                - listitem [ref=e374]:
+                  - link "Git Workflow" [ref=e375] [cursor=pointer]:
+                    - /url: "#git-workflow"
+                - listitem [ref=e376]:
+                  - link "Git Workflow" [ref=e377] [cursor=pointer]:
+                    - /url: "#git-workflow-1"
+                - listitem [ref=e378]:
+                  - 'link "Appendix: Quick Reference" [ref=e379] [cursor=pointer]':
+                    - /url: "#appendix-quick-reference"
+                - listitem [ref=e380]:
+                  - 'link "Appendix: Quick Reference" [ref=e381] [cursor=pointer]':
+                    - /url: "#appendix-quick-reference-1"
+                - listitem [ref=e382]:
+                  - link "Key Files" [ref=e383] [cursor=pointer]:
+                    - /url: "#key-files"
+                - listitem [ref=e384]:
+                  - link "Key Files" [ref=e385] [cursor=pointer]:
+                    - /url: "#key-files-1"
+                - listitem [ref=e386]:
+                  - link "Architectural Decisions" [ref=e387] [cursor=pointer]:
+                    - /url: "#architectural-decisions"
+                - listitem [ref=e388]:
+                  - link "Architectural Decisions" [ref=e389] [cursor=pointer]:
+                    - /url: "#architectural-decisions-1"
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e395] [cursor=pointer]:
+    - img [ref=e396]
+  - alert [ref=e399]
+```

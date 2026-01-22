@@ -1,0 +1,95 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation "Main navigation" [ref=e2]:
+    - generic [ref=e3]:
+      - link "Cemdash Home Dashboard - Go to home page" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]: Cemdash
+      - generic [ref=e6]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - img [ref=e10]
+          - generic [ref=e13]: Home
+        - link "Finance" [ref=e16] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e17]
+          - generic [ref=e19]: Finance
+        - link "Calendar" [ref=e22] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e23]
+          - generic [ref=e25]: Calendar
+        - link "Reader" [ref=e28] [cursor=pointer]:
+          - /url: /reader
+          - img [ref=e29]
+          - generic [ref=e31]: Reader
+        - link "Settings" [ref=e34] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e35]
+          - generic [ref=e38]: Settings
+    - generic [ref=e39]:
+      - button "Switch to dark theme" [ref=e41]:
+        - img
+      - button "User menu" [ref=e43]:
+        - generic [ref=e44]: A
+  - main [ref=e45]:
+    - generic [ref=e47]:
+      - complementary "File navigation" [ref=e48]:
+        - generic [ref=e49]:
+          - heading "Documents" [level=2] [ref=e50]
+          - generic [ref=e51]:
+            - img [ref=e53]
+            - searchbox "Search files" [ref=e56]
+        - generic [ref=e58]:
+          - generic [ref=e60]:
+            - heading "Recent Files" [level=3] [ref=e61]:
+              - img [ref=e62]
+              - text: Recent Files
+            - list [ref=e65]:
+              - listitem [ref=e66]:
+                - button "Open ARCHITECTURE.md" [ref=e67]:
+                  - img [ref=e68]
+                  - generic [ref=e71]: ARCHITECTURE.md
+          - tree "File tree" [ref=e73]:
+            - treeitem "sub-dir" [ref=e74] [cursor=pointer]:
+              - button [ref=e75]:
+                - img [ref=e76]
+              - img [ref=e79]
+              - generic [ref=e81]: sub-dir
+            - treeitem "ARCHITECTURE.md" [active] [selected] [ref=e82] [cursor=pointer]:
+              - img [ref=e84]
+              - generic [ref=e89]: ARCHITECTURE.md
+            - treeitem "README.md" [ref=e90] [cursor=pointer]:
+              - img [ref=e92]
+              - generic [ref=e97]: README.md
+      - main [ref=e98]:
+        - generic [ref=e99]:
+          - navigation "Breadcrumb" [ref=e100]:
+            - button "Go to root" [ref=e101]:
+              - img [ref=e102]
+            - img [ref=e105]
+            - generic "ARCHITECTURE.md" [ref=e107]
+          - generic [ref=e108]:
+            - button "Refresh content" [ref=e109]:
+              - img [ref=e110]
+            - button "Add to favorites" [ref=e116]:
+              - img [ref=e117]
+            - button "Switch to reading mode" [ref=e120]:
+              - img [ref=e121]
+        - article [ref=e129]:
+          - generic [ref=e130]:
+            - heading [level=1]
+            - paragraph [ref=e131]: large-file.md
+          - alert [ref=e132]:
+            - generic [ref=e133]:
+              - img [ref=e134]
+              - generic [ref=e136]:
+                - heading "Large File Warning" [level=3] [ref=e137]
+                - paragraph [ref=e138]: This file is 1.43 MB which may cause slow rendering and increased memory usage, especially with syntax highlighting and diagrams.
+                - button "Continue Anyway" [ref=e139]
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e145] [cursor=pointer]:
+    - img [ref=e146]
+  - alert [ref=e149]
+```

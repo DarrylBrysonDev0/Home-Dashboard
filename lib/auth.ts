@@ -48,50 +48,66 @@ export const authOptions: NextAuthOptions = {
        * 6. On success: reset failed attempts counter
        */
       async authorize(credentials) {
-        // 1. Validate credentials
-        const validation = loginSchema.safeParse(credentials);
-        if (!validation.success) {
-          return null;
+        console.log("[AUTH] authorize called with email:", credentials?.email);
+
+        try {
+          // 1. Validate credentials
+          const validation = loginSchema.safeParse(credentials);
+          if (!validation.success) {
+            console.log("[AUTH] Validation failed");
+            return null;
+          }
+
+          const { email, password } = validation.data;
+          console.log("[AUTH] Looking up user:", email);
+
+          // 2. Look up user by email
+          const user = await findUserByEmail(email);
+          console.log("[AUTH] User lookup result:", user ? "FOUND" : "NOT_FOUND");
+          if (!user) {
+            // Don't reveal whether email exists (security best practice)
+            return null;
+          }
+
+          // 3. Check if account is locked
+          if (isAccountLocked(user)) {
+            const minutesRemaining = Math.ceil(
+              (user.lockedUntil!.getTime() - Date.now()) / (60 * 1000)
+            );
+            throw new Error(
+              `Account locked due to too many failed attempts. Try again in ${minutesRemaining} minute(s).`
+            );
+          }
+
+          // 4. Verify password
+          console.log("[AUTH] Verifying password...");
+          console.log("[AUTH] Password length:", password.length);
+          console.log("[AUTH] Password chars:", JSON.stringify(password.split('').map(c => c.charCodeAt(0))));
+          console.log("[AUTH] Hash (first 30):", user.passwordHash.substring(0, 30));
+          const isPasswordValid = await verifyPassword(password, user.passwordHash);
+          console.log("[AUTH] Password valid:", isPasswordValid);
+
+          if (!isPasswordValid) {
+            // 5. Increment failed attempts on password failure
+            await incrementFailedAttempts(user.id);
+            return null;
+          }
+
+          // 6. Reset failed attempts on successful login
+          await resetFailedAttempts(user.id);
+          console.log("[AUTH] Login successful for:", email);
+
+          // Return user object for JWT token creation
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role as UserRole,
+          };
+        } catch (error) {
+          console.error("[AUTH] Error in authorize:", error);
+          throw error;
         }
-
-        const { email, password } = validation.data;
-
-        // 2. Look up user by email
-        const user = await findUserByEmail(email);
-        if (!user) {
-          // Don't reveal whether email exists (security best practice)
-          return null;
-        }
-
-        // 3. Check if account is locked
-        if (isAccountLocked(user)) {
-          const minutesRemaining = Math.ceil(
-            (user.lockedUntil!.getTime() - Date.now()) / (60 * 1000)
-          );
-          throw new Error(
-            `Account locked due to too many failed attempts. Try again in ${minutesRemaining} minute(s).`
-          );
-        }
-
-        // 4. Verify password
-        const isPasswordValid = await verifyPassword(password, user.passwordHash);
-
-        if (!isPasswordValid) {
-          // 5. Increment failed attempts on password failure
-          await incrementFailedAttempts(user.id);
-          return null;
-        }
-
-        // 6. Reset failed attempts on successful login
-        await resetFailedAttempts(user.id);
-
-        // Return user object for JWT token creation
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role as UserRole,
-        };
       },
     }),
   ],

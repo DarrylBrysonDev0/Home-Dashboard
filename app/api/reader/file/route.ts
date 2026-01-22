@@ -7,7 +7,7 @@
  */
 
 import { NextRequest, NextResponse } from "next/server";
-import { readFile, stat } from "fs/promises";
+import { readFile, stat, access, constants } from "fs/promises";
 import { FileSystemService } from "@/lib/reader/file-system.service";
 import { fileQuerySchema } from "@/lib/validations/reader";
 import type { FileContent } from "@/types/reader";
@@ -30,7 +30,29 @@ export async function GET(request: NextRequest) {
     }
 
     const { path: requestedPath } = queryResult.data;
-    const fsService = new FileSystemService();
+
+    // Initialize file system service - check DOCS_ROOT configuration
+    let fsService: FileSystemService;
+    try {
+      fsService = new FileSystemService();
+    } catch (error) {
+      // DOCS_ROOT not configured
+      console.error("DOCS_ROOT not configured:", error);
+      return NextResponse.json(
+        { success: false, error: "Documentation volume is not configured" },
+        { status: 503 }
+      );
+    }
+
+    // Check if DOCS_ROOT is accessible
+    try {
+      await access(fsService.getDocsRoot(), constants.R_OK);
+    } catch {
+      return NextResponse.json(
+        { success: false, error: "Documentation volume is not accessible" },
+        { status: 503 }
+      );
+    }
 
     // Validate path for security
     try {
