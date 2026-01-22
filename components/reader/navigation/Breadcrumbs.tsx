@@ -100,6 +100,7 @@ export function Breadcrumbs({ path, onNavigate, className }: BreadcrumbsProps) {
   return (
     <nav
       aria-label="Breadcrumb"
+      data-testid="breadcrumbs"
       className={cn(
         "flex items-center gap-1 text-sm overflow-x-auto",
         "scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent",

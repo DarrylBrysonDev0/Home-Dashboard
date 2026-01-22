@@ -311,6 +311,7 @@ export function FileTree({
     return (
       <div
         role="tree"
+        data-testid="file-tree"
         className="flex flex-col items-center justify-center py-8 px-4 text-center"
       >
         <FolderOpen className="h-12 w-12 text-muted-foreground/50 mb-3" />
@@ -332,6 +333,7 @@ export function FileTree({
       ref={treeRef}
       role="tree"
       aria-label="File tree"
+      data-testid="file-tree"
       className="py-2"
       onKeyDown={handleKeyDown}
     >

@@ -125,6 +125,7 @@ export function ContentViewer({
   // Render content based on file type
   return (
     <article
+      data-testid="content-viewer"
       className={cn(
         "h-full overflow-y-auto p-6",
         className

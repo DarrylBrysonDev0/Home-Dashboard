@@ -1,0 +1,149 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - navigation "Main navigation" [ref=e2]:
+    - generic [ref=e3]:
+      - link "Cemdash Home Dashboard - Go to home page" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]: Cemdash
+      - generic [ref=e6]:
+        - link "Home" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - img [ref=e10]
+          - generic [ref=e13]: Home
+        - link "Finance" [ref=e16] [cursor=pointer]:
+          - /url: /dashboard
+          - img [ref=e17]
+          - generic [ref=e19]: Finance
+        - link "Calendar" [ref=e22] [cursor=pointer]:
+          - /url: /calendar
+          - img [ref=e23]
+          - generic [ref=e25]: Calendar
+        - link "Reader" [ref=e28] [cursor=pointer]:
+          - /url: /reader
+          - img [ref=e29]
+          - generic [ref=e31]: Reader
+        - link "Settings" [ref=e34] [cursor=pointer]:
+          - /url: /admin
+          - img [ref=e35]
+          - generic [ref=e38]: Settings
+    - generic [ref=e39]:
+      - button "Switch to dark theme" [ref=e41]:
+        - img
+      - button "User menu" [ref=e43]:
+        - generic [ref=e44]: A
+  - main [ref=e45]:
+    - generic [ref=e47]:
+      - complementary "File navigation" [ref=e48]:
+        - generic [ref=e49]:
+          - heading "Documents" [level=2] [ref=e50]
+          - generic [ref=e51]:
+            - img [ref=e53]
+            - searchbox "Search files" [ref=e56]
+        - generic [ref=e58]:
+          - generic [ref=e60]:
+            - heading "Recent Files" [level=3] [ref=e61]:
+              - img [ref=e62]
+              - text: Recent Files
+            - list [ref=e65]:
+              - listitem [ref=e66]:
+                - button "Open README copy.md" [ref=e67]:
+                  - img [ref=e68]
+                  - generic [ref=e71]: README copy.md
+              - listitem [ref=e72]:
+                - button "Open ARCHITECTURE.md" [ref=e73]:
+                  - img [ref=e74]
+                  - generic [ref=e77]: ARCHITECTURE.md
+          - tree "File tree" [ref=e79]:
+            - treeitem "sub-dir" [expanded] [ref=e80] [cursor=pointer]:
+              - button [ref=e81]:
+                - img [ref=e82]
+              - img [ref=e85]
+              - generic [ref=e87]: sub-dir
+            - group "Contents of sub-dir" [ref=e88]:
+              - treeitem "README copy.md" [active] [selected] [ref=e89] [cursor=pointer]:
+                - img [ref=e91]
+                - generic [ref=e96]: README copy.md
+            - treeitem "ARCHITECTURE.md" [ref=e97] [cursor=pointer]:
+              - img [ref=e99]
+              - generic [ref=e104]: ARCHITECTURE.md
+            - treeitem "README.md" [ref=e105] [cursor=pointer]:
+              - img [ref=e107]
+              - generic [ref=e112]: README.md
+      - main [ref=e113]:
+        - generic [ref=e114]:
+          - navigation "Breadcrumb" [ref=e115]:
+            - button "Go to root" [ref=e116]:
+              - img [ref=e117]
+            - img [ref=e120]
+            - button "sub-dir" [ref=e122]
+            - img [ref=e123]
+            - generic "README copy.md" [ref=e125]
+          - generic [ref=e126]:
+            - button "Refresh content" [ref=e127]:
+              - img [ref=e128]
+            - button "Add to favorites" [ref=e134]:
+              - img [ref=e135]
+            - button "Switch to reading mode" [ref=e138]:
+              - img [ref=e139]
+            - button "Hide table of contents" [pressed] [ref=e145]:
+              - img [ref=e146]
+        - generic [ref=e149]:
+          - article [ref=e151]:
+            - generic [ref=e152]:
+              - heading "README copy.md" [level=1] [ref=e153]
+              - paragraph [ref=e154]: /sub-dir/README copy.md
+            - generic [ref=e156]:
+              - heading "Welcome to Documentation" [level=1] [ref=e157]
+              - paragraph [ref=e158]: This is a sample markdown file for the Markdown Reader feature.
+              - heading "Features" [level=2] [ref=e159]
+              - list [ref=e160]:
+                - listitem [ref=e161]: File tree navigation
+                - listitem [ref=e162]: Syntax-highlighted code blocks
+                - listitem [ref=e163]: Mermaid diagram support
+              - heading "Example Code" [level=2] [ref=e164]
+              - generic "typescript code block" [ref=e165]:
+                - generic [ref=e166]: typescript
+                - button "Copy code" [ref=e167]:
+                  - img [ref=e168]
+                - code [ref=e172]: "function greet(name: string): string { return `Hello, ${name}!`; }"
+              - heading "Example Diagram" [level=2] [ref=e173]
+              - img "Mermaid diagram" [ref=e174]:
+                - generic [ref=e175]: Loading diagram...
+          - complementary [ref=e176]:
+            - navigation "Table of contents" [ref=e177]:
+              - heading "On this page" [level=2] [ref=e179]:
+                - img [ref=e180]
+                - text: On this page
+              - list [ref=e181]:
+                - listitem [ref=e182]:
+                  - link "Welcome to Documentation" [ref=e183] [cursor=pointer]:
+                    - /url: "#welcome-to-documentation"
+                - listitem [ref=e184]:
+                  - link "Welcome to Documentation" [ref=e185] [cursor=pointer]:
+                    - /url: "#welcome-to-documentation-1"
+                - listitem [ref=e186]:
+                  - link "Features" [ref=e187] [cursor=pointer]:
+                    - /url: "#features"
+                - listitem [ref=e188]:
+                  - link "Features" [ref=e189] [cursor=pointer]:
+                    - /url: "#features-1"
+                - listitem [ref=e190]:
+                  - link "Example Code" [ref=e191] [cursor=pointer]:
+                    - /url: "#example-code"
+                - listitem [ref=e192]:
+                  - link "Example Code" [ref=e193] [cursor=pointer]:
+                    - /url: "#example-code-1"
+                - listitem [ref=e194]:
+                  - link "Example Diagram" [ref=e195] [cursor=pointer]:
+                    - /url: "#example-diagram"
+                - listitem [ref=e196]:
+                  - link "Example Diagram" [ref=e197] [cursor=pointer]:
+                    - /url: "#example-diagram-1"
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e203] [cursor=pointer]:
+    - img [ref=e204]
+  - alert [ref=e207]
+  - img [ref=e209]
+```

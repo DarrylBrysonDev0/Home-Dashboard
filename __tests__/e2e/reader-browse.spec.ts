@@ -38,7 +38,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
       await expect(fileTree).toBeVisible();
 
       // Should have at least one tree node (file or directory)
-      const treeNodes = page.locator('[data-testid="file-tree-node"]');
+      const treeNodes = page.locator('[data-tree-node]');
       // The tree should exist even if empty
       await expect(fileTree).toBeVisible();
     });
@@ -53,7 +53,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
       // Check that files have appropriate icons or indicators
       // Files should be clickable elements
       const fileNodes = page.locator(
-        '[data-testid="file-tree-node"][data-type="file"]'
+        '[data-tree-node][data-type="file"]'
       );
       const count = await fileNodes.count();
 
@@ -72,7 +72,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
     test("should expand directory when clicked", async ({ page }) => {
       // Find a directory node
       const directoryNode = page
-        .locator('[data-testid="file-tree-node"][data-type="directory"]')
+        .locator('[data-tree-node][data-type="directory"]')
         .first();
 
       const count = await directoryNode.count();
@@ -108,7 +108,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
     }) => {
       // Find a directory node
       const directoryNode = page
-        .locator('[data-testid="file-tree-node"][data-type="directory"]')
+        .locator('[data-tree-node][data-type="directory"]')
         .first();
 
       const count = await directoryNode.count();
@@ -141,7 +141,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
 
       // File nodes should have icons (SVG elements)
       const fileNodes = page.locator(
-        '[data-testid="file-tree-node"][data-type="file"]'
+        '[data-tree-node][data-type="file"]'
       );
       const count = await fileNodes.count();
 
@@ -159,7 +159,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
 
       // Directory nodes should have folder icons
       const directoryNodes = page.locator(
-        '[data-testid="file-tree-node"][data-type="directory"]'
+        '[data-tree-node][data-type="directory"]'
       );
       const count = await directoryNodes.count();
 
@@ -177,7 +177,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
     }) => {
       // Find a markdown file in the tree
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -205,7 +205,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
     }) => {
       // Select a markdown file
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -227,7 +227,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
 
     test("should render markdown lists correctly", async ({ page }) => {
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -250,7 +250,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
       page,
     }) => {
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -275,7 +275,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
 
     test("should render code blocks with proper styling", async ({ page }) => {
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -315,7 +315,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
     }) => {
       // Find and expand a directory first
       const directoryNode = page
-        .locator('[data-testid="file-tree-node"][data-type="directory"]')
+        .locator('[data-tree-node][data-type="directory"]')
         .first();
 
       const dirCount = await directoryNode.count();
@@ -332,7 +332,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
 
           // Find a nested file
           const nestedFile = page
-            .locator('[data-testid="file-tree-node"][data-type="file"]')
+            .locator('[data-tree-node][data-type="file"]')
             .first();
 
           const fileCount = await nestedFile.count();
@@ -360,7 +360,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
     }) => {
       // Navigate to a file first
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -391,9 +391,9 @@ test.describe("User Story 1: Browse and View Documentation", () => {
       const breadcrumbs = page.locator('[data-testid="breadcrumbs"]');
       await expect(breadcrumbs).toBeVisible();
 
-      // Should contain "Documents" or similar root indicator
-      const rootText = await breadcrumbs.textContent();
-      expect(rootText?.toLowerCase()).toMatch(/documents|docs|root|home/);
+      // Should have a home/root button with appropriate aria-label
+      const rootButton = breadcrumbs.locator('button[aria-label="Go to root"]');
+      await expect(rootButton).toBeVisible();
     });
   });
 
@@ -427,7 +427,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
 
       // Select a file
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -447,7 +447,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
   test.describe("URL State Synchronization", () => {
     test("should update URL when file is selected", async ({ page }) => {
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -467,7 +467,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
     }) => {
       // First, select a file to get a valid URL
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -492,7 +492,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
     test("should handle browser back/forward navigation", async ({ page }) => {
       // Select first file
       const firstFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await firstFile.count();
@@ -503,7 +503,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
 
         // Select second file (if available)
         const secondFile = page
-          .locator('[data-testid="file-tree-node"][data-type="file"]')
+          .locator('[data-tree-node][data-type="file"]')
           .nth(1);
         const secondCount = await secondFile.count();
 
@@ -534,7 +534,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
     test("should respect system theme (light/dark)", async ({ page }) => {
       // Content should be readable in current theme
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -573,7 +573,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
     test("should activate file with Enter key", async ({ page }) => {
       // Find a file and focus it
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();
@@ -606,7 +606,7 @@ test.describe("User Story 1: Browse and View Documentation", () => {
 
     test("should have accessible content viewer", async ({ page }) => {
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
 
       const count = await mdFile.count();

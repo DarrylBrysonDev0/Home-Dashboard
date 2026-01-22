@@ -32,14 +32,14 @@ test.describe("Phase 13: Reader Navigation Integration", () => {
     });
 
     test("should have Reader link with correct href", async ({ page }) => {
-      // Reader link should point to /reader
-      const readerLink = page.locator('a[href="/reader"]');
+      // Reader link should point to /reader (use nav-item-reader to avoid matching app card)
+      const readerLink = page.locator('[data-testid="nav-item-reader"] a[href="/reader"]');
       await expect(readerLink).toBeVisible();
     });
 
     test("should navigate to /reader when clicking Reader nav item", async ({ page }) => {
-      // Click Reader nav item
-      const readerLink = page.locator('a[href="/reader"]');
+      // Click Reader nav item (use specific locator to avoid matching app card)
+      const readerLink = page.locator('[data-testid="nav-item-reader"] a[href="/reader"]');
       await readerLink.click();
 
       // Should navigate to reader page

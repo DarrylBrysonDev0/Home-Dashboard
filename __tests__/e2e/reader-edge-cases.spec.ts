@@ -42,7 +42,7 @@ test.describe("Phase 12: Reader Edge Cases", () => {
       // Either we have files or we show empty state
       const hasEmptyState = await emptyState.isVisible();
       const hasFiles =
-        (await fileTree.locator('[data-testid="file-tree-node"]').count()) > 0;
+        (await fileTree.locator('[data-tree-node]').count()) > 0;
 
       // One of these should be true
       expect(hasEmptyState || hasFiles).toBeTruthy();
@@ -143,7 +143,7 @@ test.describe("Phase 12: Reader Edge Cases", () => {
 
       // Try to load a file
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
       const count = await mdFile.count();
 
@@ -224,7 +224,7 @@ test.describe("Phase 12: Reader Edge Cases", () => {
     test("should handle large files without crashing", async ({ page }) => {
       // Find a file and open it
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
       const count = await mdFile.count();
 
@@ -259,7 +259,7 @@ test.describe("Phase 12: Reader Edge Cases", () => {
       });
 
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
       const count = await mdFile.count();
 
@@ -359,7 +359,7 @@ test.describe("Phase 12: Reader Edge Cases", () => {
     }) => {
       // First, load a file successfully
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
       const count = await mdFile.count();
 
@@ -454,7 +454,7 @@ test.describe("Phase 12: Reader Edge Cases", () => {
       });
 
       const mdFile = page
-        .locator('[data-testid="file-tree-node"][data-type="file"]')
+        .locator('[data-tree-node][data-type="file"]')
         .first();
       const count = await mdFile.count();
 

@@ -95,7 +95,7 @@ test.describe("User Story 8: Reader Mobile Navigation Experience", () => {
     await expect(drawer).toBeVisible();
 
     // File tree should be visible (at least one file or directory)
-    const fileTreeItems = drawer.locator('[data-testid="file-tree-node"]');
+    const fileTreeItems = drawer.locator('[data-tree-node]');
     // If there are files, they should be visible
     // If no files, the tree might be empty - just verify drawer is rendered
     const count = await fileTreeItems.count();
@@ -111,8 +111,8 @@ test.describe("User Story 8: Reader Mobile Navigation Experience", () => {
     const drawer = page.locator('[data-testid="reader-drawer"]');
     await expect(drawer).toBeVisible();
 
-    // Click close button
-    const closeButton = page.locator('button[aria-label*="Close"]');
+    // Click close button (Sheet uses sr-only "Close" text, not aria-label)
+    const closeButton = drawer.getByRole("button", { name: "Close" });
     await closeButton.click();
 
     // Drawer should be closed
@@ -144,7 +144,7 @@ test.describe("User Story 8: Reader Mobile Navigation Experience", () => {
     await expect(drawer).toBeVisible();
 
     // Click on a file in the file tree (if available)
-    const fileNode = drawer.locator('[data-testid="file-tree-node"][data-type="file"]').first();
+    const fileNode = drawer.locator('[data-tree-node][data-type="file"]').first();
 
     // Only test if files exist
     const count = await fileNode.count();
@@ -195,7 +195,7 @@ test.describe("User Story 8: Reader Mobile Navigation Experience", () => {
     const drawer = page.locator('[data-testid="reader-drawer"]');
     await expect(drawer).toBeVisible();
 
-    const fileNode = drawer.locator('[data-testid="file-tree-node"][data-type="file"]').first();
+    const fileNode = drawer.locator('[data-tree-node][data-type="file"]').first();
     const count = await fileNode.count();
 
     if (count > 0) {
@@ -348,7 +348,7 @@ test.describe("User Story 9: Refresh Content Without Page Reload", () => {
 
   test("should display refresh button when viewing a file", async ({ page }) => {
     // First, select a file if available
-    const fileNode = page.locator('[data-testid="file-tree-node"][data-type="file"]').first();
+    const fileNode = page.locator('[data-tree-node][data-type="file"]').first();
     const count = await fileNode.count();
 
     if (count > 0) {
@@ -371,7 +371,7 @@ test.describe("User Story 9: Refresh Content Without Page Reload", () => {
 
   test("should show loading indicator when refresh is clicked", async ({ page }) => {
     // First, select a file if available
-    const fileNode = page.locator('[data-testid="file-tree-node"][data-type="file"]').first();
+    const fileNode = page.locator('[data-tree-node][data-type="file"]').first();
     const count = await fileNode.count();
 
     if (count > 0) {
@@ -394,7 +394,7 @@ test.describe("User Story 9: Refresh Content Without Page Reload", () => {
 
   test("should reload file content when refresh is clicked", async ({ page }) => {
     // First, select a file if available
-    const fileNode = page.locator('[data-testid="file-tree-node"][data-type="file"]').first();
+    const fileNode = page.locator('[data-tree-node][data-type="file"]').first();
     const count = await fileNode.count();
 
     if (count > 0) {
@@ -418,7 +418,7 @@ test.describe("User Story 9: Refresh Content Without Page Reload", () => {
 
   test("should have accessible refresh button", async ({ page }) => {
     // First, select a file if available
-    const fileNode = page.locator('[data-testid="file-tree-node"][data-type="file"]').first();
+    const fileNode = page.locator('[data-tree-node][data-type="file"]').first();
     const count = await fileNode.count();
 
     if (count > 0) {
@@ -433,7 +433,7 @@ test.describe("User Story 9: Refresh Content Without Page Reload", () => {
 
   test("should support keyboard activation of refresh button", async ({ page }) => {
     // First, select a file if available
-    const fileNode = page.locator('[data-testid="file-tree-node"][data-type="file"]').first();
+    const fileNode = page.locator('[data-tree-node][data-type="file"]').first();
     const count = await fileNode.count();
 
     if (count > 0) {

@@ -56,6 +56,8 @@ export function LoginForm({ callbackUrl = "/" }: LoginFormProps) {
 
     try {
       // Call NextAuth signIn with credentials provider
+      console.log("[LoginForm] Submitting with password length:", password.length);
+      console.log("[LoginForm] Password chars:", JSON.stringify(password.split('').map(c => c.charCodeAt(0))));
       const result = await signIn("credentials", {
         redirect: false,
         email,

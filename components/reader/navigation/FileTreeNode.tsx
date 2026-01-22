@@ -88,20 +88,22 @@ export function FileTreeNode({
     }
   };
 
-  // Generate a test ID based on the node name
-  const testId = `tree-node-${node.name}`;
-
   // Roving tabindex: only focused node has tabIndex=0
   // If no node is focused yet, make all tabbable (tabIndex=0)
   const tabIndex = isFocused ? 0 : -1;
+
+  // Generate a test ID based on the node name (for unit tests)
+  const nameTestId = `tree-node-${node.name}`;
 
   return (
     <>
       <div
         role="treeitem"
         tabIndex={tabIndex}
-        data-testid={testId}
+        data-testid={nameTestId}
+        data-tree-node
         data-path={node.path}
+        data-type={isDirectory ? "directory" : "file"}
         data-level={level}
         data-selected={isSelected ? "true" : "false"}
         data-expanded={isDirectory ? (isExpanded ? "true" : "false") : undefined}
@@ -123,6 +125,7 @@ export function FileTreeNode({
             type="button"
             className="p-0.5 -ml-1"
             tabIndex={-1}
+            data-testid="file-tree-expand-button"
             data-expand-arrow
           >
             {isLoading ? (
