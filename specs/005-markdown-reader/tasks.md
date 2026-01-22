@@ -64,7 +64,7 @@
 - [X] T014 [P] [US1] Contract tests for GET /api/reader/file endpoint in `__tests__/integration/api/reader/file.test.ts`
 - [X] T015 [P] [US1] Unit tests for FileTree component in `__tests__/unit/components/reader/FileTree.test.tsx`
 - [X] T016 [P] [US1] Unit tests for MarkdownRenderer component in `__tests__/unit/components/reader/MarkdownRenderer.test.tsx`
-- [ ] T017 [US1] E2E test for file browsing flow in `__tests__/e2e/reader-browse.spec.ts`
+- [X] T017 [US1] E2E test for file browsing flow in `__tests__/e2e/reader-browse.spec.ts`
 
 ### Implementation for User Story 1
 
@@ -285,7 +285,7 @@
 ### Tests for Polish
 
 - [ ] T095 [P] Contract tests for GET /api/reader/image endpoint in `__tests__/integration/api/reader/image.test.ts`
-- [ ] T096 [P] E2E tests for edge cases (empty directory, file not found) in `__tests__/e2e/reader-edge-cases.spec.ts`
+- [X] T096 [P] E2E tests for edge cases (empty directory, file not found) in `__tests__/e2e/reader-edge-cases.spec.ts`
 
 ### Implementation for Polish
 
@@ -324,7 +324,7 @@
 - [X] T115 Update middleware.ts authenticated redirect from "/calendar" to "/" (line 37)
 - [X] T116 Update protected-route.tsx non-admin redirect from "/calendar" to "/" in `components/auth/protected-route.tsx`
 - [X] T117 Update mobile drawer tests to include Reader nav item in `__tests__/unit/components/navigation/mobile-drawer.test.tsx`
-- [ ] T118 Update E2E navigation tests for Reader in `__tests__/e2e/navigation.spec.ts`
+- [X] T118 Update E2E navigation tests for Reader in `__tests__/e2e/navigation.spec.ts`
 
 **Checkpoint**: Reader is fully integrated into app navigation with proper auth flow to home page
 

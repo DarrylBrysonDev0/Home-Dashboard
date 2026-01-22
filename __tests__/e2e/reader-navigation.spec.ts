@@ -223,7 +223,7 @@ test.describe("Phase 13: Login Redirect to Home Page", () => {
     const submitButton = page.locator('button[type="submit"]');
 
     await emailInput.fill("admin@home.local");
-    await passwordInput.fill("password123");
+    await passwordInput.fill("ChangeMe123!");
     await submitButton.click();
 
     // Should redirect to home page (/), NOT /calendar
@@ -248,7 +248,7 @@ test.describe("Phase 13: Login Redirect to Home Page", () => {
     const submitButton = page.locator('button[type="submit"]');
 
     await emailInput.fill("admin@home.local");
-    await passwordInput.fill("password123");
+    await passwordInput.fill("ChangeMe123!");
     await submitButton.click();
 
     // After login, should redirect to home, not calendar
